@@ -3,7 +3,7 @@ markdown: kramdown
 permalink: /:categories/:title/
 
 # Change this tracking code with your own tracking code
-ga_tracking_code: G-0609LXTBR6
+ga_tracking_code: UA-139717412-2
 # Please leave this code here for us to see how Course in a Box get used
 p2pu_ga_tracking_code: UA-55722824-1
 
@@ -29,8 +29,7 @@ prose:
 
 # Set some personal styles and logo for your course
 # this is a hex value http://www.w3schools.com/tags/ref_colorpicker.asp
-# jumbotron_color: "#111111"
-jumbotron_color: "#56b2d9"
-jumbotron_image: ""
-jumbotron_mask: "img/jumbotron-mask.svg"
-jumbotron_icon: "img/cs3240-logo-200.png"
+jumbotron_color: "#58D7CB"
+jumbotron_image: "img/jumbotron-image.svg"
+# jumbotron_mask: "img/jumbotron-mask.svg"
+jumbotron_icon: "img/box-icon.png"
