@@ -4,7 +4,7 @@ Title: Software Complexity
 
 # Hidden Complexity
 
-> "'Ford!' he said, 'there's an infinite number of monkeys outside who want to talk to us about this script for Hamlet they've worked out.'  - __Hitchhiker's Guide to that Galaxy__, Douglas Adams
+> "We demand rigidly defined areas of doubt and uncertainty!" - __Hitchhiker's Guide to that Galaxy__, Douglas Adams
 
 Software failures are easy to occur because software is *essentially* complex.
 
@@ -94,3 +94,5 @@ And this idea has held up. "No Silver Bullet" is considered among the most, if y
 That is, programming is hard because the problems we are solving are themselves hard, full of hidden complexity. *And if you still aren't convinced*, I have only one question:
 
 How many seconds old is George Washington (be sure to include time zones, [leap seconds](https://en.wikipedia.org/wiki/Leap_second) and Daylight Savings Time where appropriate). Also, be aware that any consider for Daylight Savings in your solution has to work differently for people in Arizona, and [might have to change in 2023](https://www.congress.gov/bill/117th-congress/senate-bill/623/text).
+
+> "Let's think the unthinkable, let's do the undoable. Let us prepare to grapple with the ineffable itself, and see if we may not eff it after all." - __Dirk Gently's Holistic Detective Agency__, Douglas Adams 

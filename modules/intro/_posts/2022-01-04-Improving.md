@@ -135,3 +135,6 @@ You will struggle when presented with new information, or a new challenge. And l
 But understand that these techniques and practices were developed precisely because they make building larger, maintainable evolving systems faster, more reliable, and more effectively than the ad hoc approaches you may be currently used to. And these techniques have stuck around because, once programmers learn them, *they work*!
 
 Just like me without training wheels, you'll fall down, you'll make mistakes, you'll get frustrated, and you won't go particularly fast at first. But each time you do Test Driven Development, or decompose one class into two classes, or properly integrate a Design Pattern, you'll get a little better. It will feel more natural. And then you're realize *you're going much farther faster on this bike than you ever could have gone on foot.*
+
+> "I may not have gone where I intended to go, but I think I have ended up where I needed to be." - __The Long Dark Tea-Time of the Souls__ Douglas Adams
+
