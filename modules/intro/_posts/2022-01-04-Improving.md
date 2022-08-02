@@ -4,36 +4,38 @@ Title: Learning to Learn
 
 # Don't panic
 
-At this point, three pages in, you may be worried this is a class about software theory, reading articles from the 1980s. Nothing can be further from the truth! **This class is all about practice!** Nearly everything we do in this class will involve code. 
+> “In many of the more relaxed civilizations on the Outer Eastern Rim of the Galaxy, the Hitch-Hiker's Guide has already supplanted the great Encyclopaedia Galactica as the standard repository of all knowledge and wisdom, for though it has many omissions and contains much that is apocryphal, or at least wildly inaccurate, it scores over the older, more pedestrian work in two important respects. First, it is slightly cheaper; and secondly it has the words DON'T PANIC inscribed in large friendly letters on its cover.” - __Hitchhiker's Guide to that Galaxy__, Douglas Adams
+
+At this point, three pages in, you may be worried this is a class about software theory, reading articles from the 1980s. Nothing can be further from the truth! **This class is all about practice!** Nearly everything we do in this class will involve planning, writing, analyzing, and fixing code. 
 
 So far, you've been learning how to write code. Good! This is a vital skill set that will serve you the rest of your life! But now understand two unfortunate realities: 
 
-1) You don't know everything
+1) You don't know everything  
 2) You don't know most of what you don't know
 
 The same is true of everyone! This is the act of learning.
 
-# In this course 
+## In this course 
 
-In this course, we will practice many new tools and techniques:
-1) Version control systems to help ensure everyone is working together
-2) Testing practices to efficiently detect and correct bugs, and ensure they stayed corrected
-3) Design systems that allows the system to evolve overtime with less effort.
-4) Communicating design to your team and others
-5) Writing and refactoring code in such a way that it's easier to understand, re-use, and test
-6) Building GUIs to broaden the usability of our software
-7) Connecting to a database to ensure our software system data can persist even when it's not running.
+In this course, we will practice many new tools and techniques:  
+1) Version control systems to help ensure everyone is working together  
+2) Testing practices to efficiently detect and correct bugs, and ensure they stayed corrected  
+3) Design systems that allows the system to evolve overtime with less effort.  
+4) Communicating design to your team and others  
+5) Writing and refactoring code in such a way that it's easier to understand, re-use, and test  
+6) Building GUIs to broaden the usability of our software  
+7) Connecting to a database to ensure our software system data can persist even when it's not running.  
 
 Learning these tools and techniques is a valuable undertaking for it's own purposes. But in learning, we seek not just to use these tools, but use them wisely, knowing their limits, and planning how to look for and prevent failures.
 
-# "Do I really need to..."
+## "Do I really need to..."
 
 There will be times during this semester you say:
 
-"Do I really need to do test driven development? I can just test at the end..."
-"Do I really have to use all these classes? I can write it all in main..."
-"Do I really need to commit after every function? It's faster if I commit at the end..."
-"Do I really need to learn this design pattern? I can just figure out a solution on my own..."
+* "Do I really need to do test driven development? I can just test at the end..."  
+* "Do I really have to use all these classes? I can write it all in main..."  
+* "Do I really need to commit after every function? It's faster if I commit at the end..."  
+* "Do I really need to learn this design pattern? I can just figure out a solution on my own..."  
 
 Etc. Etc. Etc. This betrays a form of fundamental conceit we humans have. To quote Fred Brooks:
 
@@ -61,52 +63,52 @@ This is a perfect parallel to conversations I have with students every semester 
 
 And you know what, they're right! **Unit testing does slow them down!** But that isn't because unit testing slows everyone down. It's because they are like me trying to ride for the first time without training wheels: they keep falling over. They don't write effective tests. Or they take too long to think about the test, and how to design it. Or they write their code in a way that makes it difficult to test. But the only way to get better, faster, and more efficient, is **PRACTICE**. 
 
-# You won't be good at first
+## You won't be good at first
 
 Programming is like riding a bike. No, not that you'll never forget, you can definitely forget things. Programming is like riding a bike because **when you first start learning, you lean on your training wheels.** 
 
 In the two previous programming courses at the University of Virginia, your programming assignments looked like the following:
 
-1) Here is the program you are going to write
-2) Here is the programming language you will use
-3) Here is the IDE you will use
-4) Here is exactly how it will work
-5) Here are the functions you are going to write
-6) Here are the classes you are going to write
-7) Here are the fields in your classes
-8) Here is what to name everything
-9) Here is how each function affects or is affected by each field
-10) Here is a submission system, where you submit your code and we'll tell you if it's right
-11) Here are the exact library import statements to use
-12) Here are plenty of lecture examples using that library
+&nbsp;&nbsp;1) Here is the program you are going to write  
+&nbsp;&nbsp;2) Here is the programming language you will use  
+&nbsp;&nbsp;3) Here is the IDE you will use  
+&nbsp;&nbsp;4) Here is exactly how it will work  
+&nbsp;&nbsp;5) Here are the functions you are going to write  
+&nbsp;&nbsp;6) Here are the classes you are going to write  
+&nbsp;&nbsp;7) Here are the fields in your classes  
+&nbsp;&nbsp;8) Here is what to name everything  
+&nbsp;&nbsp;9) Here is how each function affects or is affected by each field  
+&nbsp;&nbsp;10) Here is a submission system, where you submit your code and we'll tell you if it's right  
+&nbsp;&nbsp;11) Here are the exact library import statements to use  
+&nbsp;&nbsp;12) Here are plenty of lecture examples using that library  
 
 **These are training wheels!** Of course when you are learning we're giving you this much direction! We're helping you learn the foundational basics. But just like riding a bike, if you want to go fast and go far, **The training wheels have to go!**
 
-When you develop real software, here is how that conversation starts:
+When you develop real software, here is how many of those conversation start:
 
-**Customer**: I would like software that does [very vague thing that the customer currently does without software]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Customer**: I would like software that does [vague description of something the customer does already without software]
 
-**Engineer**: Okay, can you be more specific?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Engineer**: Okay, can you be more specific?
 
-**Customer**: *staring blankly* no.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Customer**: *<staring blankly>* no.
 
 Admittedly, the above is in jest and over the top, but there is an entire field of software engineering, Requirements Engineering, that focuses specifically on techniques to get and check the basic details of "what the software should do."
 
 This means:
-1) You will have to decide what program to write
-2) You will decide what programming language(s) you will use
-3) You will decide on how to develop the software
-4) You will have to decide how it works
-5) You will have to decide what functions to write
-6) You will have to decide what classes to write
-7) You will decide what fields your classes have
-8) You will decide how to name and label everything
-9) You will have to decide how each class behaves
-10) You will have to figure out how to tell if your code is working or not
-11) You will have to investigate if there is code out there that you want to use, what the licenses allow for, etc.
-12) You will have to do your own research, looking up tutorials.
+&nbsp;&nbsp;1) You will have to decide what program to write
+&nbsp;&nbsp;2) You will decide what programming language(s) you will use
+&nbsp;&nbsp;3) You will decide on how to develop the software
+&nbsp;&nbsp;4) You will have to decide how it works
+&nbsp;&nbsp;5) You will have to decide what functions to write
+&nbsp;&nbsp;6) You will have to decide what classes to write
+&nbsp;&nbsp;7) You will decide what fields your classes have
+&nbsp;&nbsp;8) You will decide how to name and label everything
+&nbsp;&nbsp;9) You will have to decide how each class behaves
+&nbsp;&nbsp;10) You will have to figure out how to tell if your code is working or not
+&nbsp;&nbsp;11) You will have to investigate if there is code out there that you want to use, what the licenses allow for, etc.
+&nbsp;&nbsp;12) You will have to do your own research, looking up tutorials.
 
-# You will get better
+## You will get better
 
 The good news is practice and time make you better at all of the above! My first programming language I learned was TI-BASIC 83 (a dialect of BASIC written for the TI-83 graphing calculator). I only learned *just enough* to write a program on my TI-83 that would take in 3 parts of a triangle (Side-side-side, side-angle-side, etc.) and "solve" the triangle. I was taking trigonometry at the time, and so I showed my teacher the program I wrote, walked him through it. And he was impressed!
 
@@ -120,14 +122,16 @@ The next language I learned was Java. And I struggled with it. Semi-colons, when
 
 And then I learned Python. And I found it easier to do scripting, but I struggled with the Object-Orientation. It still took me a couple weeks, but certainly not the months of Java.
 
-The next language I learned was C, and...well other than learning how to deal with pointers, I found it pretty easy to learn. And then came Common-Lisp. Fundamentally very different, but everything was basically functions, so it took me three weeks to get the basics down. 
+The next language I learned was C, and...well other than learning how to deal with pointers, I found it pretty easy to learn. It has a ton in common with Java, sans object orientation. But since I only needed it for some low level multi-threading, I didn't worry about this feature not being there. And then came Common-Lisp. Fundamentally very different, but everything was basically functions, so it took me three weeks to get the basics down. 
 
-Flash forward to the weekend before I'm writing this, and I wrote a solution for the first homework in this class in Kotlin, a language I learned last weekend. Is this because I'm just *that* good? No, far from it. It's because I've had practice learning new languages, and I know what I need to look for and where to find help. It's a skill, just like any other.
+Flash forward to the weekend before I'm writing this, and I wrote a solution for the first homework in this class in Kotlin, a language I learned last weekend. Is this because I'm just *that* good? No, far from it. It's because I've had practice learning new languages, and I know what I need to look for and where to find help. It's a skill, just like any other. And you get better at it each time you learn a new language.
+
+---
 
 ## Summing it up
 
 You will struggle when presented with new information, or a new challenge. And learning how to do things "the right way" sounds a lot like "eat your peas and carrots."
 
-But understand that these skills and practices emerge precisely because they make building larger, maintainable evolving systems faster, more reliable, and more effectively than the ad hoc approaches you are currently used to.
+But understand that these techniques and practices were developed precisely because they make building larger, maintainable evolving systems faster, more reliable, and more effectively than the ad hoc approaches you may be currently used to. And these techniques have stuck around because, once programmers learn them, *they work*!
 
-Just like me without training wheels, you'll fall down, you'll make mistakes, you'll get frustrated, and you won't go particularly fast at first. But each time you do Test Driven Development, or decompose one class into two classes, or properly integrate a Design Pattern, you'll get a little better. It will feel more natural. And then you're realize you're going much farther faster on this bike than you ever could have gone on foot.
+Just like me without training wheels, you'll fall down, you'll make mistakes, you'll get frustrated, and you won't go particularly fast at first. But each time you do Test Driven Development, or decompose one class into two classes, or properly integrate a Design Pattern, you'll get a little better. It will feel more natural. And then you're realize *you're going much farther faster on this bike than you ever could have gone on foot.*
