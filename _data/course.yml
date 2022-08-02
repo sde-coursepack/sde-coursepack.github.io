@@ -1,3 +1,3 @@
 title: Software Development Essentials
 description: A course for teaching students how to build larger, more complicated software systems collaboratively, including end-to-end development.
-modules: ["java", "collaboration", "code quality", "testing", "design", "arch", "patterns", "gui", "data", "about"]
+modules: ["intro", "collaboration", "testing", "code quality", "design", "arch", "patterns", "gui", "data", "about"]
