@@ -1,5 +1,5 @@
 ---
-Title: Extracting a Method
+Title: Refactoring - Extracting a Method
 ---
 
 This page is currently under construction.
