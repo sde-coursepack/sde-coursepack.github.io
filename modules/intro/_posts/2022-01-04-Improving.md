@@ -90,29 +90,35 @@ When you develop real software, here is how many of those conversation start:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Engineer**: Okay, can you be more specific?
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Customer**: *<staring blankly>* no.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Customer**: \[*staring blankly*\] no.
 
-Admittedly, the above is in jest and over the top, but there is an entire field of software engineering, Requirements Engineering, that focuses specifically on techniques to get and check the basic details of "what the software should do."
+Admittedly, the above is in jest and over the top, but there is an entire field of software engineering, Requirements Engineering, that focuses specifically on techniques to get and check the basic details of "what the software should do", because it's a very hard, and very important problem. You'll see more of that in CS 3240
 
-This means:
-&nbsp;&nbsp;1) You will have to decide what program to write
-&nbsp;&nbsp;2) You will decide what programming language(s) you will use
-&nbsp;&nbsp;3) You will decide on how to develop the software
-&nbsp;&nbsp;4) You will have to decide how it works
-&nbsp;&nbsp;5) You will have to decide what functions to write
-&nbsp;&nbsp;6) You will have to decide what classes to write
-&nbsp;&nbsp;7) You will decide what fields your classes have
-&nbsp;&nbsp;8) You will decide how to name and label everything
-&nbsp;&nbsp;9) You will have to decide how each class behaves
-&nbsp;&nbsp;10) You will have to figure out how to tell if your code is working or not
-&nbsp;&nbsp;11) You will have to investigate if there is code out there that you want to use, what the licenses allow for, etc.
-&nbsp;&nbsp;12) You will have to do your own research, looking up tutorials.
+This means:  
+&nbsp;&nbsp;1) **You will decide** what program to write  
+&nbsp;&nbsp;2) **You will decide what programming language(s) you will use  
+&nbsp;&nbsp;3) **You will decide** on how to develop the software  
+&nbsp;&nbsp;4) **You will decide** how it works  
+&nbsp;&nbsp;5) **You will decide** what functions to write  
+&nbsp;&nbsp;6) **You will decide** what classes to write  
+&nbsp;&nbsp;7) **You will decide** what fields your classes have  
+&nbsp;&nbsp;8) **You will decide** how to name and label everything  
+&nbsp;&nbsp;9) **You will decide** how each class behaves and interacts with other classes  
+&nbsp;&nbsp;10) **You will decide** how to figure out how to tell if your code is working or not  
+&nbsp;&nbsp;11) **You will decide** how to investigate if there is code out there that you want to use, what the licenses allow for, etc.  
+&nbsp;&nbsp;12) **You will decide** what documentation or tutorials to use to learn a new technology/language/library.  
 
-## You will get better
+And, I have some bad news. You will make *several* mistakes along the way. But...
 
-The good news is practice and time make you better at all of the above! My first programming language I learned was TI-BASIC 83 (a dialect of BASIC written for the TI-83 graphing calculator). I only learned *just enough* to write a program on my TI-83 that would take in 3 parts of a triangle (Side-side-side, side-angle-side, etc.) and "solve" the triangle. I was taking trigonometry at the time, and so I showed my teacher the program I wrote, walked him through it. And he was impressed!
+## You will get better!
 
-Just kidding, he made me delete it, line by line, right there in front of him. If you think I'm still bitter, understand that I'm writing this almost two full decades later and still get mad about it.
+The good news is practice and time make you better at all of the above! I did eventually learn how to ride a bike. And even after learning, I continued to get better with balancing, navigating traffic and rough roadways, pacing myself so I don't arrive exhausted, etc. And the key tool was **PRACTICE**. The practice had to be frequent and spaced out, because that's how humans learn! We don't learn by cramming things at the last minute.
+
+My first programming language I learned was TI-BASIC 83 (a dialect of BASIC written for the TI-83 graphing calculator). I only learned *just enough* to write a program on my TI-83 that would take in 3 parts of a triangle (Side-side-side, side-angle-side, etc.) and "solve" the triangle. I was taking trigonometry at the time, and so I showed my teacher the program I wrote, walked him through it. And he was impressed!
+
+Just kidding, he made me delete it, line by line, right there in front of him. If you think I'm still bitter, understand that I'm writing this almost two full decades later and still get mad about it. I did ultimately rewrite it on my own later, and I dug it up.
+
+The code is awful. It's hard to read because of tons of duplicate code and overly complex structure. It's littered with gotos because I didn't understand the idea of writing functions.  I've gotten much better at writing code since through practice.
 
 ## Learning a new language
 
@@ -124,7 +130,7 @@ And then I learned Python. And I found it easier to do scripting, but I struggle
 
 The next language I learned was C, and...well other than learning how to deal with pointers, I found it pretty easy to learn. It has a ton in common with Java, sans object orientation. But since I only needed it for some low level multi-threading, I didn't worry about this feature not being there. And then came Common-Lisp. Fundamentally very different, but everything was basically functions, so it took me three weeks to get the basics down. 
 
-Flash forward to the weekend before I'm writing this, and I wrote a solution for the first homework in this class in Kotlin, a language I learned last weekend. Is this because I'm just *that* good? No, far from it. It's because I've had practice learning new languages, and I know what I need to look for and where to find help. It's a skill, just like any other. And you get better at it each time you learn a new language.
+Flash forward to the weekend before I'm writing this, and I wrote a solution for the first homework in this class in Kotlin, a language I had never used before I started writing. Is this because I'm just *that* good? No, far from it. It's because I've had practice learning new languages, and I know what I need to look for and where to find help. It's a skill, just like any other. And you get better at it each time you learn a new language.
 
 ---
 
