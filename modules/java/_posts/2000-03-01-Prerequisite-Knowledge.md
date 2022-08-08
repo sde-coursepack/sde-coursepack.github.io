@@ -19,19 +19,19 @@ tools and techniques.
 * You should be *very comfortable* with ```if```, ```else```, and ```else if```
   * You should also be aware of ```switch``` statements. Example:
 ```java
-public String getDayName(int day){
-    switch(day) {
-        case 0:
-            return "Sunday";
-        case 1:
-            return "Monday";
-        ...
-        case 6:
-            return "Saturday";
-        default:
-            throw new IllegalDayException();
+    public String getDayName(int dayIndex){
+        switch(day) {
+            case 0:
+                return "Sunday";
+            case 1:
+                return "Monday";
+            ...
+            case 6:
+                return "Saturday";
+            default:
+                throw new IllegalDayException();
+        }
     }
-}
 ```
 * You should be very comfortable with ```for``` and ```while``` loops
   * ```for(int i = 0; i < max_number; i++)``` 
