@@ -33,6 +33,11 @@ public String getDayName(int day){
     }
 }
 ```
+* You should be very comfortable with ```for``` and ```while``` loops
+  * ```for(int i = 0; i < max_number; i++)``` 
+  * ```for(Student student : listOfStudents)```
+  * ```while(x > 0)```
+  * How to detect and prevent infinite loops.
 
 ## Functions
 
@@ -42,6 +47,7 @@ You should be *very comfortable* writing functions in Java, and understand:
 * Local and global scope
 * Return value
 * Side Effects
+* How to test functions via "main-method" testing
 
 ## Classes
 
@@ -102,7 +108,10 @@ This code has 4 classes, which I encourage you to look at in this order:
 4. StudentNameComparator.java
 
 You should be able to understand all of this code *before* we dive
-into our course material. You should be able to download these
+into our course material. This includes understanding what each
+class does and how each class interacts with each other.
+
+You should be able to download these
 Java files, put them into a project in your IDE of choice, and run
 the Main.java program, and you should be able to understand why
 the output displays.
