@@ -263,10 +263,9 @@ two commands:
 
 We will be using these commands in the next unit.
 
-```gradle```. And if you're
-worried, don't be! It's quite simple! While not necessary
-for this class, [you can read more about editing manifest files here.](https://docs.oracle.com/javase/tutorial/deployment/jar/manifestindex.html)
-
+However, for actually making jar files, we will eventually be using
+a tool called ```gradle``` which we will cover later. This tool
+will add a lot of simplicity to our *build process*.
 
 [^1] As mentioned in the last section, we recommend Windows users use Powershell rather than Command Prompt
 
