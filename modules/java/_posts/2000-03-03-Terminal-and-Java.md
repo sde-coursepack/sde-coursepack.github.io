@@ -41,7 +41,9 @@ open in Windows Powershell below:
 
 This means that in my terminal, I am currently in the folder:
 
-```C:\Users\pm8fc\SDE-Resources\example_code\StudentExample\src\main\java```
+```
+C:\Users\pm8fc\SDE-Resources\example_code\StudentExample\src\main\java
+```
 
 I can list all of the files and directories in that folder using
 the ```ls``` command.
