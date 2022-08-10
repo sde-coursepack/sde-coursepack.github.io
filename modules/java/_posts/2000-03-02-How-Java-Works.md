@@ -319,15 +319,7 @@ designed to run on a particular machine
 at runtime, and boosts optimization and efficiency.
 
 
-[^1]: Note for Windows users, I strongly recommend using
-Powershell rather than command-prompt, as Powershell
-uses pretty much the same commands as Mac and Linux,
-and helps standardize everything. Powershell comes
-installed with Windows 8 and 
+[^1]: Note for Windows users, I strongly recommend using Powershell rather than command-prompt, as Powershell uses pretty much the same commands as Mac and Linux, and helps standardize everything. Powershell comes installed with Windows 8 and later.
 
 
-[^2]: A note that while Python is often referred to as an
-interpreted language, the truth is a little murkier. Python
-does, actually, "compile" code, though there is actually
-a compilation process in Python to translate instructions
-into bytecode
+[^2]: A note that while Python is often referred to as an interpreted language, the truth is a little murkier. Python does, actually, "compile" code, though there is actually a compilation process in Python to translate instructions into bytecode
