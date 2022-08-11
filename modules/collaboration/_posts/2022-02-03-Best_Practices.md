@@ -2,4 +2,6 @@
 Title: Best Practices for Git
 ---
 
-This page is currently under construction.
+# ```git``` good - Best practices for git
+
+## Never commit directly to main/master
