@@ -4,7 +4,11 @@ Title: Command Line Arguments
 
 ## **[Source Code Examples](https://github.com/sde-coursepack/commandline)**
 
+{toc}
+
 # Command Line Arguments
+
+This unit will teach you the basics of writing programs that use command line arguments.
 
 ## main(String[] args)
 
@@ -63,7 +67,11 @@ to the module on packages if you feel you still need a reminder.
 
 ### Why do we want these?
 
-Command-line arguments give us a way for users to add information
+Command-line arguments give us a way for users to add information to the program without having to edit
+the source code of the program, and without us having to worry about dealing with something like `System.in`.
+This is important, because we may be writing a program for something that doesn't have an easily accesible user console.
+In fact, *our "users" may not even be human at all.* Many large software suites rely on programs communicating directly,
+which may often by done *by* command line arguments.
 
 ## String Arguments
 Example: [HelloWho.java](https://github.com/sde-coursepack/commandline/blob/main/src/main/java/edu/virginia/cs/commandline/HelloWho.java)
