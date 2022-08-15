@@ -16,6 +16,8 @@ out to change your tire. However, it's also worth learning
 how to change a tire yourself. In that same way,
 let's look at how to change a tire.
 
+---
+
 ## Terminal/Powershell
 
 First, we need to become familiar with a very important
@@ -77,6 +79,8 @@ back to the parent folder ```java```, simply use:
 ```cd ..```
 
 The ```..``` means "parent folder". 
+
+---
 
 ## Getting started with Java Commands
 

@@ -2,7 +2,11 @@
 Title: How Java Works
 ---
 
-# What is code?
+# How Java Works
+
+This module will discuss the nature of Java and how Java code compiles and executes.
+
+## What is code?
 
 Programmers have to read code. The very act of
 debugging, for example, is reading your code and 
@@ -41,7 +45,9 @@ identifiers, like "IF", "PRINT", etc. You can see
 such structure in this [Greatest Common Divisor code] (https://en.wikibooks.org/wiki/Fortran/Fortran_examples#Greatest_common_divisor)
 for Fortran 77.
 
-# Compiling
+---
+
+## Compiling
 
 It's important to understand that, when you write source code,
 your computer actually can't run your source code. Well, not directly. Typically,
@@ -50,6 +56,8 @@ can either be run or used by the computer. The below diagram is
 an over simplification of this relationship:
 
 <img alt="alt" src="{{site.baseurl}}/modules/java/images/3/compiler1.png"/>
+
+---
 
 ## Compiling in C
 
@@ -89,6 +97,8 @@ programming language because it's easier to read than those
 low-level machine instructions. If we want to run our program, we must
 **compile** it.
 
+---
+
 ## Why not just write low-level machine code?
 
 **Compiling** is turning human readable source code
@@ -111,6 +121,8 @@ We never have to work directly with the contents of the .exe file,
 which, as you can see above, *is a definite bonus*, because even
 in the best of circumstances, working with that machine code
 is cumbersome, difficult, and very limiting.
+
+---
 
 ## Advantages and Disadvantages
 
@@ -146,6 +158,8 @@ In fact, you may at times see C code like this:
 This limitation, that we can't make portable executables
 is something Java was built to address.
 
+---
+
 ## Interpreters
 
 Some languages, like Python[^2], are typically *interpreted* 
@@ -157,6 +171,8 @@ is interpreted, we do both at the same time with the help of another program.
 In Python, as you execute the program, the python interpreter translates
 each line into machine instructions as you come to it. This means you don't have a static
 compiled file typically.
+
+---
 
 ## Translation Metaphor
 
@@ -194,8 +210,11 @@ Java is actually quite efficient.
 This is why you *don't* need to install c to run a program written in C, then compiled into an executable.
 However, you *do* need to install Python to run Python programs. 
 
+---
+
 ## How Java works (finally)
 
+Okay, now we're ready to dive into Java.
 
 ### JDK
 Much like C, Java is a compiled language. When you compile a Java file, 
@@ -271,6 +290,8 @@ machine code specifically compatible with the underlying physical hardware, is m
 interpreted Java byte code. The JIT can have numerous optimizations to increase performance, reduce
 memory consumption, etc.
 
+---
+
 ## Why Java is built this way
 
 A key advantage of Java is portability. That is, an application built and compiled with a JDK on
@@ -286,6 +307,7 @@ underlying hardware architecture.
 
 All of this together gives us convenience, distributability, portability, and performance.
 
+---
 
 ## JVM: It's not just for Java anymore
 
@@ -304,8 +326,9 @@ and adds some useful features like null-safety.
 *Gradle* later on. However, beyond its use in Gradle as a domain-specific language (DSL), it never
 gained the general-use popularity that Kotlin is now seeing.
 
+---
 
-# Key takeaways
+## Key takeaways
 
 This was a longer article, so I wanted to summarize the key takeaways:
 

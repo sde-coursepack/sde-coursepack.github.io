@@ -2,11 +2,17 @@
 Title: File Resources
 ---
 
-# Where to put files?
+# Resources in Java
+
+---
 
 ## Resource Files/Assets
 
+---
+
 ## Main resources vs Test Resources
+
+---
 
 ## File Reading
 
@@ -18,8 +24,12 @@ Title: File Resources
 
 ### Files.lines()
 
+---
+
 ## File Writing
 
 ### Writing to File
+
+---
 
 ## File Exception Handling Tips

@@ -2,9 +2,6 @@
 Title: Testing With Exceptions
 ---
 
-* TOC
-  {:toc}
-
 # Java New Features
 
 In the article, I wanted to show some new features in Java that have been added

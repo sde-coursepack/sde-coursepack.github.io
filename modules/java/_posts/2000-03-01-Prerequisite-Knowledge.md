@@ -14,6 +14,8 @@ and be comfortable with in the Java programming language. This means
 both being able to read code and write code that uses the following
 tools and techniques.
 
+---
+
 ## Control Flow
 
 * You should be *very comfortable* with ```if```, ```else```, and ```else if```
@@ -39,6 +41,8 @@ tools and techniques.
   * ```while(x > 0)```
   * How to detect and prevent infinite loops.
 
+---
+
 ## Functions
 
 You should be *very comfortable* writing functions in Java, and understand:
@@ -48,6 +52,8 @@ You should be *very comfortable* writing functions in Java, and understand:
 * Return value
 * Side Effects
 * How to test functions via "main-method" testing
+
+---
 
 ## Classes
 
@@ -62,6 +68,8 @@ You should be *very comfortable* with Java Classes
   * Writing Constructors
 * The ```static``` keyword and what it means
 * Class field and method visibility with ```public``` and ```private``` keywords.
+
+---
 
 ## Object Orientation
 
@@ -80,6 +88,8 @@ You should be familiar with:
 List<String> words = new ArrayList<>();
 ```
 
+---
+
 ## Exception Handling
 
 You should be familiar with:
@@ -96,6 +106,8 @@ You should be familiar with:
   * ```Exception```
 * How to create your own Exceptions
 * ```try```-```catch```-```finally``` blocks
+
+---
 
 ## Example Code
 

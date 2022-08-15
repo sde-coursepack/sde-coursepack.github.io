@@ -15,6 +15,8 @@ So far, you've been learning how to write code. Good! This is a vital skill set 
 
 The same is true of everyone! This is the act of learning.
 
+---
+
 ## In this course 
 
 In this course, we will practice many new tools and techniques:  
@@ -27,6 +29,8 @@ In this course, we will practice many new tools and techniques:
 7) Connecting to a database to ensure our software system data can persist even when it's not running.  
 
 Learning these tools and techniques is a valuable undertaking for it's own purposes. But in learning, we seek not just to use these tools, but use them wisely, knowing their limits, and planning how to look for and prevent failures.
+
+---
 
 ## "Do I really need to..."
 
@@ -42,6 +46,8 @@ Etc. Etc. Etc. This betrays a form of fundamental conceit we humans have. To quo
 "All programmers are optimists. Perhaps this modern sorcery especially attracts those who believe in happy endings and fairy godmothers. Perhaps the hundreds of nitty frustrations drive away all but those who habitually focus on the end goal. Perhaps it is merely that computers are young, programmers are younger, and the young are always optimists. But however the selection process works, the result is indisputable: 'This time it will surely run,' or 'I just found the last bug.'" - Fred Brooks, The Mythical Man-Month
 
 The fact is that learning these skills will make you better and more efficient as a programmer...eventually. But not right away.
+
+---
 
 ## Learning is hard
 
@@ -62,6 +68,8 @@ And so, *I stopped trying.* After all, I reasoned, **if I'm going to fall down e
 This is a perfect parallel to conversations I have with students every semester about unit testing. "It takes me a really long time to write unit tests. It's just busy work that slows me down."
 
 And you know what, they're right! **Unit testing does slow them down!** But that isn't because unit testing slows everyone down. It's because they are like me trying to ride for the first time without training wheels: they keep falling over. They don't write effective tests. Or they take too long to think about the test, and how to design it. Or they write their code in a way that makes it difficult to test. But the only way to get better, faster, and more efficient, is **PRACTICE**. 
+
+---
 
 ## You won't be good at first
 
@@ -110,6 +118,8 @@ This means:
 
 And, I have some bad news. You will make *several* mistakes along the way. But...
 
+---
+
 ## You will get better!
 
 The good news is practice and time make you better at all of the above! I did eventually learn how to ride a bike. And even after learning, I continued to get better with balancing, navigating traffic and rough roadways, pacing myself so I don't arrive exhausted, etc. And the key tool was **PRACTICE**. The practice had to be frequent and spaced out, because that's how humans learn! We don't learn by cramming things at the last minute.
@@ -119,6 +129,8 @@ My first programming language I learned was TI-BASIC 83 (a dialect of BASIC writ
 Just kidding, he made me delete it, line by line, right there in front of him. If you think I'm still bitter, understand that I'm writing this almost two full decades later and still get mad about it. I did ultimately rewrite it on my own later, and I dug it up.
 
 The code is awful. It's hard to read because of tons of duplicate code and overly complex structure. It's littered with gotos because I didn't understand the idea of writing functions.  I've gotten much better at writing code since through practice.
+
+---
 
 ## Learning a new language
 

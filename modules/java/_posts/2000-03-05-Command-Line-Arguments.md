@@ -4,7 +4,6 @@ Title: Command Line Arguments
 
 ## **[Source Code Examples](https://github.com/sde-coursepack/commandline)**
 
-{toc}
 
 # Command Line Arguments
 
