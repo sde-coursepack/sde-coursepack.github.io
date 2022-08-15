@@ -109,6 +109,7 @@ of the file. One way to print the contents of a file is:
     for (String line = br.readLine(); line != null; line = br.readLine()) {
             System.out.println(line);
     }
+    br.close();
 ```
 
 You will often see this using a while loop instead.
@@ -119,6 +120,7 @@ You will often see this using a while loop instead.
         System.out.println(line);
         line = br.readLine();
     }
+    br.close();
 ```
 
 Of course, you don't have to print. For example, if you are reading
@@ -143,3 +145,33 @@ For example, let's say you write a class that reads a CSV file and produces
 an ArrayList of some class. You can include an example csv file in the 
 `test` resources to test with, but that file won't be confused as part of the
 `main` resources of the project.
+
+---
+
+## User specified files shouldn't be resources
+
+If you program can take in a filename from the user, such as via command-line or
+text entry, you shouldn't open that file with `ClassLoader`. In that case, it's
+sufficient to just create a `BufferedReader` from the filename the user gives you.
+
+Something like:
+
+```java
+    public ArrayList<String> getLinesFromFile(String filename) {
+        try {
+            FileReader fileReader = new FileReader(filename);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            ArrayList<String> lines = new ArrayList<>();
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = bufferedReader.readLine();
+            }
+            return lines;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        }
+
+```
