@@ -175,3 +175,6 @@ Something like:
         }
 
 ```
+
+You only use Resources when you are trying to access a resource file that you
+would include in a distribution of the project.
