@@ -54,7 +54,7 @@ I'm trying to work!
 Now, wherever I saved that file, I'm going to copy and paste (or click and drag)
 the file into my project's `src/main/resources` folder:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/8/chloe.jpg"/>
+<img alt="alt" src="{{site.baseurl}}/modules/java/images/8/haiku_resource.png"/>
 
 ### Accessing resource text file in Java
 
