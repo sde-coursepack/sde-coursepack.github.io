@@ -7,7 +7,12 @@ Title: Build Tools
 In this module, we will discuss using build tools. We will start in this unit by talking about what Build tools are and why we need
 them. We will then specifically look at `gradle` in the next until.
 
+---
+
 ## The problems
+
+When building more complicated projects, we can run into a couple issues that do not
+scale well when working with multiple people.
 
 ### Using external libraries
 
@@ -44,12 +49,12 @@ All 8 also need to make sure they are getting the same version.
 What happens if the library changes because of a bug fix, security patch, or new
 features? Well, everyone had to repeat that process again.
 
-**Wouldn't it be nice if there were a *one-step* process to add an external
+*Wouldn't it be nice if there were a **one-step** process to add an external
 library that can be shared with everyone to ensure everyone has the same version
-of the same external libraries with no effort required?**
+of the same external libraries with no effort required?*
 
-**Wouldn't it be nice if we could update to new versions of external libraries
-by changing only *one line* in our entire project?**
+*Wouldn't it be nice if we could update to new versions of external libraries
+by changing only **one line** in our entire project?*
 
 ### Generating a jar file
 
@@ -62,22 +67,27 @@ module, but that process has some problems.
 3) Even if we want to recompile only one or two classes, the way we showed requires recompiling the entire project
 4) Everyone has to follow a complex script to generate a jar file.
 
-**Wouldn't it be nice if we could simply and easily setup a *build process* that, with
-only one command handles generating our output .jar file in an efficient way**
+*Wouldn't it be nice if we could simply and easily set up a **build process** that, with
+only one command handles generating our output .jar file in an efficient way*
 
+---
 
 ## What build tools can do
 
-Build tools can do both of the above:
+Build tools can do all three of the italicized paragraphs above:
 1) Greatly simplify the process of downloading and using external libraries
 2) Greatly simplify the process of updating to new libraries
 3) Greatly simplify the process of building a Java project into a distributable Jar file.
+
+---
 
 ## What we will use in this class
 
 In this class, we will be using Gradle, a modern Java build tool that has a script,
 `build.gradle`, which describes the process for getting external libraries, building
 the .jar distributable file, testing, and more.
+
+---
 
 ## Java Build Tools to know about
 
@@ -157,6 +167,8 @@ in the next module.
 It has the same features as Maven, but a shorter and easier to read syntax
 than XML. It also has a feature that allows you to run the build script
 without having to download the gradle software itself.
+
+---
 
 ## Conclusion
 

@@ -2,7 +2,7 @@
 Title: Gradle Example with Poi
 ---
 
-# Example with poi
+# poi
 
 ## org.apache.poi
 
@@ -10,6 +10,8 @@ Title: Gradle Example with Poi
 
 ### Connecting with IntelliJ
 
-## Example XSSFWorkbook code
+## Writing to XSSF Workbook
 
-### Useful functions
+## Reading from XSSF Workbook
+
+## Useful functions
