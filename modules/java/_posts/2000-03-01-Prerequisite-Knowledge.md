@@ -35,7 +35,7 @@ tools and techniques.
         }
     }
 ```
-* You should be very comfortable with ```for``` and ```while``` loops
+* You should be *very comfortable* with ```for``` and ```while``` loops
   * ```for(int i = 0; i < max_number; i++)``` 
   * ```for(Student student : listOfStudents)```
   * ```while(x > 0)```

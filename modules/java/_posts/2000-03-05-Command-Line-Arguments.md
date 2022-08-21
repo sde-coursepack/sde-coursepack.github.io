@@ -67,10 +67,11 @@ to the module on packages if you feel you still need a reminder.
 ### Why do we want these?
 
 Command-line arguments give us a way for users to add information to the program without having to edit
-the source code of the program, and without us having to worry about dealing with something like `System.in`.
-This is important, because we may be writing a program for something that doesn't have an easily accesible user console.
+the source code of the program, and without us having to worry about dealing with something like `System.in`
+or a Scanner.
+This is important, because we may be writing a program for something that doesn't have an easily accessible user console.
 In fact, *our "users" may not even be human at all.* Many large software suites rely on programs communicating directly,
-which may often by done *by* command line arguments.
+which is typically by done *by* using command line arguments.
 
 ## String Arguments
 Example: [HelloWho.java](https://github.com/sde-coursepack/commandline/blob/main/src/main/java/edu/virginia/cs/commandline/HelloWho.java)
@@ -105,7 +106,8 @@ If I run this, I still get:
 `Hello, Will`
 
 That's because the String "McBurney" is stored in `args[1]`, due to the space between it and "Will". Note that, as
-general practice, **We can ignore extra and unnecessary arguments**.
+general practice, **we can ignore extra and unnecessary arguments**. However, some programs take in an indeterminant
+number of arguments, so it varies from program to program.
 
 ### Arguments with spaces
 
@@ -122,6 +124,7 @@ If I do this, I'll get the desired result:
 This is because the quotations marks in the argument tell Java "this is all one argument."
 
 ### Missing Arguments
+
 If we run the program without arguments with the command below:
 
 `java edu.virginia.cs.commandline.HelloWho`
@@ -152,11 +155,12 @@ Error: This program requires a command line argument for a name. format:
     java edu.virginia.cs.commandline.HelloWho name
 ```
 
-This better error message is more useful to the user. The stacktrace we had earlier implies that the programmer
-has a bug in their code, and that is how the user will interpret it very often. This error message makes it clear
-that the error was actually a *user error*, and the user can correct their mistake.
+This error message is better because it is more useful to the user. The stacktrace we had earlier implies that the programmer
+has a bug in their code, and that is how the user will interpret it very often. Our new error message makes it clear
+that the error was actually a *user error*, and tells the user how to correct their mistake.
 
 ## Numeric Arguments
+
 Example: [HelloNTimes.java](https://github.com/sde-coursepack/commandline/blob/main/src/main/java/edu/virginia/cs/commandline/HelloNTimes.java)
 
 The HelloNTimes program takes in a number via command line and prints "Hello" that many times. Example:
@@ -205,13 +209,13 @@ then Integer.parseInt would throw a `NumberFormatException`. Once again, we want
 message. A useful error message is a *precise* error message that tells the user **what they did wrong** and **how to 
 fix it**.
 
-**Another consideration** could be to consider how to handle the user entering a negative number. In my program, I just
-ignore it, because my `printHelloNTimes` function will end up producing the same output as if the user entered `0`.
-
+Another consideration could be to consider how to handle the user entering a negative number. In my program, I just
+ignore it, because my `printHelloNTimes` function will end up producing the same output as if the user entered `0`. 
 However, if I wanted to prevent a user entering negative numbers, I would want to make sure to add a meaningful
 error message once again.
 
 ## Multiple Arguments
+
 Example: [MyGCD.java](https://github.com/sde-coursepack/commandline/blob/main/src/main/java/edu/virginia/cs/commandline/MyGCD.java)
 
 I don't include robust error checking in these last two examples. I just want to briefly show a trivial example of multiple
@@ -236,9 +240,10 @@ Thus, the run above simply prints:
 `GCD(144, 81) = 9`
 
 ## Optional Arguments
+
 Example: [IsLeapYear](https://github.com/sde-coursepack/commandline/blob/main/src/main/java/edu/virginia/cs/commandline/IsLeapYear.java)
 
-In the isLeapYear example, I wanted to allow the user to ask if a year was a Leap Year by either the Gregorian
+In the isLeapYear example, I wanted to allow the user to ask if a given year was/will be a Leap Year in either the Gregorian
 calendar or the Julian Calendar. If you are unfamiliar, with the difference, years divisible by 100 like 1900 and 2100 are *not* Leap years in the
 Gregorian calendar, while both *are* in the Julian calendar (years divisible by 400 like 2000 and 2400 are leap years in both).
 
@@ -256,7 +261,7 @@ Which will say 1900 *is not* a leap year, while:
 
 or
 
-`java edu.virginia.cs.commandline.IsLeapYear 1900 -julian`
+`java edu.virginia.cs.commandline.IsLeapYear 1900 --julian`
 
 Will both say that 1900 *is* a leap year. 
 
@@ -272,7 +277,7 @@ This is how this is handled at the code level:
     }
 
     private static boolean checkForJulianFlag(List<String> argList) {
-        return argList.contains("-j") || argList.contains("-julian");
+        return argList.contains("-j") || argList.contains("--julian");
     }
 ```
 
@@ -282,7 +287,7 @@ can't use functions like `add` and `remove` on it. However, the benefit is that 
 method `contains` so I don't have to write my own for-loop: I can simply leverage the built-in Java List
 interface.
 
-As a consequence, you'll note that I do not assume that `-j` or `-julian` must be at index 1. So, as a result:
+As a consequence, you'll note that I do not assume that `-j` or `--julian` must be at index 1. So, as a result:
 
 `java edu.virginia.cs.commandline.IsLeapYear 1900 here are some unused arguments -j`
 
@@ -318,11 +323,11 @@ These are some general tips for building programs that use command line argument
 
 As we showed in the first two code examples we looked at (HelloWho and HelloNTimes), we want to generate meaningful
 error messages that tell the user when they enter the command line arguments incorrectly. If a user sees a stacktrace without
-a clear error message explaining their error,
-they will think that the programmer
-has a bug in their code, rather than the correct interpretation that it was the **user** who made an error.
-A clear error message makes it clear
-that the error was actually a *user error*.
+a clear error message explaining their error in non-programming terms,
+they will think that the programmer has a bug in their code. 
+This is bad, because the correct interpretation that it was the **user** who made an error.
+A clear error message makes it clear that the error was actually a *user error*, and tells the user specifically
+what it was they did wrong.
 
 
 ### Identify required and optional arguments
@@ -348,11 +353,12 @@ logic that does this same thing.
 
 As much as possible, check all command line arguments before you enter the rest of the program. For example, if
 the user enters a file name, ensure that file exists before you execute any time-consuming setup tasks for the program.
-If you expect an argument to be an integer, and it isn't, fail before you start doing database connections, etc.
+If you expect an argument to be an integer, and it isn't, fail before you start doing database connections, processing
+large volumes of data, etc.
 
 Note this may not always be possible. For example, if a program were to read a formatted file, and the user specifies
 a valid filename in the command line arguments, we won't know about the bad format until we start reading the file. But
-whenever we can, we want the program to fail quickly.
+whenever we can check arguments beforehand, we want to.
 
 
 ### Complicated Arguments
