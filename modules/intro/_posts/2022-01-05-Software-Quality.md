@@ -52,6 +52,8 @@ internal standard for the evaluation of *software quality*. ISO 9126 broke
 software quality down into **external** and **internal** measures of
 quality.
 
+---
+
 ## External Quality
 
 *External software quality* refers to the quality of the software from
@@ -175,6 +177,8 @@ to operate? Generally, the fewer resources a program consumes, the better.
 Can your software run on Windows, Mac, Linux, etc.? Does your app
 work in Chrome, Firefox, Edge, etc.? Can elements within the software
 adapt to a change in how and where the users uses the software?
+
+---
 
 ## Internal Quality
 
