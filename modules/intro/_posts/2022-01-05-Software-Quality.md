@@ -194,7 +194,7 @@ changing features, etc. We can break maintainability down into:
 * __Reusability__ - the extent to which parts of the construction can be reused in other parts of the construction or in other software projects.
 * __Testability__ - the extent to which the software can be tested to find faults or defects in the software construction
 
-##E The key to internal quality
+### The key to internal quality
 
 In this class we will spend a lot of time focusing on internal
 software quality. We will improve the analyzability of our
