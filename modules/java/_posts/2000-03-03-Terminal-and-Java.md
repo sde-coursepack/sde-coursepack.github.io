@@ -46,7 +46,7 @@ directory you are currently in. For example, I have pictures
 below from the [Prerequisite knowledge module](https://github.com/sde-coursepack/java-prerequisite)
 open in Windows Powershell below:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/4/blank_shell.png"/>
+<img alt="An image showing a terminal ls command show several folders and one file" src="{{site.baseurl}}/modules/java/images/4/blank_shell.png"/>
 
 This means that in my terminal, I am currently in the folder:
 
@@ -57,7 +57,7 @@ C:\Users\pm8fc\SDE-Resources\example_code\StudentExample\src\main\java
 I can list all of the files and directories in that folder using
 the ```ls``` command.
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/4/ls.png"/>
+<img alt="An image showing a terminal ls command show several folders and one file" src="{{site.baseurl}}/modules/java/images/4/ls.png"/>
 
 ### ```cd```
 
@@ -72,7 +72,7 @@ command in the same folder as before, drilling down to the
 ```example``` folder. I then run an ```ls``` command to list the
 directory contents.
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/4/cd.png"/>
+<img alt="an ls in example showing 4 java files" src="{{site.baseurl}}/modules/java/images/4/cd.png"/>
 
 It's worth noting that if you type ```cd ex``` and then hit
 the ```Tab``` key, terminal will auto-complete ```example```
@@ -102,7 +102,7 @@ In our command prompt, we want to type:
 
 If we did this correctly, you should see something like:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/4/version.png"/>
+<img alt="a terminal showing the version of java after a java -version command" src="{{site.baseurl}}/modules/java/images/4/version.png"/>
 
 Note that you may have a different version of Java installed than me.
 For this class, you are required to have Java 8 or later. It is highly
@@ -133,7 +133,7 @@ You can see the
 before and after in the folder below when I compile
 Student.java:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/4/compile.png"/>
+<img alt="A terminal window showing after I compile Student.java that there is now a class called Student.class" src="{{site.baseurl}}/modules/java/images/4/compile.png"/>
 
 To be clear: **you will not have to compile java files this
 way in class and during homework assignments.** My goal in showing
@@ -146,7 +146,7 @@ your .class files will go in a folder ```build/classes```
 
 Let's now try to compile ```Main.java```. We'll use ```javac Main.java``` and:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/4/compile_error.png"/>
+<img alt="When I try to compile Main.java, I get a compiler error saying Java can't identify a class called Student or Enrollment" src="{{site.baseurl}}/modules/java/images/4/compile_error.png"/>
 
 The reason for this error is that the class Main has **dependencies** to the classes
 Student and Enrollment. I therefore cannot compile Main.java with the simple command
@@ -163,7 +163,7 @@ during compile time.
 
 ```javac Main.java Enrollment.java Student.java StudentNameComparator.java```
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/4/compile_correct.png"/>
+<img alt="show the results of the above command, resulting in all 4 java files being compiled" src="{{site.baseurl}}/modules/java/images/4/compile_correct.png"/>
 
 ### Running .class file
 
@@ -177,7 +177,7 @@ This command gets us into the folder that contains the "example" package.
 
 ```java example.Main```
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/4/run.png"/>
+<img alt="Showing the results of running example.Main, which is to print Hello World" src="{{site.baseurl}}/modules/java/images/4/run.png"/>
 
 
 Note that we do *not* say "Main.class". The .class is assumed
@@ -241,7 +241,7 @@ where "example" has all of our .java and .class files), we can run:
 
 ```jar cf MyJar.jar example/*.class```
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/4/jar.png"/>
+<img alt="Showing the command above which produces a file called MyJar.jar" src="{{site.baseurl}}/modules/java/images/4/jar.png"/>
 
 This will create a jar file in our "java" folder called MyJar.jar,
 and that file will contain all of our classes. *However*, when we try to
@@ -252,7 +252,7 @@ run the file with:
 ...which is the way we can run .jar files with the ```java``` command, 
 we get an error:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/4/jar_error.png"/>
+<img alt="Showing an error when we try to run our .jar file which says no manifest found" src="{{site.baseurl}}/modules/java/images/4/jar_error.png"/>
 
 The issue here is that while the .jar file does contain all
 of our classes, we haven't told Java which file to run when we run the jar!
@@ -260,7 +260,7 @@ To fix this, we can add the "entry flag" to our command:
 
 ```jar cfe MyJar.jar example.Main example/*.class```
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/4/jar_fixed.png"/>
+<img alt="Showing the result of the above more robust jar compiling command" src="{{site.baseurl}}/modules/java/images/4/jar_fixed.png"/>
 
 In the above command, notice we added "e" to the argument after jar. This tells
 the jar tool that we want to change the "entry point" (aka, "Main-Class") of our

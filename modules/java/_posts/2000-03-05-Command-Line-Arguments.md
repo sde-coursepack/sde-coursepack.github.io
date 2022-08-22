@@ -84,7 +84,7 @@ And the program will output:
 
 `Hello, Will`
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/6/helloWho.png"/>
+<img alt="Terminal showing output of HelloWho Will as Hello, Will" src="{{site.baseurl}}/modules/java/images/6/helloWho.png"/>
 
 How does this work at a code level? Well, let's look:
 
@@ -119,7 +119,7 @@ If I do this, I'll get the desired result:
 
 `Hello, Will McBurney`
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/6/helloWho2.png"/>
+<img alt="Showing the output of Hello 'Will McBurney' with the name in quotes" src="{{site.baseurl}}/modules/java/images/6/helloWho2.png"/>
 
 This is because the quotations marks in the argument tell Java "this is all one argument."
 
@@ -131,7 +131,7 @@ If we run the program without arguments with the command below:
 
 The program will crash with an `ArrayOutOfBoundException`:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/6/helloWhoError.png"/>
+<img alt="Error message from running Hello Who with no arguments, but the error message is misleading" src="{{site.baseurl}}/modules/java/images/6/helloWhoError.png"/>
 
 There's really nothing we can do about this error: If our program needs an argument, the best we can do is inform
 the user. That said, we could improve the error message clarity. To fix this, I changed the main method:

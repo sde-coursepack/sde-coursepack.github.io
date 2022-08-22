@@ -58,7 +58,7 @@ we write code, and compile that code into something that
 can be executed by the computer. The below diagram is
 an over simplification of this relationship:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/3/compiler1.png"/>
+<img alt="Image shows source code with an arrow pointing to a box labeled code compiler, which has an arrow pointing to a box labeled Executable File" src="{{site.baseurl}}/modules/java/images/3/compiler1.png"/>
 
 ---
 
@@ -79,20 +79,20 @@ I can write the above code in any plain-text editor,
 like Notepad (though not "document editors" like Word),
 and save the file as ```helloWorld.c```.
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/3/helloWorldC.png"/>
+<img alt="A screenshot of notepad with the helloWorld.c source code" src="{{site.baseurl}}/modules/java/images/3/helloWorldC.png"/>
 
 Now, if I save this file to a folder called "code",
 I can open a terminal (Mac/Linux) or Powershell[^1] and navigate to that folder.
 If I use the "ls" (list) command, I can see the file
 in my directory.
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/3/shell1.png"/>
+<img alt="A screenshot of a terminal window, ls has been executed showing a file list including helloWorld.c" src="{{site.baseurl}}/modules/java/images/3/shell1.png"/>
 
 However, that's all I can do with it. If I try to run
 the file as though it were a problem, my Windows operating system thinks I'm trying
 to "open" the file.
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/3/shell2.png"/>
+<img alt="When I typed helloWorld.c into my terminal, a pop-up window asks me what I want to open the file in, suggesting several text editors" src="{{site.baseurl}}/modules/java/images/3/shell2.png"/>
 
 That's because **source code isn't an executable program.** Source
 code is meant for humans. We write the source code using a
@@ -110,7 +110,7 @@ compile c files with a program like GCC. So, I compile
 the code into a program called ```helloWorld.exe```, and
 then open in Notepad and:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/3/executable.png"/>
+<img alt="I opened helloWorld.exe in notedpad, and the contents of the file appear to be random unintelligible characters" src="{{site.baseurl}}/modules/java/images/3/executable.png"/>
 
 What is going on here?!?! Well, what is happening is that the .exe
 program contains the low-level machine instructions that tells my
@@ -226,7 +226,7 @@ the Java Development Kit (JDK) compiles your code, producing a
 .class file. The .class file which is the bytecode that specifies the machine instructions. Much
 like the C executable, the compiled file is not, nor intended to be, human-readable.
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/3/compiler2.png"/>
+<img alt="An image showing a .java file being compiled into a .class file which is run on the computer" src="{{site.baseurl}}/modules/java/images/3/compiler2.png"/>
 
 However, unlike C, the Java .class file is **portable**. **Portable**, in the context
 of software, means that you can move software easily from one environment to another
@@ -236,7 +236,7 @@ the program. In Java, you just send the .class file, no recompiling needed!
 How does it do this? Well...first I need to acknowledge that the last figure is a lie.
 A more accurate figure is this:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/3/compiler3.png"/>
+<img alt="alAn image showing a .java file being compiled into a .class file which is being used by a box labeled Java Runtime Environment, which is running on the computer" src="{{site.baseurl}}/modules/java/images/3/compiler3.png"/>
 
 Specifically, the .class files don't run on any particular hardware. Rather, they
 run in a virtual Java Runtime Environment (JRE).

@@ -24,7 +24,7 @@ Often, when making a program or website, we will need assets. These assets could
 include images, like this picture of my cat Chloe sitting on my shoulder despite
 my wishes that she not:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/8/chloe.jpg"/>
+<img alt="The author's calico cat sitting on his shoulder, while the author scowls with annoyance, despite internally feeling loved like he has never felt before" src="{{site.baseurl}}/modules/java/images/8/chloe.jpg"/>
 
 If I wanted to make this a company logo (and who wouldn't), then this image would
 likely appear throughout any app I made. And so, I need to store that image with
@@ -54,7 +54,7 @@ I'm trying to work!
 Now, wherever I saved that file, I'm going to copy and paste (or click and drag)
 the file into my project's `src/main/resources` folder:
 
-<img alt="alt" src="{{site.baseurl}}/modules/java/images/8/haiku_resource.png"/>
+<img alt="My text file is now visible in the project folder sub/main/resources" src="{{site.baseurl}}/modules/java/images/8/haiku_resource.png"/>
 
 ### Accessing resource text file in Java
 
