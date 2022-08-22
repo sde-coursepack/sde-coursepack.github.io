@@ -141,11 +141,11 @@ I Can See tabs for:
 * Add Participants
 etc.
 
-Which of those would you go to change the the URL of a Web Link? The obvious
+Which of those would you go to change the URL of a Web Link? The obvious
 answer is "Manage Tools". The obvious answer is also wrong. If I want
-to change the URL of a Web Link, I go to Tool Order!
+to change the URL of a Web Link, I have to go to "Tool Order"!
 
-![img.png](../images/collab_usability.png)
+![A screenshot of Collab showing the only way to edit the URL of a Web Link is under "Tool Order"](../images/collab_usability.png)
 
 The first time I used Collab, I honestly thought this feature didn't exist.
 I spent months where, if I needed to change a URL, I would use "Manage Tools"

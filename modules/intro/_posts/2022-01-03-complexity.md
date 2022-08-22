@@ -10,12 +10,12 @@ Software failures are easy to occur because software is *essentially* complex.
 
 Let's look at Google.com: 
 
-![alt]({{site.baseurl}}/img/google.png)
+![A screenshot of the Google homepage]({{site.baseurl}}/img/google.png)
 
 Seems simple enough! What's that, like 20-30 lines of code, right? In most browsers, you can right click on the page and go to View Source. Here's what you'll see:
 ---
 
-![alt]({{site.baseurl}}/img/googleSource.png)
+![What is shown when "View Source" for Google homepage. It is a page full of code]({{site.baseurl}}/img/googleSource.png)
 ---
 
 The Horror!
@@ -38,11 +38,11 @@ Let's write a program to tell us how many days old George Washington is. How har
 
 Well, since we're here, let's ask Google what Washington's birthday is.
 
-![alt]({{site.baseurl}}/img/washingtonWUT.png)
+![Google says Washington's birthday is February 22, 1732, but the text right below it says Washington's Birthday is February 11, 1731][alt]({{site.baseurl}}/img/washingtonWUT.png)
 
 Wait, what!?!? So which is it? February 22, 1732, or February 11, 1731? To add to the confusion, the Washington family Bible notes that George Washington was born "11th Day of February, 1731/2". And even if we could pick a date, as we go back through the calendar of England, which was the calendar used in the colonies, we see this:
 
-![alt]({{site.baseurl}}/img/September1752.png)
+![A calendar showing England's September in 1752. The day after September 2nd is September 14, and there is no September 3rd through 11th]({{site.baseurl}}/img/September1752.png)
 
 What the heck was going on in September? Well, as some of you may have guessed, this has to do with religion. In 1582, the then Pope Gregory XIII introduced the Gregorian Calendar. However, England and many other Protestant European countries continued to use the Julian calendar that was already in place for centuries. Another relevant detail is that the "first day of the year" in England used to be considered "the first day of Spring." And as such, March 25 was "New Year's Day" in England during and after the Middle Ages. So February 11, 1731 (Julian) *is the same day* as February 22, 1732 (Gregorian). However, England (and by extension the Colonies) adopted the Gregorian calendar in 1752. But all of this means your program could have produced incorrect output if you didn't know and account for this history ahead of time!
 
@@ -60,7 +60,7 @@ However, while hardware grew exponentially faster and faster for decades, the so
 
 ---
 
-<img src="https://csdl-images.ieeecomputer.org/mags/so/2008/01/figures/mso2008010091x1.gif" alt="Cover of IEEE's Computer Magzine from April 1987, which featured 'No Silver Bullet'.">
+<img src="https://csdl-images.ieeecomputer.org/mags/so/2008/01/figures/mso2008010091x1.gif" alt="Cover of IEEE's Computer Magazine from April 1987, which featured 'No Silver Bullet'.">
 
 ### No Silver Bullet
 

@@ -92,7 +92,7 @@ In the two previous programming courses at the University of Virginia, your prog
 
 **These are training wheels!** Of course when you are learning we're giving you this much direction! We're helping you learn the foundational basics. But just like riding a bike, if you want to go fast and go far, **The training wheels have to go!**
 
-When you develop real software, here is how many of those conversation start:
+When you develop real software, here is how many of those conversations start:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Customer**: I would like software that does [vague description of something the customer does already without software]
 
@@ -104,7 +104,7 @@ Admittedly, the above is in jest and over the top, but there is an entire field 
 
 This means:  
 &nbsp;&nbsp;1) **You will decide** what program to write  
-&nbsp;&nbsp;2) **You will decide what programming language(s) you will use  
+&nbsp;&nbsp;2) **You will decide** what programming language(s) you will use  
 &nbsp;&nbsp;3) **You will decide** on how to develop the software  
 &nbsp;&nbsp;4) **You will decide** how it works  
 &nbsp;&nbsp;5) **You will decide** what functions to write  
