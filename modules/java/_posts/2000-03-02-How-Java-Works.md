@@ -8,6 +8,8 @@ This module will discuss the nature of Java and how Java code compiles and execu
 
 ## What is code?
 
+Code is instructions that a computer can follow.
+
 Programmers have to read code. The very act of
 debugging, for example, is reading your code and 
 looking for a defect to fix. However, the way a
@@ -29,16 +31,17 @@ code must be:
 * logically possible (such as no null pointers)
 
 The earliest programming involved carefully defining every
-machine operation, one by one, often with mechanic or
-physical parts use to communicate instructions to the
+machine operation, one by one, often with mechanical or
+physical inputs used to communicate instructions to the
 computer. Often, these instructions were written in a
-form of binary. The thing is, computers fundamentally work
+form of binary. The thing is, computers today fundamentally work
 the same way; we've just replaced the mechanical parts
-with small, faster electronic parts.
+with small, faster electronic parts. We've traded in
+punch cards for keyboards, but we still have to write precise code.
 
 From the software side, we found that writing code in
-binary was cumbersome, time-consuming, and error prone.
-So human readable languages started being developed.
+binary was cumbersome, time-consuming, and error--prone.
+So human-readable languages started being developed.
 
 Early languages, like Fortran, added human-readable
 identifiers, like "IF", "PRINT", etc. You can see
@@ -49,10 +52,10 @@ for Fortran 77.
 
 ## Compiling
 
-It's important to understand that, when you write source code,
+It's important to understand that, when you write source code in modern high-level language,
 your computer actually can't run your source code. Well, not directly. Typically,
 we write code, and compile that code into something that 
-can either be run or used by the computer. The below diagram is
+can be executed by the computer. The below diagram is
 an over simplification of this relationship:
 
 <img alt="alt" src="{{site.baseurl}}/modules/java/images/3/compiler1.png"/>
@@ -72,7 +75,7 @@ and how it C code is turned into an executable program.
     }
 ```
 
-I can write the following code in any plain-text editor,
+I can write the above code in any plain-text editor,
 like Notepad (though not "document editors" like Word),
 and save the file as ```helloWorld.c```.
 
@@ -86,7 +89,7 @@ in my directory.
 <img alt="alt" src="{{site.baseurl}}/modules/java/images/3/shell1.png"/>
 
 However, that's all I can do with it. If I try to run
-the file, my Windows operating system thinks I'm trying
+the file as though it were a problem, my Windows operating system thinks I'm trying
 to "open" the file.
 
 <img alt="alt" src="{{site.baseurl}}/modules/java/images/3/shell2.png"/>
@@ -101,8 +104,8 @@ low-level machine instructions. If we want to run our program, we must
 
 ## Why not just write low-level machine code?
 
-**Compiling** is turning human readable source code
-into computer readable instructions. Anyways, we can
+**Compiling** is turning human-readable source code
+into computer readable instructions. We can
 compile c files with a program like GCC. So, I compile
 the code into a program called ```helloWorld.exe```, and
 then open in Notepad and:
@@ -114,7 +117,7 @@ program contains the low-level machine instructions that tells my
 operating system how to run the program. This machine code
 is stored in bytes which do not properly translate to human-readable
 text in a format that Notepad knows how to display. However, it's quite all right that this code isn't
-human-readable because it doesn't need to be human-readable. If
+human-readable! It doesn't need to be human-readable! If
 we want to change the program, we can change the c code and recompile.
 
 We never have to work directly with the contents of the .exe file, 
@@ -124,16 +127,16 @@ is cumbersome, difficult, and very limiting.
 
 ---
 
-## Advantages and Disadvantages
+## Advantages and Disadvantages of .exe
 
 The advantage is that I can run this program as is! I don't
 need any special software! In fact, anyone with a modern Windows
 OS could run this same .exe file, meaning I can share the
 runnable program without sharing the source code! Anyone 
-running this code doesn't even need to install C or a c compiler!
+running this code doesn't even need to install a C IDE or compiler!
 This is why  when you download a program, it often starts by downloading
-an executable first, and you often have to pick the executable for
-your operating system.
+an executable first. However, notice that whenever you download a
+program, you typically have to select your operating system...
 
 The disadvantage, *which we will come back to when talking about Java*,
 is that this executable only works on my operating system, Windows.
@@ -143,7 +146,7 @@ is not compatible with any other operating system. Now,
 there are ways to do "cross-compiling", that is, compile for
 a different environment than the one you are programming in,
 like compiling a Linux executable in Windows, but now you have
-to consider if your code will work on a given operating system.
+to consider if every part of your code will work on a given operating system.
 In fact, you may at times see C code like this:
 
 ```c
@@ -169,8 +172,8 @@ and then running second, when code
 is interpreted, we do both at the same time with the help of another program.
 
 In Python, as you execute the program, the python interpreter translates
-each line into machine instructions as you come to it. This means you don't have a static
-compiled file typically.
+each line into machine instructions as you come to it. This means you typically don't have a static
+compiled file.
 
 ---
 
@@ -179,23 +182,24 @@ compiled file typically.
 > "Hooray for metaphors"
 > - Sterling Archer, __Archer__, "Skytanic" Season 1 Episode 7 
 
-The difference between compiling and interpreting is like this: imagine
-you are a United Nations ambassador who is only fluent in English, and
+The difference between compiling and interpreting can be explained like the Unite Nations: 
+imagine  you are a United Nations ambassador who is only fluent in English, and
 a speaker is giving a speech in Spanish. There are two solutions:
-* Wait for someone to publish a translated transcript (compiled)
+* Wait, twiddling your thumbs, for someone to produce a translated transcript [*compiling*]
 * Use headphones to listen to a live translator who is translating the speech as
-it is being made
+it is being made [*interpreting*]
 
 The advantage of the first approach is that you have an easily
 redistributable transcript of the speech that anyone who can read English
-can use, regardless of whether or not they have a translator of their own. 
-The disadvantage is you have a costly "compilation" process
+can use, regardless of whether or not they have access to a translator of their own. 
+The disadvantage is you have a "compilation" process
 to produce the translation, and you can't do anything until it is done.
 
 The second approach has the advantage of translation on the fly, but
 it's only possible with the help of a live translator actively working
-in the background (python's interpreter). However, anyone without a translator
-cannot do this approach.
+in the background (python's interpreter). And a live interpreter has to 
+do a lot of work on the fly. Additionally, anyone without a translator
+cannot use this approach.
 
 Note that the above is an imperfect metaphor. **Do not make any assumptions about
 which process is more efficient** from this metaphor; the point is only to explain
@@ -234,8 +238,8 @@ A more accurate figure is this:
 
 <img alt="alt" src="{{site.baseurl}}/modules/java/images/3/compiler3.png"/>
 
-Specifically, the .class files don't run on any particular hardware. Rather, than
-run in a specifically Java Runtime Environment (JRE).
+Specifically, the .class files don't run on any particular hardware. Rather, they
+run in a virtual Java Runtime Environment (JRE).
 
 ### JRE
 
@@ -243,6 +247,8 @@ A **JRE** is an environment used to run Java Programs. The **JDK**, by contrast,
 use for *compiling*, not *running* Java programs. When you download a JDK, it will include
 a compatible JRE. However, users can download a JRE to be able to run Java programs
 without installing a JDK (non-developers wanting to run Java programs will often do this).
+
+JREs also contain to various class libraries (like the core Java class libraries).
 
 
 ### JVM
@@ -253,11 +259,11 @@ However, each of these resources is effectively borrowed from the host (physical
 
 What this means is that the JVM handles the direct interactions with the actual underlying hardware
 (computer CPU, physical memory, disk, monitor, etc.), but from the perspective of the JRE, the
-underlying physical hardware is irrelevant. 
+underlying physical hardware is irrelevant. It's just a Java Virtual Machine.
 
 It's worth noting that the JVM is actually an *interpreter*, that interprets the code it is
 given at runtime. However, that code *is not java source code*, but rather .class *byte-code*
-compiled by the JDK.
+compiled by the JDK, and passed to the JVM by the JRE.
 
 ### Restaurant metaphor
 
@@ -271,9 +277,10 @@ uses the physical resources (oven, stove, fryer, etc.) to actually complete the 
 
 As far as the .class file is concerned, they don't care whether the restaurant is using
 an electric or electric appliances (*think Mac or PC*), because the *chef* (aka JVM) handles
-that. The JRE has a standardized interface (it doesn't matter who the waiter is, you
-interact with them the same way), so the class file only needs to worry about interacting
-with the JVM
+that. The JRE has a standardized interface (it doesn't matter what "operating system" the chef
+is using, because the customer never talks to them), so the .class file only needs to worry about interacting
+with the JRE. Whether it's a Mac JVM, PC JVM, Linux JVM, Android JVM, etc. doesn't matter
+to the .class file or the JRE.
 
 
 ### JIT
@@ -284,7 +291,7 @@ the JVM interprets Java byte-code. However, as we mentioned before, interpreted 
 inherently slower than directly executed machine instructions.
 
 Making the process of interacting with the processor/memory/etc. as efficient as possible can lead to significant performance gains. 
-*Enter the Just In Time compiler (JIT)* The JIT is part of the JVM, specifically the part that compiles the JVM byte code instructions
+*Enter the Just In Time compiler (JIT)* The JIT is part of the JVM, specifically the part that can compile JVM byte code instructions
 into machine code instructions for the underlying hardware. This natively compiled machine code,
 machine code specifically compatible with the underlying physical hardware, is much more efficient than
 interpreted Java byte code. The JIT can have numerous optimizations to increase performance, reduce
@@ -303,7 +310,7 @@ apps. The JRE provides enough features to build meaningful and complex applicati
 that can be run on an hardware that has a compatible JVM.
 
 The JIT provides several optimizations between a JVM and a specific 
-underlying hardware architecture.
+underlying hardware architecture, ensuring that Java is capable of being efficient.
 
 All of this together gives us convenience, distributability, portability, and performance.
 
@@ -311,8 +318,8 @@ All of this together gives us convenience, distributability, portability, and pe
 
 ## JVM: It's not just for Java anymore
 
-The JVM can run any compatible byte code, and does not require a JDK, nor does it interact with it
-directly. This fact allows for other programming languages to interact with the JVM, provided
+The JRE can run any compatible byte code, and does not require a specific JDK. In fact, the JRE
+doesn't interact with a JDK at all. This fact allows for other programming languages to interact with the JRE, provided
 they can compile correct .class byte-code. Two languages that do this are **Kotlin** and **Groovy**. 
 
 **Kotlin** has been gaining rapid popularity in the Android community (as Android is a JVM
@@ -330,13 +337,13 @@ gained the general-use popularity that Kotlin is now seeing.
 
 ## Key takeaways
 
-This was a longer article, so I wanted to summarize the key takeaways:
+Key takeaways.
 
 * Compiling is taking a source code resource, and producing a bytecode resource
 designed to run on a particular machine
-* Interpreting is similar to compiling, but it done dynamically in real-time
+* Interpreting is similar to compiling, but is done dynamically at runtime
 * Java uses a JDK for compiling in bytecode that runs on a virtual machine
-* The JRE runs java programs via a JVM
+* The JRE runs Java programs via a JVM
 * The JVM interprets java bytecode into machine instructions of the underlying hardware
 * The JIT is used to compile the java bytecode into machine instructions for the underlying hardware
 at runtime, and boosts optimization and efficiency.

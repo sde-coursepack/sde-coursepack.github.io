@@ -10,20 +10,27 @@ it doesn't actually help you write and compile Java programs.
 
 Until now, you have likely used an IDE, like Eclipse
 or IntelliJ, to handle compiling. And *most of the time*
-this is exactly what you will do. However, think of the
-IDE like AAA. If you have a flat tire, AAA will send a truck
-out to change your tire. However, it's also worth learning
-how to change a tire yourself. In that same way,
-let's look at how to change a tire.
+this is exactly what you will do. However, I often find
+students who think Eclipse *is* Java, or that you have
+to have an IDE to compile code. And this isn't correct!
+
+Think of the IDE like AAA. If you have a flat tire, AAA 
+will send a truck out to change your tire. However, it's 
+also worth learning how to change a tire yourself. In 
+that same way, let's look at how to change a Java tire.
 
 ---
 
 ## Terminal/Powershell
 
 First, we need to become familiar with a very important
-tool: terminal (or on Windows, Powershell[^1]). If you are
+tool: terminal (or on Windows, Powershell[^1]). IntelliJ, 
+the recommended Java IDE for the course, has a built-in
+terminal. 
+
+If you are
 already comfortable using a command line terminal, then
-you can skip this section.
+you can skip this section. 
 
 Often times, it can be easier/more efficient in terms of
 developer time to use basic command line tools rather than
@@ -34,7 +41,7 @@ going to focus on two right now.
 
 ### ```ls```
 
-```ls``` is a command for listing the contents of the
+```ls``` is a command for "long listing", or printing a list of the contents of the
 directory you are currently in. For example, I have pictures
 below from the [Prerequisite knowledge module](https://github.com/sde-coursepack/java-prerequisite)
 open in Windows Powershell below:
@@ -131,7 +138,7 @@ Student.java:
 To be clear: **you will not have to compile java files this
 way in class and during homework assignments.** My goal in showing
 you this compilation is to show you *how your IDE works*, because
-your IDE is effectively running these commands for you. Typically,
+your IDE is running these commands for you in the background. Typically,
 your IDE will put your .class files in a folder like ```build```, ```out```
 , or ```bin``` depending on configuration. In this class, using
 our build tool ```gradle```, which we will cover in the **Collaboration** unit,
@@ -194,17 +201,17 @@ The first line tells Java that this class is part of a package called
 "example". We can think of this as "in a folder called example".
 
 We will talk more about packages and why we want them later, but for now it's sufficient
-to think that ```example.Main``` means "In the package/folder example, run the class
-Main". If your Main.class file was not in a package, you could simply run ```java Main```
-from the folder the Main.class file is in.
+to think that ```example.Main``` means "In the package example, run the class
+Main". 
 
 ### Hidden complexity
 
 It's worth noting that running the class file in this way comes
 with a lot of hidden complexity. First, all classes that Main depends
 on, either directly like Enrollment and Student, or indirectly like StudentNameComparator,
-must be in the same folder. Additionally, there may be other libraries
-beyond default Java libraries (example: java.util) that we may rely on
+must be in the same folder, or in the classpath (basically, the class libraries
+that the JRE has access to). Additionally, there may be other libraries
+beyond default Java libraries (like java.util and java.io) that we may rely on
 if we were building a more complicated program. We will address these
 complexities later, but the short version is to be thankful to your
 IDE for handling all of this for you.
@@ -212,10 +219,10 @@ IDE for handling all of this for you.
 ### .Jar files
 
 Another issue with the above code is that if we want to share the
-executable program Main above, we would have to share all four classes,
-as Main.class is only the bytecode of Main.java. We would then have
-to tell whoever we share the code with to run. This is a finicky 
-approach that requires a lot of effort on the part of the end user.
+executable program Main above, we would have to share all four classes.
+Main.class is only the bytecode of Main.java, not the other three classes. We 
+would then have to tell whoever we share the code with which .class file to run. 
+This is a finicky approach that requires a lot of effort on the part of the end user.
 
 Instead, wouldn't it be easier for them if we could send them one single file
 that contains all of the classes they need, and they just run that?
@@ -223,7 +230,8 @@ that contains all of the classes they need, and they just run that?
 This brings us to **jar files**. You can think of a .jar file kind of
 like a .zip file: it bundles several files together into a single file.
 In this case, we want to put all four of our class files from the example
-into a single jar.
+into a single jar. However, unlike .zip files, we can run .jar files
+as though they were a single Java class!
 
 We can build a .jar file from command-line; however, this is going
 to take a bit more work on our end than compiling a single java file.
@@ -257,17 +265,19 @@ To fix this, we can add the "entry flag" to our command:
 In the above command, notice we added "e" to the argument after jar. This tells
 the jar tool that we want to change the "entry point" (aka, "Main-Class") of our
 jar. The argument "example.Main" tells the jar program which class to set as the
-Main-Class. Note that the order of the arguments here are relevant.
+Main-Class. Note that the order of the arguments here are relevant, the first argument
+is the nam of the Jar, the second argument is the Main-Class, and the third argument
+is the classes to compile.
 
 **Do not worry about memorizing all of these commands.** Your IDE is going to take
 care of most of this. However, for the next unit, you should be comfortable with these
-two commands:
+two basic commands:
 
 ```java mypackage.MyClass```
 
 ```java -jar MyJar.jar```
 
-We will be using these commands in the next unit.
+We will be using these to run programs with command-line arguments in the next unit.
 
 However, for actually making jar files, we will eventually be using
 a tool called ```gradle``` which we will cover later. This tool
