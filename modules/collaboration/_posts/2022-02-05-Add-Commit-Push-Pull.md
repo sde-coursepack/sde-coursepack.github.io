@@ -101,8 +101,261 @@ Where you will see it on the right next to commit:
 
 ## Conflict Resolution
 
+A conflict can occur when you commit to a branch in the remote repository that
+someone else has pushed to since your last pull. An example of a situation that could create
+a conflict.
+
+1) Bob pulls from branch_a
+2) Steve pulls from branch_a
+3) Bob commits MyClass.java to branch_a and pushes
+4) Steve commits MyClass.java to branch_a
+5) Steve pulls from branch_a
+
+Now, just because two different people committed to the same
+file does not mean that a conflict necessarily occurs. Git tracks
+line numbers of files as changes are added and committed. If Steve
+and bob edit different lines of the file, then there is no conflict,
+git will automatically merge the changes without error or warning.
+
+Let's say they are working with the with HelloWho.java
+
+```java
+public class HelloWho {
+    public static void main(String[] args) {
+        String who = args[0];
+        System.out.println("Hello, " + who);
+    }
+}
+```
+
+Bob decides to add error handling via a try-catch block:
+
+```java
+public class HelloWho {
+    public static void main(String[] args) {
+        try {
+            String who = args[0];
+            System.out.println("Hello, " + who);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: No command line arguments");
+        }
+    }
+}
+```
+
+While Steve uses an if-statement
+
+```java
+public class HelloWho {
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            String who = args[0];
+            System.out.println("Hello, " + who);
+        } else {
+            System.out.println("Error: No command line arguments");
+        }
+    }
+}
+```
+
+Now, when Steve pulls, he gets a conflict!
+
+```java
+Auto-merging src/main/java/edu/virginia/cs/commandline/HelloWho.java
+CONFLICT (content): Merge conflict in src/main/java/edu/virginia/cs/commandline/HelloWho.java
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+I see a lot of students panic when they see this. But when you see this,
+**Don't panic!** Conflict resolution is Git isn't as bad as it sounds.
+
+When Steve opens the file in IntelliJ, he sees:
+
+![img.png](../images/vcs/git_conflict.png)
+
+The contents of the class are:
+
+```java
+public class HelloWho {
+    public static void main(String[] args) {
+<<<<<<< HEAD
+        if (args.length == 0) {
+            String who = args[0];
+            System.out.println("Hello, " + who);
+        } else {
+=======
+        try {
+            String who = args[0];
+            System.out.println("Hello, " + who);
+        } catch (ArrayIndexOutOfBoundsException e) {
+>>>>>>> 7bce35c8b1e70f4b3daf478d772546d554f07e96
+            System.out.println("Error: No command line arguments");
+        }
+    }
+}
+```
+
+Now, it's worth taking a second and talking about how Git labels conflicts. Remember
+here that this is from the perspective of Steve, who pulled *after* Bob
+pushed his changes:
+
+* Between `<<<<<<< HEAD` and `========` is Steve's code
+* Between `=======` and `>>>>>>> 7bce35c8b1e70f4b3daf478d772546d554f07e96` is the incompatible changes on the remote repository
+* The `=======` is a divider between these changes.
+
+Therefore, in this case, we can resolve this conflict by simply **picking which implementation we want**. Steve
+talks to Bob, and they decide the try-catch block approach is better. So Steve:
+* Deletes everything between `<<<<<<< HEAD` and `========`
+
+```java
+public class HelloWho {
+    public static void main(String[] args) {
+<<<<<<< HEAD
+=======
+            try {
+                String who = args[0];
+                System.out.println("Hello, " + who);
+            } catch (ArrayIndexOutOfBoundsException e) {
+>>>>>>> 7bce35c8b1e70f4b3daf478d772546d554f07e96
+                System.out.println("Error: No command line arguments");
+            }
+        }
+    }
+```
+
+* and the deletes the conflict indicator tags
+
+```java
+public class HelloWho {
+    public static void main(String[] args) {
+            try {
+                String who = args[0];
+                System.out.println("Hello, " + who);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Error: No command line arguments");
+            }
+        }
+    }
+```
+
+* Now Steve can simply commit this resolve file
+
+`git commit -m "resolved HelloWho conflict, used try-catch solution"`
+
+And now we're done! Resolving conflicts is easy when there aren't many. But **the only
+way to keep the problem manageable is to pull frequently, and push new changes frequently.**
+The more code you write between pulls and pushes, the larger and harder to resolve your conflicts
+will be.
+
+### No conflict, no problems? No!
+
+Note that even when a direct conflict doesn't occur, like the above, that
+doesn't mean changes are inherently compatible.
+
+Say MyClass.java looks like this when Bob and Steve pull
+
+```java
+public class MyClass {
+    private int MyNumber;
+    private String myText;
+    
+    public MyClass() {
+        MyNumber = 0;
+        myText = "Text";
+    }
+}
+```
+
+Now, Bob notices bad style, specifically that the variable MyNumber is
+written in a class-like style, with a capitalized first letter. So Bob
+catches this, and fixes it by refactoring the name of the variable:
+
+```java
+public class MyClass {
+    private int myNumber;
+    private String myText;
+    
+    public MyClass() {
+        myNumber = 0;
+        myText = "Text";
+    }
+}
+```
+
+Meanwhile, Steve is adding getter methods to MyClass, so he commits:
+
+```java
+public class MyClass {
+    private int MyNumber;
+    private String myText;
+    
+    public MyClass() {
+        MyNumber = 0;
+        myText = "Text";
+    }
+    
+    public int getMyNumber() {
+        return MyNumber;
+    }
+}
+```
+
+Now, Steve pulls Bob's changes. Git will automatically merge the files. Since Bob edited the second and
+sixth line of the class, and Steve added four lines after the constructor, there is no overlap. So the merged
+filed will look like:
+
+```java
+public class MyClass {
+    private int myNumber;
+    private String myText;
+
+    public MyClass() {
+        myNumber = 0;
+        myText = "Text";
+    }
+    
+    public int getMyNumber() {
+        return MyNumber;
+    }
+}
+```
+
+But now, Steve will have a syntax error! This is because the getter method references the variable
+`MyNumber`, which no longer exists. Instead, the variable name was changed to `myNumber`. Luckily
+for Steve, Bob wrote a useful commit message:
+
+`renamed MyNumber to myNumber`
+
+Just that simple message immediately communicates to Steve why the syntax error is there, and how
+to fix it. So, Steve changes his getter method to:
+
+```java
+    public int getMyNumber() {
+        return myNumber;
+    }
+```
+
+And now everything is fine.
 
 ## If you get stuck
 
+If all else fails, and you find that your repository has become unmanageable to work with in
+its current state (FUBAR - ... beyond all repair. You can fill in the F), sometimes the best
+option may be to do a reset.
+
+`git reset --hard`
+
+This will reset your repo to the state of the previous commit, discording all changes. If you
+don't want to lose those changes, you can either use 'git stash' **before the reset** or simply
+copy (not cut and paste) your working copy files to another, non-git folder on your computer.
+
+A "nuclear option", if all else fails, is to delete your *local* repository by deleting
+your project folder, and then re-cloning your repository. Generally, you shouldn't need
+to do this, but I can say when I was first learning version control, I did do this. If there
+are any changes you want to keep track of, you can simply copy those files to another folder
+before you delete your project folder, and then copy them back in after cloning.
 
 ## GitHub Permissions Issues on IntelliJ and Terminal
+
+If you are having any permissions issues in GitHub, see the **"Login/Permissions issues with GitHub"**
+in the **Git Basics** module.
