@@ -6,23 +6,175 @@ Title: Version Control
 
 When developing software, we need to be able to share
 code among the team, as well as release multiple versions of the software.
-After release, software continues to evolve, with new versions featuring
+Externally, as software continues to evolve, with new versions featuring
 bug fixes, new features, and compatible with new hardware or software.
+
+Internally, we track as the features are developed overtime. Every time
+anyone makes any changes to a file, they are creating a new
+version, even if they never share it with anyone.
+
+A *Version Control System* (VCS) is a system for tracking
+changes to files in a project overtime. VCS systems
+aren't just used with code! This website is stored
+using `git`, the Version Control System we will use
+in this class. [You can actually see the commit history
+for this website here!](https://github.com/sde-coursepack/sde-coursepack.github.io/commits/main)
 
 ## Version Control Usage
 
-### Safety - never lose old code
+Often, newer developers will think "We use version
+control to aid collaboration", which is absolutely
+true! But it's far from the only reason for using VCS!
+I just VCS (almost always git) for even independent
+development projects, either for fun or for class, even
+when I'm not working with anyone else. There are myriad
+benefits for this!
 
-### Debugging - find when defect introduced
+### Safety
+
+Have you ever been working on a project, deleted some
+old code, tried to replace it with something "better",
+only to get stuck, and then think to yourself:
+
+<img alt="Job Bluth from the show Arrested Development saying \"I've made a huge mistake.\" src="https://c.tenor.com/AVWcLTSiiZoAAAAC/arrested-development-season1.gif"/>
+
+I've done this! And when I was in undergrad, and not
+using version control systems (or using them poorly),
+I would be out of luck! I'd have to try to remember
+what I wrote, which I almost never did, and I wasted
+hours of time.
+
+With modern version control systems, especially if
+you are hosting a project on GitHub and/or using a
+great IDE like IntelliJ, you can quickly and easily
+time-travel to your earlier commits, get what you
+need, and bring the code back to the present with you!
+
+Additionally, if you are pushing to a remote
+repository, you don't have to worry if your hard drive
+fails, of your for some other reason you are unable
+to access the computer you wrote code on. It's
+all online and accessible!
+
+### Debugging
+
+In large software systems, it is often very easy
+to run into problems with **stability** (covered back
+in the software quality unit in Intro). That is, changes
+in one location in the code can have negative and
+unpredictable side effects for other parts of the code.
+
+However, if you practice proper test-driven development,
+as we will cover later in this course, and sufficiently
+test your code, you can often find these "would be" bugs
+before you share your code with others. Once you
+identify that a test is failing, and a bug must have 
+been introduced, you can step back through your commit
+history and find the commit where the bug first appeared.
+
+This will substantially narrow your search when trying
+to find and correct the bug!
 
 ### Collaboration
 
-### Deployment
+One of the most obvious benefits is how VCS supports
+collaboration between multiple people. A robust VCS
+system will allow multiple development branches, so
+individuals or tight-knit groups can work on individual
+features and incorporate them independent of other
+changes throughout the software project. Robust systems
+will alert you when two changes conflict with one
+another, ensuring a human is consciously deciding
+how to resolve the defect to avoid unexpected errors.
+A robust system can allow tracking of who worked
+on what, so if issues emerge, you know how the
+first person to talk to is.
+
+In particular, the VCS `git` ended up being the basis
+for an entire programming hub and social network, 
+GitHub.
 
 ### Conflict Detection
 
+When working together, programmers will not always
+pull in the same direction. While experienced software
+development teams will have a good idea what
+everyone is working on, there will still at times
+be situations where two people make changes to the project
+at roughly the same time that are not compatible.
+
+This is similar to race conditions you've talked
+about when talking about using Threads in Java, and
+we want to make sure race conditions are avoided when
+possible! Modern VCS systems will handle all
+threading aspects of handling commits, but they
+**will not resolve conflicts for you!** And this is
+a good thing!
+
+When a conflict is created by two programmers
+committing incompatible changes, the VCS system will
+alert the second committer that their commit creates
+a conflict. Then, the second committer will want
+to work with the first committer to decide how
+to best resolve the conflict. 
+
+A good VCS system handles compatible changes without
+manual effort, but **forces** the committers to take
+manual effort whenever there is a conflict, and helps
+inform the committers what the nature of the conflict
+is to best enable committers to make an appropriate decision
+on how to resolve the conflict.
+
+### Deployment
+
+When we say *deployment*, what we mean is releasing
+changes to a software product such that the customer
+can access them. Whenever you are prompted to download
+a software update, that is because the company *deployed*
+new changes to the software.
+
+This website is actually deployed by git! Whenever
+I push a change to the `main` branch, git rebuilds 
+the hosted website to reflect the new articles I've 
+written or anachronistic Arrested Development memes 
+I've posted, with no manual effort on my end! In fact
+many web services work this way! This process is often
+called Continuous Integration/Continuous Deployment (CI/CD).
+
+In many software projects (both open-source and 
+propriety, or closed-source), the `main` branch
+represents the software project in its current
+deployed state. When a push is made to main, a 
+Continuous Integration service will run a suite of
+tests written by the development team to ensure all
+known and tested for behavior is working correctly. If
+it passes, it will then deploy the changes to the website.
+From then on, customers going to the website will see
+the new features, bug fixes, etc.
+
 ### Regression Testing
 
+As part of deployment, I talked about running existing
+tests. Running an existing battery of pre-existing
+tests to ensure previously working features are still
+working is called regression testing. When we start
+writing tests, there is no reason to every throw them
+away! Once are tests are passing, they become our
+regression tests: our safeguard against breaking things
+that work.
+
+However, a VCS system can be setup to do things
+like reject pushes and merges to important 
+branches like `main`, or if a push causes a test
+to fail, not deploying that faulty push. Github
+features a tool called GitHub Actions, which is a
+CI (Continuous Integration) Tool that will automate
+this process. This adds visibility, as each commit
+that is run against the tests will have either a red-x
+for "Tests failed" or green check for "Tests passed",
+adding visibility to the development progress.
+
+---
 
 ## Centralized Repository
 
@@ -36,7 +188,7 @@ workstations, and when they want to record their work in the
 repository and share, they **commit**. When they want to get the work
 from the repository, they **update**.
 
-## ```cvs```
+### ```cvs```
 
 Concurrent Versions System (cvs), released in 1990 was an early
 centralized-repository system. It supports branching as well
@@ -52,7 +204,7 @@ This could lead to significant difficulties in maintaining the
 validity of the remote repository.
 
 
-## ```svn```
+### ```svn```
 
 Apache Subversion, or `svn`, is probably the most well known 
 centralized-repository VCS system. `svn` was very popular in
@@ -69,6 +221,8 @@ Mike from Breaking Bad would say, "No half-measures."
 This actually was beneficial for conflict resolution, which
 contributed to SVN's wide adoption. In fact, SVN was what
 I learned in undergraduate.
+
+---
 
 ## Distributed Repository
 
