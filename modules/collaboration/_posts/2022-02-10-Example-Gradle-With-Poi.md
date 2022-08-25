@@ -654,3 +654,40 @@ would look something like:
 These two pieces of code produce exactly the same printing, but one does so in much fewer lines. However,
 once you understand the basic of `streams`, including the `map` and `forEach` functions, this code is arguably
 even more readable, largely because it takes up so much less screen space.
+
+### `BallDontLieReader` and `NBATeamReader`
+
+These two classes will be brought up later, specifically when we talk about
+the JSON file-format, and how it is used in web-service APIs. `BallDontLieReader`
+reads information about the teams in the NBA from [https://www.balldontlie.io/](https://www.balldontlie.io/),
+a free API for getting NBA information. Specifically, the data is pulled
+from the [teams API output](https://www.balldontlie.io/api/v1/teams).
+
+This file format is JSON (JavaScript Object Notation). It is a common file
+format for sending raw-data (no HTML, no formatting, just information) over the
+internet. `NBATeamReader` then takes this JSONObject and parses it into a list
+of NBA Teams.
+
+However, without understanding the specific usages of the `org.json` Library,
+you can probably skim over the code an broadly understand what it does.
+
+* `BallDontLieReader` accesses the "Ball Don't Lie" API to get the JSON for NBATeams
+* `NBATeamReader` uses the JSONObject from `BallDontLieReader` to create a `List<NBATeam>`
+
+Why did I make two different classes to handle this? Why not just make one
+class that accesses the Web API *and* converts it to a List? This gets
+to the heart of the key idea of **modularity**, which is the core of software
+design. Generally, we want each class to be responsible for **one thing**. However,
+it can be difficult to precisely determine what "one thing" is. For example,
+if I did only have one class, I could describe it as:
+
+"This class pulls team data from the Ball Don't Lie API and returns it as a list."
+
+Does that sound like one thing? It can, if you don't look at it closely. But the
+dead giveaway that this is more than one thing is the word **and** in there.
+
+When you are designing classes or functions, and you find yourself describing them
+with "and" a lot, that's a hint that your code isn't as modular as it could be.
+Chances are, you could be breaking your classes and functions down into smaller
+and smaller pieces that are easier to test, easier to understand, and easier to maintain.
+
