@@ -178,9 +178,10 @@ Package: `org.apache.poi.xssf.usermodel.*`
 As a general design principle, we want our code to be as abstract as possible.
 This is because if, for example, Excel made a new file format, we could expect in
 time `org.apache.poi` to have packages for that new file format. For example
-if, say, Excel may a JSON based format, it might be something 
+if, say, Excel made a new JSON-based file format, it might be something 
 like `org.apache.poi.jssf.usermodel.*`. If, as much as possible, we use the
-abstract classes, then our code is much more reusable.
+abstract classes, then our code is much more reusable. We only have to 
+re-write one line (the Constructor call), but can still use our Worksheet from there.
 
 Consider the following function
 
@@ -198,9 +199,8 @@ Consider the following function
 This function takes in a List of NBA Teams, and a Workbook. Is this Workbook
 for '.xls', `.xlsx`, or something cool we haven't even heard of yet? It doesn't
 matter! In the same way we don't care what *kind* of List the first parameter is (ArrayList
-Vector, LinkedList), we don't care what *kind* of Workbook the second parameter is.
-
-The only time we need to reference the concrete-class is at creation. Thus,
+Vector, LinkedList), we don't care what *kind* of Workbook the second parameter is (HSSFWorkbook, 
+XSSFWorkBook, or something new). The only time we need to reference the concrete-class is at creation. Thus,
 we can just create the WorkBook, and then pass it to the above function.
 
 ```java
