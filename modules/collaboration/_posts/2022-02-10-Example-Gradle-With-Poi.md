@@ -4,6 +4,10 @@ Title: Gradle Example with Poi
 
 ## [Source Code Example](https://github.com/sde-coursepack/NBAExcelTeams)
 
+Note that this example also uses the package `org.json` in the class
+`NBATeamReader`, but you can ignore that for now. Just trust that
+the `NBATeamReader` class works as used in main.
+
 # poi
 
 Apache Poi is a library for reading and writing Microsoft
@@ -270,7 +274,7 @@ Note that setCellValue will also set the cells type. For example:
 
 * If you input a String, the cell type will be Text
 * If you input an int or double, the cell type will be Numeric
-* If you input a java.time.Date class, the cell type will be Date, etc.
+* If you input a java.util.Date class, the cell type will be Date, etc.
 * Separately, you can enter formula Strings with setCellFormula(String formula) if you are familiar with Excel formula syntax
 
 
@@ -318,6 +322,120 @@ your program's memory.
 
 ## Reading from XSSF Workbook
 
+Let's say we wanted to read a file like [sampleTeams.xlsx](https://github.com/sde-coursepack/NBAExcelTeams/raw/main/sampleTeams.xlsx)
+As you can see, this Spreadsheet is formatted like our output spreadsheet from the writing tool.
 
+I came up with an interesting query: "What NBA teams have good abbreviations?" I arbitrarily decided that a
+"good abbreviation" is on where the first 3 letters of the abbreviation match the city of the NBA Team. For example,
+the Atlanta Hawks have the abbreviation ATL, which matches the first three letters of Atlanta. On the other hand,
+the Brooklyn Nets ("BKN") have an awful abbreviation. 
 
-## Useful functions
+I wrote a program to answer this question in [`GoodAbbreviationReader.java`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/main/java/edu/virginia/cs/nbateams/GoodAbbreviationReader.java)
+
+A small note that sampleTeams.xlsx isn't *exactly* like the output of our `Main` class for the NBA writer. However,
+to make the files match perfectly, I would have to write a significant amount of more code to handle styling of cells
+in the Writer class, and I simply wanted to avoid that, as it would overcomplicated what these examples need to be:
+just a quick tutorial on writing to and reading from Excel files with 'poi'.
+
+Much like when writing, we are predominantly going to use Abstract class. The difference is that instead of
+saving a file at the end, we are opening the file at the beginning. Here is how we open an Excel file to be read:
+
+```java
+    private void openXLSXWorkbook() {
+        try {
+            FileInputStream inputStream = new FileInputStream(new File(filename));
+            workbook = new XSSFWorkbook(inputStream);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("Error: File " + filename + " not found");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+```
+
+You'll notice as a matter of style I'm keeping methods for opening files short. This is because I want to separate
+all the error handling that comes from opening a file from the actual reading of the file. I avoid having to
+worry about handling checked exceptions (`FileNotFoundException` and `IOException`) by just replace them with a
+`RuntimeException`. I find that this dramatically cuts down on the repetitive try-catch blocks I need, and keeps
+them away from the **interesting** code that is actually handling our reading logic.
+
+### Iterator<Row>
+
+We can step through all of the rows by using our `rowIterator` field. That variable is initialized in the function
+`getAllNBATeamsFromWorkbook()`.
+
+```java
+    private List<NBATeam> getAllNBATeamsFromWorkbook() {
+        Sheet worksheet = workbook.getSheet("NBA Teams");
+        rowIterator = worksheet.rowIterator();
+        if (!hasMoreRows()) {
+            throw new RuntimeException("Empty Spreadsheet!");
+        }
+        skipRow(); //skip header row
+        return getAllNbaTeamsFromRows();
+    }
+```
+
+You may notice something here you haven't seen me use a lot. a comment (on the line where skipRow() is called).
+You may have been told in earlier classes to comment your code. And you should!...when you are first learning how
+to code and don't know how to write expressive code. But consider the functions names and variable names I have.
+What do you think the function `skipRow()` does? Well, it tells the iterator to skip a row. The only clarification
+I needed was to say **why** I'm calling `skipRow()` where I am. This just clarifies what row I'm skipping.
+
+Generally, my goal is to write small functions that are written almost like prose. I hide all that gross low level
+logic of booleans and String operations inside function names that clearly explain **why the function exists**. We
+will talk more about this later in the Code Quality unit, but try to practice this in your code!
+
+Anyways, we initialize the `rowIterator` field. We use the `boolean` function `hasNext()` on the iterator to check if there
+are any more rows:
+
+```java
+    private boolean hasMoreRows() {
+        return rowIterator.hasNext();
+    }
+```
+
+and we loop through all the rows (after the header row) below:
+```java
+    private List<NBATeam> getAllNbaTeamsFromRows() {
+        List<NBATeam> teams = new ArrayList<>();
+        while(rowIterator.hasNext()) {
+            Row currentRow = rowIterator.next();
+            NBATeam team = getTeamFromRow(currentRow);
+            teams.add(team);
+        }
+        return teams;
+    }
+```
+
+The actual reading of the cell values takes place in:
+
+```java
+    private NBATeam getTeamFromRow(Row currentRow) {
+        int id = (int) currentRow.getCell(0).getNumericCellValue();
+        String abbreviation = currentRow.getCell(1).getStringCellValue();
+        String city = currentRow.getCell(2).getStringCellValue();
+        String name = currentRow.getCell(3).getStringCellValue();
+
+        String conferenceText = currentRow.getCell(4).getStringCellValue();
+        Conference conference = Conference.getConference(conferenceText);
+
+        String divisionText = currentRow.getCell(5).getStringCellValue();
+        Division division = Division.getDivision(divisionText);
+
+        return new NBATeam(id, name, city, abbreviation, conference, division);
+    }
+```
+
+Here you can see we are using the functions `getNumericCellValue()`and `getStringCellValue()`. There are
+also self-explanatory functions like:
+
+* getStringCellValue() - returns the cell contents as a String
+* getNumericCellValue() - returns the cells contents as a double (if you want an int, you have to type-cast).
+* getCellFormula() - returns a String with the text of the formula
+* getDateCellValue() - gets a Cell value as a java.util.Date object
+
+And so on ([you can see the available functions here](https://poi.apache.org/apidocs/dev/org/apache/poi/ss/usermodel/Cell.html)).
+Do be aware that if you try to run something like `getNumericCellValue` on a cell that isn't Numeric in Excel,
+your program will throw an exception. So be sure to check the formatting. There is a function `getCellType()` you can
+use as a type check, which returns a [CellType enumeration](https://poi.apache.org/apidocs/dev/org/apache/poi/ss/usermodel/CellType.html).
