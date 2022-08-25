@@ -671,7 +671,7 @@ of NBA Teams.
 However, without understanding the specific usages of the `org.json` Library,
 you can probably skim over the code an broadly understand what it does.
 
-* `BallDontLieReader` accesses the "Ball Don't Lie" API to get the JSON for NBATeams
+* `BallDontLieReader` accesses the "Ball Don't Lie" API to get the JSONObject for `NBATeamReader`
 * `NBATeamReader` uses the JSONObject from `BallDontLieReader` to create a `List<NBATeam>`
 
 Why did I make two different classes to handle this? Why not just make one
