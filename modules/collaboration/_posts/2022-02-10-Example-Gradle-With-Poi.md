@@ -520,6 +520,14 @@ compiler will ensure you don't make a mistake, because the compiler will ensure 
 with any modern IDE, you can use auto-complete to help you. This also has the benefit where each value is an `int` in
 disguise, making checking equality of two different ChessWinner variables much faster than checking Strings.
 
+Now, you may be thinking "Okay, but there are only two possibilities for conference: EASTERN and WESTERN, so let's use
+a `boolean`". And that's reasonable, but *what if that changes*. What if, say, the NBA expanded to 32 teams, as many
+suggest they are exploring, and in doing so switch to 4 conferences for scheduling reasons? **How many places in our
+code would __necessarily have to change?** With effective use of the enumerated type, the only place in our code
+where we will necessarily need to make changes is in the `Conference.java` file! This makes our code much more
+**stable**, where a change is one place doesn't have to propagate to other places! We will talk much more
+about this in Design.
+
 ### Hey, where are your comments?
 
 You may have noticed that I have barely any comments in my code. This isn't unintentional, nor is it laziness.
