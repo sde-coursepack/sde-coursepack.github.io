@@ -439,3 +439,154 @@ And so on ([you can see the available functions here](https://poi.apache.org/api
 Do be aware that if you try to run something like `getNumericCellValue` on a cell that isn't Numeric in Excel,
 your program will throw an exception. So be sure to check the formatting. There is a function `getCellType()` you can
 use as a type check, which returns a [CellType enumeration](https://poi.apache.org/apidocs/dev/org/apache/poi/ss/usermodel/CellType.html).
+
+All of this together results in the program printing:
+
+```java
+ATL : Atlanta Hawks
+BOS : Boston Celtics
+CHA : Charlotte Hornets
+CHI : Chicago Bulls
+CLE : Cleveland Cavaliers
+DAL : Dallas Mavericks
+DEN : Denver Nuggets
+DET : Detroit Pistons
+HOU : Houston Rockets
+IND : Indiana Pacers
+MEM : Memphis Grizzlies
+MIA : Miami Heat
+MIL : Milwaukee Bucks
+MIN : Minnesota Timberwolves
+ORL : Orlando Magic
+PHI : Philadelphia 76ers
+POR : Portland Trail Blazers
+SAC : Sacramento Kings
+TOR : Toronto Raptors
+UTA : Utah Jazz
+WAS : Washington Wizards
+```
+
+Sorry, if your favorite NBA team didn't make the list, it means they do not have a good abbreviation by my
+incredibly arbitrary standards.
+
+
+## Things in this code that may be new
+
+There's a lot of things in this code you maybe haven't seen before that I didn't mention in the tutorial
+above. We will talk about many of them in the Code Quality unit. I wanted to at least briefly point some out.
+
+### Enumerated Types
+
+Take a look at this code in the file Conference.java:
+
+```java 
+public enum Conference {
+  EASTERN,
+  WESTERN;
+
+  ...
+}
+```
+
+Ignore the function for now. This is called an **enumerated type**. An enumerated type is kind of like a boolean. A
+boolean has a small number of fixed values: `true` and `false`. However, in many situations where we have a small
+number of options, we still have more than two. For example, imagine two people playing Chess. We could imagine
+the games outcome is either the player with white pieces wins, the player with black-pieces wins, or the game is a draw.
+Because there are three options, a boolean doesn't really work.
+
+Now, you might think "We could use a String"!
+
+```java
+  String gameResult = "White wins!";
+```
+
+While this works, it's not a good solution where it comes to the project evolution. This is because this String
+will presumably always have to be written exactly the same. What if a programmer forgets a space? Or forgets
+if both W's are capitalized? And is there an exclamation point or a period? If you're working in a different class with
+10 tabs open, and needing to know exactly what value to use, it's going to be a pain to remember it or even look it up.
+
+However, what if instead you used an enumerated type?
+
+```java
+public enum ChessWinner {
+    WHITE,
+    BLACK,
+    DRAW
+}
+```
+
+Now, you can reference each possible value as `ChessWinner.WHITE`, or `ChessWinner.BLACK`, or `ChessWinner.DRAW`. The
+compiler will ensure you don't make a mistake, because the compiler will ensure it is typed exactly correctly. In fact
+with any modern IDE, you can use auto-complete to help you. This also has the benefit where each value is an `int` in
+disguise, making checking equality of two different ChessWinner variables much faster than checking Strings.
+
+### Hey, where are your comments?
+
+You may have noticed that I have barely any comments in my code. This isn't unintentional, nor is it laziness.
+Consider the one situation below where I actually used an in-line comment.
+
+```java
+    private List<NBATeam> getAllNBATeamsFromWorkbook() {
+        Sheet worksheet = workbook.getSheet("NBA Teams");
+        rowIterator = worksheet.rowIterator();
+        if (!hasMoreRows()) {
+            throw new RuntimeException("Empty Spreadsheet!");
+        }
+        skipRow(); //skip header row
+        return getAllNbaTeamsFromRows();
+    }
+```
+
+You may have been told in earlier classes to comment your code. And you should!...when you are first learning how
+to code and don't know how to write expressive code. But consider the functions names and variable names I have. I
+would wager confidently that each of these functions, on their own, are more readable than much heavily commented
+code you wrote in 1110 or 2100. Why? Because when I was a student taking those classes, **I wrote code the same way!**
+I wrote really large functions, with short variable names like `x` and `y`, and function names like `getList` and `read`.
+And I thought having short function and variable names was great, because I could type faster!
+
+Let me ask you a question: **without looking at the code for it**, shat do you think the function `skipRow()` does? 
+If you answered "it skips the next row", you're right! The only clarification
+I needed was to say **why** I'm calling `skipRow()` where I am. This just clarifies which row I'm skipping (the header row).
+I thought about naming the function `skipHeaderRow()`, without changing any code, but that would be confusing if I
+wanted to use this function in another context to skip another row. So I compromised by adding a comment
+
+Generally, my goal is to write small functions (if a function is 10 lines, it's probably too long) that are written 
+almost like prose. I hide all that gross low level logic of booleans and String operations inside function 
+names that clearly explain **why the function exists** and **what the function does**.
+
+I learned this practice from reading [__Clean Code__ by Bob Martin](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
+which I personally recommend very highly.
+
+We will talk more about this later in the Code Quality unit, but try to practice this in your code!
+
+### Java Streams and Lambda Bodies
+
+In the `main` function of `GoodAbbreviationReader`, we have the following:
+
+```java
+    List<NBATeam> teams = reader.getGoodAbbreviationTeams();
+    teams.stream().map(team -> team.getAbbreviation() + " : " + team.getCity() + " " + team.getName())
+        .forEach(System.out::println);
+```
+
+We will dive deeper into this structure later, but the basic idea is to loop through the list of teams returned
+from `reader.getGoodAbbreviationTeams()` and extract a String like `"WAS : Washington Wizards"`. So instead
+of changing the toString() function for teams, I am defining a new function that takes in an `NBATeam` object that
+we call `team` and concatenate that teams abbreviation, city, and name (with special characters and spacing) for 
+appearance. Then, on each of those Strings, we call `System.out.println`. The equivalent code without streams
+would look something like:
+
+```java
+    List<NBATeam> teams = reader.getGoodAbbreviationTeams();
+    List<String> teamStrings = new ArrayList<>();
+    for (NBATeam team : teams) {
+        teamStrings.add(team.getAbbreviation() + " : " + team.getCity() + " " + team.getName());
+    }
+    for (String teamString : teamStrings) {
+        System.out.println(teamString);
+    }
+```
+
+These two pieces of code produce exactly the same printing, but one does so in much fewer lines. However,
+once you understand the basic of `streams`, including the `map` and `forEach` functions, this code is arguably
+even more readable, largely because it takes up so much less screen space.
