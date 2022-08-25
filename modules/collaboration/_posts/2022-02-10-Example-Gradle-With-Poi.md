@@ -144,8 +144,6 @@ for "Reload all Gradle Projects".
 ![Showing the location of "Reload all Gradle Projects" button](../images/demo/reload_gradle.png)
 
 
-
-
 ### Relevant Classes
 
 We're going to look at the classes we need to use poi first. We will
@@ -173,6 +171,13 @@ Package: `org.apache.poi.xssf.usermodel.*`
 `XSSFRow` - represents a row in an `.xlsx` spreadsheet
 `XSSFCell` - represents a cell in an `.xlsx` spreadsheet
 
+Package: `org.apache.poi.hssf.usermodel.*`
+
+`XSSFWorkbook` - represents a `.xls` Workbook
+`XSSFSheet` - represents an individual Spreadsheet in an `.xls` spreadsheet
+`XSSFRow` - represents a row in an `.xls` spreadsheet
+`XSSFCell` - represents a cell in an `.xls` spreadsheet
+
 #### Which to use
 
 As a general design principle, we want our code to be as abstract as possible.
@@ -183,29 +188,53 @@ like `org.apache.poi.jssf.usermodel.*`. If, as much as possible, we use the
 abstract classes, then our code is much more reusable. We only have to 
 re-write one line (the Constructor call), but can still use our Worksheet from there.
 
-Consider the following function
+Consider the following function in the [class `NBATeamsExcelWriter`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/main/java/edu/virginia/cs/nbateams/NBATeamXSLXWriter.java)
+`:
 
 ```java
-    private void populateSaveAndCloseWorkbook(List<NBATeam> nbaTeamList, Workbook workbook) throws IOException {
-        Sheet worksheet = workbook.createSheet("NBA Teams");
-        Row titleRow = getNextRow(worksheet);
-        putStringArrayInRow(titleRow, COLUMN_HEADERS);
-        addTeamsToWorksheet(nbaTeamList, worksheet);
-        resizeColumns(worksheet);
-        saveAndCloseWorkbook(workbook);
+    private void addTeamsToWorkbook(List<NBATeam> nbaTeamList) throws IOException {
+        worksheet = workbook.createSheet("NBA Teams");
+        Row titleRow = getNextRow();
+        putHeaderStringArrayInFirstRow(titleRow);
+        addTeamsToWorksheet(nbaTeamList);
+        resizeColumns();
     }
 ```
 
 This function takes in a List of NBA Teams, and a Workbook. Is this Workbook
-for '.xls', `.xlsx`, or something cool we haven't even heard of yet? It doesn't
+for `.xls`, `.xlsx`, or something cool we haven't even heard of yet? It doesn't
 matter! In the same way we don't care what *kind* of List the first parameter is (ArrayList
 Vector, LinkedList), we don't care what *kind* of Workbook the second parameter is (HSSFWorkbook, 
 XSSFWorkBook, or something new). The only time we need to reference the concrete-class is at creation. Thus,
-we can just create the WorkBook, and then pass it to the above function.
+we can just create the WorkBook, and then store it in the `workbook` field.
 
 ```java
-    Workbook myWorkbook = new XSSFWorkbook();
-    populateSaveAndClose(myWorkbook);
+    private void openWorkbook() {
+        SSWorkbookFactory workbookFactory = new SSWorkbookFactory();
+        workbook = workbookFactory.getWorkbook(excelFilename);
+    }
+```
+
+All the logic about *which* type of spreadsheet we are using is handled
+by the `SSWorkbookFactory` class:
+
+```java
+public class SSWorkbookFactory {
+    public Workbook getWorkbook(String filename) {
+        if (filename.endsWith(".xlsx")) {
+            return new XSSFWorkbook();
+        } else if (filename.endsWith(".xls")) {
+            return new HSSFWorkbook();
+        } else {
+            throw new IllegalArgumentException(getIllegalFilenameError(filename));
+        }
+    }
+
+    private String getIllegalFilenameError(String filename) {
+        return "Error: illegal excel filename: " + filename + "\n" +
+                "\tFilename must end with .xlsx or .xls";
+    }
+}
 ```
 
 After that, we can treat it like a generic workbook to ensure our code
@@ -216,10 +245,24 @@ is reusable and flexible.
 To create a new `.xlsx` Excel Workbook, we have to do the following steps:
 1) Create a new XSSFWorkbook Object
 2) Populate the workbook with data
-3) Save the Workbook object with the intended filename
+3) Save the Workbook object with the intended filename and close it
+
+And if you look, this is exactly what our `writeNBATeamsToFile` function does:
+
+```java
+    public void writeNBATeamsToFile(List<NBATeam> nbaTeamList) throws IOException {
+        openWorkbook();
+        addTeamsToWorkbook(nbaTeamList);
+        saveAndCloseWorkbook();
+    }
+```
+
+Now, of course, it isn't this simple. I wrote all 3 of these functions. But
+writing our code this way can improve readability, as it becomes clear
+**exactly** what each function does.
 
 Let's say we wanted to generate the following spreadsheet. We've already covered
-1, so now let's dive into the [class `NBATeamsXSLXWriter`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/main/java/edu/virginia/cs/nbateams/NBATeamXSLXWriter.java)
+1, so now let's dive into the [class `NBATeamsExcelWriter`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/main/java/edu/virginia/cs/nbateams/NBATeamXSLXWriter.java)
 the function `populateSaveAndCloseWorkbook` in our code. We will go line by
 line, diving into the helper-functions as needed.
 
@@ -229,8 +272,8 @@ line, diving into the helper-functions as needed.
     Sheet worksheet = workbook.createSheet("NBA Teams");
 ```
 
-This creates a new worksheet. In an excel workbook, you can have multiple
-sheets if you want. But we must create our sheet first. Every sheet has a
+This creates a new worksheet. In an Excel workbook, you can have multiple
+sheets if you want. But before we can write to a sheet, we must create our sheet first. Every sheet has a
 name, so our name is "NBA Teams". This worksheet is initially blank.
 
 ### Row
@@ -277,12 +320,21 @@ Note that setCellValue will also set the cells type. For example:
 * If you input a java.util.Date class, the cell type will be Date, etc.
 * Separately, you can enter formula Strings with setCellFormula(String formula) if you are familiar with Excel formula syntax
 
+For example, in `putNBATeamArrayInRow`, we store the `id` of the team in
+a Numeric Cell:
+
+```java
+    private void putNBATeamArrayInRow(Row row, String[] contents) {
+        Cell idCell = row.createCell(0);
+        idCell.setCellValue(Integer.parseInt(contents[0]));
+        for (int columnIndex = 1; columnIndex < contents.length; columnIndex++) {
+            Cell newCell = row.createCell(columnIndex);
+            newCell.setCellValue(contents[columnIndex]);
+        }
+    }
+```
 
 ### Styling
-
-There are also a number of options to enter styling, but that's a pretty
-deep rabbit hole with a ton of options, and beyond the scope of what we need here.
-
 
 I do want to briefly point out one element of styling in the function `resizeColumns`
 
@@ -294,9 +346,11 @@ I do want to briefly point out one element of styling in the function `resizeCol
     }
 ```
 
-This is just a simple for-loop that goes through each column and autoSizes them so no text is cut off.
-This is about as far into styling as I want to go, but it's worth doing so your spreadsheet is readable.
-
+This is just a simple for-loop that goes through each column and auto-sizes
+the width so no text is cut off. This is about as far into the styling rabbit-hole
+as I want to go for now, but it's worth doing so your spreadsheet is readable.
+There are lots of tutorials and documentation on the `CellStyle` class in poi
+if you want to look into it, but you won't have to in this course.
 
 ### Saving the file
 
@@ -319,6 +373,8 @@ I'm writing the filename specified in the classes constructor.
 Always make sure to close both the `FileOutputStream` and the `Workbook`! If you
 don't close, the file may appear to not be written, as it's still open in
 your program's memory.
+
+---
 
 ## Reading from XSSF Workbook
 
