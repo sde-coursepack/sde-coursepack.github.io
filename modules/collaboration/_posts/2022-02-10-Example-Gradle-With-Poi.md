@@ -691,3 +691,12 @@ with "and" a lot, that's a hint that your code isn't as modular as it could be.
 Chances are, you could be breaking your classes and functions down into smaller
 and smaller pieces that are easier to test, easier to understand, and easier to maintain.
 
+## How confident are you that your code works?
+
+Ultimately, the role of testing is to increase your confidence in your code. You can
+never be absolutely certain that your code is bug-free. However, testing can increase
+your confidence. Do not think "does your code have defects" as a yes or no question.
+This is because you can never be certain the answer is "No".
+
+Instead, think of your confidence as a scalar. You can never be 100% confident your
+code as no defects. However, you can be *more* confident with more testing.

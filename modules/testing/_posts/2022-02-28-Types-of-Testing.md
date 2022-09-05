@@ -75,7 +75,7 @@ we aren't just testing `NBATeamReader` by itself, we are testing
 it **within the a larger operation** that combines the class with
 another class.
 
-Integration tests can also be automated. At this point, it may
+Integration tests can also typically be automated. At this point, it may
 seem like it isn't possible to test `NBATeamReader` **without also testing**
 `BallDontLieReader.` However, in a later unit (Unit Testing with Mockito),
 we will show you how to use mocking to create a "slice" of a program
@@ -85,7 +85,7 @@ in isolation.
 Much integration testing can be automated with tools like JUnit5.
 However, some integration testing, especially those dealing with
 User Interface or database connections, can require more significant
-testing construction. 
+testing construction and specialized libraries/architecture.
 
 For example, when testing with a real database
 connection, developers will often make a test database which does
