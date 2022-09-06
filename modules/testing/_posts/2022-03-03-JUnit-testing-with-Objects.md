@@ -255,7 +255,7 @@ act as misinformation.
 
 For example, in the above test, let's first consider:
 
-` assertEquals(6, myList.get(4), "6 not at the end of the list");`
+`assertEquals(6, myList.get(4), "6 not at the end of the list");`
 
 This is **unsound**. If you follow the tests, it's impossible for 
 size to be equal to `4` AND the value `6` to be at index `4`. If
@@ -264,7 +264,7 @@ causing this test to **fail**. This type of failure is called a **false positive
 
 Faulty tests can result in two types of errors:
 
-__False Positive__: A test fails, indicating a defect, but there is no defect with the code
+__False Positive__: A test fails, indicating a defect, but there is no defect with the code  
 __False Negative__: A test passes, but it shouldn't, as there is an underlying defect that the test fails to find
 
 It may seem odd that a "False Positive" is a **fail**, not a **pass**. However
