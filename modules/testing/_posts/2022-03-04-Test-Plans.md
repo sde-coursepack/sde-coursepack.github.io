@@ -20,15 +20,24 @@ So, collectively, we might test with inputs like [1, 2, 0, -4, -5], expecting ou
 
 This collection of tests forms a **Test Plan**.
 
+---
+
+
 ## How many tests?
 
 How much do we need to test each function? The answer is not obvious.
 
 In fact, there is **no perfect number** of tests to write for any hypothetical function. Instead, we want to use a systematic approach so that we write *enough* tests that are diverse enough to give us broad coverage of our input space.
 
+---
+
+
 ## Types of Tests
 
 Consider the class [`MySortedList`](https://github.com/sde-coursepack/TestingIntro/blob/main/src/main/java/edu/virginia/cs/testingintro/MySortedList.java) we have looked at before. Specifically, let's consider the functions `get(int index)`, `add(int value)`, and `contains(Object target)`. Generally, we want our test plan to contain at least some tests from each type.
+
+---
+
 
 ### Equivalence Tests
 
@@ -43,6 +52,9 @@ For example, imagine we have a `MySortedList` instance like [1, 3, 5, 7]. In thi
 
 Each of these cases generally show the basic, most common operation of the function we are testing.
 
+---
+
+
 ### Boundary
 
 Boundary cases are typically cases where there is something interesting or unique about the test case to seperate it from an equivalence case. For example:
@@ -51,6 +63,8 @@ Boundary cases are typically cases where there is something interesting or uniqu
 * `add(6)` to an instance of `MySortedList` that already contains a `6`; it's worth seeing how this is handled, to ensure that we can add multiple of the same element to our object and it still behave as intended.
 * `get(4)` called on an instance of `MySortedList` with 5 elements. In effect, getting the *last* element is interesting enough to warrant special consideration. Similarly, `get(0)`, or get the first element, can also be interesting.
 * `contains(3)` on an empty instance of `MySortedList` is also interesting, as we want to return false. However, empty collections can always pose an issue as a crash risk.
+
+---
 
 
 #### contains quandry
@@ -65,6 +79,8 @@ In my opinion, this is clearly an **equivalence** case. That is, just because th
 
 For example, consider the function `isOdd(int x)` from earlier. `isOdd(5)` should return `true`, and `isOdd(6)` should return `false`. But is either case a **boundary** case? No! Both are completely typical uses cases of our `isOdd` function.
 
+---
+
 
 #### What about find?
 
@@ -72,11 +88,12 @@ Now consider the function `find(int target)`. In our same `MySortedList` instanc
 
 But now consider `find(4)`. Once again, take a minute and think about it, and decide if you think this is an **equivalence** or **boundary** test case.
 
----
-
 In this case, this is now a **boundary** test case. The reason is that `find` is based on `indexOf` in the Collections framework. `find` should return the index of the first element equal to target. However, if the element is not found in the list at all, then the function should return `-1`. The value `-1` is an example of a **sentinel value**. That is, the value returned doesn't literally mean "the item is at index -1", but rather -1 acts as a form of "special value", meaning "target not found." In general, we should actually avoid using sentinel values in our code, but `indexOf` returning -1 meaning "not found" is traditional and well understood, so it's still around.
 
 It may seem odd that we consider `contains(4)` in the above case an **equivalence** case, while `find(4)` is a boundary case. In truth, there isn't a clear black-and-white line between the two cases. To some extent, whether a case is equivalence or boundary can be subjective. In either case, it depends *heavily* on the context of the specific function.
+
+---
+
 
 ### Exception
 
@@ -86,12 +103,18 @@ Exception test cases are test cases that cannot be meaningfully executed correct
 
 On the other hand, `contains`, `find`, and `add` have no exception cases. This is because these functions should never throw an exception with valid syntax.
 
+---
+
+
 ### Robustness
 
 Robustness test cases are cases that are **syntactically valid** but
 **semantically** meaningless. Often times in these cases, it may be unclear how they are intended to behave, and it may be worth checking the specification itself.
 
 * `contains("Three")` is a syntactically valid way to call the `contains(Object target)` function. However, semantically, it wouldn't make sense to call `contains` with a String when our underlying ArrayList is made up of Integers. In general, Java Collections allow you to call contains on a Collection made up non-matching datatype. It just returns false. The metaphor I use is you can go to a grocery store and ask "Hey, do you have any Computers for sale?" The answer is obviously no because grocery stores sell food, not computers. But even though the answer is no, the question itself is still valid.
+
+---
+
 
 ## What about when we don't know?
 
@@ -110,12 +133,18 @@ Now consider calling this function with a negative input:
 
 What does this **mean?** Is this meant to deposit 50 dollars? Should this be accepted? In this situation, we may have found a *gap* in the specification and should work with our team to clarify the **intent** of the `withdraw` function. If may be that we should never allow a negative amount, at which point `withdraw(-50)` should be an **exception** case. OR, it may be that this is actually the intended way to handle depositing, at which point this would be an **equivalence** case. The point is: as written, with a specification that doesn't clarify intended behavior in this abnormal case, we cannot be certain.
 
+---
+
+
 ## So how many tests do I need?
 
-The next two modules should help us answer this question. Using the idea here, we will expand on our Test Plan analysis. Generally, we have two competing interests:
+The next three modules should help us answer this question. Using the idea here, we will expand on our Test Plan analysis. Generally, we have two competing interests:
 
 * We want to test our code thoroughly enough so that we are justifiably confident in its correctness
 * We don't want to test **for the sake of testing**. Writing unnecessary tests that do not improve our confidence in the correctness of our code is a waste of time. We therefore want to reasonably limit the number of tests we write.
+
+---
+
 
 ## "Perfect" Testing
 
@@ -128,6 +157,6 @@ However, while I cannot confidently say what a perfect car is, I can point out f
 
 The point is, while we can't easily say in the abstract what a perfect car is, we can point out flaws in a **specific** car, and note clear places where the car failed.
 
-**We should approach test plans with the same idea.** We can't have a theoretically perfect test plan, but if we notice any glaring flaws in our test plan, we should work to fix them. If we find a bug that isn't accounted for in our tests, we should add a test to catch that bug!
+**We should approach test plans with the same idea.** We can't have a theoretically perfect test plan, but if we notice any glaring flaws in our test plan, we should work to fix them. If we find a bug that isn't accounted for in our tests, we should add a test to catch that bug! If we find an obvious missing test case, we should add it. If we notice a class has not been tested, we should test it!
 
 Unlike cars, we can alter our test plan whenever we need. We don't have to just sell it and hope for a better car next time.

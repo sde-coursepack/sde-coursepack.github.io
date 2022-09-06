@@ -2,9 +2,14 @@
 Title: Black-Box Testing
 ---
 
+The next three modules will show the construction of test cases for a single function, `calculateBill`, and how we would approach it.
+
 # Black-Box Testing
 
 The idea of Black-Box testing is that we select what test scenarios to write according to the *specification* of the modules we are testing (typically a function). We are testing the **interface**, not the **implementation**.
+
+---
+
 
 ## Strategies
 
@@ -20,7 +25,7 @@ One idea is to pick inputs at random, then working out the expected output based
 
 ## Equivalence Partitioning
 
-The idea of **partitioning** is to break up something big into something small. In the case of black-box testing, equivalence partitioning is breaking up our **equivalence** cases into groups that largely behave the same.
+The idea of **partitioning** is to break up something big into something small. For example, many large conference rooms can be partitioned with sliding walls, breaking one large ballroom into 2, 3, 4, or more smaller conference rooms. In the case of black-box testing, equivalence partitioning is breaking up our **equivalence** cases into groups that largely behave the same.
 
 In our last unit, we considered **equivalence** test cases. However, within our **equivalence** test cases, we can have several groups of test cases that behave different. Imagine a situation where you are in charge of implementing the function `Math.abs(int x)`, which is the **absolute-value** function for integers.
 
@@ -38,6 +43,9 @@ This tells us we want to write **at least one test** for each partition, but we 
 
 Think about it. If we know that `Math.abs(4)` is working, do we *need* to test `Math.abs(5)`, `Math.abs(6)`, `Math.abs(327)`? Is there any reason to believe those numbers behave differently? No. So additional tests like this end up being "testing for the sake of testing", which isn't progress.
 
+---
+
+
 ## Boundary Test Cases
 
 However, we want to pay special attention to the **boundary** cases. In our `Math.abs` partitions, notably absent is the number `0` (zero). Zero as a number is neither positive nor negative. In fact, zero sits **on the mathematical boundary** between these two partitions. As such, we would want to consider this boundary as a
@@ -50,6 +58,9 @@ As such, our test plan now is 3 tests:
 3. `Math.abs(0)`
 
 From here, we can write these test cases in JUnit.
+
+---
+
 
 ## Multiple Inputs Examples
 
@@ -86,6 +97,9 @@ Follow the specification steps IN ORDER
 4) Return the sum of total and overdue
 
 Using this specification, let's design some test cases we can use to test our function as we write it.
+
+---
+
 
 ### Inputs
 
@@ -133,6 +147,9 @@ The boolean value `isExempt` will determine whether or not we apply interest to 
 1. "YesExempt" - true
 2. "NoExempt" - false
 
+---
+
+
 ### Combining our partitions
 
 In total, we now have several partitions for each field:
@@ -157,7 +174,10 @@ Now, you may have combined partitions differently, but we will start working wit
 
 I highlighted **bare minimum** in the last second because this should be seen as the bare minimum. A fault with this approach is assuming that the values of each input are independent of one another. However, **certain combinations of partitions** may be specifically important! When reading a specification, you should consider how partitions relate to one another. In fact, we will show in our next unit how these tests are insufficient. Just keep that in the back of your mind for now.
 
-### Next Steps
+---
+
+
+## Next Steps
 
 Be aware that as of yet, we have not written `calculateBill` or any JUnit tests. This is intentional! This is
 because we are practicing **Test Driven Development**. 

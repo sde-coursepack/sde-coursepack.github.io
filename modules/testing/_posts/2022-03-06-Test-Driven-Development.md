@@ -6,17 +6,22 @@ Title: Test Driven Development
 
 For this module, we are going to write the tests **before** we implement the method. This practice is called Test-Driven Development, or TDD. While we will go into more specifics later, the primary idea of TDD is to write tests *first* that describe the specification **first**, and only implement the method after the code is written. There are a number of advantages to this approach, key among them being we know we're done developing when all our tests are passing.
 
+---
+
+
 ## Our Test plan so far
 
 As of yet, we haven't written any code. Instead, we are still designing our test plan.
 
 Last time, we used the Black-Box test plan strategy of **equivalence partitioning** to design the three following unit tests.
 
-| Test# | courseCount | overdue | exempt |
-|-------|-------------|---------|--------|
-| 1     | 2           | 2500    | false  |
-| 2     | 5           | 1500    | true   |
-| 3     | 8           | 2500    | false  |
+| Test# | courseCount  |  overdue  |  exempt  |
+|:------|:------------:|:---------:|:--------:|
+| 1     |      2       |   2500    |  false   |
+| 2     |      5       |   1500    |   true   |
+| 3     |      8       |   2500    |  false   |
+
+---
 
 
 ## Calculated expected return values
@@ -28,6 +33,8 @@ We now want to break out a calculator, maybe some pencil and paper, and work out
 | 1     | 2           | 2500    | false  | 20350           |
 | 2     | 5           | 1500    | true   | 31500           |
 | 3     | 8           | 2500    | false  | 51150           |
+{:.mbtablestyle}
+
 
 ### Other output?
 
@@ -43,8 +50,13 @@ This means in addition to our return value, the ending value of `overdue` is als
 | 1     | 2           | 2500    | false  | 20350       | 2750         |
 | 2     | 5           | 1500    | true   | 31500       | 1500         |
 | 3     | 8           | 2500    | false  | 51150       | 2750         |
+{:.mbtablestyle}
+
 
 As a result, in Test 1 and Test 3, we expect the value of overdue to change, while in test 2 we expect it to remain the same.
+
+---
+
 
 ## Writing a Stub
 
@@ -102,7 +114,10 @@ Finally (**don't forget our other output**), we can add our assertion that check
 
 We can write our other two tests this way. 
 
-### Warning - We aren't doing TDD right!
+---
+
+
+### Warning - TDD Misuse!
 
 A quick note that, generally, in Test Driven Development standard practice, you are supposed to write **one test** at a time, and for each test write "just enough" code to make the last test pass. For now, though, let's assume we have written all three tests. We will go over more rigorous practice in the TDD Workflow Unit.
 
@@ -113,6 +128,7 @@ From there, we can **run** our tests and...they all fail! Which shouldn't surpri
 | 1     | 20350       | 2750         | 0           | 2500         |
 | 2     | 31500       | 1500         | 0           | 1500         |
 | 3     | 51150       | 2750         | 0           | 2500         |
+{:.mbtablestyle}
 
 Note that for space, I have removed the inputs from this and future tables. However, the inputs of each test have not changed and will not change for the remainder of this module.
 
@@ -151,6 +167,7 @@ Now, we run our tests, and we get:
 | 1     | 20350       | 2750         | 20350       | 2500         | FAIL   |
 | 2     | 31500       | 1500         | 31500       | 1500         | PASS   |
 | 3     | 51150       | 2750         | 51150       | 2500         | FAIL   |
+{:.mbtablestyle}
 
 Oh no! Two of our tests failed! Why did this happen! Well, if we look, our actual return matches are expected return in all three tests. However, anytime we expected overdue to change, it didn't! You realize that while you multiplied `overdue` by `1.1` when you were supposed to, you never actually stored the new value of `overdue`. So,
 you write a quick fix, simply copying and pasting `overdue = overdue * 1.1;` before each time you did the multiplication, and then delete the `* 1.1` in the return statement.
@@ -190,6 +207,7 @@ And run your tests again, and you get:
 | 1     | 20350       | 2750         | 18750       | 2750         | FAIL   |
 | 2     | 31500       | 1500         | 31500       | 1500         | PASS   |
 | 3     | 51150       | 2750         | 46750       | 2750         | FAIL   |
+{:.mbtablestyle}
 
 Oh no! We fixed the overdue issue, but broke the return value! Well, the culprit is actually when we changed:
 
@@ -246,6 +264,7 @@ And now we run our tests:
 | 1     | 20350       | 2750         | 20350       | 2750         | PASS   |
 | 2     | 31500       | 1500         | 31500       | 1500         | PASS   |
 | 3     | 51150       | 2750         | 51150       | 2750         | PASS   |
+{:.mbtablestyle}
 
 All right! Now our three of our tests are passing!
 

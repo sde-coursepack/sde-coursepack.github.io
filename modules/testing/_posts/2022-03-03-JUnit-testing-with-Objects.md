@@ -16,6 +16,9 @@ we are using object-oriented design we cannot just test
 the input arguments and output values and have a sufficiently
 complete picture of our code.
 
+---
+
+
 ## Different from testing methods
 
 Consider the class [`NumberChanges`](https://github.com/sde-coursepack/TestingIntro/blob/main/src/main/java/edu/virginia/cs/testingintro/NumberChanges.java).
@@ -29,6 +32,9 @@ For example, in a given instance, `nc`, of `NumberChanges` if:
 
 Then that means the *current* value of `number` for the instance
 `nc` is 7, and that number has been changed (`changes`) 4 times.
+
+---
+
 
 ## Testing state changes
 
@@ -46,14 +52,17 @@ In this case, our **input** is the **state** of `nc` **before** we
 call `nc.setNumber(13)`, and the **output** is the **state** of `nc`
 **after** we call `nc.setNumber(13)`
 
+---
+
+
 ## Writing our test
 
 When testing with objects where we are checking for **state changes**,
 we follow the following recipe:
 
-1) Create the test object and configure it into the starting state
-2) Execute the operation to be tested
-3) Check the state of the object after the operation to ensure it changed as specified
+1) Create the test object and configure it into the starting state  
+2) Execute the operation to be tested  
+3) Check the state of the object after the operation to ensure it changed as specified  
 
 Using our above example, we can write the test:
 
@@ -89,14 +98,18 @@ this more in "Only call the tested operation once" below.
 
 2) Execute the operation to be tested
 
-```nc.setNumber(13);```
+```java
+    nc.setNumber(13);
+```
 
 Note that if this function returned something, we could test 
 the output value with an assertStatement. For
 example, imagine `setNumber` returned a boolean (`true` if the
 number changed, `false` if it didn't.) Example:
 
-```asserTrue(nc.setNumber(13));```
+```java
+    assertTrue(nc.setNumber(13));
+```
 
 However, in this case, our method **is** void, so there's no
 output to check.
@@ -112,7 +125,10 @@ because the method can change *both* numbers, so we want to ensure
 that both are changing correctly! **It is not sufficient to only
 test `nc.getNumber()` OR `nc.getChanges`.
 
-### A second test case:
+---
+
+
+## A second test case:
 
 Of course, as we test this method, there is another case to
 consider. What if we call `setNumber(7)`, where the number is
@@ -143,6 +159,12 @@ from our first one. This is because we are testing two **different behaviors**.
 We want to keep these tests separate, as it's possible that one test **fails**
 while the second test **passes**. Depending on which test fails, the
 kind of bug we would be looking for would change.
+
+---
+
+## Good testing rules
+
+Just like any other skill, there are good practices and bad practices. The next section describes some common practices in writing unit tests.
 
 ### One operation per test
 
@@ -222,7 +244,10 @@ our test are also a crucial tool to help us communicate how
 to use our code correctly! It is vital to be able
 to read and understand tests.
 
-#### Sound Tests
+---
+
+
+### Sound Tests
 
 A **sound** test is one that correctly tests against the specification.
 If a test is **unsound**, that means it is incorrect, and will
@@ -252,6 +277,9 @@ indicates that we don't need to look deeper for defects there.
 fails, the first thing you should check is always to make sure
 that the **failing test is sound.** Do not start debugging until
 you have verified that the test is sound!
+
+---
+
 
 ### One assertion per test?
 
@@ -313,11 +341,14 @@ clearly states "this function can change both of these fields, but
 in this particular setup it doesn't". Because it's all in one
 test, I think of it as **a single operation that affects both fields.**
 When I split them into two tests, the two test independently are less
-**readable**, because each of them tells only half the story.
+**understandable**, because each of them tells only half the story.
 
 To be clear, I am not saying one assertion per test is a bad idea.
 However, I personally practice "One Operation per test" and find it
 sufficient for my needs and leads to more understandable tests.
+
+---
+
 
 ### Only call the tested operation **once**
 
@@ -343,6 +374,9 @@ particular, or was it several? It becomes very hard to know. As
 such, it's better to manually set the state of the object in a
 controlled way that doesn't rely on the very methods you are trying
 to test.
+
+---
+
 
 ## Setting up test objects
 
@@ -465,6 +499,9 @@ to re-run this method **before every test** to ensure that if any
 test changes the state of `myAddTestList`, that the list is reset
 before running the next test.
 
+---
+
+
 ### @BeforeEach tag
 
 ```java
@@ -511,6 +548,9 @@ This allows us to create one or more test objects all in one place,
 which reduces the repetition in our tests (and thus to desire
 to copy and paste code).
 
+---
+
+
 ## What methods to test?
 
 In general, we want to test all `public` and `protected` methods in a given class
@@ -547,6 +587,9 @@ If we are testing on `private` fields and methods, we will have
 tests that prevent the code from changing. Instead, we want
 our **implementation** to be as flexible as possible, and test
 only the **interface** of our classes.
+
+---
+
 
 ## How many tests do we need to write?
 
@@ -586,6 +629,9 @@ there is no perfect answer to the questions "How many tests should
 I write". However, there are strategies we can use to determine
 how many tests we should write depending on our level of uncertainty,
 and that will be the focus of the next module: Test Plans
+
+---
+
 
 ## Accessing private fields
 
