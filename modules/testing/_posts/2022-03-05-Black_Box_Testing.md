@@ -330,9 +330,9 @@ And run your tests again, and you get:
 Oh no! We fixed the overdue issue, but broke the return value! Well, the culprit is actually when we changed:
 
 ```java
-            } else {
-				return (total + overdue) * 1.1;
-			}
+        } else {
+            return (total + overdue) * 1.1;
+        }
 ```
 
 into 
