@@ -10,13 +10,13 @@ The specification read:
 
 Follow the specification steps IN ORDER
 1) First, calculate total:
-    * All courses cost the same, and cost per course is determined by the number of courses taken
-    * $8000/ course if less than 3 course
-    * $6000/ course if 3-6 course
-    * $5500/course if greater than 6 courses
-2) Increase the value total by 10% if overdue is greater than 2000
+   * All courses cost the same, and cost per course is determined by the number of courses taken
+   * $8000/ course if less than 3 course
+   * $6000/ course if 3-6 course
+   * $5500/course if greater than 6 courses  
+2) Increase the value total by 10% if overdue is greater than 2000  
 3) Increase the value of the field overdue amount by 10% if **exempt** is false (this is done AFTER step 2)
-    * if **exempt** is true, this penalty is waived, and overdue does not change.
+   * if **exempt** is true, this penalty is waived, and overdue does not change.  
 4) Return the sum of total and overdue
 
 In Black-Box testing, we select what test cases to write based on the specification. 
