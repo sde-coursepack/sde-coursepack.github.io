@@ -311,6 +311,69 @@ You can see my commits are on the scale of minutes (save for a two hour gap wher
 
 However, the tests as they are right now are "dirty code." That is, they are very repetitive, and someone disorganized. In the Code quality unit, we will look back at this class and clean it up (albeit in another branch so this module isn't affected).
 
+For instance, here is the "equivalence case" test for addBooks
+
+```java
+@Test
+public void checkOutEquivalenceTest() {
+        Map<Book, Integer> testBookCopies = new HashMap<>();
+        List<Patron> patronList = new ArrayList<>();
+        Book gardensOfTheMoon = new Book(1,
+                "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
+                "Steven Erikson");
+        List<Book> patronCheckedOut = new ArrayList<>();
+        Patron testPatron = new Patron(12, "John", "Smith", patronCheckedOut);
+        Library testLibrary = new Library(testBookCopies, patronList);
+        testBookCopies.put(gardensOfTheMoon, 2);
+        patronList.add(testPatron);
+
+        testLibrary.checkOut(testPatron, gardensOfTheMoon);
+        assertEquals(1, testBookCopies.get(gardensOfTheMoon),
+                "Library has wrong number of copies of test book");
+        assertTrue(patronCheckedOut.contains(gardensOfTheMoon),
+                "Patron doesn't have test book in their checked out list");
+        assertEquals(1, patronCheckedOut.size(), 
+                "Patron doesn't have right number of books checked out");
+        }
+```
+
+And here is the test case for trying to check out when no more copies are available:
+
+```java
+    @Test
+    public void checkOutNoMoreCopiesTest() {
+        Map<Book, Integer> testBookCopies = new HashMap<>();
+        List<Patron> patronList = new ArrayList<>();
+        Book gardensOfTheMoon = new Book(1,
+                "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
+                "Steven Erikson");
+        List<Book> patronCheckedOut = new ArrayList<>();
+        Patron testPatron = new Patron(12, "John", "Smith", patronCheckedOut);
+        Library testLibrary = new Library(testBookCopies, patronList);
+        testBookCopies.put(gardensOfTheMoon, 0);
+        patronList.add(testPatron);
+
+        assertThrows(RuntimeException.class, () ->
+                testLibrary.checkOut(testPatron, gardensOfTheMoon));
+        assertEquals(0, testBookCopies.get(gardensOfTheMoon),
+                "Library should till have no copies");
+        assertFalse(patronCheckedOut.contains(gardensOfTheMoon),
+                "Patron doesn't have test book in their checked out list");
+        assertEquals(0, patronCheckedOut.size(),
+                "Patron doesn't have right number of books checked out");
+    }
+```
+
+Notice a couple of things:
+1) How long the test is
+2) How much is the test is just *setup* - that is, preparing the initial objects
+3) How repetitive the tests are
+4) The fact that this test relies on the `Patron` class and `Book` class and being reasonably implemented
+
+In the future, we will look at how we can avoid *some* of these challenges.
+
+
+
 ## Conclusion
 
 You might be thinking this is overkill, but it isn't. This is how to develop code that you can be confident in, and that you can work with long term. By testing in this way, I'm catching bugs before they get introduced, and ensuring my code works **the way I intended it to**. Without testing, I only **hope** my code works. With testing, I can be confident that it actually does.
