@@ -160,10 +160,12 @@ If I had any conflicts, I would handle them, and then commit.
 
 **Merging from feature branch to development**
 
+```shell
 PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git checkout development
-Switched to branch 'development'
+    Switched to branch 'development'
 PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git merge my_new_branch
-Updating c54b5fd..5f305f1
-Fast-forward
-src/main/java/edu/virginia/cs/Main.java | 2 +-
-1 file changed, 1 insertion(+), 1 deletion(-)
+    Updating c54b5fd..5f305f1
+    Fast-forward
+    src/main/java/edu/virginia/cs/Main.java | 2 +-
+    1 file changed, 1 insertion(+), 1 deletion(-)
+```
