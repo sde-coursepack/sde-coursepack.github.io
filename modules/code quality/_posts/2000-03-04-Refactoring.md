@@ -8,4 +8,15 @@ Title: Refactoring
 
 ---
 
-## Code Smells
+## Refactoring in IntelliJ
+
+### Extract constants
+
+### Renaming Identifiers
+
+### Renaming Classes
+
+### Moving classes between packages
+
+### Change Signature
+
