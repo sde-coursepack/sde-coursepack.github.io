@@ -113,17 +113,17 @@ Let's update our words again:
     }
 ```
 
-At this point, you can probably start to understand better the **syntax** of this above code. For instance, you may not realize that `theList` must be an instance variable, since it isn't defined within the scope of our function. You can pick out which variable is used for the return value. 
+At this point, you can probably start to understand better the **syntax** of this above code. For instance, you may now realize that `theList` must be an instance variable, since it isn't defined within the scope of our function. You can pick out which variable is used as an accumulator for the return value. 
 
 ## Understandability
 
-**Readability** is a necessary but insufficient condition for **Understandability**.
+**Understandability** is a measure of the extent to which the *semantics*, or meaning and intent, of the code can be understood.
 
 You may now be able to explain what the above function does syntactically:
 
 "The function loops through a list of integer-arrays. If the first value of an integer-array is 4, that array is added to a list of integer-arrays that we output later."
 
-But being able to understand this syntax doesn't tell you "what is this function's role in our entire software system." 
+But being able to understand this syntax doesn't tell you "what is this function's role in our entire software system", and "why does this function exist".
 
 
 **Readability** *is a necessary but insufficient condition for* **Understandability**. That is, our code **cannot** be understandable if it isn't readable. However, just because our code is readable does not mean it is understandable.
@@ -146,9 +146,9 @@ I will rename the variables again, as well as the function. Read the following a
     }
 ```
 
-Since we have started this exercise, I have not changed the code in any syntactical way. By simply by adding spacing and better names, now it's starting to become clear what this function does. It returns a list of the cells that have been marked with a flag in Minesweeper!
+Since we have started this exercise, I have not changed the code in any syntactic way. But, by simply by adding spacing and better names, now it's starting to become clear what this function does. It returns a list of the cells that have been marked with a flag in Minesweeper!
 
-What is the int[]? It's a representation of a Minesweeper cell.
+What is the int[]? It's a representation of a Minesweeper cell! Now we're getting somewhere!
 
 ### Magic Numbers are bad
 
@@ -222,7 +222,7 @@ If I had showed you this code at the beginning of the this modules, you likely c
 * How would I get that other information?
 * How is the `gameGrid` list of cells created and stored?
 
-And all of these are good questions. In fact, necessarily, this function is forcing us to understand now just "what does this function do", but also "how does the cell integer-array work?". What if instead, we could **encapsulate** the ideas of the `cell` and the `gameGrid` into classes?
+And all of these are good questions. In fact, necessarily, this function is forcing us to understand not just "what does this function do", but also "how does the cell integer-array work?". What if instead, we could **encapsulate** the ideas of the `cell` and the `gameGrid` into classes?
 
 Well, if we do that, our code may look like:
 
@@ -243,11 +243,11 @@ Well, if we do that, our code may look like:
     }
 ```
 
-Notice now that this function does the same thing, but **hides** the details of how Cell and gameGrid work. What to check if a given `Cell` instance is flagged? Just called the `boolean` function `isFlagged()` and it will tell you! How does that function work? We don't need to know!
+Notice now that this function does the same thing, but **hides** the details of how `cell` and `gameGrid` work. Want to check if a given `Cell` instance is flagged? Just call the `boolean` function `isFlagged()` and it will tell you! How does that function work? We don't need to know!
 
-In this way, our **design**, storing the game grid and the cell information access inside of **classes** makes our code more readable.
+In this way, our **design**, storing the game grid and the cell information access inside of **classes**, makes our code more readable.
 
-This also has the added benefit where if we have to *changed how the Cell object is structured*, we won't have to changed this method at all! So long as the **interface** of the Cell function we use (`isFlagged`) doesn't change, this class will be unaffected if we change the inner workings of how a cell works.
+This also has an added benefit. If we had to *change how the Cell object is structured*, we won't have to change this method at all! So long as the **interface** of the Cell function we use (`isFlagged`) doesn't change, this class will be unaffected if we change the inner workings of how a Cell works.
 
 We will come back to that idea repeatedly during design.
 
