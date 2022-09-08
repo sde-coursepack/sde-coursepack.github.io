@@ -25,7 +25,7 @@ for this website here!](https://github.com/sde-coursepack/sde-coursepack.github.
 Often, newer developers will think "We use version
 control to aid collaboration", which is absolutely
 true! But it's far from the only reason for using VCS!
-I just VCS (almost always git) for even independent
+I use VCS (almost always git) for even independent
 development projects, either for fun or for class, even
 when I'm not working with anyone else. There are myriad
 benefits for this!
@@ -104,7 +104,7 @@ be situations where two people make changes to the project
 at roughly the same time that are not compatible.
 
 This is similar to race conditions you've talked
-about when talking about using Threads in Java, and
+about when using Threads in Java, and
 we want to make sure race conditions are avoided when
 possible! Modern VCS systems will handle all
 threading aspects of handling commits, but they
@@ -158,8 +158,8 @@ As part of deployment, I talked about running existing
 tests. Running an existing battery of pre-existing
 tests to ensure previously working features are still
 working is called regression testing. When we start
-writing tests, there is no reason to every throw them
-away! Once are tests are passing, they become our
+writing tests, there is no reason to ever throw them
+away! Once tests are passing, they become our
 regression tests: our safeguard against breaking things
 that work.
 
