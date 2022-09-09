@@ -133,7 +133,7 @@ So, for example, if I run this code with a file that doesn't exist:
 
 I still get a meaningful error message:
 
-```java
+```shell
 Exception in thread "main" java.lang.RuntimeException: java.io.FileNotFoundException: FileThatDoesntExist.txt (The system cannot find the file specified)
 	at ExceptionExample.readTextFile(ExceptionExample.java:37)
 	at ExceptionExample.main(ExceptionExample.java:57)
