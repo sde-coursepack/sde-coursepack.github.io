@@ -12,3 +12,10 @@ As fun as that sounds, no. **Defensive driving** is the idea that, when driving,
 
 Driving defensively is *driving so that if other drivers make a mistake, you won't get caught up in it.* You cannot control how other people drive. You can only drive in a way to maximize your own safety.
 
+## Exceptions
+
+
+## Generally avoid Error Codes
+
+
+

@@ -1,3 +1,0 @@
----
-Title: Code Smells
----
