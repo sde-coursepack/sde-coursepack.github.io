@@ -290,3 +290,24 @@ It is worth noting in this case, we could have checked the transaction at the st
 
 
 ## assert keyword
+
+One tool that can help *during development* (but not when you deploy) is the `assert` keyword. Similar to what *assertTrue* function does in JUnit, the `assert` statement takes the following format:
+
+`assert [boolean_statement]`
+
+If the asserted statement is `false`, then this results in an `AssertionError`, which is not the same as an exception, and cannot be caught with a `try-catch` for `Exception` or any sub-types.
+
+```java
+    public void withdraw(double amount) {
+        assert amount > 0 && amount <= balance;
+        balance -= amount;
+    }
+```
+
+However, by default in Java, `AssertionError`s are actually disabled. To enable `AssertionError`s to be thrown, you must add `-ea` to the VM Arguments (not command line arguments) in the run-configurations window:
+
+![img.png](../images/defensive/assertion_vm_arguments.png)
+
+Note that by default, VM arguments are hidden in IntelliJ. You can find them by clicking "modify options" (up and left of the class name you are running, in the above picture `BankAccount.main`). From there, click "add VM Options". They can also be enabled with the hotkey `Alt + V` in the run configurations window.
+
+However, `assert` statements should not be replied upon for deployed software! Instead, if you need an `assert` to enforce correct behavior, especially if the class is a library that will be used by client programs, then replace `assert` statements with `Exceptions`. 
