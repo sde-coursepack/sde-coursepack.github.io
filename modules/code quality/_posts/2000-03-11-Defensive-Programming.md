@@ -40,7 +40,253 @@ When developing our own classes, we have to consider **clients**. A client class
 
 ## Example: `BankAccount`
 
+Consider the following class BankAccount:
+
+```java
+public class BankAccount {
+    private final int id;
+    private double balance;
+    
+    public BankAccount(int id, double startingBalance) {
+        this.id = id;
+        this.balance = startingBalance;
+    }
+    
+    public BankAccount(int id) {
+        this(id, 0);
+    }
+}
+```
+
+For now, we simply have a constructor. Let's say that we are implementing this `BankAccount` for a new bank. The bank tells you that they want to ensure that no BankAccount can never have a negative balance. You start writing this constructor, and already, you notice a problem.
+
+Using this constructor, a client class could violate this rule:
+
+```java
+    BankAccount negativeAccount = new BankAccount(23145, -2000);
+```
+
+The above line creates a bank account with a negative balance. Because this is a constructor method, we can't "not return" an object. However, we also can't do something like "just set the balance the zero", because whatever client instantiates a BankAccount object this way is clearly confused about this "no negative balance rule." So, instead, we can throw an exception!
+
+### Creating our Exception
+
+```java
+public class NegativeBalanceException extends IllegalArgumentException{
+    public NegativeBalanceException(String message) {
+        super(message);
+    }
+}
+```
+
+I created an exception with its own error message that indicates why the constructor was used wrong when trying to create an account with the negative balance. Because this exception relates to illegal arguments in the constructor, I decided that `NegativeBalanceException` should extend `IllegalArgumentException`.
+
+Now, we update our constructor:
+
+```java
+    public BankAccount(int id, double startingBalance) {
+        this.id = id;
+        if (startingBalance < 0) {
+            throw new NegativeBalanceException(getNegativeBalanceMessage());
+        }
+        this.balance = startingBalance;
+    }
+
+    private String getNegativeBalanceMessage() {
+        return "Error: attempted to create account #" + id + " with a negative balance.";
+        }
+```
+
+## withdraw and deposit
+
+Consider the following simple functions for `withdraw` and `deposit` for our `BankAccount` class.
+
+```java
+    public void withdraw(double amount) {
+        balance -= amount;
+    }
+    
+    public void deposit(double amount) {
+        balance += amount;
+    }
+```
+
+These function perform the basic functionality we intend. But now, consider the `withdraw` function. Could this function
+be used to violate our "no negative balances" rule? Yes! We need to ensure no one can withdraw more money than their balance.
+
+
+### Error codes
+
+One way we could handle this is changing `withdraw` to a boolean function. For example:
+
+```java
+    public boolean withdraw(double amount) {
+        if (amount > balance) {
+            return false;
+        }
+        balance -= amount;
+        return true;
+    }
+```
+
+This approach falls under the example of "error codes". That is, return a value that indicates the function was used incorrectly. In this case, `true` means the transaction was valid and accepted, and `false` means it is not. There are cases where this approach is used. For example, the Java built-in `Set.add(E e)` function returns `true` if the object was added to the set, and `false` if it is not. However, one downside of error codes is that they can be ignored. The client calls the illegal `withdraw` call, and then proceeds asusming the call worked correctly, never checking the return value. To avoid this, we instead can use an exception:
+
+```java
+    public void withdraw(double amount) {
+        if (amount > balance) {
+            throw new InsufficientFundsException(getInsufficientFundsMessage(amount));
+        }
+        balance -= amount;
+    }
+
+    private String getInsufficientFundsMessage(double amount) {
+        return "Error: insufficient funds in account #" + id + " - balance: " + balance + 
+                " for transaction amount: " + amount;
+    }
+```
+
+With our `InsufficientFundsException` class:
+
+```java
+public class InsufficientFundsException extends RuntimeException {
+    public InsufficientFundsException(String message) {
+        super(message);
+    }
+}
+```
+
+### Order of statements
+
+Note that we check the pre-condition (`amount` shouldn't be greater than `balance`) *before* we perform the actual transaction. There is a reason for this. Say we do this in the opposite order:
+
+```java
+    public void withdraw(double amount) {
+        balance -= amount;
+        if (amount > balance) {
+            throw new InsufficientFundsException(getInsufficientFundsMessage(amount));
+        }
+    }
+```
+
+You might think this makes no difference, because after all, an Exception is being thrown. However, let's consider the programmer of the client class knows just enough about Exceptions to be dangerous, but not enough to actually work with the correctly. They might write code like the following:
+
+```java
+    BankAccount account = new BankAccount(8675309, 200);
+    account.withdraw(300);
+    System.out.println(account.getId() + " - " + account.getBalance())
+```
+
+Then, when the developer gets an `InsufficientFundsException` on line 2, they decide to "handle" the exception by adding a `try-catch` block, but they don't actually do anything:
+
+```java
+    BankAccount account = new BankAccount(8675309, 200);
+    try {
+        account.withdraw(300);
+    } catch (Exception e) {
+        //make the error go away
+    }
+    System.out.println(account.getId() + " - " + account.getBalance())
+```
+
+Now, obviously the above code is silly. But remember, we are practicing **defensive** programming. If, in our `withdraw` method, we change the balance **before** throwing, like we do in the most recent version of `withdraw`, this can result in incorrect behavior:
+
+```shell
+8675309 - -100.0
+```
+
+Our goal is to make our code **impossible to use incorrectly**. But the above breaks that rule. On the other hand, if we change our implementation of withdraw back to checking the pre-condition and, if necessary, throwing an exception **first**:
+
+```java
+    public void withdraw(double amount) {
+        if (amount > balance) {
+            throw new InsufficientFundsException(getInsufficientFundsMessage(amount));
+        }
+        balance -= amount;
+    }
+```
+
+...then running the above silly client code will print:
+
+```shell
+8675309 - 200.0
+```
+
+That is, the transaction never "goes through". We have ensured correct behavior, even if the client tries to get around our exceptions.
 
 
 
 
+### Another Example
+
+Consider our `transfer` function below:
+
+```java
+    public void transfer(BankAccount recipient, double amount) {
+        balance -= amount;
+        recipient.balance += amount;
+    }
+```
+
+Now imagine our bad client developer writes:
+
+```java
+        BankAccount a = new BankAccount(1234, 400);
+        try {
+            a.transfer(null, 200);
+        } catch (Exception e) {
+
+        }
+        System.out.println(a.getId() + " - " + a.getBalance());
+```
+
+In this case, our `transfer` function would throw a `NullPointerException` when we try to access `recipient.balance`. However, because of the try-catch handling, we still get erroneous behavior. The above code prints:
+
+```shell
+1234 - 200.0
+```
+
+...indicating that the first half the transfer (deducting from the BankAccount `a`) still occurred! We could fix this in two ways, either add a `null` check:
+
+```java
+    public void transfer(BankAccount recipient, double amount) {
+        if (recipient == null) {
+            throw new NullPointerException();
+        }
+        balance -= amount;
+        recipient.balance += amount;
+    }
+```
+
+...or we could simply reverse the order of our operations so a `NullPointerException` would be thrown *before* we adjust any values:
+
+```java
+    public void transfer(BankAccount recipient, double amount) {
+        recipient.balance += amount;
+        balance -= amount;
+    }
+```
+
+### Rollback and Throw
+
+Sometimes while executing a function, it may not be obvious that a given request will violate our pre- or post- conditions of our functions until after we have completed the transactions. In this case, if an erroneous state is detected, then it's important to **rollback** any changes the method made **before** throwing an exception, for the same reasons as in our `withdraw` case. That is, to make sure our code cannot be used to create an erroneous state.
+
+For instance, imagine in our `transfer` function, we checked the value of the balances of each account at the end and realize that the sending account now has a negative balance! Well, we can't let that stay, so we **rollback** the transaction, restoring both accounts to their starting balances, and then **throw**. However, the **rollback** must always occur before the **throw**.
+
+```java
+public void transfer(BankAccount recipient, double amount) {
+        recipient.balance += amount;
+        balance -= amount;
+        
+        if (balance < 0) {
+            //rollback
+            recipient.balance -= amount;
+            balance += amount;
+            //and throw
+            throw new InsufficientFundsException(getInsufficientFundsMessage(amount));
+        }
+    }
+```
+
+It is worth noting in this case, we could have checked the transaction at the start of the function to ensure that `amount` was greater than the sending account's `balance`. However, I checked the post-condition status instead simply for the purposes of illustrating **rollback and throw**. The point is that there may be a situation where checking the post-conditions of a given operation may not be feasible before executing that operation. If you ever find yourself in that situation, remember to always rollback before throwing an exception.
+
+
+## assert keyword
