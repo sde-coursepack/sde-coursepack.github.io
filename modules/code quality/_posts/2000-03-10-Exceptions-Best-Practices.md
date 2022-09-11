@@ -1,5 +1,5 @@
 ---
-Title: Exception: Best Practices
+Title: Exceptions-Best Practices
 ---
 
 # Exceptions
