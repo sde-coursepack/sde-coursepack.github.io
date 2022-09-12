@@ -4,8 +4,53 @@ Title: Exception: Best Practices
 
 # Exceptions
 
+Exceptions, or exceptional events, are situations where our code cannot meaningfully proceed in it's current state. For example, a `NullPointerException` means that you tried to call instance methods on a `null` object, which cannot have any instance methods.
+
+## When to throw exceptions
+
+When designing our functions and interfaces, we should use exceptions to enforce pre-conditions and post-conditions of our function (like we did in the last modules with `BankAccount`).
+
+```java
+    public boolean isPrime(int number) {
+        if (number <= 0) {
+            throw new RuntimeException("isPrime can only be called positive inputs. Was called with " + number);
+        }
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+```
+
+## When not to throw exceptions
+
+You should never throw exceptions along with try-catch as a way of handling control-flow. For example, the following code is **bad** and should not be used:
+
+```java
+    //Don't do this!
+    public <E> boolean isValidIndex(List<E> list, int index) {
+        try {
+            list.get(index);
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+    }
+```
+
+This is overly complicated and makes the code hard to read. Alternatively, you could simply write this as a normal boolean statement:
+
+```java
+    public <E> boolean isValidIndex(List<E> list, int index) {
+        return 0 <= index && index < list.size();
+    }
+```
 
 ## When to use try-catch
+
+Just because there is an Exception doesn't mean you should use a try-catch! In general, a try-catch should only be used when you can meaningfully handle an exception or when dealing with checked exceptions, turning a checked exception into an unchecked exception.
 
 ### You can handle exception
 
@@ -116,6 +161,8 @@ However, in `getBufferedReader(String filename)` and `getFileContents(BufferedRe
 #### Handle checked exceptions in one place
 
 The reason I wrote this code this way is that while each of these methods *can* throw some kind of `IOException` (remember, `FileNotFoundException` is a sub-type `IOException`), we only want to actually handle the checked exception in one place. If we have try-catch blocks in every single function that interacts with this text file, our code gets dramatically harder to read and understand.
+
+As such, as a general rule, anytime I write a method that requires handling checked exceptions, I try to do so with only 1 try-catch block for all possible checked exceptions.
 
 #### Throw checked exceptions as unchecked exceptions
 
