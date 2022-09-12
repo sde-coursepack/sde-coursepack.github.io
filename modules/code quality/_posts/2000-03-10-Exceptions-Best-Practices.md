@@ -189,4 +189,56 @@ Caused by: java.io.FileNotFoundException: FileThatDoesntExist.txt (The system ca
 
 ## Writing your own Exceptions
 
+Writing your own Exceptions can be a valuable way to communicate information unique to your context. For example, we can use the method name to **communicate intent** of why an Exception was thrown.
+
+For instance, if we were writing software for Bank transactions, we might want an Exception that communicate "Insufficient Funds". This way, when a transaction is rejected because of an Exception, that **reason why** the transaction was rejected is clear.
+
+Writing your own Exception classes can be very simple:
+
+```java
+public class InsufficientFundsException extends RuntimeException {
+    public InsufficientFundsException(String message) {
+        super(message);
+    }
+}
+```
+
+In general, the only unique aspect here is the name of the Exception. It is worth noting that we extend the `RuntimException` here. In general, this is a good class for your custom made exceptions to extend. However, depending on the situation, you may want to extent more specific classes, like `IllegalArgumentException` when your exception is related to errors in function arguments.
+
+Be aware that if you extend a checked exception, then your custom exception will also be a checked exception.
+
 ### Exception error messages
+
+The error messages for Exceptions should also meaningfully communicate:
+
+a) What caused the exception
+b) How to avoid it in the future.
+
+Consider a function that generates an error message for `InsufficientFundsException`
+
+```java
+    private String getInsufficientFundsMessage(BankAccount account, double amount) {
+        return "Error: insufficient funds in account #" + id + " - balance: " + balance +
+        " for transaction amount: " + amount;
+    }
+```
+
+This function generates a String like:
+
+`Error: insufficient funds in account #1234 - balance: 500.0 for transaction amount 700.0`
+
+And so, if we `throw new InsufficientFundsException` with this message, we would see:
+
+`Exception in thread "main" edu.virginia.cs.exceptions.InsufficientFundsException: Error: insufficient funds in account #1234 - balance: 500.0 for transaction amount 700.0`
+
+This exception clearly communicates to whoever caused it what the problem is (performing a transaction with an account that cannot cover the amount of the transaction). They would like adapt by adding in their own check, something like:
+
+```java
+    try {
+        account.withdraw(amount);
+    } catch (InsufficientFundsException e) {
+        screen.display("We're sorry, but you have insufficient funds for that transaction. The transaction has been canceled.");
+    }   
+```
+
+However, it's important to note that handling the exception is the **client classes** responsibility. Throwing the exception to alert the client to mis-use is your classes reponsibility.
