@@ -93,7 +93,7 @@ Now, we update our constructor:
 
     private String getNegativeBalanceMessage() {
         return "Error: attempted to create account #" + id + " with a negative balance.";
-        }
+    }
 ```
 
 ## withdraw and deposit
