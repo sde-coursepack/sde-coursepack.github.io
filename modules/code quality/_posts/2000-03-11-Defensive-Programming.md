@@ -16,10 +16,10 @@ Driving defensively is *driving so that if other drivers make a mistake, you won
 
 Considered writing a command line program that takes in the name of, say, an Excel file, and performs some data manipulation or summarization based on the contents of the file. Consider all the ways the program could fail that are *not* the fault of the developer of that program:
 
-1) The user may not include any command line arguments
-2) The user may link to an invalid file
-3) The user may have errors in their input file, such as missing columns, or bad format.
-4) The user may have the file open in Excel, which can result in the file not being openable within your program
+1) The user may not include any command line arguments  
+2) The user may link to an invalid file  
+3) The user may have errors in their input file, such as missing columns, or bad format.  
+4) The user may have the file open in Excel, which can result in the file not being openable within your program  
 
 In general, all of these exceptions are not the fault of the program, but rather how the program is being used.
 
@@ -27,7 +27,7 @@ These exceptions are fundamentally different from programmer errors, like NullPo
 
 In general:
 
-1) A user should never see a programmer error: the program as released to the user should be stable and function correctly.
+1) A user should never see a programmer error: the program as released to the user should be stable and function correctly.  
 2) A user should be informed when they make a user error. The error message should include a clear description of what the user did incorrectly in their interaction with the software
 
 ## Client Class
