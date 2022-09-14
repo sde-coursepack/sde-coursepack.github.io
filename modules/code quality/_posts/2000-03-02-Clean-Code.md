@@ -8,7 +8,6 @@ Most of the material in this unit is derived from:
 
 * [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/B08X8ZXT15/) by Robert C. Martin, a book that I highly recommend and dramatically improved my own outlook on designing and writing software.
 
-This page is currently under construction.
 
 # Clean Code
 
@@ -46,6 +45,35 @@ You aren't done when your code works! You are done when you've cleaned up!
 
 By not putting my tools away, I accrued a "debt". That is, I didn't spend time putting my tools away now, so I paid for it later (with substantial interest) when I had to look for my tools. Our source code is just as vulnerable to debt. When you leave a method in an overly complex, unreadable state, or you use static global variables to store information relevant only to one function, you are accruing a debt that will cost you time later to fix (or to work around if you can't fix it).
 
+### Technical debt accrues interest
+
+Credit card interest rates can be outrageously high! Waiting just one month to pay off a $5000 with a 20% annual interest rate (close to the national average for credit cards) costs $83.33 in *interest alone*. If you continue to not pay it off, the next month's interest costs even more, $84.72. If you continue to not pay, in one year's time you will owe an additional $1000 dollars. In two years time? Nearly an additional $2500 dollars!
+
+The best way to pay down debt is "as fast as you can". For example, say I completely stop using the $5000 credit card, and pay $250 dollars a month to pay it down. If I do this, I will pay $1,133 dollars in interest, or $6,133 dollars total on $5000 of debt! And it will take me over two years to pay it off!
+
+However, if instead, in the very first month, I sell my retro video game collection and make a 1-time $1000 payment, and then continue paying $250 each month, I nearly **half** the total interest paid, to just $691. And I'll pay it off faster, in just over a year and a half.
+
+That one time lump payment drastically reduced the total cost of fixing my debt! **Technical debt is no different!** As our software builds up technical debt, it gets harder and harder to edit! And eventually, it gets so hard to make changes to your code base, that you think the best idea is...
+
+### Starting over from scratch
+
+Bob Martin refers to this as "The Big Redesign in the Sky". We'll just start from scratch. After all, now that we know that our existing design is bad, we can avoid making the same mistakes, right?
+
+No! If we don't commit to the practices of clean code, we will simply fall into the same trap again and again and again! If you are sitting on a project that is hard to maintain or change, then you should consider when the best time to start refactoring and cleaning your code is:
+
+* The best time to start cleaning your code is immediately after you wrote it
+* The second best time is now!
+* The absolutely worst possible time is "later".
+
+Never say "I'll do it later," because you almost certainly won't!
+
+> "Later equals never"   
+>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-LeBlanc's Law
+
+And even if you *do* do it later, the code won't be fresh in your mind! You'll have to read your bad, dirty, ugly code to understand it, and that will take time! Do it while it's fresh in your mind!.
+
+No design we can make will perfectly meet all possible future changes to our software. Refactoring is a continuous battle against entropy. But everytime we pay off our technical debt immediately, that's effort we are spending on paying it back later with interest!
+
 ## You always read more than you write
 
 The basic reason that clean code is important is that when you are writing code, very little time is actually spent *writing code*. Most of the time you are reading. Consider, for example, writing a program that reads an Excel file.
@@ -60,15 +88,31 @@ On and on and on. Most estimates say that while writing code, we spend **ten tim
 
 The thing that will slow down your projects is entropy and complexity. As your projects age, they naturally get larger and more complicated. If we spend time cleaning up our code and making it easy to read, this entropy slowdown will...well...slow down. Our project will be easier to develop longer, provided that each step along the way we take time to clean-up, refactoring, improve our variable and function names, etc.
 
-## Going fast means slowing down
+## "But this will slow me down..."
+
+> "There is no trade-off of quality vs. speed in software. There never has been. Low quality means low speed. Always.  
+>   
+> **The only way to go fast is to go well.**"   
+> 
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Bob Martin, author of __Clean Code__
 
 In automobile racing, how you go around corners can be arguably the most important skill on the track. However, counterintuitively, you don't want to greedily go as fast as you can at all times. If you approach a corner too fast, you have to slow down **longer** while going through the corner, which means you start accelerating later. As a result, you will end up going slower on the next straightaway because you tried to go too fast through the corner. On the other hand, if you approach the corner a little slower, than you can start accelerating out of the corner sooner, meaning you will go faster on the next straightaway.
 
-In short, slowing down a little more now can save you significant time later! And the same applies to code!
+In short, slowing down a little more now can save you significant time in the very near future! And the same applies to code!
 
-Because your code must evolve and change overtime, taking time to do a slow down, do a little clean-up, ensure your code is readable and understandable, removing duplicate code, etc. will mean that the next time you add to your code, you will save time!
+Because your code must evolve and change overtime, taking time to clean it up is paying off technical debt before the interest has time to accrue! Do a little clean-up, ensure your code is readable and understandable, remove duplicate code, etc. Doing all this will mean that the next time you add to your code, you will save time! And don't think you have to write thousands of lines before this pays off. Writing clean code pays off **the very next time you have to re-read your code**, and you *will* have to re-read your code! Many, many times!
 
-Ultimately, clean-code will help you go faster in the long run. "Fast and dirty" code may make the first couple of classes faster to write, but before too long, you will start to reap what you sow, and your productivity will grind to a halt.
+Ultimately, practicing clean code will help you go faster overall. "Fast and dirty" code may make the first couple of classes and functions faster to write, but before too long, you will start to reap what you sow, and your productivity will grind to a halt.
+
+## Taking pride in your work
+
+Ultimately, the greatest reason to write clean code is because **you should want to**! Programming is an incredibly powerful tool! Consider just how much of our lives are controlled by software, or rely heavily on software. And we have the power to touch and bend software with our programming ability! Think of all the amazing things we can, no, **we will** do in our lives with programming: the problems we can solve, the suffering we can abate!
+
+Programming gives us this power, so we should aspire to be the best developers we can be! Because by being the best developers we can be, we solve the most problems we can! This very idea should give you a sense of pride!
+
+While it may be filled with typos and behind schedule, I am *proud* of this textbook. I am *proud* of the assignments I write for this class, and the lectures I have given. Because I worked really well at them. Not just worked hard, but worked well. I spent months planning this course, writing example code, writing lesson plans, writing assignments.
+
+In the exact same way I feel proud of what I've done, I want you to feel proud for your work! You're a programmer! Be the best programmer you can be! Do it right! Write code so clean that the next person who sees your code says "Wow, the person who wrote this is a professional who really cares about their craft!" Don't think writing clean code is above you, it isn't! It just takes practice and persistence!
 
 ## Conclusion
 

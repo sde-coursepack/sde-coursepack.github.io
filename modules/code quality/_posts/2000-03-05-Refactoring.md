@@ -34,7 +34,13 @@ Into this:
 
 This wouldn't change the **external** behavior of our program, but it would make the code more understandable and more tolerant to implementation changes.
 
-### Testing and Refactoring
+## Refactoring and Clean Code
+
+As we noted in the last unit, **no one writes clean code the first time!**. We should always view the first pass of development (making the feature work) as a *rough draft*. When writing any paper, the *rough draft* requires editing, rewording, restructuring, etc. in order to produce a clean paper. We aren't done when we finish the rough draft. We're done when we've polished it and cleaned it up into the final draft!
+
+Refactoring is the process by which we are editing our code for cleanliness! And it is a vital step in keeping our code maintainable and understandable!
+
+## Testing and Refactoring
 
 Existing regression tests are vital for refactoring. When we refactor code, we want to ensure that we are not changing the external behavior of our software, only the internal code to improve maintainability. As such, it is vital to ensure that we have tests that correctly test the intended behavior of our code before we begin adjusting it. If we have been practicing TDD, then all of our tests should already be written for us.
 
