@@ -352,7 +352,7 @@ public class Building {
 }
 
 public class Address {
-    rivate String streetName;
+    private String streetName;
     private int streetNumber;
     private int zipCode;
     private String city;
