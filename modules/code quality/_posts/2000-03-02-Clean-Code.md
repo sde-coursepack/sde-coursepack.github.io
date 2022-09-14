@@ -8,6 +8,11 @@ Most of the material in this unit is derived from:
 
 * [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/B08X8ZXT15/) by Robert C. Martin, a book that I highly recommend and dramatically improved my own outlook on designing and writing software.
 
+<img src="https://imgs.xkcd.com/comics/code_quality.png">  
+
+Source: [https://xkcd.com/1513/](https://xkcd.com/1513/) 
+
+---
 
 # Clean Code
 
