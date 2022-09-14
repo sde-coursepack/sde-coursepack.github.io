@@ -59,7 +59,7 @@ Consider the following method from my SudokuSolver. This method is in a class ca
 
 Not that long ago, I would say: 
 
-> This done one thing! It reads in a text file to make a Sudoku Grid
+> This does one thing! It reads in a text file to make a Sudoku Grid
 
 I would add an example text file that may look like:
 
