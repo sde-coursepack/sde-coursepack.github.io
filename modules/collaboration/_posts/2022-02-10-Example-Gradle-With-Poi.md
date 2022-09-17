@@ -608,7 +608,7 @@ code you wrote in 1110 or 2100. Why? Because when I was a student taking those c
 I wrote really large functions, with short variable names like `x` and `y`, and function names like `getList` and `read`.
 And I thought having short function and variable names was great, because I could type faster!
 
-Let me ask you a question: **without looking at the code for it**, shat do you think the function `skipRow()` does? 
+Let me ask you a question: **without looking at the code for it**, what do you think the function `skipRow()` does? 
 If you answered "it skips the next row", you're right! The only clarification
 I needed was to say **why** I'm calling `skipRow()` where I am. This just clarifies which row I'm skipping (the header row).
 I thought about naming the function `skipHeaderRow()`, without changing any code, but that would be confusing if I
