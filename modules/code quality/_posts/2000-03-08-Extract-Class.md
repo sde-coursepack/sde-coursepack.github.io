@@ -232,4 +232,4 @@ Learning how and when to decompose a program into separate classes can be one of
 2) Simplifying a complex interface into a simpler interface that more precisely meets our needs
 3) Combining two similar behaviors via polymorphism by extract an abstract parent class.
 
-We will revisit these ideas, and the idea of polymorphism and the Single Reponsibility Principle throughout our design unit.
+We will revisit these ideas, and the idea of polymorphism and the Single Responsibility Principle throughout our design unit.
