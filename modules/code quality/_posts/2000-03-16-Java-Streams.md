@@ -109,6 +109,7 @@ public class Apportionment {
 
 *Oof*. This code has 3 different for loops, and relies on a parallel ArrayList. Now, if you're clever, you can combine the two later loops into one, but even still, this feels far more complicated than it needs to be.
 
+---
 
 ## Streams
 
@@ -129,7 +130,7 @@ Instead of this,, we can do this with streams:
 ```java
     public int getTotalPopulation(List<State> stateList) {
         return stateList.stream()
-            .collect(Collectors.summingInt(state -> state.getPopulation()));
+            .collect(Collectors.summingInt(State::getPopulation()));
     }
 ```
 
@@ -157,7 +158,7 @@ Instead of ...
 ```java
     public List<State> getSmallestNStates(List<State> stateList, int numberOfStates) {
         return stateList.stream()
-            .sorted((s1, s2) -> s1.getPopulation() - s2.getPopulation())
+            .sorted(Comparator.comparing(State::getPopulation()).reversed())
             .limit(numberOfStates)
             .collect(Collectors.toList());
     }
@@ -189,9 +190,9 @@ And instead of:
 ```java
     public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
         apportionment.getStateList().stream()
-            .sorted((s1, s2) -> s1.getName().compareTo(s2.getName()))
+            .sorted(Comparator.comparing(State::getName))
             .map(state -> state.getName() + " - " + apportionment.getRepresentativesForState(state))
-            .forEach(string -> System.out.println(string));
+            .forEach(System.out::println);
     }
 ```
 
@@ -208,11 +209,16 @@ A stream starts with a Collection, like a `List` or a `Set` (not a `Map` directl
 
 This gives us a Stream that we can now perform zero or more **intermediate** operations one (which will be the bulk of our logic), and one *terminal* option on, which converts the stream back into something useful like a `List`, or gives us summary information (such as an integer sum).
 
+---
+---
+
 ## Intermediate operations
 
 Think of intermediate operations as an assembly line. Each step on the assembly line, another step is implemented. Data from the streams comes in, a modification of that data goes out. `Stream`s are generically typed. For each of the methods below, we will assume the input is a `Stream<E>`, or Stream of type E.
 
 For example, when I say the `sorted` method is `sorted(Comparator<E>)`, 'E' is the datatype stored in that `Stream` at that time. The time of the Stream can change over intermediate operations (specifically `map`), so in that context `E` refers to the data type of the `Stream` at the start of the `sorted` step.
+
+---
 
 ### `sorted`
 
@@ -243,6 +249,7 @@ This line should be read as "Sort states by their name by their natural order" (
 
 Additionally, useful function is `reversed()` which can be called on a Comparator to reverse it. For example, by default, `Comparator.comparing(State::getPopulation())` sorts in ascending order by population. But `Comparator.comparing(State::getPopulation()).reversed()` sorts in descending order.
 
+---
 
 ### `filter`
 
@@ -253,6 +260,8 @@ __example__: `.filter(x -> x.getPopulation > 1000000)`
 __output__: `Stream<E>` with only elements that return `true` for our `Predicate` function. Elements that return `false` are removed from the Stream.
 
 __explanation__: We may want to "filter out" certain values from our stream, or only keep certain other values. For example, above, we are saying "only keep items whose population is over 1 million". Thus, any state with a smaller population will be removed by this filter.
+
+---
 
 ### `limit`
 
@@ -265,12 +274,14 @@ __output__: `Stream<E>`, but only the first `n` elements.
 __explanation__: In general, if we want to use `limit`, we only use it after `sorted`. For example:
 
 ```java
-stateList.stream()
-    .sorted((s1, s2) -> s1.getPopulation() - s2.getPopulation())
-    .limit(numberOfStates)
-
+    stateList.stream()
+        .sorted((s1, s2) -> s1.getPopulation() - s2.getPopulation())
+        .limit(numberOfStates)
+        .forEach(System.out::println)
 ```
 ...gives us a `Stream<State>` containing `numberOfState` objects. Because we sorted by `population` in ascending order immediately before calling `limit`, this means we have the `numberOfState` smallest states by population.
+
+---
 
 ### `map`
 
@@ -296,6 +307,8 @@ In our apportionment example, we converted `State` objects into `String` objects
 
 `.map(state -> state.getName() + apportionment.getRepresentativesForState(state))`
 
+---
+
 ### `distinct()`
 
 __method__: `distinct()`
@@ -311,6 +324,8 @@ __explanation__: Uses `E`'s .equals() method to remove any duplicate elements fr
 would become:
 
 `["John", "Mark", "Kelly"]`
+
+---
 
 ### `peek`
 
@@ -330,6 +345,41 @@ __explanation__: Similar to `forEach`, this method performs some function on eve
 
 ### `flatmap`
 
+__method__: `flatmap(Function<E, R> f)` where Function must return a `Stream` of some time
+
+__example__: `.flatmap(x -> x.stream())`
+
+__output__: `Stream<R>` where all sub-collections in the previous stream have been flattened into a single stream.
+
+__explanation__: useful when we have a Stream of Collections, or some type that is composed of another type, and we want to decompose these aggregations into their component parts.
+
+For example, if our input stream were a Stream<List<Integer>> structured like:
+
+```java
+        List<Integer> a = List.of(12, 13, 14);
+        List<Integer> b = List.of(26, 2, 19);
+        List<Integer> c = List.of(3, 6, 9);
+        List<List<Integer>> combined = List.of(a, b, c);
+        System.out.println(combined);
+
+        List<Integer> flat = combined.stream()
+            .flatMap(x -> x.stream())
+            .toList();
+
+        System.out.println(flat);
+```
+
+This will print:
+
+```shell
+[[12, 13, 14], [26, 2, 19], [3, 6, 9]]
+[12, 13, 14, 26, 2, 19, 3, 6, 9]
+```
+
+You can see that the collections have been "flattened" into a single Stream.
+
+---
+---
 
 ## Terminal Operations
 
@@ -407,6 +457,8 @@ David
 
 * `Collectors.counting()` - does the same thing as `count()`
 
+---
+
 ### average, sum
 
 Note that for all of these, the function specifies the numeric datatype returned. For example:
@@ -429,6 +481,8 @@ If you already have a `Stream<Double>`, then use just map the value to itself. F
 
 * `Collectors.summingDouble(Function<E, Double> function)` - same thing as `averaging` but returns the sum.
 
+---
+
 ### max, min
 
 * `max(Comparator<E> comparator)` - finds the maximum remaining value using `comparator`.
@@ -450,6 +504,8 @@ Below shows an example of dealing with this inconvenience
     }
 ```
 
+---
+
 ### reduce
 
 `reduce` allows you to define a way to `reduce` a stream of multiple objects to one value.
@@ -469,6 +525,9 @@ In the above arguments for `reduce`, we are saying:
 * for each value in our stream, set `subtotal` to be equal to `subtotal + statePopulation`
   * The first argument in our function is our "summary" value
   * The second argument is each item in our list
+
+---
+---
 
 ## `parallelStream`
 
@@ -509,7 +568,7 @@ We can replace `stream()` with `parallelStream()` to take advantage of automated
   Hawaii - 2
 ```
 
-...whereas when I simply use `stream()` I get the results in alphabetical order every time.
+...which clearly is not alphabetical. By constrast, when I simply use `stream()` I get the results in alphabetical order every time.
 
 ### Workaround
 
