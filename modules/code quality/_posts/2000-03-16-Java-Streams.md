@@ -187,10 +187,10 @@ And instead of:
 ...we can use streams:
 
 ```java
-public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
+    public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
         apportionment.getStateList().stream()
             .sorted((s1, s2) -> s1.getName().compareTo(s2.getName()))
-            .map(state -> state.getName() + apportionment.getRepresentativesForState(state))
+            .map(state -> state.getName() + " - " + apportionment.getRepresentativesForState(state))
             .forEach(string -> System.out.println(string));
     }
 ```
@@ -333,16 +333,214 @@ __explanation__: Similar to `forEach`, this method performs some function on eve
 
 ## Terminal Operations
 
+All streams end with a single terminal operation.
+
 ### `foreach`
+
+__method__: `forEach(Consumer<E> e)`
+
+__example__: `.peek(item -> summaryList.add(item))`
+
+__output__: `void` - forEach cannot be used to return anything directly
+
+__explanation__: used for performing some action with items left in the `Stream` at the end of the intermediate operations.
 
 ### `count`
 
+__method__: `count()`
+
+__example__: `.count()`
+
+__output__: `long` - the number of items left in the `Stream`
+
 ### collect()
 
-### sum, min, max
+__method__: `collect(Collector<E, A, R> c)`
+
+__example__: `collect(Collectors.toList())`
+
+__output__: Some `R` value, which is an accumulation of the elements left in the `Stream`
+
+__explanation__: Perform some aggregation on the left over items.
+
+__related functions__
+
+* `Collectors.toList()` - returns a `List<E>` which matches the state of the `Stream` at the end of the `Stream` chain of operations. Note that this List<E> is **unmodifiable**. However, you can do something like:
+
+```java
+List outputList = originalList.stream()
+        .[intermediate operations]
+        .collect(Collectors.toList());
+List modifiable = new ArrayList<>(outputList);
+```
+
+
+* `Collectors.toSet()` - returns a `Set<E>` which matches the state of the `Stream` at the end of the `Stream` chain of operations. Because this results in a Set, duplication elements are removed. Like `toList()`, the output set is **unmodifiable**.
+
+* `Collectors.toCollection(ArrayList::new)` - allows you to immediately generate a *modifiable* collection if you wish.
+
+* `Collectors.toMap(Function<E,R> keyFunction, <E, T> Function valueFunction)` - create a *modifiable* Map where, for each value, `keyFunction` is used to determine the 'key', and 'value' is used to determine the map.
+
+Note that unlike `toSet`, `toMap` with throw an `IllegalStateException` if you try to add duplicate keys.
+
+```java
+    Map<String, Integer> namePopulationMap = stateList.stream()
+        .collect(Collectors.toMap(s -> s.getName(), s -> s.getPopulation()));
+```
+
+* `Collectors.joining()` - can be used for joining elements of a `Stream<String>` together. Joining can take in an argument that is used as a delimiter between the Strings.
+
+```java
+List<String> myList = List.of("Aaron", "Betty", "Carol", "David");
+String outputString = myList.stream.joining("\n");
+System.out.println(outputString)
+```
+
+...prints:
+
+```shell
+Aaron
+Betty
+Carol
+David
+```
+
+* `Collectors.counting()` - does the same thing as `count()`
+
+### average, sum
+
+Note that for all of these, the function specifies the numeric datatype returned. For example:
+
+`Collectors.averagingDouble(Function<E, Double>)` will also have functions:
+* `Collectors.averagingInt(Function<E, Integer>)`
+* `Collectors.averagingLong(Function<E, Long>)`
+
+For the sake of limiting repetition, I'm only going to show the `Double` version, but just remember you can replace `Double` with `Int` and `Long`, which makes the Function return types `Int` and `Long`. Be aware that `averagingInt` and `averagingLong` return `double`s, since the average of integer numbers may be a decimal number.
+
+`double averagePopulation = stateList.stream().collect(Collectors.averagingInt(State::getPopulation)))`
+
+If you already have a `Stream<Double>`, then use just map the value to itself. For example: `(x -> x)`
+
+```java
+    double averagePopulation = stateList.stream()
+        .map(State::getPopulation)
+        .collect(Collectors.averagingInt(p -> p));
+```
+
+* `Collectors.summingDouble(Function<E, Double> function)` - same thing as `averaging` but returns the sum.
+
+### max, min
+
+* `max(Comparator<E> comparator)` - finds the maximum remaining value using `comparator`.
+
+* `min(Comparator<E> comparator)` - finds the minimum remaining value using `comparator`.
+
+Note that this method returns `Optional<E>` and not `E`. The reason for this is that if the `Stream` is empty when `max` is invoked, there is no value present to be a maximum.
+
+Below shows an example of dealing with this inconvenience
+
+```java
+    Optional<State> biggestState = stateList.stream()
+        .max(Comparator.comparing(State::getPopulation));
+    if (biggestState.isPresent()) {
+        State state = biggestState.get();
+        System.out.println(state.getName());
+    } else {
+        throw new RuntimeException();
+    }
+```
 
 ### reduce
 
+`reduce` allows you to define a way to `reduce` a stream of multiple objects to one value.
+
+For example, we can use `reduce` to get a sum:
+
+
+
+```java
+    int totalPopulation = stateList.stream()
+        .map(State::getPopulation)
+        .reduce(0, (subtotal, statePopulation) -> subtotal + statePopulation);
+```
+
+In the above arguments for `reduce`, we are saying:
+* our initial value for `subtotal` is zero
+* for each value in our stream, set `subtotal` to be equal to `subtotal + statePopulation`
+  * The first argument in our function is our "summary" value
+  * The second argument is each item in our list
+
+## `parallelStream`
+
+We can replace `stream()` with `parallelStream()` to take advantage of automated multi-threading. However, be aware that `parallelStream()` may operations in an unpredictable order. For example:
+
+```java
+    public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
+        apportionment.getStateList().stream()
+        .sorted((s1, s2) -> s1.getName().compareTo(s2.getName()))
+        .map(state -> state.getName() + apportionment.getRepresentativesForState(state))
+        .forEach(string -> System.out.println(string));
+    }
+```
+
+...always prints in the order resulting from `sorted`. However, replacing `stream()` with `parallelStream()`
+
+```java
+    public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
+        apportionment.getStateList().parallelStream()
+        .sorted((s1, s2) -> s1.getName().compareTo(s2.getName()))
+        .map(state -> state.getName() + apportionment.getRepresentativesForState(state))
+        .forEach(string -> System.out.println(string));
+    }
+```
+
+...will result in values being printed out of order, as the thread execution timings are not predictable. For example, for the above, I got this as my last 10 lines:
+
+```shell
+  Vermont - 1
+  California - 52
+  Georgia - 14
+  Louisiana - 6
+  Wyoming - 1
+  Wisconsin - 8
+  Florida - 28
+  Maryland - 8
+  Connecticut - 5
+  Hawaii - 2
+```
+
+...whereas when I simply use `stream()` I get the results in alphabetical order every time.
+
+### Workaround
+
+One workaround for this problem is to use `forEachOrdered()` instead of `forEach()` with multi-threading:
+
+```java
+    public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
+        apportionment.getStateList().parallelStream()
+        .sorted((s1, s2) -> s1.getName().compareTo(s2.getName()))
+        .map(state -> state.getName() + apportionment.getRepresentativesForState(state))
+        .forEachOrdered(string -> System.out.println(string));
+    }
+```
+
+### ParallelPerformance
+
+Be aware that while `parallelStream()` with automatically use multi-threading, that doesn't necessarily mean your code will run faster. Managing threads creates a lot of overhead complexity. As such, `parallelStream` will typically only benefit you with large data sources.
+
+
+## Files.line
+
+We can use `Files.lines()` and `BufferedReader.lines()` as a `Stream<String>` for File reading:
+
+```java
+List<State> stateList = br.lines()
+        .map(line -> line.split(","))
+        .map(line -> new State(line[0], Integer.parseInt(line[1])))
+        .collect(Collectors.toList());
+```
+
+Of course, this approach isn't great for handling Exceptions that may emerge. For that, you'll need to look into the `CheckedFunction` and `Either<E>`, but I will leave that to you if you want to dive-deep on `Stream`s. Be aware that reading a file is necessarily a sequential-stream.
 
 ## Conclusion
 
