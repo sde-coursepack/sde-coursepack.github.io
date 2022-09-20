@@ -204,7 +204,7 @@ Don't worry, we will breaking this code down. But as you can see, understanding 
 
 A stream starts with a Collection, like a `List` or a `Set` (not a `Map` directly, however, though we can convert `keySet()`, `values`, and `entrySet()` of `Map`s to a `Stream`). From there, we make a stream using:
 
-```myCollectionVariable.stream()```
+`myCollectionVariable.stream()`
 
 This gives us a Stream that we can now perform zero or more **intermediate** operations one (which will be the bulk of our logic), and one *terminal* option on, which converts the stream back into something useful like a `List`, or gives us summary information (such as an integer sum).
 
