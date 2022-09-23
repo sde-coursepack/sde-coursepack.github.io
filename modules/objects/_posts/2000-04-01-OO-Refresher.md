@@ -4,8 +4,6 @@ Title: Object Orientation Refresher
 
 # Object-Oriented Programming
 
-## Usage
-
 ## Class
 
 ### State
