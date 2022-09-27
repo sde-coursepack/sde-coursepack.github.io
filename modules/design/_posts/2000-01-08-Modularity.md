@@ -4,8 +4,6 @@ Title: Modularity
 
 # Modularity
 
-## Single Responsibility Principle
-
 ## Functional Decomposition
 
 ### Boolean arguments are bad
@@ -13,3 +11,9 @@ Title: Modularity
 ### "Extract 'til you drop"
 
 ## Class Decomposition
+
+### Cohesiveness
+
+### Single Responsibility Principle
+
+## Violation of Modularity

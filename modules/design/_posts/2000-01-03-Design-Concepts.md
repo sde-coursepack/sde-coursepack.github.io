@@ -10,7 +10,7 @@ Title: Design Concepts
 
 ## Functional Independence
 
-### Simplifying the Interface
+### All information stays in the interface
 
 ## Information Hiding
 
