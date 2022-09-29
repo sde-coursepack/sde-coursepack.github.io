@@ -2,9 +2,6 @@
 Title: Testing with Mockito
 ---
 
-
-## This unit is still under  construction ##
-
 ## [Source Code Example](https://github.com/sde-coursepack/NBAExcelTeams)
 
 # Testing more precisely
@@ -68,7 +65,7 @@ if *either* function has a defect, both tests will fail.
 
 With this in mind, even [`BallDontLieReaderTest`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/test/java/edu/virginia/cs/nbateams/BallDontLieReaderTest.java) is full of tests which **are not unit tests**. We have an external dependency to a web service API, and a failure in that communication would cause our tests to fail **even if our code is functionally correct**.
 
-When unit testing, we only want to test the class we are testing! We do not want our tests to fail for any other reason, of our tests could be considered misleading, and people could ignore failures, attributing them to external dependency issues.
+When unit testing, we only want to test the class we are testing! We do not want our tests to fail for any other reason, of our tests could be considered misleading, and people could ignore failures, attributing them to external dependency issues. Note that dealing with this in a class directly interacting with external information can be difficult. However, in a class like NBATeamReader, which only interacts with other classes in the program, we should be able isolate the class for testing with external dependencies.
 
 ## The engine light
 
@@ -168,7 +165,7 @@ public class GoodAbbreviationsTest {
 
 Using the above, we are able to test the class `GoodAbbreviations` without needing to rely on any external dependencies. The class `StubNBATeamReader` is used instead via polymorphism (since `StubNBATeamReader` extends our real class `NBATeamReader`). Because the result is hard-coded, it allows us to return a value that is tailor-made to test our method (in this case, we test both the case of a team with a "good" Abbreviation and a team without one). 
 
-### Stub Limitations
+### Manual Stub Limitations
 
 One limitation of this stub is that we only designed it for testing one method. What if we wanted to test a method for team's whose "city" value is actually a state, like the Utah Jazz or Minnesota Timberwolves? Now this stub isn't as flexible. We have two options in order to maintain this class:
 
@@ -217,8 +214,7 @@ public class GoodAbbreviationsTest {
 
         GoodAbbreviations abbreviations = new GoodAbbreviations();
 
-        List<NBATeam> expected = new ArrayList<>();
-        expected.add(CELTICS);
+        List<NBATeam> expected = List.of(CELTICS);
 
         List<NBATeam> goodAbbreviationsTeams = abbreviations.extractGoodAbbreviationTeams(reader);
         assertEquals(expected, goodAbbreviationsTeams);
@@ -260,12 +256,71 @@ most recent version)
 
 `import static org.mockito.Mockito.*;`
 
+This gives you access to the functions in mockito we want to use.
 
-### Mock
+## Top-down integration
 
-In a Mock, we are creating an object like a stub object to remove the need for external dependencies. However, we still want to monitor to verify that the class interacts with external dependencies as expected For example, the class `NBATeamExcelWriter` writes to an ExcelWorkbook and saves it. Instead of actually saving the file, and then reading the saved file back-in to ensure it is correct, we can instead check to see if the file "tries" to save, but block the actual file I/O operation.
+Let's now consider that we want to integrate `GoodAbbreviations` with `NBATeamReader` and test to ensure it works. Now, instead of mocking the behavior of `NBATeamReader`, we instead mock the behavior of `BallDontLieReader`, and use the actual `NBATeamReader` class.
+
+### Example
+
+```java
+package edu.virginia.cs.nbateams;
 
 
+import org.junit.jupiter.api.*;
+import org.json.*;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+public class GoodAbbreviationsIntegrationTest {
+    private GoodAbbreviations goodAbbreviations;
+    private NBATeamReader nbaTeamReader;
+    private BallDontLieReader mockBDLReader;
+
+    private static final NBATeam CELTICS = new NBATeam(2, "Celtics", "Boston", "BOS",
+            Conference.EASTERN, Division.ATLANTIC);
+
+    @BeforeEach
+    public void setup() {
+        goodAbbreviations = new GoodAbbreviations();
+
+        mockBDLReader = mock(BallDontLieReader.class);
+        nbaTeamReader = new NBATeamReader(mockBDLReader);
+    }
+
+    @Test
+    public void testGoodAbbreviationsFromNBATeamReader() {
+        JSONObject mockJSONObject = getMockJSONObject();
+        when(mockBDLReader.getAllNBATeams()).thenReturn(mockJSONObject);
+
+        List<NBATeam> goodAbbrvTeams = goodAbbreviations.extractGoodAbbreviationTeams(nbaTeamReader);
+        assertIterableEquals(goodAbbrvTeams, List.of(CELTICS));
+
+    }
+
+    private JSONObject getMockJSONObject() {
+        String mockJSONString = """
+                {
+                  "data":[
+                     {"id":2,"abbreviation":"BOS","city":"Boston","conference":"East","division":"Atlantic",
+                             "full_name":"Boston Celtics","name":"Celtics"},
+                     {"id":14,"abbreviation":"LAL","city":"Los Angeles","conference":"West","division":"Pacific",
+                             "full_name":"Los Angeles Lakers","name":"Lakers"}
+                    ]
+                }
+                """;
+
+        JSONObject teamsJSONObject = new JSONObject(mockJSONString);
+        return teamsJSONObject;
+
+    }
+}
+```
+
+While this may look like a lot, realize that `getMockJSONObject` is only used to create the mock `JSONObject` that is in the same format of a JSONObject we would expect from `BallDontLieReader`. However, from here, no mocking is done inside of the classes `NBATeamReader` or `GoodAbbreviations`. In this way, we have gone one step in a top-down integration, downwards from GoodAbbreviation (because GoodAbbreviation could itself be used by another class, this could be an example of part of a sandwich integration where `GoodAbbreviations` is the target layer).
 
 ## Wait, what about JSON?
 
@@ -326,13 +381,130 @@ and there are fair reasons for that argument. For example, if
 the JSON format were less well-establish and the structure of files
 could change, or org.json were still new and the interfaces could change, then our tests could potentially fail because of things outside of our code. However, to me, it's fundamentally no different than testing using ArrayLists, HashMaps, or Strings.
 
+## Mocking abstract classes
+
+In a Mock, we are creating an object like a stub object to remove the need for external dependencies. However, we still want to monitor to verify that the class interacts with external dependencies as expected For example, the class `NBATeamExcelWriter` writes to an ExcelWorkbook and saves it. Instead of actually saving the file, and then reading the saved file back-in to ensure it is correct, we can instead check to see if the file "tries" to save, but block the actual file I/O operation.
+
+Below is an example of using mocking a class that relies heavily on an internal `Map`. One limitation of testing our classes with abstract data types is that, typically, we have to pick a concrete implementation (like `TreeMap` or `HashMap`) to do testing. This can cause problems, because it makes our test inflexible, since they are tied to specific concrete types. If the underlying concrete type used by the object changes, this could break our tests.
+
+Consider the [`Patron` class](https://github.com/sde-coursepack/Library/blob/main/src/main/java/Patron.java) from our `Library` example below. For the sake of brevity, I only included the constructor we plan to use and method we plan to test.
+
+```java
+public class Patron {
+    private final int id;
+    private String firstName, lastName;
+    private List<Book> booksCheckedOut;
+
+    public Patron(int id, String firstName, String lastName, List<Book> booksCheckedOut) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.booksCheckedOut = booksCheckedOut;
+    }
+
+    public void addBookToCheckedOut(Book b) {
+        if (booksCheckedOut.contains(b)) {
+            throw new IllegalArgumentException("Already have copy checked out");
+        }
+        booksCheckedOut.add(b);
+    }
+}
+```
+
+In this case, we can test our method `addBookToCheckedOut` method by **mocking the List**. That's right, we can mock the abstract data type `List`, meaning we can test our class while keeping our test **independent of the concrete List implementation used.**
+
+Here is an example of using a MockList, and it will show us the same `when-then` syntax as before, as well as a new piece of Mockito syntax, `verify`:
+
+```java
+import org.junit.jupiter.api.*;
+import java.util.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+public class PatronTest {
+    private Patron testPatron;
+    private List<Book> mockList;
+
+    private static final Book mistborn = new Book(3, "The Final Empire", "Brandon Sanderson");
+    
+    @SuppressWarnings("unchecked") // used because we cannot mock List<Book>, only List, which produces warning
+    @BeforeEach
+    public void setup() {
+        mockList = mock(List.class);
+        testPatron = new Patron(1, "Jane", "Doe", mockList);
+    }
+
+    @Test
+    public void testCheckOutSuccessful() {
+        //when you ask the mocklist if it contains Mistborn, it says "no"
+        when(mockList.contains(mistborn)).thenReturn(false);
+
+        //call the method addBookToCheckedOut(mistborn)
+        testPatron.addBookToCheckedOut(mistborn);
+
+        //verify that the mock list had add(mistborn) called on it
+        verify(mockList).add(mistborn);
+    }
+}
+```
+
+### Mockito `verify` function
+
+`verify` is used to verify **that a particular function, with a particular argument, was called on our `mockList` object.
+This happens in our `Patron`'s `addBookToCheckedOut` when we execute:
+
+`booksCheckedOut.add(b);`
+
+Because `booksCheckedOut` in our `testPatron` instance **is** the same as `mockList`, and `b` is the same book as `mistborn` in our function call, this line does the same thing as saying:
+
+`mockList.add(mistborn)`
+
+This means, because we `did` have our test try to add `mistborn` to `mockList`, we can say that the function behaved *as expected.* Now, this may look odd, as we have a test with no explicit `assert` statements. You may even think we should check to make sure `booksCheckedOut` is in the state it should be. However, remember, **we don't have a real list**. This is a mock list. However, the simple fact that the method tried to add `mistborn` to the mocked `checkOutBookList` is sufficient for our testing purposes.
+
+For a second example, let's now consider the false case:
+
+```java
+    @Test
+    public void testCheckOutFailure_alreadyHaveBook() {
+        //when you ask the mocklist if it contains Mistborn, it says "yes"
+        when(mockList.contains(mistborn)).thenReturn(true);
+
+        //call the method addBookToCheckedOut(mistborn), should get exception
+        assertThrows(IllegalArgumentException.class, () ->
+                testPatron.addBookToCheckedOut(mistborn));
+
+        //verify that the mock list has never had add(mistborn) called on it
+        verify(mockList, times(0)).add(mistborn);
+    }
+```
+
+In this case, we use our old friend `assertThrows` to ensure the method throws an exception. However, we also want to `verify` that we have tried to add `mistborn` to our `mockList` zero times. The `times(0)` argument is useful for saying how many times a function should have been called. If we don't include a `times` argument, then it defaults to `times(1)` - that is, we call the function exactly one time. In the same way, you can use `times(2)`, `times(x)` where x is an int, etc.
+
+Another way we could write this test is to say that, after our call to `contains`, **nothing should happen to this list at all**. This is the same test, but with our last statement changed.
+
+```java
+    @Test
+    public void testCheckOutFailure_alreadyHaveBook() {
+        //when you ask the mocklist if it contains Mistborn, it says "yes"
+        when(mockList.contains(mistborn)).thenReturn(true);
+
+        //call the method addBookToCheckedOut(mistborn), should get exception
+        assertThrows(IllegalArgumentException.class, () ->
+        testPatron.addBookToCheckedOut(mistborn));
+
+        //verify that the mock list has never had add(mistborn) called on it
+        verify(mockList).contains(mistborn);
+        verifyNoMoreInteractions(mockList);
+    }
+```
+
+`verifyNoMoreInteractions` means that no methods, other than the ones we have called `verify` with, have been called. In this case, we have to include `contains` since we did use it in the if-statement in Patron.
+
 ## Why use test Doubles
 
 You might right now be thinking that this is a lot of extra work, why not just do integration tests? After all, if the larger parts work, then the small parts must work, right?
 
-**Remember**: debugging a little code is significantly easier than
-debugging a lot of code! Using Stubs like this allows us to
-dramatically shrink the code we are looking at!
+**Remember**: debugging a little code is significantly easier than debugging a lot of code! Using Stubs like this allows us to dramatically shrink the code we are looking at! We can even use this to customize our level of integration.
 
 Yes, this does take more code, but this isn't a problem. In fact, it's important to understand that "less code" does not mean "less work", as proper testing can drastically reduce our overall debugging work. The "code" of our stub is trivially easy to write, and it ensures that our test of `extractGoodAbbreviationTeams` is **stable** and **portable**. This test no longer relies on other classes working, no longer relies on the internet, and no longer relies on an external server. Additionally, even if our **implementation** of the class `NBATeamReader` changes, so long as the **interface** remains the same, this test will still work!
 

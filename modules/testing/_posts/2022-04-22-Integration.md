@@ -58,14 +58,16 @@ Design can help us avoid integration hell. For example, proper use of `interface
 
 "Big-Bang" integration strategy is effectively "no plan" integration. We haphazardly integrate modules in whatever order we feel like at the time. This may be sufficient for small programs, especially those that are unlikely to change. However, like ad hoc development, this approach is not scalable, and can lead to conflicting strategies by the developers on the team.
 
+In general, when a defect is discovered while integrating, it's more natural to change the most recent module you integrated, as changing one module is easier than potentially changing several.
+
 ## Integrating Around Dependencies
 
 For the next three plans, let's consider that you are building a Yelp style app for rating restaurants around the Charlottesville area. You have the following dependencies:
 
 * `UserInterface` uses `ApplicationController` - users use a form to query a Restaurant by name
 * `ApplicationController` uses `RestaurantManager` - ApplicationController gets information about matching restaurants from the Restaurant Manager
-* `RestaurantManager` uses `ReviewManager` - The RestaurantManager gets the 10 most recent reviews for the restaurant from the ReviewManager
-* `ReviewManager` uses `ReviewDatabaseDriver` - The Review Manager goes to the Database Driver for reviews and gets all the reviews for the requested restaurant, before filtering and returning the most recent 10
+* `RestaurantManager` uses `ReviewManager` - The RestaurantManager gets all the reviews for a given restaurant
+* `ReviewManager` uses `ReviewDatabaseDriver` - The Review Manager goes to the Database Driver for reviews and gets all the reviews for restaurants in a given area.
 
 In this example, we will also have **data structures** `Restaurant` and `Review`. These **data structures** are different from the other objects, as they exist to simply hold data. Often, these are stored as POJOs (Plain Old Java Objects) - Objects that typically have some fields, and getters and setters for those fields. In general, these objects have very limited *behavior*, and simply exist to pass information between modules. As such, we generally are treating these objects no differently than we would treat a String. As such, we generally do not need to consider **data structures** too heavily in our integration plan in terms of order of integration.
 
@@ -76,15 +78,15 @@ The most obvious strategy you would probably think of is a "bottom-up" approach.
 Using our example:
 
 > * `UserInterface` uses `ApplicationController` - users use a form to query a Restaurant by name
-> * `ApplicationController` uses `RestaurantManager` - ApplicationController gets information about matching restaurants from the Restaurant Manager
+> * `ApplicationController` uses `RestaurantManager` - ApplicationController gets the reviews about a restaurant and filters it to the most recent 5.
 > * `RestaurantManager` uses `ReviewManager` - The RestaurantManager gets the 10 most recent reviews for the restaurant from the ReviewManager
-> * `ReviewManager` uses `ReviewDatabaseDriver` - The Review Manager goes to the Database Driver for reviews and gets all the reviews for the requested restaurant, before filtering and returning the most recent 10
+> * `ReviewManager` uses `ReviewDatabaseDriver` - The Review Manager coordinates with the Review Database, and can get a Map of all the reviews for a given resta
 
-This means the first integration testing we would perform is the ReviewManager and the ReviewDatabaseDriver. Then we do integration testing between those two modules combined with RestaurantManager, then ApplicationController, then UserInterface.
+This means the first integration testing we would perform is the `ReviewManager` and the `ReviewDatabaseDriver`. Then we do integration testing between those two modules combined with `RestaurantManager`, then `ApplicationController`, then `UserInterface`.
 
 More precisely, we define **bottom-up** integration as: 
 
-> Integrate starting with the class that depends on nothing with the class that depends on it. Integrate each class after all of its dependencies have been integrated.
+> Integrate starting with the class **that depends on nothing**. Integrate each class after all of its dependencies have been integrated.
 
 This more general definition helps us think about integrating classes with multiple dependencies.
 
@@ -92,12 +94,155 @@ This more general definition helps us think about integrating classes with multi
 
 A clear advantage of this approach is we can use a strategy of "integrating as we build". That is, if we develop the lowest-level modules first, we can then develop each "next level up". This means that we can test our unit and integration at the same time (though whether or not this is a good idea is something we will discuss in disadvantages).
 
-Additionally, as we integrate, we can design our tests to go as "deep" as we need to go to fully test the feature.
+Another advantage of this approach is that, as we integrate, if a fault emerges, it becomes easier to locate that fault, as it is likely related to our most recent integration.
+
+Additionally, as we integrate higher-level modules, we can design our tests to go as "deep" as we need to go to fully test the feature.
 
 #### Disadvantages
 
+Often, the most critical aspects of our program (high-level logic) get tested last by this approach. If you do not plan carefully, you can end up with the higher-level classes have to change to accommodate lower-level classes, which we generally want to avoid in software design. These high-level modules tend to be the most critical for facilitating good software design and ensure good modularity, functional independence, and abstraction. 
 
+This also often reverse the most natural way to think about our software process: we want to start with high-level abstractions, and decompose those into more concrete features. Here, our integration strategy is starting with low-level concrete classes and building upwards.
+
+This can also make prototyping difficult, as it's much easier to show a useful prototype to customers with a real interface, but fake data, than the other way around.
 
 ### Top-down
 
+Top-down integration reverses the order of bottom-up integration.
+
+> Integrate starting with the class **on which nothing depends**. Integrate classes that are depended upon by your integrated classes.
+
+So, building from our previous example, we would first integrate `User Interface` with `ApplicationController`. Then, we integrate `RestaurantManager`, Then `ReviewManager`, then `ReviewDatabaseDriver`.
+
+But how can we test our integration if we have unimplemented dependencies? With stubs!
+
+#### Top-Down mocking
+
+Consider that we are integrating `RestaurantManager`. In this example, we may are testing the feature "The User Interface shows the 5 most recent reviews for the restaurant".
+
+**Note that the below code is a hypothetical example, but is intended to show working code as best as possible.**
+
+```java
+public class UserInterface {
+    private ApplicationController controller;
+    
+    public void displayRecentReviews(Restaurant restaurant) {
+        List<Review> reviewList = controller.getRecentReviews(restaurant);
+        System.out.println(formatReviewListForRestaurant(reviewList, restaurant));
+    }
+}
+```
+
+Note that in the above, this display method could also be used to produce an HTML page for a website, or send JSON to a phone app to display, or update some Widget, etc. The point is, we have some function communicating restaurant reviews to a user through an interface with the ApplicationController.
+
+```java
+public class ApplicationController {
+    private RestaurantManager restaurantManager;
+    
+    public List<Review> getRecentReviews(Restaurant restaurant) {
+        Set<Review> reviews = restaurantManager.getReviewsForRestaurant(restaurant);
+        return reviews.stream()
+                .sorted(Comparator.comparing(Review::getTimestamp).reversed())
+                .limit(5)
+                .toList();
+    }
+}
+```
+In this method, we use `RestaurantManager` to get all of the `Review`s for a given restaurant, and then filter that to the 5 most recent reviews.
+
+Now we add in the class we are integrating: `RestaurantManager`, which has a dependency to `ReviewManager`
+
+```java
+public class RestaurantManager {
+    private ReviewManager reviewManager;
+    
+    public Set<Review> getReviewsForRestaurant(Restaurant restaurant) {
+        int restaurantZipCode = restaurant.getZipCode();
+        HashMap<Restaurant, Set<Review>> reviewsInZipCode = reviewManager.getRestaurantReviewsMap(restaurantZipCode);
+        return reviewsInZipCode.get(restaurant);
+    }
+}
+```
+
+You might be thinking "how can we run this code without implementing `ReviewManager`?" And the answer is: we can't! But we *can* test it using mocking and stubs so long as we have a clear interface (in this case one that contains the method ``. The below example is a **unit test** for Restaurant Manager using a library called `mockito` which we will dive deeper into in the next unit.
+
+```java
+import org.junit.jupiter.api.*;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+public class RestaurantManagerTest {
+    private static final int TEST_ZIP_CODE = 22903;
+    
+    private RestaurantManager testRestaurantManager;
+    private ReviewManager reviewManager;
+    
+    private static final Restaurant bodos = new Restaurant("Bodo's Bagels", 22903, FoodCategory.BREAKFAST);
+    private static final Review testReview1 = new Review(bodos, "2022-07-23 10:37:00", 5, "Great bagels");
+    private static final Review testReview2 = new Review(bodos, "2022-05-16 08:16:15", 4, "They should reopen their drive through");
+    private static final Review testReview3 = new Review(bodos, "2022-08-04 16:23:17", 2, "My afternoon breakfast sandwich was good, but it had a hold down the middle, wtf!?!?!");
+    private Review testReview1, testReview2, testReview3;
+    
+    private static final Restaurant chipotle = new Restaurant("Chipotle", 22903, FoodCatogory.MEXICAN);
+    private static final Review testReview4 = new Review(chipotle, "2022-08-05 17:37:58", 5, "No holes in their burritos here, unlike bodos");
+    
+    @BeforeEach
+    public void setup() {
+        reviewManager = mock(ReviewManager.class);
+        testRestaurantManager = new RestaurantManager();
+        testRestaurantManager.setReviewManager(reviewManager);
+        
+        test
+    }
+    
+    @Test 
+    public void testGetReviewsForRestaurant() {
+        when(reviewManager.getRestaurantReviewsMap(TEST_ZIP_CODE)).thenReturn(getTestReviewMapTwoRestaurants());
+        
+        Set<Review> actualOutput = testRestaurantManager.getReviewsForRestaurant(bodos);
+        
+        assertEquals(actualOutput, Set.of(testReview1, testReview2, testReview3));
+    }
+    
+    private Map<Restaurant, Set<Review>> getTestReviewMapTwoRestaurant() {
+        Map<Restaurant, Set<Review>> restaurantReviewMap = new HashMap<>();
+        Set<Review> bodosReviews = Set.of(testReview1, testReview2, testReview3);
+        Set<Review> chipotleReviews = Set.of(testReview4);
+        restaurantReviewMap.put(bodos, bodosReviews);
+        restaurantReviewMap.put(chipotle, chipotleReviews);
+        return restaurantReviewMap;
+    }
+}
+```
+
+I know it looks like a lot here, but we'll break this down in general.
+
+What we are doing here is using a library called Mockito to create an "on-the-fly" (that is, at runtime) stub for the class ReviewManager. Rather than implement ReviewManager, we are simply (for the sake of this test) hard coding the output to the function to be a map that allows us to test our basic functionality.
+
+We hardcode a map of restaurants in the `private` method `getTestReviewMapTwoRestaurant()` to generate a simple example of what a map returned from `ReviewManager.getRestaurantReviewsMap(int zipcode)`. We are saying we want it to be a map with two restaurants, "Bodo's Bagles" and "Chipotle". Thus, we aren't really using (or implementing) `ReviewManager`, but rather using a "mock". The syntax for the `when` and `thenReturn` will be covered in more detail in the next unit. They key takeaway, however, is that this mocking **allows us to test, even when we have unintegrated, or even unimplemented, dependencies, so long as we know their interface**.
+
+In the same way we wrote the above **unit test**, In this way, we can easily create prototypes based around this hard coded data that we can take as far as needed. Obviously, we won't use this data long-term, but you'll notice this data is only created in our **testing environment**, and thus safely won't affect our **main** source code environment.
+
+#### Advantages of Top-Down
+
+The biggest advantage is that this lets us integrate our system in the same we want to design our system: from the high-level to the low-level. This means we are able to make desicions about the high-level classes early before we integrate low-level classes, allowing us to ensure our high-level design is effective and flexible.
+
+You may think writing up all these mocks is time-consuming. In truth however, with practice it can be a pretty quick process. In fact, most likely even if you were testing without a mock, you would still need to build the objects you are testing with during the test setup. Arguably, these mocks make it easier, as you aren't working with a real class. And in actuality, we are better off testing with mocks anyway, especially during **unit testing**. We will discuss the reasons why in the next unit (Mockito Unit Testing).
+
+#### Disadvantages of Top-Down
+
+One disadvantage, however, can be the difficulty in testing user-interfaces directly. This can be tricky, as mocking user input can be difficult. Additionally, the lowest-level resources are often interacting with files, databases, web-services, etc., and interactions with real external resources can be hard to mock (for instance, the most common advice on Stack Overflow for "How can I mock a File class in Java" is "do not try to mock a File in Java").
+
+Another disadvantage is that lower-level modules are often integrated last, and are typically tested in fewer integration tests as a result (as compared to Bottom-Up) since in most integration tests, the lower levels are either absent or mocked.
+
+Additionally, in smaller apps, the mocking may be overkill if there are only a small number of total modules to integrate.
+
 ### Sandwich Integration
+
+Also called hybrid integration testing, this combines bottom-up and top down. Generally, in sandwich integration, we will often start with a **target layer**. This could include class in the middle (like `ApplicationController` or `RestaurantManager`, for example). In this case, we can integrate both up and down, in the order we choose, testing as we go. In this case, we use Bottom-Up integration strategies to test **upwards** from our target layer, and Top-Down integration strategies to test **downwards** from our target layer.
+
+A major advantage of sandwich testing is that it can be very valuable in larger applications, as it allows for more scalability as new modules and subprojects are integrated. We are often able to isolate the User Interface (which is typically the most volatile part of our application), while still being able to test by decomposing features into individual modules.
+
+One major disadvantage is that this approach struggles where there are a large number of interdependencies between modules, as isolate a "target layer" to integrate up and down from becomes difficult.
