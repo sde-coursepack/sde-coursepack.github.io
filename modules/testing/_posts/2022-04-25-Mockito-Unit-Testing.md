@@ -95,12 +95,6 @@ without an API"? The answer is **Test Doubles*.
 
 **Test Doubles** are classes that replace *external dependency* objects with replacement  objects that imitate the behavior of the external dependency they are replacing. In this case, an external dependency is any code used by a class that isn't part of the class.
 
-There are 3 ways we can using Test Doubles:
-
-1. Stubs
-2. Mocks
-3. Fakes
-
 ## Stubs
 
 A Stub object is an object that replaces an object with another object of the same interface. However, the Stub class's implementation is typically hardcoded to return specific values. For example, if we were to use the Stub of [`NBATeamReader`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/main/java/edu/virginia/cs/nbateams/NBATeamReader.java), we may write something like this:
@@ -381,9 +375,9 @@ and there are fair reasons for that argument. For example, if
 the JSON format were less well-establish and the structure of files
 could change, or org.json were still new and the interfaces could change, then our tests could potentially fail because of things outside of our code. However, to me, it's fundamentally no different than testing using ArrayLists, HashMaps, or Strings.
 
-## Mocking abstract classes
+## Mocks
 
-In a Mock, we are creating an object like a stub object to remove the need for external dependencies. However, we still want to monitor to verify that the class interacts with external dependencies as expected For example, the class `NBATeamExcelWriter` writes to an ExcelWorkbook and saves it. Instead of actually saving the file, and then reading the saved file back-in to ensure it is correct, we can instead check to see if the file "tries" to save, but block the actual file I/O operation.
+A **mock** is very similar to a stub. We are creating an object like a stub object to remove the need for external dependencies. However, we still want to monitor to verify that the class interacts with external dependencies as expected For example, the class `NBATeamExcelWriter` writes to an ExcelWorkbook and saves it. Instead of actually saving the file, and then reading the saved file back-in to ensure it is correct, we can instead check to see if the file "tries" to save, but block the actual file I/O operation.
 
 Below is an example of using mocking a class that relies heavily on an internal `Map`. One limitation of testing our classes with abstract data types is that, typically, we have to pick a concrete implementation (like `TreeMap` or `HashMap`) to do testing. This can cause problems, because it makes our test inflexible, since they are tied to specific concrete types. If the underlying concrete type used by the object changes, this could break our tests.
 
@@ -413,7 +407,7 @@ public class Patron {
 
 In this case, we can test our method `addBookToCheckedOut` method by **mocking the List**. That's right, we can mock the abstract data type `List`, meaning we can test our class while keeping our test **independent of the concrete List implementation used.**
 
-Here is an example of using a MockList, and it will show us the same `when-then` syntax as before, as well as a new piece of Mockito syntax, `verify`:
+Here is an example of using a mocked List in [`PatronTest.java`](https://github.com/sde-coursepack/Library/blob/6dba0b86e97dd0be78fd19864b2ed2f8ba0ebdd3/src/test/java/PatronTest.java), and it will show us the same `when-then` syntax as before, as well as a new piece of Mockito syntax, `verify`:
 
 ```java
 import org.junit.jupiter.api.*;
@@ -500,6 +494,7 @@ Another way we could write this test is to say that, after our call to `contains
 
 `verifyNoMoreInteractions` means that no methods, other than the ones we have called `verify` with, have been called. In this case, we have to include `contains` since we did use it in the if-statement in Patron.
 
+
 ## Why use test Doubles
 
 You might right now be thinking that this is a lot of extra work, why not just do integration tests? After all, if the larger parts work, then the small parts must work, right?
@@ -507,16 +502,4 @@ You might right now be thinking that this is a lot of extra work, why not just d
 **Remember**: debugging a little code is significantly easier than debugging a lot of code! Using Stubs like this allows us to dramatically shrink the code we are looking at! We can even use this to customize our level of integration.
 
 Yes, this does take more code, but this isn't a problem. In fact, it's important to understand that "less code" does not mean "less work", as proper testing can drastically reduce our overall debugging work. The "code" of our stub is trivially easy to write, and it ensures that our test of `extractGoodAbbreviationTeams` is **stable** and **portable**. This test no longer relies on other classes working, no longer relies on the internet, and no longer relies on an external server. Additionally, even if our **implementation** of the class `NBATeamReader` changes, so long as the **interface** remains the same, this test will still work!
-
-
-
-## Data Structures vs Objects
-
-Generally, it's acceptable to use common and standardized data structures in tests without mocking them, so long as the data structure is unlikely to change. 
-
-In our Design unit, we will talk about the difference between **objects** and **data structures**, but the key difference is that **data structures** exist only to model data. They otherwise don't *do* anything. For example, [`NBATeam`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/main/java/edu/virginia/cs/nbateams/NBATeam.java) would be considered a data structure, since it only models a collection of data that describes a single tightly cohesive idea: a team in the NBA. 
-
-However, classes like [`BallDontLieReader`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/main/java/edu/virginia/cs/nbateams/BallDontLieReader.java) and [`NBATeamExcelWriter`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/main/java/edu/virginia/cs/nbateams/NBATeamExcelWriter.java) are decidedly *not* data structures, but rather **objects**. This is because both classes perform an action, and do not just model data.
-
-In general, we **should** mock the behavior of **objects**, but we do not need to mock the behavior of **data structures**.
 
