@@ -1,8 +1,10 @@
 ---
-Title: Design Principles
+Title: OO Design Principles
 ---
 
 # Design Principles
+
+In this module, we will focus on some additional design principles. First, we look at some general design principles, and then second we focus on Object-Oriented Design Principles. These principles are designed to help us achieve modular, functionally independent code that adheres to proper use of abstraction and information hiding.
 
 ## KISS Principle
 
