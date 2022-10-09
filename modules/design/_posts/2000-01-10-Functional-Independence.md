@@ -23,7 +23,7 @@ We also have different levels of coupling like we did cohesion. As before, we wi
 - Common coupling
 - Control coupling
 - Stamp coupling
-- Data coupling
+- Data coupling  
 **BEST**
 
 
