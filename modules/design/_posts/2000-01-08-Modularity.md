@@ -257,4 +257,4 @@ public class PrequisiteChecker {
 
 In this case, this module only has one behavior, which is functional in nature (given some input, get some output). This is very maintainable, because so long as the interface remains the same, the implementation can change without propagating change to any other module. It's also very easy to **extend** this behavior and have multiple implementations (using polymorphism). Additionally, the interface of this module is as simple as possible: there is only one element to this module. Ultimately, this module takes input in exactly one place, and returns exactly one piece of output.
 
-Of course, we can't always have **every** class have exactly 1 method. For example, data structure classes will typically have a constructor and getters and setters. However, when we can achieve functional cohesion, it is worth doing so.
+Of course, we can't always have **every** class have exactly 1 purely functional method. For example, data structure classes will typically have a constructor and getters and setters. However, when we can achieve functional cohesion, it is worth doing so.
