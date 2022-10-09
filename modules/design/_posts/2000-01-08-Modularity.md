@@ -132,7 +132,24 @@ Now, we've made our class less cohesive. Before, any part of our system that nee
 
 We can describe different levels of cohesiveness by describe how we chose to combine, or **couple** elements into a single class.
 
-Below, we will broadly describe different levels of cohesiveness from **WORST** to **BEST**.
+Below, we will broadly describe different levels of cohesiveness from **WORST** to **BEST**. Note that this applies within each group. So for example, Logical cohesion, while bad, is still better than coincidental cohesion
+
+WORST: Very loose cohesion, to be avoided
+- Coincidental cohesion
+- Logical cohesion
+- Temporal cohesion
+
+MODERATE: Could be better, but acceptable
+- Procedural cohesion
+- Communicational cohesion
+
+BETTER:
+- Sequential cohesion
+
+BEST: 
+- Functional cohesion
+
+Also note that below I am using Object Oriented class examples. However, these levels of cohesion can also describe functions.
 
 #### Coincidental Cohesion (worst)
 
@@ -233,13 +250,11 @@ That said, when we need to enforce a specific sequence of events, sequential coh
 A module exhibits functional cohesion if it describes a single well-supported function. I.e., a something that only does on thing. It is certainly useful to have our functions themselves work this way. Many of our classes may work this way as well. For example:
 
 ```java
-public class CSVStateReader {
-    public List<State> getStatesFromCSVFile(String filename) {
-        
-    }
+public class PrequisiteChecker {
+    public boolean isPrequisiteMetByStudent(Prequisite prereq, Student student);
 }
 ```
 
-In this case, this module only has one behavior, which is functional in nature (given some input, get some output). This is very maintainable, because so long as the interface remains the same, the implementation can change without propagating change to any other module. Additionally, the interface of this module is as simple as possible: there is only one element.
+In this case, this module only has one behavior, which is functional in nature (given some input, get some output). This is very maintainable, because so long as the interface remains the same, the implementation can change without propagating change to any other module. It's also very easy to **extend** this behavior and have multiple implementations (using polymorphism). Additionally, the interface of this module is as simple as possible: there is only one element to this module. Ultimately, this module takes input in exactly one place, and returns exactly one piece of output.
 
-Of course, we can't always have **every** module have exactly 1 method. For example, data structure classes will typically have a constructor and getters and setters. However, when we can acheieve functional cohesion, it is worth doing so.
+Of course, we can't always have **every** class have exactly 1 method. For example, data structure classes will typically have a constructor and getters and setters. However, when we can achieve functional cohesion, it is worth doing so.
