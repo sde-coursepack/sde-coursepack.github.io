@@ -76,6 +76,52 @@ public class StudentNotifier() {
 
 Two items are "content coupled" if they have **read and write** access to the same global data. An easy illustration of this is showing the use of static global variables which is used as a communication source between modules. Note that for this to be common coupling, we specifically need both **read and write** access. For example, public constant values, which cannot be changed, do not violate Common Coupling.
 
+```java
+public class Main {
+    public static String filename;
+    
+    public static void main(String[] args) {
+        filename = args[0];
+        MyFileReader mfr = new MyFileReader();
+        mfr.run();
+    }
+}
+
+public class MyFileReader {
+    public void run() {
+        FileReader fileReader = new FileReader(Main.filename);
+        BufferedReader br = new BufferedReader(fileReader);
+        ...
+    }
+}
+```
+
+The above is bad because, by giving `public` access to the `static` field filename, **any class in our entire project** could *read* or *write* to this field. As a general rule, static values should generally be limited to constants (which cannot be changed, therefore have no risk). Instead, we can replace global variables with passed arguments (such as to a constructor or method argument):
+
+```java
+public class Main {    
+    public static void main(String[] args) {
+        filename = args[0];
+        MyFileReader mfr = new MyFileReader(filename);
+        mfr.run();
+    }
+}
+
+public class MyFileReader {
+    private String filename;
+    
+    public MyFileReader(String filename) {
+        this.filename = filename;
+    }
+    
+    public void run() {
+        FileReader fileReader = new FileReader(Main.filename);
+        BufferedReader br = new BufferedReader(fileReader);
+        ...
+    }
+}
+```
+
 Note that "global data" doesn't inherently mean global variables, however. For example, if two different classes are both directly interacting with a shared database, and both classes can add, remove, and alter records in the same table, this is common coupling (note that some will call this **external coupling** and distinguish it from common coupling, but the core problem is the same). This is because if there is a data error, it is not clear which module created the corruption. However, this can be resolved by creating one module that handles database interactions with other modules that need to interact with. We will discuss this idea further when discussing the Singleton Design Pattern.
 
 ### Control Coupling
@@ -291,4 +337,4 @@ In this case, we have turned **temporal coupling** into **data coupling**, as it
 
 ## Conclusion
 
-In the last two units, we talked about *cohesion* and *coupling*. We want our classes to be *highly cohesive* (that is, parts of the modules highly **intra**dependent to describe one behavior) and *loosely coupled* (that is, relationships to other modules are as simple as possible, ideally just functional calls).
+In the last two units, we talked about *cohesion* and *coupling*. We want our classes to be *highly cohesive* (that is, parts of the modules highly **intra**dependent to describe one behavior) and *loosely coupled* (that is, relationships to other modules are as simple as possible, ideally just simple functional calls).
