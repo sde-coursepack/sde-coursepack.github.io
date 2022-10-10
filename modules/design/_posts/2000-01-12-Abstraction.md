@@ -86,4 +86,18 @@ In general, all interactions with another module should be made through an inter
 
 ## Using Information Hiding
 
-As we saw in the above example, abstraction goes beyond just `public`, `private`, and `protected`. In general, we should
+As we saw in the above example, abstraction goes beyond just `public`, `private`, and `protected`. In general, we should make all *fields* `private`. Even a `private` field with two getters and setters is better than a `public` field, as the getters and setters can be modified to do things like:
+
+- prevent illegal `set` calls
+- if the `getter` returns a mutable field of the class, we can use things like clone() to ensure we are returning a "safe copy"
+
+If we utilize direct field access, we cannot restrict any usage.
+
+Additionally, if we need to change our implementation, such as replacing an internal `List` with a `Set` to improve look-up efficiency, we can do so while maintaining the existing public interface.
+
+Additionally, we should have the smallest number of `public` methods possible. For instance, helper methods that exist to help other methods perform their task in a more modularized way, should *never* be public.
+
+Java visibility keywords:
+
+`public` - any other class can reference `public` items
+`protected` - any other class **in the same package** can reference `protected` items. Additionally, any class that extends a class with a `protected` item can access the protected item, regardless of package.
