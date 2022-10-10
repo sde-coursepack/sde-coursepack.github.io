@@ -201,3 +201,94 @@ This insures that any action taken by the "called" method, with the exception th
 
 This allows us to develop both modules independently, without worrying about behavior of one module complicating the behavior of another.
 
+
+### Mutability and Coupling
+
+One issue of coupling relates to mutability, that is objects where the State can change. For example:
+
+```java
+    List<Integer> myList = new ArrayList<>(List.of(8, 6, 7, 5, 3, 0, 9));
+    Collections.sort(myList);
+    System.out.println(myList); // prints 0, 3, 5, 6, 7, 8, 9
+```
+
+Here, we are sorting the variable `myList`. The module `Collections` has a sorting method. However, this sorting is done **in-place**. That means that we are actually modifying the value of `myList` *in another module*.
+
+This is worse than *data coupling*, because the relationship is more complicated. Rather than handling side effects locally, we are relying on another module to handle our side effects. While this is a *built-in* Java function, it would be easier to understand and use this method correctly if this method returned a *new* List, rather than modifying our existing one. Of course, this creates a trade-off: if we make the usage of `sort` create a new list, it now uses twice as much memory for our list.
+
+
+### Temporal Coupling
+
+Here is one that some code I have written for class is particularly bad about (intentionally so, as I planned to address it in class). This is based on code I have encountered in the wild:
+
+```java
+public class GuessResult {
+    private String guess;
+    private String answer;
+    
+    public String getGuess() {
+        return guess;
+    }
+
+    public void setGuess(String guess) {
+        this.guess = guess.toUpperCase();
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer.toUpperCase();
+    }
+
+    public LetterResult[] getGuessResult() { ... }
+}
+```
+
+In order to use the above code, you would have to do something like:
+
+```java
+    GuessResult gr = new GuessResult();
+    gr.setGuess("BOXER");
+    gr.setAnswer("MATCH");
+    LetterResult[] result = gr.getGuessResult();
+```
+
+That is, you specifically have to call `setAnswer` and `setGuess` **before** you can call `getGuessResult`, otherwise you get an exception. This means that the interface of this module is **more complicated than it needs to be**. Consider the following change:
+
+```java
+public class GuessResult {
+    private String guess;
+    private String answer;
+
+    public GuessResult(String guess, String answer) {
+        this.guess = guess.toUpperCase();
+        this.answer = answer.toUpperCase();
+    }
+
+    public LetterResult[] getGuessResult() { ... }
+}
+```
+
+Now what does the usage look like?
+
+```java
+    GuessResult gr = new GuessResult("BOXER", "MATCH");
+    LetterResult[] result = gr.getGuessResult();
+```
+
+In this case, we have turned **temporal coupling** into **data coupling**, as it is no longer possible to get the function calls out of order. You have to call the constructor first anyways to instantiate the object. But after that, the object cannot be in an incorrect state. If you want to call this function again, simply create a new `GuessResult` object. A note that there is a trade-off here, as instantiating a new object, as opposed to reusing an older one, comes with a memory and time cost. However, from a maintainability perspective, the second approach is more maintainable.
+
+**How does code like the first example happen?** It happens due to an overadherence to simple-sounding principles. This particular example emerged because of trying to follow principles in __Clean Code__. Specifically, from Chapter 3 where Bob Martin argues that Monadic functions (functions with one argument) are generally better than Dyadic functions (functions with two arguments). If you take that idea out of context and try to force one-argument functions, that's how you end up with setups like:
+
+```java
+    GuessResult gr = new GuessResult();
+    gr.setGuess("BOXER");
+    gr.setAnswer("MATCH");
+    LetterResult[] result = gr.getGuessResult();
+```
+
+## Conclusion
+
+In the last two units, we talked about *cohesion* and *coupling*. We want our classes to be *highly cohesive* (that is, parts of the modules highly **intra**dependent to describe one behavior) and *loosely coupled* (that is, relationships to other modules are as simple as possible, ideally just functional calls).
