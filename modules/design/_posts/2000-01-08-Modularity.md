@@ -197,15 +197,14 @@ A module with only procedural coupling is supporting unrelated activities in whi
 
 ```java
 public class CourseRegistration {
-    public StudentRecord getStudentRecord(Student student);
-    public List<Prequisite> getPreRequisites(Course course);
-    public boolean studentMeetsAllPrerequisites(Student student, List<Prerequisite> prerequisites);
-    public boolean isCourseFull(Course course);
-    public void addStudentToCourse(Student student, course course);
+    public void openCourseDatabaseConnection();
+    public void closeCourseDatabaseConnection();
+    public void executeAddCourseForStudentQuery(Course course, Student student);
+    public add verifyLastAddSuccessful();
 }
 ```
 
-While this is better than our other examples, it still is group elements that do not adhere to the same function. For example, getting a StudentRecord has nothing, functionally, it do with getting the prerequisite for a given course. It only matters in the specific context we have here. As such, each module is less likely to be reusable in a DRY way, as it is written as part of a procedure. If I only want one step of this procedure in another module (such as getting the StudentRecord in order to print a transcript), it is awkward and confusing to use code from this module which isn't related to that single behavior.
+While this is better than our other examples, it still is group elements that do not all contribute to a single functional purpose in a clear way. For example, what order do you call the above procedures in? Additionally, because it appears each module is relying on state variables, rather than functional inputs and outputs, each module is less likely to be reusable in other contexts. If I only want one step of this procedure in another module (such as getting the StudentRecord in order to print a transcript), it is awkward and confusing to use code from this module which isn't related to that single behavior.
 
 #### Communicational cohesion
 
@@ -222,28 +221,48 @@ public class StudentRecord {
 }
 ```
 
-Here, these features all work on the same data: the student's course history. However, the behaviors are not tightly related to one another. For example, only a small subset of clients to this module will use each specific feature, and all or most clients of the module won't use every feature. This makes code re-use awkward, and makes the modules larger than they need to be, forcing clients to understand which methods to **not** use.
+Here, these features all work on the same data: the student's course history. However, the behaviors are not tightly related to one another. For example, only a small subset of clients to this module will use each specific feature, and all or most clients of the module won't use every feature. This makes code re-use awkward, and makes the modules larger than they need to be, forcing clients to understand which methods to **not** use in addition to how to use the methods they want to use.
 
 #### Sequential cohesion
 
-Generally, sequential cohesion is considered "fine" if not ideal.
+Generally, sequential cohesion is considered quite good, second only to functional. It's a great way to group several procedures that need to occur in a specific order, where the inputs and outputs clearly indicate the call order.
 
 Similar to procedural cohesion, elements are grouped because they happen in sequence, where one element's output are directly used by the next elements inputs. That is, the elements must occur in sequence.
 
 ```java
-public Class PrintDeansListFile {
-    public Map<Student, Double> getStudentGPAMap();
+public class PrintDeansListFile {
+    public Map<Student, Double> getStudentGPAMap(Enrollment Enrollment);
     public List<Student> getDeansListStudents(Map<Student, Double> studentMap);
     public File generateDeansListPDF(List<Student> deansListStudents);
     public void printFile(File deansListPDF);
 }
 ```
 
-This may look similar to **procedural** cohesion, but the difference is that in sequential, each of our modules elements occur in exactly one order, where output from a step is used as input in the next step.
+This may look similar to **procedural** cohesion, but the *critical difference is that in sequential, each of our modules elements occur in exactly one order, where **output from one step is used as input in the next step**.
 
 Cohesion here is very high. However, some of the functions could be re-used in other contexts, such as getStudentGPAMap(), or even printFile(), so it may be beneficial to extract those to more functionally specific modules.
 
 That said, when we need to enforce a specific sequence of events, sequential cohesion is necessary.
+
+To simplify this interface, we can use a **facade** class: i.e.:
+
+```java
+public class DeansListFile {
+    public Map<Student, Double> getStudentGPAMap(Enrollment enrollment);
+    public List<Student> getDeansListStudents(Map<Student, Double> studentGPAMap);
+    public File generateDeansListPDF(List<Student> deansListStudents);
+    public void printFile(File deansListPDF);
+}
+
+public class DeansListFileFacade {    
+    public void getDeansList(Enrollment enrollment) {
+        Map<Student, Double> studentGpaMap = getStudentGPAMap(Enrollment enrollment);
+        List<Student> deansList = getDeansListStudents(studentGpaMap);
+        File deansListPDF =  generateDeansListPDF(deansList);
+        printFile(deansListPDF);
+    }
+}
+```
 
 #### Functional cohesion
 
