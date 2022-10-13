@@ -1,5 +1,5 @@
 ---
-Architectural Patterns
+Title: Architectural Patterns
 ---
 
 # Architectural Patterns
