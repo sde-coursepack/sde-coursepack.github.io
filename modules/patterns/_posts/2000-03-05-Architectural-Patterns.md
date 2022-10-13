@@ -4,6 +4,8 @@ Architectural Patterns
 
 # Architectural Patterns
 
+In this unit, we will discuss some common Architectural ideas and structures.
+
 ## What is a Pattern
 
 A pattern is a known strategy to addressing design concerns. However, patterns are inherently abstract. That is, you cannot simply copy and paste a pattern, or `import pattern`. Rather, it is an established idea of how to solve design problems. We will look at some architectural patterns in this unit.
