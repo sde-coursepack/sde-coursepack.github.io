@@ -57,7 +57,7 @@ Each of these cases generally show the basic, most common operation of the funct
 
 ### Boundary
 
-Boundary cases are typically cases where there is something interesting or unique about the test case to seperate it from an equivalence case. For example:
+Boundary cases are typically cases where there is something interesting or unique about the test case to separate it from an equivalence case. For example:
 
 * `add(6)` called on an empty instance of `MySortedList` - adding to an empty list, depending on how we construct our data structure, could pose an interesting challenge, so we'll want to ensure it's behaving correctly.
 * `add(6)` to an instance of `MySortedList` that already contains a `6`; it's worth seeing how this is handled, to ensure that we can add multiple of the same element to our object and it still behave as intended.
