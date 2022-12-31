@@ -13,7 +13,7 @@ In this course, we will review three major groups of design patterns:
 Each pattern type addresses a certain kind of problem that arises in code.
 
 ## Creational Design Patterns
-Creational patterns are any design patterns that either hide or limit constructor useage. Essentially, they provide object creation mechanisms that increase flexibility and re-use of existing code. Examples of creational design patterns include:
+Creational patterns are any design patterns that either hide or limit constructor useage. Essentially, they provide object creation and instantion mechanisms that increase flexibility and re-use of existing code. Examples of creational design patterns include:
 * Singleton
 * Factory
 * Abstract Factory
@@ -27,7 +27,7 @@ Structural design patterns, on the other hand, have to do with de-coupling an ab
 * Decorator
 
 ## Behavioral Design Patterns
-Our last group of design patterns is the behavioral design pattern. These take care of communication between objects and the assignment of responsibilities between them. Behavioral design patterns include:
+Our last group of design patterns is the behavioral design pattern. These take care of communication between objects and the assignment of responsibilities between them, by manifesting flexible behavior. Behavioral design patterns include:
 * Iterator
 * Observer
 * Command
