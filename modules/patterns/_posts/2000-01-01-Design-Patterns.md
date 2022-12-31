@@ -32,3 +32,9 @@ Our last group of design patterns is the behavioral design pattern. These take c
 * Observer
 * Command
 * Strategy
+
+# Things to keep in mind
+> "When you have a hammer, everything looks like a nail." 
+<br>- Abraham Maslow
+
+Design patterns should never be forced, or over-used. While they are great tools for adressing issues in software quality, it is easy to misuse design patterns, especially if you use too many or attept to use a pattern when there is a better solution available. 
