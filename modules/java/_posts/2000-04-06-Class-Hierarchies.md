@@ -22,6 +22,14 @@ The Java class hierarchy provides a way for developers to organize their code an
 
 ### is-a vs. has-a
 
+Within the Java class hierarchy, there are important relationships that describe the associations between different classes: "is-a" and "has-a":
+
+* __"Is-a"__ relationship is also known as inheritance or subclassing, and it means that one class is a specialized version of another class. For example, if we have a `Car` class and a `Jeep` class that inherits from the `Car` class, we can say that "Jeep is a Car." This relationship implies that the Jeep class has all the properties and methods of the Car class, as well as additional properties and methods specific to a jeep.
+
+* __"Has-a"__ relationship, on the other hand, describes a composition or aggregation between classes, where one class contains an instance of another class as a member variable. For example, if we have a `Car` class and an `Engine` class, we can say that "Car has an Engine." This relationship implies that the `Car` class contains an instance of the `Engine` class as one of its member variables, and can use its methods to perform actions related to the engine.
+
+Both relationships are important in object-oriented programming and can be used to create flexible, modular, and reusable code. 
+
 ### Superclass and Subclass
 
 ### extends
