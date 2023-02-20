@@ -171,6 +171,7 @@ public class Main {
 
 ### `super.` usage
 
+<!-- 
 ## Another Example: clocks
 Sometimes, we may find that two classes are very similar: `Clock` which tells us the time, and `AlarmClock` which tells us the time and has an alarm. They are so similar, in fact, `AlarmClock` is a subclass of `Clock`. This means `AlarmClock` _is-a_ `Clock` (Anything a clock can do, so can an alarm clock), but `Clock` _is-not-a_ `AlarmClock` (a clock may not has all the behaviors of an alarm clock).
 
@@ -201,3 +202,4 @@ public class AlarmClock extends Clock {
 }
 ```
 The full implementation of both `Clock` and `AlarmClock` classes can be found in [this repo on the coursepack](https://github.com/sde-coursepack/Clocks/tree/master).
+-->
