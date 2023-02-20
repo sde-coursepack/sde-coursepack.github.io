@@ -105,7 +105,7 @@ In this example, we have a `Car` class with four different access modifiers used
 Here's an example usage of the Car class to demonstrate these access modifiers:
 
 ```java
-package edu.virginia.cs.oo;
+package edu.virginia.cs.notsamepackage;
 
 public class Main {
     public static void main(String[] args) {
@@ -126,22 +126,26 @@ public class Main {
 In this example, we create a `Car` object with the make "Ford", model "Mustang", color "blue", and year 2022. We then try to access each of the fields and methods of the Car class from the main method using the myCar object.
 
 
-### @Override
-Using the `SUV` class example, we can use the @Override annotation in Java to indicate that a method in a subclass is intended to override a method in the parent class. Below is some example code:
+## `super` keyword
+We can also use the super keyword to call superclass methods from within a subclass. For example, if the Car class had a method called drive(), we could override this method in the SUV class and call the superclass implementation using the super keyword:
 
 ```java
 package edu.virginia.cs.oo;
 
 public class SUV extends Car {
-
-    public SUV(String make, String model, String color, int year) {
+    private int numSeats;
+    
+    public SUV(String make, String model, String color, int year, int numSeats) {
         super(make, model, color, year);
+        this.numSeats = numSeats;
     }
 
     @Override
-    public void start() {
-        System.out.println("Revving the engine of the " + color + " " + getMake() + " " + getModel());
+    public void drive() {
+        super.drive();
+        System.out.println("And carrying " + numSeats + " passengers");
     }
+
 
     public String getMake() {
         return super.make;
@@ -152,24 +156,31 @@ public class SUV extends Car {
     }
 }
 ```
-In this example, we have a `Car` class with a start method that simply outputs a message indicating that the car is starting. We also have a subclass called `SUV` that extends `Car` and overrides the start method to output a more specific message about revving the engine of the car. Note that we use the `@Override` annotation on the start method in the SUV class to indicate that we intend to override the same-named method in the parent class. We can quickly demo the idea here:
+
+### `super()` in Constructors
+
+In this example, the `SUV` class has a constructor that takes three parameters: the make, model, and numSeats of the SUV. We want to initialize the make and model fields of the `Car` superclass, so we use the `super` keyword to call the superclass constructor with those parameters. We then initialize the numSeats field with the numSeats parameter.
+
+Using the `super` keyword to call the superclass constructor is necessary in this case because the make and model fields are private in the `Car` class and cannot be accessed directly from the `SUV` class. By calling the superclass constructor with the appropriate parameters, we can initialize these fields in the superclass and make them available for use in the subclass.
+
+### `super.` usage
+
+The `SUV` class overrides the `drive()` method of the `Car` class and adds a message about the number of passengers the SUV is carrying. We call the superclass implementation of `drive()` using the `super.` keyword to avoid duplicating the output about the make and model of the car.
+
+### @Override
+we can use the @Override annotation in Java to indicate that a method in a subclass is intended to override a method in the parent class. Note that we use the `@Override` annotation on the start method in the SUV class to indicate that we intend to override the same-named method in the parent class. We can quickly demo the idea here:
 
 ```java
 package edu.virginia.cs.oo;
 
 public class Main {
     public static void main(String[] args) {
-        SUV mySUV = new SUV("Jeep", "Wrangler Rubicon", "black", 2023);
-        mySUV.start(); // Outputs "Revving the engine of the black Jeep Wrangler Rubicon"
+        SUV mySUV = new SUV("Jeep", "Wrangler", "black", 2023, 5);
+        mySUV.drive(); // Outputs "Driving the black Jeep Wrangler" and "And carrying 5 passengers"
     }
 }
 ```
 
-## `super` keyword
-
-### `super()` in Constructors
-
-### `super.` usage
 
 <!-- 
 ## Another Example: clocks
