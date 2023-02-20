@@ -26,7 +26,7 @@ The Java class hierarchy provides a way for developers to organize their code an
 
 Within the Java class hierarchy, there are important relationships that describe the associations between different classes: Inheritance ("is-a") and Aggregation ("has-a"):
 
-* __Inheritance ("Is-a"):__ relationship is also known as subclassing, and it means that one class is a specialized version of another class. For example, if we have a `Car` class and a `Jeep` class that inherits from the `Car` class, we can say that "Jeep is a Car." This relationship implies that the Jeep class has all the properties and methods of the Car class, as well as additional properties and methods specific to a jeep.
+* __Inheritance ("Is-a"):__ relationship is also known as subclassing, and it means that one class is a specialized version of another class. For example, if we have a `Car` class and a `SUV` class that inherits from the `Car` class, we can say that "SUV is a Car." This relationship implies that the SUV class has all the properties and methods of the Car class, as well as additional properties and methods specific to a jeep.
 
 * __Aggregation ("Has-a"):__ relationship, on the other hand, describes a composition between classes, where one class contains an instance of another class as a member variable. For example, if we have a `Car` class and an `Engine` class, we can say that "Car has an Engine." This relationship implies that the `Car` class contains an instance of the `Engine` class as one of its member variables, and can use its methods to perform actions related to the engine.
 
@@ -36,9 +36,9 @@ Both Inheritance and Aggregation relationships are important in object-oriented 
 
 When a new class is defined by adding onto an existing class, the new class is called the __subclass__ (derived class, or child class) and the existing class is called the __superclass__ (base class, or parent class). The subclass _inherits_ from the superclass (all methods and attributes) and the subclass _extends_ the superclass.
 
-You can think of a superclass as a blueprint for a set of related classes. For example, you could have a superclass called `Car` that defines common properties such as "NumberOfWheels", "Color," "Fuel," and "Speed," as well as methods such as "start()," "accelerate()," and "brake()." Then, you could create subclasses such as `Jeep,` `Truck,` that inherit these properties and methods from the `Car` superclass, but also have their own unique properties such as "loadCapacity," "NumberOfPassengers," or methods such as "loadPassenger()" and "loadContainer()."
+You can think of a superclass as a blueprint for a set of related classes. For example, you could have a superclass called `Car` that defines common properties such as "NumberOfWheels", "Color," "Fuel," and "Speed," as well as methods such as "start()," "accelerate()," and "brake()." Then, you could create subclasses such as `SUV,` `Truck,` that inherit these properties and methods from the `Car` superclass, but also have their own unique properties such as "loadCapacity," "NumberOfPassengers," or methods such as "loadPassenger()" and "loadContainer()."
 
-Subclasses can override the methods of their superclass, meaning that they can provide a new implementation for a method defined in the superclass. For example, the `Jeep` subclass could override the "start()" method to implement a specific way of starting that is different from the generic "start" method defined in the `Car` superclass.
+Subclasses can override the methods of their superclass, meaning that they can provide a new implementation for a method defined in the superclass. For example, the `SUV` subclass could override the "start()" method to implement a specific way of starting that is different from the generic "start" method defined in the `Car` superclass.
 
 Inheritance through superclasses is a powerful feature in Java that allows you to create a hierarchy of related classes and promote code reuse. By defining common properties and methods in a superclass, you can avoid duplicating code in your subclasses and make your code more modular and maintainable.
 
@@ -46,11 +46,11 @@ Inheritance through superclasses is a powerful feature in Java that allows you t
 In Java, the `extends` keyword is used to create a subclass that inherits properties and methods from a superclass. The keyword is followed by the name of the superclass that the subclass is extending. The "extends" keyword is used in the class definition, like this:
 
 ```java
-public class Jeep extends Car {
+public class SUV extends Car {
     // subclass members
 }
 ```
-In this example, `Jeep` is the name of the subclass, and `Car` is the name of the superclass that it is extending. It is important to note that a Java class can only extend *one* superclass at a time, but a superclass can have *multiple* subclasses. Also, the `extends` keyword is used for class inheritance, while the "implements" keyword is used for interface implementation.
+In this example, `SUV` is the name of the subclass, and `Car` is the name of the superclass that it is extending. It is important to note that a Java class can only extend *one* superclass at a time, but a superclass can have *multiple* subclasses. Also, the `extends` keyword is used for class inheritance, while the "implements" keyword is used for interface implementation.
 
 
 
@@ -127,14 +127,14 @@ In this example, we create a `Car` object with the make "Ford", model "Mustang",
 
 
 ### @Override
-Using the Jeep is a Car example, we can use the @Override annotation in Java to indicate that a method in a subclass is intended to override a method in the parent class. Below is some example code:
+Using the `SUV` class example, we can use the @Override annotation in Java to indicate that a method in a subclass is intended to override a method in the parent class. Below is some example code:
 
 ```java
 package edu.virginia.cs.oo;
 
-public class Jeep extends Car {
+public class SUV extends Car {
 
-    public Jeep(String make, String model, String color, int year) {
+    public SUV(String make, String model, String color, int year) {
         super(make, model, color, year);
     }
 
@@ -152,15 +152,15 @@ public class Jeep extends Car {
     }
 }
 ```
-In this example, we have a `Car` class with a start method that simply outputs a message indicating that the car is starting. We also have a subclass called `Jeep` that extends `Car` and overrides the start method to output a more specific message about revving the engine of the car. Note that we use the `@Override` annotation on the start method in the Jeep class to indicate that we intend to override the same-named method in the parent class. We can quickly demo the idea here:
+In this example, we have a `Car` class with a start method that simply outputs a message indicating that the car is starting. We also have a subclass called `SUV` that extends `Car` and overrides the start method to output a more specific message about revving the engine of the car. Note that we use the `@Override` annotation on the start method in the SUV class to indicate that we intend to override the same-named method in the parent class. We can quickly demo the idea here:
 
 ```java
 package edu.virginia.cs.oo;
 
 public class Main {
     public static void main(String[] args) {
-        Jeep myJeeep = new Jeep("Wrangler", "Rubicon", "black", 2023);
-        myJeep.start(); // Outputs "Revving the engine of the black Wrangler Rubicon"
+        SUV mySUV = new SUV("Jeep", "Wrangler Rubicon", "black", 2023);
+        mySUV.start(); // Outputs "Revving the engine of the black Jeep Wrangler Rubicon"
     }
 }
 ```
