@@ -1,13 +1,15 @@
+
+
+---
+Title: Class Hierarchies
+---
+
 <style>
 img[src*='#center'] {
     display: block;
     margin: auto;
 }
 </style>
-
----
-Title: Class Hierarchies
----
 
 # Class Hierarchies
 
@@ -34,9 +36,9 @@ Both Inheritance and Aggregation relationships are important in object-oriented 
 
 When a new class is defined by adding onto an existing class, the new class is called the __subclass__ (derived class, or child class) and the existing class is called the __superclass__ (base class, or parent class). The subclass _inherits_ from the superclass (all methods and attributes) and the subclass _extends_ the superclass.
 
-You can think of a superclass as a blueprint for a set of related classes. For example, you could have a superclass called `Vehicle` that defines common properties such as "NumberOfWheels", "Color," "Fuel," and "Speed," as well as methods such as "start()," "accelerate()," and "brake()." Then, you could create subclasses such as `PassengerVehicle,` `TransportationVehicle,` that inherit these properties and methods from the `Vehicle` superclass, but also have their own unique properties such as "loadCapacity," "NumberOfPassengers," or methods such as "loadPassenger()" and "loadContainer()."
+You can think of a superclass as a blueprint for a set of related classes. For example, you could have a superclass called `Car` that defines common properties such as "NumberOfWheels", "Color," "Fuel," and "Speed," as well as methods such as "start()," "accelerate()," and "brake()." Then, you could create subclasses such as `Jeep,` `Truck,` that inherit these properties and methods from the `Car` superclass, but also have their own unique properties such as "loadCapacity," "NumberOfPassengers," or methods such as "loadPassenger()" and "loadContainer()."
 
-Subclasses can override the methods of their superclass, meaning that they can provide a new implementation for a method defined in the superclass. For example, the `PassengerVehicle` subclass could override the "start()" method to implement a specific way of starting that is different from the generic "start" method defined in the `Vehicle` superclass.
+Subclasses can override the methods of their superclass, meaning that they can provide a new implementation for a method defined in the superclass. For example, the `Jeep` subclass could override the "start()" method to implement a specific way of starting that is different from the generic "start" method defined in the `Car` superclass.
 
 Inheritance through superclasses is a powerful feature in Java that allows you to create a hierarchy of related classes and promote code reuse. By defining common properties and methods in a superclass, you can avoid duplicating code in your subclasses and make your code more modular and maintainable.
 
@@ -44,13 +46,132 @@ Inheritance through superclasses is a powerful feature in Java that allows you t
 In Java, the `extends` keyword is used to create a subclass that inherits properties and methods from a superclass. The keyword is followed by the name of the superclass that the subclass is extending. The "extends" keyword is used in the class definition, like this:
 
 ```java
-public class Subclass extends Superclass {
+public class Jeep extends Car {
     // subclass members
 }
 ```
-In this example, "Subclass" is the name of the subclass, and "Superclass" is the name of the superclass that it is extending. It is important to note that a Java class can only extend *one* superclass at a time, but a superclass can have *multiple* subclasses. Also, the `extends` keyword is used for class inheritance, while the "implements" keyword is used for interface implementation.
+In this example, `Jeep` is the name of the subclass, and `Car` is the name of the superclass that it is extending. It is important to note that a Java class can only extend *one* superclass at a time, but a superclass can have *multiple* subclasses. Also, the `extends` keyword is used for class inheritance, while the "implements" keyword is used for interface implementation.
 
-## Example: clocks
+
+
+## Code elements
+
+### `public`, `protected`, `package-protected`, and `private`
+There are four access modifiers that can be used to restrict access to classes, fields, and methods: `public`, `protected`, `package-protected` (also known as default), and `private`. Consider this `Car` class:
+
+```java
+package edu.virginia.cs.oo;
+
+public class Car {
+    public String make;
+    protected String model;
+    String color; // package-protected
+    private int year;
+
+    public Car(String make, String model, String color, int year) {
+        this.make = make;
+        this.model = model;
+        this.color = color;
+        this.year = year;
+    }
+
+    public void start() {
+        System.out.println("Starting the " + make + " " + model);
+    }
+
+    protected void drive() {
+        System.out.println("Driving the " + color + " " + make + " " + model);
+    }
+
+    void stop() {
+        System.out.println("Stopping the " + color + " " + make + " " + model);
+    }
+
+    private void maintenance() {
+        System.out.println("Performing maintenance on the " + year + " " + make + " " + model);
+    }
+}
+```
+In this example, we have a `Car` class with four different access modifiers used for its fields and methods:
+
+* The `public` access modifier is used for the make field and the start method. This means that they can be accessed from anywhere, even outside of the Car class.
+
+* The `protected` access modifier is used for the model field and the drive method. This means that they can only be accessed within the Car class or any subclasses that inherit from it. Subclasses can access protected members even if they're in a different package.
+
+* The default access modifier (i.e. no access modifier specified) is used for the color field and the stop method. This means that they can only be accessed within the same package as the Car class. This is also known as "package-protected" access.
+
+* The `private` access modifier is used for the year field and the maintenance method. This means that they can only be accessed within the Car class itself. They cannot be accessed from any subclasses, even if they inherit from the Car class.
+
+Here's an example usage of the Car class to demonstrate these access modifiers:
+
+```java
+package edu.virginia.cs.oo;
+
+public class Main {
+    public static void main(String[] args) {
+        Car myCar = new Car("Ford", "Mustang", "blue", 2022);
+        System.out.println(myCar.make); // Output: "Ford"
+        // System.out.println(myCar.model); // Compilation error, model is protected
+        // System.out.println(myCar.color); // Compilation error, color is package-protected
+        // System.out.println(myCar.year); // Compilation error, year is private
+        myCar.start(); // Output: "Starting the Ford Mustang"
+        myCar.drive(); // Compilation error, drive is protected
+        myCar.stop(); // Output: "Stopping the blue Ford Mustang"
+        // myCar.maintenance(); // Compilation error, maintenance is private
+    }
+}
+
+
+```
+In this example, we create a `Car` object with the make "Ford", model "Mustang", color "blue", and year 2022. We then try to access each of the fields and methods of the Car class from the main method using the myCar object.
+
+
+### @Override
+Using the Jeep is a Car example, we can use the @Override annotation in Java to indicate that a method in a subclass is intended to override a method in the parent class. Below is some example code:
+
+```java
+package edu.virginia.cs.oo;
+
+public class Jeep extends Car {
+
+    public Jeep(String make, String model, String color, int year) {
+        super(make, model, color, year);
+    }
+
+    @Override
+    public void start() {
+        System.out.println("Revving the engine of the " + color + " " + getMake() + " " + getModel());
+    }
+
+    public String getMake() {
+        return super.make;
+    }
+
+    public String getModel() {
+        return super.model;
+    }
+}
+```
+In this example, we have a `Car` class with a start method that simply outputs a message indicating that the car is starting. We also have a subclass called `Jeep` that extends `Car` and overrides the start method to output a more specific message about revving the engine of the car. Note that we use the `@Override` annotation on the start method in the Jeep class to indicate that we intend to override the same-named method in the parent class. We can quickly demo the idea here:
+
+```java
+package edu.virginia.cs.oo;
+
+public class Main {
+    public static void main(String[] args) {
+        Jeep myJeeep = new Jeep("Wrangler", "Rubicon", "black", 2023);
+        myJeep.start(); // Outputs "Revving the engine of the black Wrangler Rubicon"
+    }
+}
+```
+
+## `super` keyword
+
+### `super()` in Constructors
+
+### `super.` usage
+
+## Another Example: clocks
 Sometimes, we may find that two classes are very similar: `Clock` which tells us the time, and `AlarmClock` which tells us the time and has an alarm. They are so similar, in fact, `AlarmClock` is a subclass of `Clock`. This means `AlarmClock` _is-a_ `Clock` (Anything a clock can do, so can an alarm clock), but `Clock` _is-not-a_ `AlarmClock` (a clock may not has all the behaviors of an alarm clock).
 
 ### Clock
@@ -80,77 +201,3 @@ public class AlarmClock extends Clock {
 }
 ```
 The full implementation of both `Clock` and `AlarmClock` classes can be found in [this repo on the coursepack](https://github.com/sde-coursepack/Clocks/tree/master).
-
-## Code elements
-
-### `public`, `protected`, `package-protected`, and `private`
-There are four access modifiers that can be used to restrict access to classes, fields, and methods: `public`, `protected`, `package-protected` (also known as default), and `private`.
-
-* `Public`: The "public" access modifier is the least restrictive and allows access to a class, field, or method from any other class, regardless of its package. This means that public members are visible and accessible to all classes in any package. Public members are typically used for methods or variables that need to be accessed by external classes.
-
-* `Protected`: The "protected" access modifier allows access to a class, field, or method from the same class, any subclass, or any class in the same package. This means that protected members are visible and accessible to classes within the same package, as well as subclasses in any package. Protected members are typically used for methods or variables that need to be accessed by subclasses but not by external classes.
-
-* `Package-Protected` (default): The "package-protected" access modifier (also known as default access) allows access to a class, field, or method from the same package. This means that package-protected members are visible and accessible to classes within the same package but not to classes in other packages. Package-protected members are typically used for methods or variables that need to be accessed by other classes in the same package.
-
-* `Private`: The "private" access modifier is the most restrictive and allows access to a class, field, or method only from the same class. This means that private members are not visible or accessible to any other class, including subclasses in the same package. Private members are typically used for methods or variables that should not be accessed by any other class.
-
-The choice of access modifier depends on the level of access control you want to enforce for a class, field, or method. Public members are accessible to all classes, protected members are accessible to subclasses and classes in the same package, package-protected members are accessible only within the same package, and private members are accessible only within the same class.
-
-```java
-package edu.virginia.cs.oo;
-
-public class MyClass {
-    public int publicVar = 1;
-    protected int protectedVar = 2;
-    int defaultVar = 3; // package-protected
-    private int privateVar = 4;
-    
-    public void publicMethod() {
-        System.out.println("This is a public method");
-    }
-    
-    protected void protectedMethod() {
-        System.out.println("This is a protected method");
-    }
-    
-    void defaultMethod() { // package-protected
-        System.out.println("This is a package-protected method");
-    }
-    
-    private void privateMethod() {
-        System.out.println("This is a private method");
-    }
-}
-```
-In this example, we have a class called "MyClass" with four different access modifiers for its fields and methods. To use these members from another class, we would need to create an instance of MyClass and call the appropriate methods or access the fields:
-```java
-package edu.virginia.cs.oo;
-
-public class Main {
-    public static void main(String[] args) {
-        MyClass myObj = new MyClass();
-        
-        System.out.println(myObj.publicVar); // Outputs 1
-        myObj.publicMethod(); // Outputs "This is a public method"
-        
-        // The following lines will not compile, as they attempt to access non-public members
-        // System.out.println(myObj.protectedVar);
-        // myObj.protectedMethod();
-        // System.out.println(myObj.defaultVar);
-        // myObj.defaultMethod();
-        // System.out.println(myObj.privateVar);
-        // myObj.privateMethod();
-    }
-}
-```
-In this example, we can access the "publicVar" field and "publicMethod" method of MyClass from the Main class, as they are marked as public. However, we cannot access the other members of MyClass, as they are marked as protected, package-protected, or private, and are not visible from the Main class.
-
-
-### @Override
-
-## `super` keyword
-
-### `super()` in Constructors
-
-### `super.` usage
-
