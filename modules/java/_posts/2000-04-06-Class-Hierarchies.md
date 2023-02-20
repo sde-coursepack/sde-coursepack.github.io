@@ -180,6 +180,7 @@ public class Main {
     }
 }
 ```
+The full implementation of both `Car` and `SUV` classes can be found in [this repo on the coursepack](https://github.com/sde-coursepack/Car).
 
 
 <!-- 
