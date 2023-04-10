@@ -56,7 +56,7 @@ Design can help us avoid integration hell. For example, proper use of `interface
 
 ### Big-Bang Integration
 
-"Big-Bang" integration strategy is effectively "no plan" integration. We haphazardly integrate modules in whatever order we feel like at the time. This may be sufficient for small programs, especially those that are unlikely to change. However, like ad hoc development, this approach is not scalable, and can lead to conflicting strategies by the developers on the team.
+"Big-Bang" integration strategy is effectively "no plan" integration. We haphazardly integrate modules in whatever order we feel like at the time (or "all at once", aka Big Bang). This may be sufficient for small programs, especially those that are unlikely to change. However, like ad hoc development, this approach is not scalable, and can lead to conflicting strategies by the developers on the team.
 
 In general, when a defect is discovered while integrating, it's more natural to change the most recent module you integrated, as changing one module is easier than potentially changing several.
 
