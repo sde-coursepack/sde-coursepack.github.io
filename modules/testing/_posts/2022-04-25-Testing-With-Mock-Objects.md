@@ -167,4 +167,4 @@ One limitation of this stub is that we only designed it for testing one method. 
 
 2. Create a new stub class for each test. But this means creating a lot of classes that are only used in a single class, polluting the global name space.
 
-What we need is a way to create a Stub class without actually creating a class.
+What we need is a way to create a Stub class without actually creating a class. We will cover that in the next unit with mockito.
