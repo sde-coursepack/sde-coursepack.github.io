@@ -1,4 +1,5 @@
 _site/*
 .idea/
 .sass-cache
-.bundler/
+DS_Store
+../../../../Downloads/course-in-a-box-gh-pages/course-in-a-box-gh-pages/.bundler/
