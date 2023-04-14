@@ -4,7 +4,7 @@ Title: Course Materials
 
 # Course Materials
 
-This page outlines our course materials. To contact the author, see the About page.
+This broadly describes the course material. If you are an instructor wishing to use materials/assignments/exams from this course, you can reach out to Prof. McBurney at (mcburney at virginia dot edu). Please email from a verifiable institution or organization email address.
 
 ## Assignments
 
@@ -14,8 +14,7 @@ to prepare students to work on projects, it is not itself a project course. The 
 in project courses, if students get behind earlier, then it can often because an unsalvageable situation. We wanted to
 avoid that, as this is typically a second-year (sophomore) course.
 
-I will eventually post a set of 7 assignments that I have used. However, not all assignments are written yet. I can
-share what assignments with instructors via email Please email from a verifiable institution or organization email address.
+Versions of assignments will be publicly posted over the coming year or two. However, I make changes (either major or minor) to assignments every semester. As such, students should not assume the assignments they are given in their semester will match those eventually posted on this website.
 
 ## Exams
 
@@ -35,10 +34,14 @@ Generally, the tests break down as follows, as well as which modules are part of
 * Exams 3 - Front to Back
   * GUI
   * Data
-  * Exam 3 is typically cumalative of all course content, but with an emphasis on GUI and Data
+  * Exam 3 is typically cumulative of all course content, but with an emphasis on GUI and Data
 
-Exams are available upon request from instructors. Please email from a verifiable institution or organization email address.
+Exams are available upon request from instructors. Please email from a verifiable institution or organization email address. I will not be posting past exams publicly.
 
 ## Slides
 
-I will add my slide decks to this website in the near future, but I am prioritizing getting the course content up first.
+I eventually plan to include slide decks related to course materials on each page. The slide decks are nearly finalized, but I am planning to edit/change/expand them for Fall 2023. However, you may contact me if you wish to see my current slide deck.
+
+## Lecture Videos
+
+A long-term goal is to record videos for each lesson that will be embedded within the website for most articles. However, these videos will be intended to **supplement** the reading, **not replace the reading**. Students are warned that there will be content in the reading not covered in the videos that they will be responsible for.
