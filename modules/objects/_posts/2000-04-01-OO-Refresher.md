@@ -4,31 +4,244 @@ Title: Object Orientation Refresher
 
 # Object-Oriented Programming
 
+Java is built around **object-oriented programming**. Object-oriented programming is built on the idea of representing collections of data as "objects" to be interacted with. Similar objects are described by a single class. 
+
 ## Class
 
-### State
+A class is a description of how a particular "type" (or *classification*) of objects are interacted with and behave. In Java, we write a Java *class* as a .java file. This .java file describes the data and methods the class has, as well as defining constructors for **instantiating** objects. It's important to remember that a **class** is a pattern, or blueprint, used to describe a **classification** of objects, but is not itself and object.
 
-### Behaviors
+In Java, when we create a class, we are defining our own *data type*. In the same way we can create `String` and `ArrayList` objects in Java, we can create objects of our own custom data type.
 
-## Instance
+### Parts of a class
 
-## Parts of a class
+Example: the following shows a partial example of a simple *class* for modeling Pez Dispensers:
 
-### Fields
+```java
+public class PezDispenser {
+    private String characterName;
+    private final int capacity;
+    private int count;
+    
+    public PezDispenser(String characterName, int capacity) {
+        this.characterName = characterName;
+        this.capacity = capacity;
+        this.count = 0;
+    }
+    
+    public void load() {
+        count = capacity;
+    }
+    
+    public boolean dispense() {
+        if (count == 0) {
+            return false;
+        }
+        count--;
+        return true;
+    }
+}
+```
+
+Here, we see a field for storing the name of the character (`characterName`) of the PezDispenser. We also see fields for tracking the maximum number of candies in the PezDispenser (`capacity`) and the current number of candies (`count`).
+
+However, without creating an **instance** of a Pez Dispenser, we cannot interact with this code.
+
+### Instance
+
+An instance is a particular example of a class. For example, if I bought 3 Pez Dispensers, I would have 3 **instances** of the class PezDispenser.
+
+In a well-designed class, **instances** of the same **class**:
+1) Each have their own **state**, separate from other **instances**
+2) Share the same **behavior** with other **instances**
 
 ### Constructors
 
-#### Overloaded Constructors
+**Constructors** are special methods used to create **instances** of a class. For example, in the above `PezDispenser` class, the constructor is:
+
+```java
+    public PezDispenser(String characterName, int capacity) {
+        this.characterName = characterName;
+        this.capacity = capacity;
+        this.count = 0;
+    }
+```
+
+This method is invoked in a special way. For example, let's say I wanted to make a Superman Pez Dispenser with a capacity of 12. I would, in the code that uses the PezDispenser class, write:
+
+```java
+public class PezDemo {
+    public static void main(String[] args) {
+        PezDispenser superman = new PezDispenser("Superman", 12);
+        ...//do something with superman
+    }
+}
+```
+
+Now we have an *instance* of the *class* PezDispenser, referenced by the variable `superman`. If we also wanted a second, Batman Pez Dispenser, we could augment this code:
+
+```java
+public class PezDemo {
+    public static void main(String[] args) {
+        PezDispenser superman = new PezDispenser("Superman", 12);
+        PezDispenser batman = new PezDispenser("Batman", 12);
+        ...//do something with superman and Batman
+    }
+}
+```
+
+This gives us two separate instances.
+
+### State
+
+The *state* of an object is the description of the current status of an *instance* (not a class!). In this way, all *instances* have their own state. Typically, the *state* of an object is described that the value of its fields.
+
+### Fields
+
+In the above class, the fields of the class PezDispenser are:
+
+```java
+public class PezDispenser {
+    private String characterName;
+    private final int capacity;
+    private int count;
+    
+    ...
+}
+```
+
+Note that it is *not* required to list all fields at the top of the class. However, it is convention to do so. Following this convention ensures that classes are more easily readable and predictable.
+
+The *state* of the two instances are as follows:
+
+* `superman` - `characterName = "Superman"`, `capacity = 12`, `count = 0`
+* `batman`  - `characterName = "Batman"`, `capacity = 12`, `count = 0`
+
+Think of each of these objects as having a set of their own 3 variables, one `String` and two `int`s. Technically, for both objects capacity is not a variable but a `final`, or **immutable** value, but the key is that both values of `capacity` are stored in separate *memory locations*.
+
+### Behaviors
+
+While each *instance* of a class has its own state, the *instances* share the same **behavior**. For example, the way that I `load` or `dispense` from a Superman Pez Dispenser is going to be the same as the way I `load` and `dispense` a Batman PezDispenser.
 
 ### Methods
 
-#### Getters and setters
+Typically, behaviors of a class are described by their **methods** (non-static functions). In the above class, the fields of the class PezDispenser are:
 
-#### Destructive methods
+```java
+public class PezDispenser {
+    ... 
+    
+    public void load() {
+        count = capacity;
+    }
 
-## Static vs. non-static
+    public boolean dispense() {
+        if (count == 0) {
+            return false;
+        }
+        count--;
+        return true;
+    }
+}
+```
 
-## References
+These methods describe the two *behaviors* we can do on a Pez Dispenser. That is, we can load or dispense from a Pez Dispenser. These methods are invoked by **calling the method on a specific instance** using the **dot operator**. For example:
+
+```java
+public class PezDemo {
+    public static void main(String[] args) {
+        PezDispenser superman = new PezDispenser("Superman", 12);
+        PezDispenser batman = new PezDispenser("Batman", 12);
+        superman.load();
+        ...
+    }
+}
+```
+
+In the last line of this method, `superman.load();`, we are saying:
+
+**Call the load method on the `superman` instance of PezDispenser**. 
+
+**Before** we call this method, are values are:
+
+* `superman` - `characterName = "Superman"`, `capacity = 12`, `count = 0`
+* `batman`  - `characterName = "Batman"`, `capacity = 12`, `count = 0`
+
+However, **after** calling `superman.load()`, the values of our two instances are:
+
+* `superman` - `characterName = "Superman"`, `capacity = 12`, `count = 12`
+* `batman`  - `characterName = "Batman"`, `capacity = 12`, `count = 0`
+
+You'll notice that only the value of `count` for `superman` changed. The value of `count` for `batman` did not change, because we didn't act on the `batman` instance. This is because both instances have a separate **state**. And while we changed the state of `superman`, we did not change the state of `batman`.
+
+However, if we also wanted to load the `batman` Pez Dispenser, it would be as simple as calling `batman.load()`. That is, invoking the **same** behavior on the **different** instance.
+
+### Encapsulation
+
+**Why is this useful?**
+
+The key benefit of the tools we looked at so far is **encapsulation**. That is, separating *how something is used* from how it works. And we interact with the idea of encapsulation all the time!
+
+For example, if you want to use a toaster, you plug it in, add bread and push down the lever. You don't have to think about:
+* What is the resistance on the coils that superheat to toast the bread?
+* What is the power draw of the toaster from the wall?
+* What type of wires are necessary to ensure the toaster is safe to use for it's given power draw?
+* How is the plug manufactured and attached to the toaster?
+* How is does the system know when the lever is pushed down vs. when it isn't pushed down?
+* How is the time kept so that the toast pops up at the right time?
+
+You don't have to answer these questions, but whoever designed and built the toaster did! These questions have answer, but you don't need them to use the toaster.
+
+This is valuable in design because it allows us to create classes that are *simple to use*, and hides any implementation details from the user.
+
+### Public and Private
+
+In this way, we *want* to ensure that the user of a class only interacts with classes in intended ways. For example, you may notice that I made all three fields of Pez Dispenser `private`, but I made the methods `public`. These values describe how encapsulation will be enforced. Specifically:
+
+* `public` - this field/method/constructor can be accessed via any other class in a given project
+  * For example, PezDemo, which is outside the PezDispenser class, can call the public methods and the constructor on PezDispenser
+* `private` - this field is **hidden** from all other classes in a given project. For example, PezDemo **cannot** access the fields in the class directly. This means that PezDemo can only set the value of `count` through usages of the `load` and `dispense` methods.
+
+This limitation is a good thing, because it prevents the `PezDispenser` object from being used incorrectly. For example, if we had `count` as `public`, wwe could modify it directly, with something like:
+
+```java
+public class PezDemo {
+    public static void main(String[] args) {
+        PezDispenser superman = new PezDispenser("Superman", 12);
+        PezDispenser batman = new PezDispenser("Batman", 12);
+        superman.load();
+        batman.count = 7;
+        ...
+    }
+}
+```
+
+While this may seem convenient, the problem is that it allows a client (someone using the class) to perform meaningless and incorrect operations.
+
+```java
+public class PezDemo {
+    public static void main(String[] args) {
+        PezDispenser batman = new PezDispenser("Batman", 12);
+        batman.count = 99;
+        batman.load();
+    }
+}
+```
+
+In the above case, we set the Batman PezDispensers `count` value to 99, which is **much** larger than the capacity. Then, when we `load` the PezDispenser, it results in `count` *decreasing* to 12. This weird behavior could cause confusion or a bug down the line.
+
+As such, by making `count` be `private`, it becomes syntatically illegal to use `batman.count` (or `superman.count`), as the field is hidden.
+
+### Getters and setters
+
+Of course, we may still want to see what the value of `count` is, or we may want to allow the client to set the value of `count`, but within certain parameters (i.e., between 0 and `capacity` inclusive).
+
+### Overloaded Constructors
+
+### Destructive vs. non-destructive methods
+
+### Static vs. non-static
+
+### References
 
 ### Mutable
 
