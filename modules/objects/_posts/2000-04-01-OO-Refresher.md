@@ -2,6 +2,8 @@
 Title: Object Orientation Refresher
 ---
 
+**_Note:_** This unit covers *pre-requisite material* for CS 3140, and should already be understood by students before taking CS 3140. However, because of the heavy emphasis on Object-Oriented Programming on CS 3140, this material is included in the online textbook.
+
 # Object-Oriented Programming
 
 Java is built around **object-oriented programming**. Object-oriented programming is built on the idea of representing collections of data as "objects" to be interacted with. Similar objects are described by a single class. 
@@ -18,16 +20,19 @@ Example: the following shows a partial example of a simple *class* for modeling 
 
 ```java
 public class PezDispenser {
+    //fields
     private String characterName;
     private final int capacity;
     private int count;
     
+    //constructor
     public PezDispenser(String characterName, int capacity) {
         this.characterName = characterName;
         this.capacity = capacity;
         this.count = 0;
     }
     
+    //methods
     public void load() {
         count = capacity;
     }
@@ -46,9 +51,9 @@ Here, we see a field for storing the name of the character (`characterName`) of 
 
 However, without creating an **instance** of a Pez Dispenser, we cannot interact with this code.
 
-### Instance
+## Instance
 
-An instance is a particular example of a class. For example, if I bought 3 Pez Dispensers, I would have 3 **instances** of the class PezDispenser.
+An **instance** is a particular example of a class. For example, if I bought 3 Pez Dispensers, I would have 3 **instances** of the class PezDispenser.
 
 In a well-designed class, **instances** of the same **class**:
 1) Each have their own **state**, separate from other **instances**
@@ -91,7 +96,7 @@ public class PezDemo {
 
 This gives us two separate instances.
 
-### State
+## State
 
 The *state* of an object is the description of the current status of an *instance* (not a class!). In this way, all *instances* have their own state. Typically, the *state* of an object is described that the value of its fields.
 
@@ -118,7 +123,7 @@ The *state* of the two instances are as follows:
 
 Think of each of these objects as having a set of their own 3 variables, one `String` and two `int`s. Technically, for both objects capacity is not a variable but a `final`, or **immutable** value, but the key is that both values of `capacity` are stored in separate *memory locations*.
 
-### Behaviors
+## Behaviors
 
 While each *instance* of a class has its own state, the *instances* share the same **behavior**. For example, the way that I `load` or `dispense` from a Superman Pez Dispenser is going to be the same as the way I `load` and `dispense` a Batman PezDispenser.
 
@@ -175,7 +180,7 @@ You'll notice that only the value of `count` for `superman` changed. The value o
 
 However, if we also wanted to load the `batman` Pez Dispenser, it would be as simple as calling `batman.load()`. That is, invoking the **same** behavior on the **different** instance.
 
-### Encapsulation
+## Encapsulation
 
 **Why is this useful?**
 
@@ -230,6 +235,10 @@ public class PezDemo {
 In the above case, we set the Batman PezDispensers `count` value to 99, which is **much** larger than the capacity. Then, when we `load` the PezDispenser, it results in `count` *decreasing* to 12. This weird behavior could cause confusion or a bug down the line.
 
 As such, by making `count` be `private`, it becomes syntatically illegal to use `batman.count` (or `superman.count`), as the field is hidden.
+
+## Other Class Content
+
+The following units cover common programming tools/techniques for creating classes and using objects.
 
 ### Getters and setters
 
