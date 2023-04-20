@@ -49,5 +49,51 @@ If we run this code, you will get the following window.
 ![img.png](../img/hello_world_1.png)
 
 Not exactly the most exciting thing, but this is just a first step.
-## Final Code
 
+Let's walk through what we did do here. First, we created a Label to display the text HelloWorld. That label is created in the line:
+
+```java
+    Label helloLabel = new Label("Hello World!");
+```
+
+The Label control has a constructor that takes in a String you wish to display. In this case, we are displaying the String `"Hello World!"`
+
+We add this Label to our application by first creating the root pane:
+
+```java
+    Pane root = new FlowPane();
+```
+
+And then adding the label to that Pane's child Nodes.
+
+```java
+    root.getChildren().add(helloLabel);
+```
+
+Next, we create our Scene using a constructor that lets us define that scene's root pane (in this case, `root`, the FlowPane we just created and populated):
+
+```java
+    Scene scene = new Scene(root);
+```
+
+Set the `primaryStage` to show the scene:
+
+```java
+    primaryStage.setScene(scene);
+```
+
+And the finally show the Stage (application window)
+
+```java
+    primaryStage.show();
+```
+
+## But Wait... Where is `main`?
+
+You might notice there is no `main` function in this app. That's because the main is *inherited* from the imported `Application` class. In JavaFX, the `Application` class will automatically call the function `start` when the app is initialized. The Application class actually creates the Stage object (that is, the Window) and passes it to the `start` function. This is an example of the framework doing a lot of the lower-level stuff for you, so you can focus simply on building your application.
+
+In short, you don't define `main`, you can simply start with...well...`start`. However, you should **never directly call the `start` method yourself!** You should always allow the framework to handle it.
+
+## Next Module - Buttons and Events
+
+In the next module, we will build on this application by adding a button that causes our text to change.

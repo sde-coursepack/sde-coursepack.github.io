@@ -39,7 +39,7 @@ public class SqrtCalculator extends Application {
         //create TextField
         input = new TextField();
 
-        //Create our placeholder - initially blank, but the button listener
+        //Create our result Label placeholder - initially blank, but the button listener
         //will update it
         result = new Label("");
         result.setVisible(false);
