@@ -4,7 +4,7 @@ Title: Design Patterns
 
 ## Acknowledgement
 
-This page in its current form was authored by teaching assistant Jade Heilemann, adapted from my class notes and slides.
+This page in its current form was authored by teaching assistant Jade Gregoire, adapted from my class notes and slides.
 
 # What are design patterns? 
 Design patterns are a toolkit of solutions to general problems that arise in software design. A non-coding example of a design pattern would be meme structures: various memes will utilize a format with text at the top or bottom of an image, because they know that format works. Design patterns work in a similar manner, where the tried and true solutions can be applied to improve software quality. However, every design pattern is not necessarily applicable to each issue. 

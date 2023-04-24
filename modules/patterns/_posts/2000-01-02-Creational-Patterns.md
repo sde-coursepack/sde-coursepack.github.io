@@ -4,7 +4,7 @@ Title: Creational Patterns
 
 ## Acknowledgement
 
-This page in its current form was authored by teaching assistant Jade Heilemann, adapted from my class notes and slides.
+This page in its current form was authored by teaching assistant Jade Gregoire, adapted from my class notes and slides.
 
 # Summary
 Creational patterns are any design patterns that either hide or limit constructor useage. Essentially, they provide object creation and instantiation mechanisms that increase flexibility and re-use of existing code. Examples of creational design patterns include:

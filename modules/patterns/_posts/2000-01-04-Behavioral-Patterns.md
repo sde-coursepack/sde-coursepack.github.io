@@ -4,7 +4,7 @@ Title: Behavioral Design Patterns
 
 ## Acknowledgement
 
-This page in its current form was authored by teaching assistant Jade Heilemann, adapted from my class notes and slides.
+This page in its current form was authored by teaching assistant Jade Gregoire, adapted from my class notes and slides.
 
 # Summary
 Behavioral design patterns take care of communication between objects and the assignment of responsibilities between them, by manifesting flexible behavior. Behavioral design patterns include:
