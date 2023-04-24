@@ -21,7 +21,7 @@ Exhaustive Testing is almost never feasible. Consider, for example, the function
 
 ### Random Testing
 
-One idea is to pick inputs at random, then working out the expected output based on the random inputs generated. Whether we do this using an actual random number generator, or picking numbers out of thin air. A problem with this approach is that this can easily miss important test cases we should consider. For example, testing our 3-argument `max` function with 3 equal values is obviously an interesting case worth examining. However, if we are using random generation, the odds of generating this test are `n`/2<sup>64, where `n` is the number of tests we generate. Those odds are incredibly small. Instead, we want a systematic way to find a set of test scenarios that will include scenarios likely to generate defects.
+One idea is to pick inputs at random, then working out the expected output based on the random inputs generated. Whether we do this using an actual random number generator, or picking numbers out of thin air. A problem with this approach is that this can easily miss important test cases we should consider. For example, testing our 3-argument `max` function with 3 equal values is obviously an interesting case worth examining. However, if we are using random generation, the odds of generating this test are `n`/2<sup>64</sup>, where `n` is the number of tests we generate. Those odds are incredibly small. Instead, we want a systematic way to find a set of test scenarios that will include scenarios likely to generate defects.
 
 ## Equivalence Partitioning
 
