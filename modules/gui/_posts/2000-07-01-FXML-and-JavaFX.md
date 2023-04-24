@@ -2,6 +2,8 @@
 Title: JavaFX with FXML
 ---
 
+This page is under construction.
+
 # FXML with a JavaFX class
 
 ## FXML File

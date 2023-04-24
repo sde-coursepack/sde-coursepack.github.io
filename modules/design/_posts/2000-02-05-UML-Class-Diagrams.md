@@ -2,6 +2,8 @@
 Title: UML Class Diagrams
 ---
 
+This page is under construction.
+
 Material to review: https://www.uml-diagrams.org/class-diagrams-overview.html 
 
 

@@ -2,6 +2,8 @@
 Title: Polymorphism
 ---
 
+This page is under construction.
+
 # Polymorphism
 
 Polymorphism is a Greek word meaning "many-shaped". That definition lies at the core of how we use polymorphism in programming. Polymorphism is *the* key idea that makes object-oriented programming so powerful for designing software systems.
@@ -24,7 +26,7 @@ No, they key contribution of Object-orientation is **polymorphism**. The idea th
 
 ## Liskov Substitution Principle
 
-The Liskov Sustituion Principle is named for famour computer scientist pioneer and Turing Award winner [Barbara Liskov](https://en.wikipedia.org/wiki/Barbara_Liskov). The principle, which forms the basis of polymorphism in Object-oriented programming, is:
+The Liskov Sustituion Principle is named for famous computer science pioneer and Turing Award winner [Barbara Liskov](https://en.wikipedia.org/wiki/Barbara_Liskov). The principle, which forms the basis of polymorphism in Object-oriented programming, is:
 
 > Let Φ(x) be a property provable about objects x of type T. Then Φ(y) should be true for objects y of type S where S is a subtype of T.
 

@@ -568,7 +568,7 @@ We can replace `stream()` with `parallelStream()` to take advantage of automated
   Hawaii - 2
 ```
 
-...which clearly is not alphabetical. By constrast, when I simply use `stream()` I get the results in alphabetical order every time.
+...which clearly is not alphabetical. By contrast, when I simply use `stream()` I get the results in alphabetical order every time.
 
 ### Workaround
 

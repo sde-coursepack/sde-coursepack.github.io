@@ -2,6 +2,8 @@
 Title: Java Object Class
 ---
 
+This page is under construction.
+
 # Generics
 
 ## Collections
