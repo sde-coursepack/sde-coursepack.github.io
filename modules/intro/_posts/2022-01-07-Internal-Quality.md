@@ -39,7 +39,7 @@ to improve the reusability of our code.
 testable, but thoroughly tested.
 
 And the most important skill to achieving high internal
-software quality is **design**. We have to design our
+software quality is **design**. We need to design our
 software in a way to make it maintainable. We cannot
 add maintainability after the fact! We have to use good
 practice to ensure our software *stays* maintainable.
