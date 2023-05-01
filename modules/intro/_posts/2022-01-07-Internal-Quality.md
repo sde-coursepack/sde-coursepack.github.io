@@ -48,7 +48,7 @@ practice to ensure our software *stays* maintainable.
 
 *Entropy* is the idea that in our Universe, energy within
 a closed-system cannot become more orderly overtime, and
-not all processes are reversible. A consequence of this
+not all processes are reversible. That is, things trend towards disorder. A consequence of this
 is that the chemical energy in gasoline cannot be perfectly
 turned into kinetic energy. We will lose
 some energy to heat and sound energy, and it is impossible

@@ -53,10 +53,7 @@ for Fortran 77.
 ## Compiling
 
 It's important to understand that, when you write source code in modern high-level language,
-your computer actually can't run your source code. Well, not directly. Typically,
-we write code, and compile that code into something that 
-can be executed by the computer. The below diagram is
-an over simplification of this relationship:
+your computer actually can't run your source code directly.Typically, we write code, and compile that code into something that can be executed by the computer. The below diagram is a simplification of this relationship:
 
 <img alt="Image shows source code with an arrow pointing to a box labeled code compiler, which has an arrow pointing to a box labeled Executable File" src="{{site.baseurl}}/modules/java/images/3/compiler1.png"/>
 
@@ -82,23 +79,19 @@ and save the file as ```helloWorld.c```.
 <img alt="A screenshot of notepad with the helloWorld.c source code" src="{{site.baseurl}}/modules/java/images/3/helloWorldC.png"/>
 
 Now, if I save this file to a folder called "code",
-I can open a terminal (Mac/Linux) or Powershell[^1] and navigate to that folder.
-If I use the "ls" (list) command, I can see the file
-in my directory.
+I can open a terminal (Mac/Linux) or Powershell[^1] and navigate to that folder. If I use the "ls" (list) command, I can see the file in my directory.
 
 <img alt="A screenshot of a terminal window, ls has been executed showing a file list including helloWorld.c" src="{{site.baseurl}}/modules/java/images/3/shell1.png"/>
 
 However, that's all I can do with it. If I try to run
-the file as though it were a problem, my Windows operating system thinks I'm trying
-to "open" the file.
+the file as though it were a program, my Windows operating system thinks I'm trying to "open" the file.
 
 <img alt="When I typed helloWorld.c into my terminal, a pop-up window asks me what I want to open the file in, suggesting several text editors" src="{{site.baseurl}}/modules/java/images/3/shell2.png"/>
 
 That's because **source code isn't an executable program.** Source
 code is meant for humans. We write the source code using a
 programming language because it's easier to read than those
-low-level machine instructions. If we want to run our program, we must
-**compile** it.
+low-level machine instructions. If we want to run our program, we must **compile** it.
 
 ---
 
@@ -115,8 +108,7 @@ then open in Notepad and:
 What is going on here?!?! Well, what is happening is that the .exe
 program contains the low-level machine instructions that tells my
 operating system how to run the program. This machine code
-is stored in bytes which do not properly translate to human-readable
-text in a format that Notepad knows how to display. However, it's quite all right that this code isn't
+is stored in bytes which do not properly translate to human-readable text in a format that Notepad knows how to display. However, it's quite all right that this code isn't
 human-readable! It doesn't need to be human-readable! If
 we want to change the program, we can change the c code and recompile.
 
@@ -165,15 +157,9 @@ is something Java was built to address.
 
 ## Interpreters
 
-Some languages, like Python[^2], are typically *interpreted* 
-rather than compiled. This is fundamentally the same idea as compiling,
-only rather than turning the entire program into machine code first, 
-and then running second, when code
-is interpreted, we do both at the same time with the help of another program.
+Some languages, like Python[^2], are typically *interpreted* rather than compiled. This is fundamentally the same idea as compiling, only rather than turning the entire program into machine code first, and then running second, when code is interpreted, we do both at the same time with the help of another program.
 
-In Python, as you execute the program, the python interpreter translates
-each line into machine instructions as you come to it. This means you typically don't have a static
-compiled file.
+In Python, as you execute the program, the python interpreter translates each line into machine instructions as you come to it. This means you typically don't have a static compiled file.
 
 ---
 
@@ -182,49 +168,33 @@ compiled file.
 > "Hooray for metaphors"
 > - Sterling Archer, __Archer__, "Skytanic" Season 1 Episode 7 
 
-The difference between compiling and interpreting can be explained like the Unite Nations: 
-imagine  you are a United Nations ambassador who is only fluent in English, and
-a speaker is giving a speech in Spanish. There are two solutions:
-* Wait, twiddling your thumbs, for someone to produce a translated transcript [*compiling*]
-* Use headphones to listen to a live translator who is translating the speech as
-it is being made [*interpreting*]
+The difference between compiling and interpreting can be explained like the United Nations: 
+imagine  you are a United Nations ambassador who is only fluent in English, and a speaker is giving a speech in Spanish. There are two solutions:
+* Wait, twiddling your thumbs, for someone to produce a translated transcript after the speech is over [*compiling*] 
+* Use headphones to listen to a live translator who is translating the speech as it is being made [*interpreting*]
 
 The advantage of the first approach is that you have an easily
-redistributable transcript of the speech that anyone who can read English
-can use, regardless of whether or not they have access to a translator of their own. 
-The disadvantage is you have a "compilation" process
-to produce the translation, and you can't do anything until it is done.
+redistributable transcript of the speech that anyone who can read English can use, regardless of whether or not they have access to a live translator of their own. 
+The disadvantage is you have a transcription ("compilation") process to produce the translation, and you can't do anything until it is done.
 
-The second approach has the advantage of translation on the fly, but
-it's only possible with the help of a live translator actively working
-in the background (python's interpreter). And a live interpreter has to 
-do a lot of work on the fly. Additionally, anyone without a translator
-cannot use this approach.
+The second approach has the advantage of translation on the fly, but it's only possible with the help of a live translator actively working in the background (python's interpreter). And a live interpreter has to do a lot of work on the fly. Additionally, anyone without a translator cannot use this approach.
 
-Note that the above is an imperfect metaphor. **Do not make any assumptions about
-which process is more efficient** from this metaphor; the point is only to explain
-the difference between compiling and interpreting. It's worth noting that, in practice, 
+Note that the above is an imperfect metaphor. **Do not make any assumptions about which process is more efficient** from this metaphor; the point is only to explain the difference between compiling and interpreting. It's worth noting that, in practice, 
 interpreted languages tend to be a fair amount less efficient than compiled languages.
-Specifically, C is routinely consider the fastest/most efficient language, which
-is why it's so useful for low-level applications and embedded systems, while Python
-is actually *dramatically* less efficient than C. Despite what you may have heard,
-Java is actually quite efficient.
+Specifically, C is routinely consider the fastest/most efficient language, which is why it's so useful for low-level applications and embedded systems, while Python is actually *dramatically* less efficient than C. Despite what you may have heard,
+Java is actually capable of being quite efficient (although often there is a trade-off between efficiency and design, especially as you leverage object oriented programming).
 
 
-This is why you *don't* need to install c to run a program written in C, then compiled into an executable.
-However, you *do* need to install Python to run Python programs. 
+This is why you *don't* need to install c to run a program written in C, then compiled into an executable. However, you *do* need to install Python to run Python programs. 
 
 ---
 
 ## How Java works (finally)
 
-Okay, now we're ready to dive into Java.
+Okay, now we're ready to dive into specifically discussing Java.
 
 ### JDK
-Much like C, Java is a compiled language. When you compile a Java file, 
-the Java Development Kit (JDK) compiles your code, producing a
-.class file. The .class file which is the bytecode that specifies the machine instructions. Much
-like the C executable, the compiled file is not, nor intended to be, human-readable.
+Much like C, Java is a compiled language. When you compile a Java file, the Java Development Kit (JDK) compiles your code, producing a .class file. The .class file which is the bytecode that specifies the machine instructions. Much  like the C executable, the compiled file is not, nor intended to be, human-readable.
 
 <img alt="An image showing a .java file being compiled into a .class file which is run on the computer" src="{{site.baseurl}}/modules/java/images/3/compiler2.png"/>
 
@@ -236,10 +206,9 @@ the program. In Java, you just send the .class file, no recompiling needed!
 How does it do this? Well...first I need to acknowledge that the last figure is a lie.
 A more accurate figure is this:
 
-<img alt="alAn image showing a .java file being compiled into a .class file which is being used by a box labeled Java Runtime Environment, which is running on the computer" src="{{site.baseurl}}/modules/java/images/3/compiler3.png"/>
+<img alt="An image showing a .java file being compiled into a .class file which is being used by a box labeled Java Runtime Environment, which is running on the computer" src="{{site.baseurl}}/modules/java/images/3/compiler3.png"/>
 
-Specifically, the .class files don't run on any particular hardware. Rather, they
-run in a virtual Java Runtime Environment (JRE).
+Specifically, the .class files don't run on any particular hardware. Rather, they run in a virtual Java Runtime Environment (JRE).
 
 ### JRE
 
@@ -248,12 +217,12 @@ use for *compiling*, not *running* Java programs. When you download a JDK, it wi
 a compatible JRE. However, users can download a JRE to be able to run Java programs
 without installing a JDK (non-developers wanting to run Java programs will often do this).
 
-JREs also contain to various class libraries (like the core Java class libraries).
+JREs also contain various class libraries (like the core Java class libraries). In a specialized runtime environment, the included libraries could be changed, creating a custom JRE. That, however, is beyond the scope of this course.
 
 
 ### JVM
 Each JRE contains a **Java Virtual Machine (JVM)**. A *virtual machine* is software resource
-that acts like a computer; virtual machines, functionally, have their own operating system, 
+that acts like a separate computer; virtual machines, functionally, have their own operating system, 
 memory, processor, instruction set (machine language), etc.
 However, each of these resources is effectively borrowed from the host (physical) machine.
 
@@ -275,8 +244,7 @@ to be run walks into the restaurant, sits down, and starts asking the JRE to coo
 nice machine instruction for them. The JRE takes the order back to the chef (aka JVM), the JVM
 uses the physical resources (oven, stove, fryer, etc.) to actually complete the order.
 
-As far as the .class file is concerned, they don't care whether the restaurant is using
-an electric or electric appliances (*think Mac or PC*), because the *chef* (aka JVM) handles
+As far as the .class file is concerned, they don't care whether the restaurant is using electric or gas appliances (*think Mac or PC*), because the *chef* (aka JVM) handles
 that. The JRE has a standardized interface (it doesn't matter what "operating system" the chef
 is using, because the customer never talks to them), so the .class file only needs to worry about interacting
 with the JRE. Whether it's a Mac JVM, PC JVM, Linux JVM, Android JVM, etc. doesn't matter

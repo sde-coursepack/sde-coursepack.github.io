@@ -62,20 +62,16 @@ Now that we have this resource, we can access it as follows:
 
 ```java
     ClassLoader classLoader = getClass().getClassLoader();
-    String fileName = classLoader.getResource("haiku.txt").getFile();
+    InputStream inputStream = classLoader.getResourceAsStream("haiku.txt");
 ```
 
-You'll notice the filename "haiku.txt" is on the second line. We start by
-getting the classLoader, which is used to access the Path to the file (`resourceURL`)
-using the `getResource(filename)` function. We then call `getFile()` on that Path
-to get the String filename.
+You'll notice the filename "haiku.txt" is on the second line. We start by getting the classLoader, which is used to access the Path to the file (`resourceURL`) using the `getResource(filename)` function. We then call `getFile()` on that Path to get the String filename.
 
-This gives us the String variable `filename` which we can then use to read via
-a `BufferedReader` as follows:
+This gives us the String variable `inputStream` which we can then use to read via a `BufferedReader` as follows:
 
 ```java 
-    FileReader fileReader = new FileReader(fileName);
-    BufferedReader br = new BufferedReader(fileReader);
+    InputStreamReader isr = new FileReader(inputStream);
+    BufferedReader br = new BufferedReader(isr);
     for (String line = br.readLine(); line != null; line = br.readLine()) {
        System.out.println(line);
     }
@@ -84,15 +80,12 @@ a `BufferedReader` as follows:
 Note that you may often see people combine the first two lines:
 
 ```java
-    BufferedReader br = new BufferedReader(new FileReader(filename));
+    BufferedReader br = new BufferedReader(new InputStreamReader(filename));
 ```
 
-However, we'll discuss later how this could be seen as bad style because it
-makes the code harder to read and understand if you use this nest
-constructor call approach.
+However, we'll discuss later how this could be seen as bad style in many contexts because it makes the code harder to read and understand if you use this nest constructor call approach. That said, it's common enough for these "repetitive" file IO situations that we tend to overlook it.
 
-Now, we can simply read the file via a BufferedReader. We cover reading from a
-BuffedReader below.
+Now, we can simply read the file via a BufferedReader. We cover reading from a BuffedReader below.
 
 
 ## Using a BufferedReader
@@ -150,9 +143,7 @@ an ArrayList of some class. You can include an example csv file in the
 
 ## User specified files shouldn't be resources
 
-If you program can take in a filename from the user, such as via command-line or
-text entry, you shouldn't open that file with `ClassLoader`. In that case, it's
-sufficient to just create a `BufferedReader` from the filename the user gives you.
+If you program can take in a filename from the user, such as via command-line or text entry, you shouldn't open that file with `ClassLoader`. In that case, it's sufficient to just create a `BufferedReader` from the filename the user gives you.
 
 Something like:
 
@@ -176,5 +167,36 @@ Something like:
 
 ```
 
-You only use Resources when you are trying to access a resource file that you
-would include in a distribution of the project.
+You only use Resources when you are trying to access a resource file that you would include in a distribution of the project.
+
+## Resource creation example
+
+Consider the puzzle game Picross S, which involves solving [https://en.wikipedia.org/wiki/Nonogram]. If you are a programmer of the game Picross, which seems like the better approach for development?
+
+![img.png](../images/8/nonogram_example.png)
+Image Source: [Wikipedia](https://en.wikipedia.org/wiki/Nonogram#/media/File:Nonogram_wiki.svg)
+
+1) Create a Java class for every single puzzle that describes how the puzzle works and hard-code what the data values are for each row/column
+2) Describe a generic puzzle class that works for all puzzles, and store the *data* of each row and column as a file.
+
+Saw we wanted to implement 300 puzzles. In the first case, we would need at least 300 classes. In the second case, we'd need probably two classes (one to read in the file, and the other to model the state of the puzzle) and 300 resource files. These files might be formatted something like (using the puzzle above):
+
+```text
+width: 30
+height: 20
+
+rows:
+8, 7, 5, 7
+5, 4, 3, 3
+3, 3, 2, 3
+...
+
+columns:
+1
+1
+2
+...
+
+```
+
+Again, this is hypothetical. If I were implementing this, I would likely use something like JSON, rather than the text above. The point, however, is that this allows us to simply create 300 puzzle files with a consistent, human-readable format. This lets us separate *how the game works* from the individual puzzles in the game, and allows them to be edited separately.

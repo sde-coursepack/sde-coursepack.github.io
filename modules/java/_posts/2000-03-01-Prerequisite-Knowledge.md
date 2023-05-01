@@ -2,17 +2,11 @@
 Title: Prerequisite knowledge
 ---
 
-# Prequisite Knowledge
+# Prerequisite Knowledge
 
-Before continuing further, I want to take time and clarify what we
-expect you to come into the course ready to do. While most people
-in this course will be coming from CS 2100, some people may be coming
-from other programming backgrounds.
+Before continuing further, I want to take time and clarify what the course expects you to come into the course ready to do. While most people in this course will be coming from CS 2100, some people may be coming from other programming backgrounds.
 
-This list is meant to briefly summarize what you are expected to know
-and be comfortable with in the Java programming language. This means
-both being able to read code and write code that uses the following
-tools and techniques.
+This list is meant to briefly summarize what you are expected to know and be comfortable with in the Java programming language. This means both being able to read code and write code that uses the following tools and techniques.
 
 ---
 
@@ -73,7 +67,7 @@ You should be *very comfortable* with Java Classes
 
 ## Object Orientation
 
-You should be familiar with:
+You should be *familiar* with:
 * The Java ```interface``` and ```implements``` keywords
   * You should be aware of the interfaces
     * Java Collections interfaces, like ```List```, ```Set``` and ```Map```
@@ -92,7 +86,7 @@ List<String> words = new ArrayList<>();
 
 ## Exception Handling
 
-You should be familiar with:
+You should be *familiar* with:
 * Common Java Exceptions and what they mean, like:
   * ```IndexOutOfBoundsException```
   * ```NullPointerException```
@@ -128,12 +122,6 @@ Java files, put them into a project in your IDE of choice, and run
 the Main.java program, and you should be able to understand why
 the output displays.
 
-Note that, in your IDE, you'll have to add the code to a package called
-"example". This can be done by right-clicking on your source code
-folder (typically "src") and going to New -> Package. Then, simply
-make a package called "example", and drop the downloaded files in there.
-We will talk about packages, and why we have them, soon.
+Note that, in your IDE, you'll have to add the code to a package called "example". This can be done by right-clicking on your source code folder (typically "src") and going to New -> Package. Then, simply make a package called "example", and drop the downloaded files in there. We will talk about packages, and why we have them, soon.
 
-As we go further in the class, you'll learn how to "clone" the Github
-Repository this code is in, as well as "build" it in order to run
-the code as is.
+As we go further in the class, you'll learn how to "clone" the Github Repository this code is in, as well as "build" it in order to run the code as is.
