@@ -106,6 +106,8 @@ public class FileResourceExample {
 
 ```
 
+Note that I broke up the above code into several functions so that we can focus on each step individually. It is not necessary to write this as several functions.
+
 
 Now that we have this resource, we can access it using the following function:
 
