@@ -56,31 +56,103 @@ the file into my project's `src/main/resources` folder:
 
 <img alt="My text file is now visible in the project folder sub/main/resources" src="{{site.baseurl}}/modules/java/images/8/haiku_resource.png"/>
 
-### Accessing resource text file in Java
+## Resource File Example Program
 
-Now that we have this resource, we can access it as follows:
+The following code is a complete program to open and read a resource file:
 
 ```java
-    ClassLoader classLoader = getClass().getClassLoader();
-    InputStream inputStream = classLoader.getResourceAsStream("haiku.txt");
+import java.io.*;
+
+public class FileResourceExample {
+    private static final String RESOURCE_FILENAME = "chloe.txt";
+
+    public static void main(String[] args) {
+        FileResourceExample example = new FileResourceExample();
+        example.run();
+    }
+
+    public void run() {
+        try {
+            InputStream inputStream = getResourceAsInputStream(RESOURCE_FILENAME);
+            BufferedReader bufferedReader = getBufferedReaderForInputStream(inputStream);
+            printBufferedReaderContents(bufferedReader);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private InputStream getResourceAsInputStream(String resourceFilename) throws FileNotFoundException {
+        ClassLoader loader = FileResourceExample.class.getClassLoader();
+        InputStream stream = loader.getResourceAsStream(resourceFilename);
+        if (stream == null) {
+            throw new FileNotFoundException("Resource file: " + resourceFilename + " is not found.");
+        }
+        return stream;
+    }
+
+    private BufferedReader getBufferedReaderForInputStream(InputStream inputStream) {
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        return new BufferedReader(inputStreamReader);
+    }
+
+    private void printBufferedReaderContents(BufferedReader bufferedReader) throws IOException {
+        String currentLine = bufferedReader.readLine();
+        while(currentLine != null) {
+            System.out.println(currentLine);
+            currentLine = bufferedReader.readLine();
+        }
+    }
+}
+
 ```
 
-You'll notice the filename "haiku.txt" is on the second line. We start by getting the classLoader, which is used to access the Path to the file (`resourceURL`) using the `getResource(filename)` function. We then call `getFile()` on that Path to get the String filename.
+
+Now that we have this resource, we can access it using the following function:
+
+```java
+    private InputStream getResourceAsInputStream(String resourceFilename) throws FileNotFoundException {
+        ClassLoader loader = FileResourceExample.class.getClassLoader();
+        InputStream stream = loader.getResourceAsStream(resourceFilename);
+        if (stream == null) {
+            throw new FileNotFoundException("Resource file: " + resourceFilename + " is not found.");
+        }
+        return stream;
+    }
+```
+
+Specifically, these lines here give us an `InputStream` that accesses the "haiku.txt" file (in this case, stored in the variable `resourceFilename`)
+
+```java
+    ClassLoader loader = FileResourceExample.class.getClassLoader();
+    InputStream stream = loader.getResourceAsStream(resourceFilename);
+```
+
+You'll notice the filename is on the second line. We start by getting a `ClassLoader` - the ClassLoader is a way to load resources from our project, including our "haiku.txt" resource file. Using the `getResourceAsStream(resourceFilename)` function, we get an InputStream from our file. 
+
+You'll notice we have some extra code here:
+
+```java
+    if (stream == null) {
+        throw new FileNotFoundException("Resource file: " + resourceFilename + " was not found.");
+    }
+    return stream;
+```
+
+It's important to be aware that `getResourceAsStream` **does not throw `FileNotFoundException` if the resource file isn't found. Rather, it simply returns a `null` InputStream. Personally, I think this is bad design, but nobody at Java asked me (which is probably a good idea). But this *does* mean you need to do a null check on your InputStream, or be prepared to handle a `NullPointerException.
 
 This gives us the String variable `inputStream` which we can then use to read via a `BufferedReader` as follows:
 
 ```java 
-    InputStreamReader isr = new FileReader(inputStream);
-    BufferedReader br = new BufferedReader(isr);
-    for (String line = br.readLine(); line != null; line = br.readLine()) {
-       System.out.println(line);
+    private BufferedReader getBufferedReaderForInputStream(InputStream inputStream) {
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        return new BufferedReader(inputStreamReader);
     }
 ```
 
-Note that you may often see people combine the first two lines:
+Note that you may often see people combine these two lines:
 
 ```java
-    BufferedReader br = new BufferedReader(new InputStreamReader(filename));
+    return new BufferedReader(new InputStreamReader(filename));
 ```
 
 However, we'll discuss later how this could be seen as bad style in many contexts because it makes the code harder to read and understand if you use this nest constructor call approach. That said, it's common enough for these "repetitive" file IO situations that we tend to overlook it.
@@ -99,32 +171,34 @@ One simple use-case of a BufferedReader is to print the contents
 of the file. One way to print the contents of a file is:
 
 ```java
-    for (String line = br.readLine(); line != null; line = br.readLine()) {
-            System.out.println(line);
+    String currentLine = bufferedReader.readLine();
+    while(currentLine != null) {
+        System.out.println(currentLine);
+        currentLine = bufferedReader.readLine();
     }
-    br.close();
 ```
 
-You will often see this using a while loop instead.
+You may often see this using a `for` instead.
 
 ```java
-    String line = br.readLine();
-    while (line != null) {
+    for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
         System.out.println(line);
-        line = br.readLine();
     }
-    br.close();
 ```
 
+I generally recommend using a `for` loop over a `while` loop whenever feasible, as it's much harder to accidentally create an infinite loop with a `for` loop.
+
 Of course, you don't have to print. For example, if you are reading
-a csv file, you may split the line up by commas and use the file contents
-to create or populate a data object. Or any number of other approaches.
+a csv file, you may split the line into pieces by commas and use the file contents to create or populate a list of data structures. Or any number of other things you could do to parse a file.
 
 ## Files.lines()
 
-Another approach for reading a file is to use `Files.lines()`, which is a functional
-programming approach. We will discuss this when going over functional programming
-and lambda bodies, later on.
+Another approach for reading a file is to use `Files.lines()`, which is a functional programming approach. We will discuss this when going over functional programming and lambda bodies, later on. However, to show you what it would look like:
+
+```java
+        bufferedReader.lines()
+            .forEach(line -> System.out.println(line));
+```
 
 ---
 
@@ -139,11 +213,13 @@ an ArrayList of some class. You can include an example csv file in the
 `test` resources to test with, but that file won't be confused as part of the
 `main` resources of the project.
 
+When we discuss testing in that unit, it's worth noting that our test classes will be able to access both `test` and `main` resources, while our `main` classes will **not** be able to access `test` resources.
+
 ---
 
 ## User specified files shouldn't be resources
 
-If you program can take in a filename from the user, such as via command-line or text entry, you shouldn't open that file with `ClassLoader`. In that case, it's sufficient to just create a `BufferedReader` from the filename the user gives you.
+If you program can take in a filename from the user, such as via command-line, text entry, file browser window, etc., you should *never* that file with `ClassLoader`. In that case, it's sufficient to just create a `BufferedReader` from the filename the user gives you.
 
 Something like:
 
@@ -163,18 +239,21 @@ Something like:
             throw new RuntimeException(e);
         }
 
-        }
+    }
 
 ```
 
 You only use Resources when you are trying to access a resource file that you would include in a distribution of the project.
 
-## Resource creation example
+## Resource usage example
 
-Consider the puzzle game Picross S, which involves solving [https://en.wikipedia.org/wiki/Nonogram]. If you are a programmer of the game Picross, which seems like the better approach for development?
+Consider the puzzle game (Picross S)[https://www.youtube.com/watch?v=ph0ADToB-1c], which involves solving puzzles called nonograms [https://en.wikipedia.org/wiki/Nonogram]. 
 
 ![img.png](../images/8/nonogram_example.png)
 Image Source: [Wikipedia](https://en.wikipedia.org/wiki/Nonogram#/media/File:Nonogram_wiki.svg)
+
+If you are a programmer of the game Picross S, which seems like the better approach for development?
+
 
 1) Create a Java class for every single puzzle that describes how the puzzle works and hard-code what the data values are for each row/column
 2) Describe a generic puzzle class that works for all puzzles, and store the *data* of each row and column as a file.
@@ -199,4 +278,4 @@ columns:
 
 ```
 
-Again, this is hypothetical. If I were implementing this, I would likely use something like JSON, rather than the text above. The point, however, is that this allows us to simply create 300 puzzle files with a consistent, human-readable format. This lets us separate *how the game works* from the individual puzzles in the game, and allows them to be edited separately.
+Again, this is hypothetical. (As a note, If I were implementing this, I would likely use something like JSON, rather than the text above, but that's beyond what we've covered so far). The point, however, is that this allows us to simply create 300 puzzle files with a consistent, human-readable format. This lets us separate *how the game works* from the individual puzzles in the game, and allows them to be edited separately from the source code.
