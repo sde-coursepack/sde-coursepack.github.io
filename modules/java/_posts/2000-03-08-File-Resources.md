@@ -281,3 +281,11 @@ columns:
 ```
 
 Again, this is hypothetical. (As a note, If I were implementing this, I would likely use something like JSON, rather than the text above, but that's beyond what we've covered so far). The point, however, is that this allows us to simply create 300 puzzle files with a consistent, human-readable format. This lets us separate *how the game works* from the individual puzzles in the game, and allows them to be edited separately from the source code.
+
+## Conclusion
+
+Resource files, such as images, configurations, data, etc. are a vital tool in software development. Learning how to store and utilize resource files appropriately is a skill worth learning. For with that skill, you can stand on mountaintops...
+
+![chloe_on_a_scratching_post.png](..%2Fimages%2F8%2Fchloe_on_a_scratching_post.png)
+
+Or at least on the top of scratching posts.
