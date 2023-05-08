@@ -248,12 +248,175 @@ Of course, we may still want to see what the value of `count` is, or we may want
 
 ### Overloaded Constructors
 
+You can have multiple constructor methods for a single class. For example, with our `PezDispenser` class, we could have a secondary constructor that defaults the value of capacity to `12`:
+
+```java
+public class PezDispenser {
+    //fields
+    private String characterName;
+    private final int capacity;
+    private int count;
+    
+    //constructor
+    public PezDispenser(String characterName, int capacity) {
+        this.characterName = characterName;
+        this.capacity = capacity;
+        this.count = 0;
+    }
+    
+    public PezDispenser(String characterName) {
+      this.characterName = characterName;
+      this.capacity = 12;
+      this.count = 0;
+    }
+    
+    ...
+}
+```
+
+Additionally, if we wanted to make PezDispensers that we can set the initial count value, we could add a three argument constructor:
+
+```java
+public class PezDispenser {
+    //fields
+    private String characterName;
+    private final int capacity;
+    private int count;
+    
+    //constructor
+    public PezDispenser(String characterName, int capacity, int count) {
+        if (capacity < count || count < 0) {
+            throw new IllegalArgumentException("count must be non-negative and no greater than capacity");
+        }
+        this.characterName = characterName;
+        this.capacity = capacity;
+        this.count = count;
+    }
+    ...
+```
+
+Here, we have to handle some basic error checking to ensure that the value of count makes sense given the capacity.
+
+But...this is all very redundant, yes? Three constructors that are nearly identical, and simply set default values in two of them. As such, we can shorten these three constructors using the `this` constructor:
+
+```java
+public class PezDispenser {
+    //fields
+    private String characterName;
+    private final int capacity;
+    private int count;
+    
+    public static final int DEFAULT_CAPACITY = 12;
+    public static final int DEFAULT_COUNT = 0;
+    
+    //constructor
+    public PezDispenser(String characterName, int capacity, int count) {
+        if (capacity < count || count < 0) {
+            throw new IllegalArgumentException("count must be non-negative and no greater than capacity");
+        }
+        this.characterName = characterName;
+        this.capacity = capacity;
+        this.count = count;
+    }
+    
+    public PezDispenser(String characterName, int capacity) {
+        this(characterName, capacity, DEFAULT_COUNT);
+    }
+    
+    public PezDispenser(String characterName) {
+        this(characterName, DEFAULT_CAPACITY, DEFAULT_COUNT);
+    }
+    
+    ...
+}
+```
+
+Here, we have one *primary* constructor, and two constructors that simply pass the inputs (along with any default values) to the primary constructor. In this way, we are still only setting the initial field values in one constructor, but allowing the flexibility to call the constructor with different numbers of arguments, depending on what the user needs. Be aware that when using the `this` constructor in this way, the `this` call *must be the first line of the constructor*.
+
 ### Destructive vs. non-destructive methods
+
+Some methods in objects may be either *destructive* or *non-destructive*. A *destructive* method is one that, when the method is called, *could* result in the state of the object changing. For example, the `PezDispenser` methods `load` and `dispense` are *destructive* methods. Note that we call `dispense` destructive even if a particular call (namely, when count is already equal to zero) would not result in the object changing. In general, setter methods are always considered destructive (since that is the point of a setter).
+
+Non-destructive methods are methods that do not change the state of the object they are called on. Typically, methods like `toString` and `hashCode` should always be non-destructive, as should getter methods. In some classes, there will be **no destructive methods** at all! For example, the Java `String` class has no destructive methods. This is because the contents of a String are `final`, or **immutable**, meaning they can't be changed. Take for example the following code:
+
+```java
+    String s = "Hello World!";
+    s.toUppercase();
+    System.out.println(s);
+```
+
+What would you expect to print here? Well, you might think what will print is `HELLO WORLD!`, but you would be incorrect! While the method `toUppercase` *returns* the `String` `"HELLO WORLD"`, it doesn't *change* the value of `s`. That's because the existing `String s` **cannot be changed** after it is created. If you want to change the `String s` to be all uppercase, you would have to reassign the variable s to a new String.
+
+```java
+    String s = "Hello World!";
+    s = s.toUppercase(); //reassign the value of s
+    System.out.println(s);
+```
+
+The important difference here is that the `String` variable `s` is now actually referencing to a different String entirely. That is, the new String `"HELLO WORLD"` is stored in memory in a completely different location than the old String `"Hello World"`. As a note, after this code executes, the old String location will eventually be released back to memory to be reallocated as needed.
 
 ### Static vs. non-static
 
-### References
+Unless explicitly stated to be `static`, all methods are **non-static**. For example, everything, except the constants we created (`DEFAULT_CAPACITY` and `DEFAULT_COUNT`) is *non-static*. So what does that mean?
 
-### Mutable
+* __non-static__ - belongs to a specific *instance* of a class.
+* __static__ - belongs to the class as a whole.
 
-### Non-Mutable
+As an example, consider the following small Java class:
+
+```java
+public class Example {
+  private int x;
+  private static int sum = 0;
+
+  public Example(int x) {
+    this.x = x;
+    sum += x;
+  }
+
+  public int getX() {
+    return x;
+  }
+  
+  public static int getSum() {
+      return sum;
+  }
+}
+```
+
+Let's say we run the following code:
+
+```java
+public class ExampleDemo {
+    public static void main(String[] args) {
+        Example example1 = new Example(1);
+        Example example2 = new Example(2);
+        Example example3 = new Example(3);
+        System.out.println(Example.getSum());
+    }
+}
+```
+
+The above code will print 6. That's because whenever we create a new instance of Example, we are adding *that* Example object's `x` value to `sum`. Additionally, note that when we call `getSum`, we *aren't using an instance of `Example`*, but rather we are calling getSum on the *class* Example. This is what we mean by a static method not belonging to any one instance. It can be invoked by the class name. There are a number of static methods you have like used before:
+
+```java
+  Math.sqrt(5);
+  Integer.parseInt(input);
+  Arrays.toString(myArray);
+  Collections.sort(myList);
+```
+
+Here, we are calling the method we want on the class. We don't make an instance of the classes `Math`, `Integer`, `Arrays`, or `Collections`.
+
+By contrast, non-static method calls will look like:
+
+```java
+  String s = myString.toUpperCase();
+  String input = scanner.nextLine();
+  myList.sort();
+  superman.load();
+```
+
+Here, we are calling methods *on an instance of a class*, specifically an instance of `String`, `Scanner`, `List`, and `PezDispenser`.
+
+When in doubt, you should generally make your methods non-static. This is especially true if you are create a datatype that you are going to use multiple times in your program.
