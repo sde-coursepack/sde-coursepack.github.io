@@ -596,7 +596,7 @@ Some refactoring techniques are inherently opposites of one another. For instanc
 
 * [Change Reference to Value](https://refactoring.guru/change-reference-to-value)
 
-These two refactorings *are* opposite. That because each refactoring technique is a tool that solves a specific design or coding flaw. However, now all refactoring techniques are useful *all* the time. As you practice and with refactoring and learn and study techniques, you will learn when to use which. Much of this comes from experience, but it requires staying vigilant and routinely making a habit of refactoring to clean your code.
+These two refactorings *are* opposite. That because each refactoring technique is a tool that solves a specific design or coding flaw. However, not all refactoring techniques are useful *all* the time. As you practice and with refactoring and learn and study techniques, you will learn when to use which. Much of this comes from experience, but it requires staying vigilant and routinely making a habit of refactoring to clean your code.
 
 ## Conclusion
 
