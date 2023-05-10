@@ -5,6 +5,9 @@ Title: Internal Software Quality
 * TOC
 {:toc}
 
+![](https://imgs.xkcd.com/comics/software_development.png)
+Source: [XKCD #2021](https://xkcd.com/2021/) by Randall Munroe
+
 # Internal Quality
 
 With Internal software quality, we are concerned with the software

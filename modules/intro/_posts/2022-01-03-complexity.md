@@ -7,7 +7,8 @@ Title: Software Complexity
 
 # Hidden Complexity
 
-> "We demand rigidly defined areas of doubt and uncertainty!" - __Hitchhiker's Guide to that Galaxy__, Douglas Adams
+> "We demand rigidly defined areas of doubt and uncertainty!"  
+> --__Hitchhiker's Guide to that Galaxy__, Douglas Adams
 
 Software failures are easy to occur because software is *essentially* complex.
 
@@ -15,7 +16,7 @@ Let's look at Google.com:
 
 ![A screenshot of the Google homepage]({{site.baseurl}}/img/google.png)
 
-Seems simple enough! What's that, like 20-30 lines of code, right? In most browsers, you can right click on the page and go to View Source. Here's what you'll see:
+Seems simple enough! What's that, like 20-30 lines of code, right? In most browsers, you can right-click on the page and go to View Source. Here's what you'll see:
 
 ![What is shown when "View Source" for Google homepage. It is a page full of code]({{site.baseurl}}/img/googleSource.png)
 
@@ -104,4 +105,5 @@ Programming is hard because the problems we are solving are themselves hard and 
 
 How many seconds old is George Washington (be sure to include time zones, [leap seconds](https://en.wikipedia.org/wiki/Leap_second) and Daylight Savings where appropriate. Also, be aware that any consideration for Daylight Savings in your solution has to work differently for people in Arizona, and [might have to change in 2023](https://www.congress.gov/bill/117th-congress/senate-bill/623/text). No wait, just kidding, the house never took up the bill, so we still have Daylight Savings. Unless the House takes up the Bil and votes in favor of it).
 
-> "Let's think the unthinkable, let's do the undoable. Let us prepare to grapple with the ineffable itself, and see if we may not eff it after all." - __Dirk Gently's Holistic Detective Agency__, Douglas Adams 
+> "Let's think the unthinkable, let's do the undoable. Let us prepare to grapple with the ineffable itself, and see if we may not eff it after all."  
+> -- __Dirk Gently's Holistic Detective Agency__, Douglas Adams 

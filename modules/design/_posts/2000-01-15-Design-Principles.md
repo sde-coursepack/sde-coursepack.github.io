@@ -325,7 +325,7 @@ In short, never unnecessarily sacrifice **understandability** and **functional i
 
 ## YAGNI Principle
 
-__You ain't gonna need it__
+__"You ain't gonna need it"__
 
 The YAGNI Principle states that you should only add features to your code when required. The short version of this principle is "don't try to future-proof your code!" 
 

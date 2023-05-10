@@ -5,8 +5,10 @@ Title: External Software Quality
 * TOC
 {:toc}
 
-# External Software Quality
+![A man calling 911 because a toaster stabbed him in the face. The 911 operator asks him if he read the manual. When the caller says no, the operator hangs up on him.](https://imgs.xkcd.com/comics/rtfm.png)
+Source: [XKCD #293](https://xkcd.com/293/) by Randall Munroe
 
+# External Software Quality
 *External software quality* refers to the quality of the software from
 the perspective of the **stakeholders**. 
 
