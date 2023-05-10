@@ -2,7 +2,10 @@
 Title: Analyzability
 ---
 
-### Acknowledgement
+* TOC
+{:toc}
+
+## Acknowledgement
 Much of the material is this set of modules comes from two sources:
 
 - [Chris Murphy - Lecturer at Bryn Mawr](https://cs.brynmawr.edu/~cdmurphy/) who I was very lucky to work with previously on a software engineering course at the University of Pennsylvania

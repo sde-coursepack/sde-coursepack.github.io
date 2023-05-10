@@ -1,6 +1,9 @@
 ---
 Title: Creational Patterns
---- 
+---
+
+* TOC
+{:toc}
 
 ## Acknowledgement
 

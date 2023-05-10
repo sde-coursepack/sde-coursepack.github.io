@@ -2,6 +2,9 @@
 Title: Clean Code
 ---
 
+* TOC
+{:toc}
+
 ## Acknowledgement
 
 Most of the material in this unit is derived from: 

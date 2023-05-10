@@ -2,6 +2,9 @@
 Title: JavaFX with FXML
 ---
 
+* TOC
+{:toc}
+
 This page is under construction.
 
 # FXML with a JavaFX class

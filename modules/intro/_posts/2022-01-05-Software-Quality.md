@@ -2,6 +2,9 @@
 Title: Software Quality
 ---
 
+* TOC
+{:toc}
+
 # Software Quality
 
 What does it mean to say software is "good"? You will probably think of things like:

@@ -2,6 +2,9 @@
 Title: White-Box Testing
 ---
 
+* TOC
+{:toc}
+
 # The Story so Far
 
 In the last module we used Black-Box testing to select test cases for a function `calculateBill`.

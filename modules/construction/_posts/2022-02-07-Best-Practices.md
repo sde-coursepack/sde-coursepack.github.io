@@ -2,6 +2,9 @@
 Title: Best Practices for Git
 ---
 
+* TOC
+{:toc}
+
 # ```git``` good - Best practices for git
 
 Here are some best practices to keep in mind when working with git.

@@ -2,6 +2,9 @@
 Title: Exceptions-Best Practices
 ---
 
+* TOC
+{:toc}
+
 # Exceptions
 
 Exceptions, or exceptional events, are situations where our code cannot meaningfully proceed in it's current state. For example, a `NullPointerException` means that you tried to call instance methods on a `null` object, which cannot have any instance methods.

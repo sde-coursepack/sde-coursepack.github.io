@@ -2,6 +2,9 @@
 Title: Under Construction
 ---
 
+* TOC
+{:toc}
+
 # Architecture
 
 In software, architecture generally refers to the design of our overall project. So far, in our design unit, we have largely focused on the design at the level of individual classes and methods, or **modules** interacting. With architecture, we want to think about **components**.

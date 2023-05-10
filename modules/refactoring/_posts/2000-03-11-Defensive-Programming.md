@@ -2,6 +2,9 @@
 Title: Defensive Programming
 ---
 
+* TOC
+{:toc}
+
 # Defensive Programming
 
 I like to introduce the idea of defensive programming by talking about defensive driving.

@@ -2,6 +2,9 @@
 Title: Duplicate Code and Clean Testing
 ---
 
+* TOC
+{:toc}
+
 # Duplicate code
 
 As we mentioned before, we want our code to be DRY (Don't Repeat Yourself) as opposed to WET (Write Everything Twice). This is especially true when writing tests!

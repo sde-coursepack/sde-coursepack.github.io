@@ -2,6 +2,9 @@
 Title: Refactoring - Extracting a Class
 ---
 
+* TOC
+{:toc}
+
 # Extract a Class
 
 In this module, we will discuss the refactoring of extracting a class. We may extract a class for the following reasons:

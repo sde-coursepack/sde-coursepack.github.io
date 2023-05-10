@@ -2,6 +2,9 @@
 Title: Build Tools
 ---
 
+* TOC
+{:toc}
+
 # Build Tools
 
 In this module, we will discuss using build tools. We will start in this unit by talking about what Build tools are and why we need

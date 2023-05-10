@@ -2,6 +2,9 @@
 Title: Test Driven Development
 ---
 
+* TOC
+{:toc}
+
 # Test Driven Development
 
 For this module, we are going to write the tests **before** we implement the method. This practice is called Test-Driven Development, or TDD. While we will go into more specifics later, the primary idea of TDD is to write tests *first* that describe the specification **first**, and only implement the method after the code is written. There are a number of advantages to this approach, key among them being we know we're done developing when all our tests are passing.

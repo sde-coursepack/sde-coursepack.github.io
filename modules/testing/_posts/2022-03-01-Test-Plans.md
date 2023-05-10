@@ -2,6 +2,9 @@
 Title: Test Plans
 ---
 
+* TOC
+{:toc}
+
 # Test Plans
 
 While we write each test one at a time, overall we want to ensure that our tests collectively give us confidence in our code's correctness.

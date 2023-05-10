@@ -2,6 +2,9 @@
 Title: JUnit with Objects
 ---
 
+* TOC
+{:toc}
+
 # Testing with Objects
 
 So far, with testing, we have largely focused on simple functions

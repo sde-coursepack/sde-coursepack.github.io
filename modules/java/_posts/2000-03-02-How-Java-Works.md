@@ -2,6 +2,9 @@
 Title: How Java Works
 ---
 
+* TOC
+{:toc}
+
 # How Java Works
 
 This module will discuss the nature of Java and how Java code compiles and executes.

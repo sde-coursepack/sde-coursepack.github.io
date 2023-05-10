@@ -2,6 +2,9 @@
 Title: Software Complexity
 ---
 
+* TOC
+{:toc}
+
 # Hidden Complexity
 
 > "We demand rigidly defined areas of doubt and uncertainty!" - __Hitchhiker's Guide to that Galaxy__, Douglas Adams

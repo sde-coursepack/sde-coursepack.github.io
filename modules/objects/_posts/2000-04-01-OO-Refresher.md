@@ -2,6 +2,9 @@
 Title: Object Orientation Refresher
 ---
 
+* TOC
+{:toc}
+
 This page is under construction.
 
 **_Note:_** This unit covers *pre-requisite material* for CS 3140, and should already be understood by students before taking CS 3140. However, because of the heavy emphasis on Object-Oriented Programming on CS 3140, this material is included in the online textbook.

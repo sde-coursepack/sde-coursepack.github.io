@@ -2,6 +2,9 @@
 Title: Course Materials
 ---
 
+* TOC
+{:toc}
+
 # Course Materials
 
 This broadly describes the course material. If you are an instructor wishing to use materials/assignments/exams from this course, you can reach out to Prof. McBurney at (mcburney at virginia dot edu). Please email from a verifiable institution or organization email address.

@@ -2,7 +2,10 @@
 Title: Integration Testing
 ---
 
-# Software integration.
+* TOC
+{:toc}
+
+# Software Integration
 
 In our design unit, we will discuss how using interfaces and abstract classes allows us to subvert the inherent "top-down" implementation that we get with functional decomposition starting from the `main` method. Specifically, using interfaces and inheritance allow us to build a "plug-and-play" architecture that removes direct dependencies from "high-level" classes to "low-level" classes.
 

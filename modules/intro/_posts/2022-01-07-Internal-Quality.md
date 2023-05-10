@@ -2,6 +2,9 @@
 Title: Internal Software Quality
 ---
 
+* TOC
+{:toc}
+
 # Internal Quality
 
 With Internal software quality, we are concerned with the software

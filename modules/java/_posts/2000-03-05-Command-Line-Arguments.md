@@ -2,6 +2,9 @@
 Title: Command Line Arguments
 ---
 
+* TOC
+{:toc}
+
 ## **[Source Code Examples](https://github.com/sde-coursepack/commandline)**
 
 

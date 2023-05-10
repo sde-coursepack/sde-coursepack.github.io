@@ -2,6 +2,9 @@
 Title: Three Layer Architecture
 ---
 
+* TOC
+{:toc}
+
 # Three Layer Architecture
 
 A Three Layer Architecture is a notable example of a Layered Architecture.

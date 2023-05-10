@@ -2,6 +2,9 @@
 Title: Learning to Learn
 ---
 
+* TOC
+{:toc}
+
 # Don't panic
 
 > “In many of the more relaxed civilizations on the Outer Eastern Rim of the Galaxy, the Hitch-Hiker's Guide has already supplanted the great Encyclopaedia Galactica as the standard repository of all knowledge and wisdom, for though it has many omissions and contains much that is apocryphal, or at least wildly inaccurate, it scores over the older, more pedestrian work in two important respects. First, it is slightly cheaper; and secondly it has the words DON'T PANIC inscribed in large friendly letters on its cover.” - __Hitchhiker's Guide to that Galaxy__, Douglas Adams

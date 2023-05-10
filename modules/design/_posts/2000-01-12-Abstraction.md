@@ -2,6 +2,9 @@
 Title: Abstraction
 ---
 
+* TOC
+{:toc}
+
 # Abstraction
 
 The idea of abstraction is that all behavior that belongs to a particular module should be handled through that modules interface.

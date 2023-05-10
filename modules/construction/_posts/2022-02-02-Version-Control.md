@@ -2,6 +2,9 @@
 Title: Version Control
 ---
 
+* TOC
+{:toc}
+
 # Version Control
 
 When developing software, we need to be able to share

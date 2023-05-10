@@ -2,6 +2,9 @@
 Title: Gradle Example with Poi
 ---
 
+* TOC
+{:toc}
+
 ## [Source Code Example](https://github.com/sde-coursepack/NBAExcelTeams)
 
 Note that this example also uses the package `org.json` in the class

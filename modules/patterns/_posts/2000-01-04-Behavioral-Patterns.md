@@ -2,6 +2,9 @@
 Title: Behavioral Design Patterns
 ---
 
+* TOC
+{:toc}
+
 ## Acknowledgement
 
 This page in its current form was authored by teaching assistant Jade Gregoire, adapted from my class notes and slides.
