@@ -10,7 +10,7 @@ Title: External Software Quality
 *External software quality* refers to the quality of the software from
 the perspective of the **stakeholders**. 
 
-## Stakeholders
+## Who are Stakeholders?
 
 *Stakeholders* are anyone affected
 by the software, not just the user; that is, anyone who "holds a stake"
@@ -50,7 +50,7 @@ With this in mind, let's consider the following **external** quality measures:
 * Efficiency
 * Portability
 
-### Functionality
+## Functionality
 
 *Is the software functionally complete? That is, does it do
 everything it is supposed to do?*
@@ -60,7 +60,7 @@ needs in what the software *does*. Does the software have all the
 features the customers need or expect? Is the software sufficiently
 secure? Are the results the software produces accurate?
 
-### Reliability
+## Reliability
 
 *What is the capability of the software to maintain performance
 under certain conditions over a certain period of time?*
@@ -76,7 +76,7 @@ this could affect, say, a customer that doesn't carry their physical
 keys with them because they use their phone to lock and unlock their door?
 
 
-### Usability
+## Usability
 
 *How much effort is needed for a customer to use software?*
 
@@ -114,7 +114,7 @@ software worse, thus lowering the overall software quality.
 Accessibility is also a factor in Usability: that is can the software
 be used by people with a broad range of characteristics.
 
-### Efficiency
+## Efficiency
 
 *When operating, what resources are used, and to what extent, by the software?*
 
@@ -124,7 +124,7 @@ how much bandwidth does it use? What are the necessary speeds for the program
 to operate? Generally, the fewer resources a program consumes, the better.
 
 
-### Portability
+## Portability
 
 *How able is the software to be transferred from one environment to another?*
 

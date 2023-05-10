@@ -332,3 +332,9 @@ The YAGNI Principle states that you should only add features to your code when r
 This was specifically a common problem in **plan-driven** software development (as opposed to *agile*). Because most major design decisions had to be made before implementation in a *plan-driven* approach. It was necessary to try to anticipate changes **and** develop the infrastructure to support those changes.
 
 Because agile promotes add features iteratively, with an emphasis on refactoring often, it's often better to wait until you *know* what new features you need before you start designing and implementing. A reason for this is that if we anticipate a feature will be needed in the future, we could be wrong! Now any design changes we have made, code and tests we've written, etc. are useless. The time spent on those features was wasted.
+
+Additionally, over design of our software system can make it **harder** to understand, even if the software is theoretically easier to change. Remember, the first step to any software change is **understanding** the software. So avoiding over-design is just as important as avoiding under design!
+
+> “Such is the vastness of his genius that he can outwit even himself.”
+> Stephen Erickson, Deadhouse Gates, Book 2 of the Malazan Book of the Fallen
+

@@ -7,6 +7,7 @@ Title: Command Line Arguments
 
 ## **[Source Code Examples](https://github.com/sde-coursepack/commandline)**
 
+Click [this link](https://github.com/sde-coursepack/commandline) the example source code for this unit.
 
 # Command Line Arguments
 
