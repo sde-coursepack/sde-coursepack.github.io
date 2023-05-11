@@ -2,6 +2,9 @@
 Title: Hello World GUI
 ---
 
+* TOC
+{:toc}
+
 # Hello World GUI
 
 In this module, we will iteratively create a very simple application, introducing JavaFX basics one at a time.

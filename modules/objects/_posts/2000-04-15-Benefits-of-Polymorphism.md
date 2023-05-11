@@ -2,6 +2,9 @@
 Title: Class Hierarchies
 ---
 
+* TOC
+{:toc}
+
 # Benefits of Polymorphism
 
 There are a number of design benefits to Polymorphism.

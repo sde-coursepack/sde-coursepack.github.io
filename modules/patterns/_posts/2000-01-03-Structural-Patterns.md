@@ -1,6 +1,9 @@
 ---
 Title: Structural Patterns
---- 
+---
+
+* TOC
+{:toc}
 
 ## Acknowledgement
 

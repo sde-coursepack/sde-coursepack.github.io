@@ -2,6 +2,9 @@
 Title: UML Class Diagrams
 ---
 
+* TOC
+{:toc}
+
 This page is under construction.
 
 Material to review: https://www.uml-diagrams.org/class-diagrams-overview.html 

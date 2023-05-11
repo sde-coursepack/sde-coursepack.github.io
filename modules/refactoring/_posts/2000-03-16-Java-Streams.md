@@ -2,6 +2,9 @@
 Title: Java Streams
 ---
 
+* TOC
+{:toc}
+
 # Java Streams
 
 Using what we have learned about **Functional Programming**, we are now ready to tackle **Streams**

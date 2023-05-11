@@ -2,6 +2,9 @@
 Title: Terminal and Java
 ---
 
+* TOC
+{:toc}
+
 # Terminal and Java
 
 In the last section, we talked about how Java works.

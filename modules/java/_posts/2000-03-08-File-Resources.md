@@ -2,6 +2,9 @@
 Title: File Resources
 ---
 
+* TOC
+{:toc}
+
 # Resources in Java
 
 Often, our programs will need to use external resources. These could include:

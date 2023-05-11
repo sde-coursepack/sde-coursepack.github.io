@@ -2,6 +2,9 @@
 Title: Git Basics
 ---
 
+* TOC
+{:toc}
+
 # Git Basics
 
 In this unit, we will dive into specific usage of git. This is meant

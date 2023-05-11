@@ -2,6 +2,9 @@
 Title: Testing With Exceptions
 ---
 
+* TOC
+{:toc}
+
 # Testing with Exceptions
 
 When following best practices of defensive programming, we often *want* to throw Exceptions for incorrect or invalid inputs.

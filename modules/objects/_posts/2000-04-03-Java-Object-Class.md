@@ -2,6 +2,9 @@
 Title: Java Object Class
 ---
 
+* TOC
+{:toc}
+
 # The `Object` Class
 
 All Java class inherit from a `superclass` called Object, either directly or indirectly. This means whenever you create class, somet methods are inherited.

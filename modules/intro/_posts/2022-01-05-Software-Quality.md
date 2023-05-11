@@ -2,7 +2,13 @@
 Title: Software Quality
 ---
 
+* TOC
+{:toc}
+
 # Software Quality
+
+![XKCD guide on how to write Good code](https://imgs.xkcd.com/comics/good_code.png)
+Source: [XKCD #844](https://xkcd.com/844/) by Randall Munroe
 
 What does it mean to say software is "good"? You will probably think of things like:
 

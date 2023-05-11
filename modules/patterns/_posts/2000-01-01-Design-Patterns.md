@@ -2,6 +2,9 @@
 Title: Design Patterns
 ---
 
+* TOC
+{:toc}
+
 ## Acknowledgement
 
 This page in its current form was authored by teaching assistant Jade Gregoire, adapted from my class notes and slides.
@@ -41,4 +44,6 @@ Our last group of design patterns is the behavioral design pattern. These take c
 > "When you have a hammer, everything looks like a nail." 
 <br>- Abraham Maslow
 
-Design patterns should never be forced, or over-used. While they are great tools for adressing issues in software quality, it is easy to misuse design patterns, especially if you use too many or attept to use a pattern when there is a better solution available. 
+Design patterns should never be forced, or over-used. While they are great tools for adressing issues in software quality, it is easy to misuse design patterns, especially if you use too many or attempt to use a pattern when there is a better solution available. 
+
+Above all, be aware that **over-design** is a thing. Remember the [YAGNI principle](https://sde-coursepack.github.io/modules/design/Design-Principles/#yagni-principle)!

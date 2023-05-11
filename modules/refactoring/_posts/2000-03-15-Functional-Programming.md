@@ -2,6 +2,11 @@
 Title: Functional Programming
 ---
 
+* TOC
+{:toc}
+
+# Functional Programming
+
 Functional Programming is a programming paradigm (Object-oriented programming is another paradigm) where we treat functions like **first-class citizens**. What we mean by this is that functions can be treated as variables, passes as arguments, and even returned by functions. 
 
 We can actually show this behavior in Python:

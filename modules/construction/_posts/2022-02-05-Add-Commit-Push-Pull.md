@@ -2,6 +2,9 @@
 Title: Git Repository Operations
 ---
 
+* TOC
+{:toc}
+
 # Repository operations
 
 Now that we have branching down, let's look at basic repository operations.

@@ -2,9 +2,13 @@
 Title: Software Complexity
 ---
 
+* TOC
+{:toc}
+
 # Hidden Complexity
 
-> "We demand rigidly defined areas of doubt and uncertainty!" - __Hitchhiker's Guide to that Galaxy__, Douglas Adams
+> "We demand rigidly defined areas of doubt and uncertainty!"  
+> --__Hitchhiker's Guide to that Galaxy__, Douglas Adams
 
 Software failures are easy to occur because software is *essentially* complex.
 
@@ -12,11 +16,10 @@ Let's look at Google.com:
 
 ![A screenshot of the Google homepage]({{site.baseurl}}/img/google.png)
 
-Seems simple enough! What's that, like 20-30 lines of code, right? In most browsers, you can right click on the page and go to View Source. Here's what you'll see:
----
+Seems simple enough! What's that, like 20-30 lines of code, right? In most browsers, you can right-click on the page and go to View Source. Here's what you'll see:
 
 ![What is shown when "View Source" for Google homepage. It is a page full of code]({{site.baseurl}}/img/googleSource.png)
----
+
 
 The Horror!
 
@@ -32,7 +35,7 @@ And yet, even simple sounding problems can have tons of hidden complexities.
 
 ---
 
-### George Washington's Birthday
+## George Washington's Birthday
 
 Let's write a program to tell us how many days old George Washington is. How hard can this be?
 
@@ -46,7 +49,7 @@ Wait, what!?!? So which is it? February 22, 1732, or February 11, 1731? To add t
 
 What the heck was going on in September? Well, as some of you may have guessed, like every other confusing bit of European history, this has to do with religious schisms. In 1582, the then Pope Gregory XIII introduced the Gregorian Calendar, which is used in the United States and most of the world today. However, England and many other Protestant European countries continued to use the Julian calendar that was already in place for centuries. Because these calendars handle leap years differently (specifically, years like 1700, 1800, and 1900 **are** Leap Years in the Julian calendar, but are *not* Leap Years in the Gregorian calendar), the calendars wouldn't agree on what day it was. Feburary 11th on the Julian Calendar **is the same day** as February 22 on the Gregorian calendar, because the two calendars had drifted 11 days apart!
 
-#### What is the start of the year?
+### What is the start of the year?
 
 Another relevant detail is that the "first day of the year" in England used to be considered "the first day of Spring." And as such, March 25 was "New Year's Day" in England during and after the Middle Ages. So February 11, 1731 (Julian) *is the same day* as February 22, 1732 (Gregorian). However, England (and by extension the Colonies) did not adopt the Gregorian calendar until 1752, 20 years after Washington was born. But all of this means your program could have produced incorrect output if you didn't know and account for this history ahead of time!
 
@@ -68,7 +71,7 @@ However, while hardware grew exponentially faster and faster for decades, the so
 
 <img src="https://csdl-images.ieeecomputer.org/mags/so/2008/01/figures/mso2008010091x1.gif" alt="Cover of IEEE's Computer Magazine from April 1987, which featured 'No Silver Bullet'.">
 
-### No Silver Bullet
+## No Silver Bullet
 
 Unfortunately, the software crisis remains an unsolved problem. In 1986, Fred Brooks wrote, in his famous essay "No Silver Bullet":
 
@@ -102,4 +105,5 @@ Programming is hard because the problems we are solving are themselves hard and 
 
 How many seconds old is George Washington (be sure to include time zones, [leap seconds](https://en.wikipedia.org/wiki/Leap_second) and Daylight Savings where appropriate. Also, be aware that any consideration for Daylight Savings in your solution has to work differently for people in Arizona, and [might have to change in 2023](https://www.congress.gov/bill/117th-congress/senate-bill/623/text). No wait, just kidding, the house never took up the bill, so we still have Daylight Savings. Unless the House takes up the Bil and votes in favor of it).
 
-> "Let's think the unthinkable, let's do the undoable. Let us prepare to grapple with the ineffable itself, and see if we may not eff it after all." - __Dirk Gently's Holistic Detective Agency__, Douglas Adams 
+> "Let's think the unthinkable, let's do the undoable. Let us prepare to grapple with the ineffable itself, and see if we may not eff it after all."  
+> -- __Dirk Gently's Holistic Detective Agency__, Douglas Adams 

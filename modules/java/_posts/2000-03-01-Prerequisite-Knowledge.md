@@ -2,6 +2,9 @@
 Title: Prerequisite knowledge
 ---
 
+* TOC
+{:toc}
+
 # Prerequisite Knowledge
 
 Before continuing further, I want to take time and clarify what the course expects you to come into the course ready to do. While most people in this course will be coming from CS 2100, some people may be coming from other programming backgrounds.

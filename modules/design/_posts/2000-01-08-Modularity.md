@@ -2,6 +2,9 @@
 Title: Modularity
 ---
 
+* TOC
+{:toc}
+
 # Modularity
 
 As we mentioned before, **modularity** refers to our desire to break up our big problem into smaller problems. We will look at two types of decomposition: functional and class decomposition. 

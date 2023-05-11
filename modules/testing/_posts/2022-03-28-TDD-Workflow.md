@@ -2,6 +2,9 @@
 Title: TDD Example
 ---
 
+* TOC
+{:toc}
+
 ## [Source Code Starting Point](https://github.com/sde-coursepack/Library/tree/9d07a9430a738f6ccbd655a357986d236b68e41d/src/main/java)
 
 In this unit, I will be showing the progress of a TDD workflow starting from this point. Necessarily, I have made additional commits to this GitHub project as I progressed, but this commit is the starting point for the function we will write.

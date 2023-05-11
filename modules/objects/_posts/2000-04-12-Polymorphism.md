@@ -2,6 +2,9 @@
 Title: Polymorphism
 ---
 
+* TOC
+{:toc}
+
 This page is under construction.
 
 # Polymorphism

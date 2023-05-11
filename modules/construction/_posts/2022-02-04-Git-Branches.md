@@ -1,3 +1,10 @@
+---
+Title: Git Branches
+---
+
+* TOC
+{:toc}
+
 # Branching
 
 **We are covering branching before add/commit/push because

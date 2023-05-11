@@ -2,6 +2,9 @@
 Title: Refactoring - Extracting a Method
 ---
 
+* TOC
+{:toc}
+
 # Extracting Methods
 
 In this module, we will look at the refactoring practice of extracting methods. We may extract methods for the following reasons:

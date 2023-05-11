@@ -2,9 +2,13 @@
 Title: Learning to Learn
 ---
 
+* TOC
+{:toc}
+
 # Don't panic
 
-> “In many of the more relaxed civilizations on the Outer Eastern Rim of the Galaxy, the Hitch-Hiker's Guide has already supplanted the great Encyclopaedia Galactica as the standard repository of all knowledge and wisdom, for though it has many omissions and contains much that is apocryphal, or at least wildly inaccurate, it scores over the older, more pedestrian work in two important respects. First, it is slightly cheaper; and secondly it has the words DON'T PANIC inscribed in large friendly letters on its cover.” - __Hitchhiker's Guide to that Galaxy__, Douglas Adams
+> “In many of the more relaxed civilizations on the Outer Eastern Rim of the Galaxy, the Hitch-Hiker's Guide has already supplanted the great Encyclopaedia Galactica as the standard repository of all knowledge and wisdom, for though it has many omissions and contains much that is apocryphal, or at least wildly inaccurate, it scores over the older, more pedestrian work in two important respects. First, it is slightly cheaper; and secondly it has the words DON'T PANIC inscribed in large friendly letters on its cover.”  
+> --__Hitchhiker's Guide to that Galaxy__, Douglas Adams
 
 At this point, three pages in, you may be worried this is a class about software theory, reading articles from the 1980s. Nothing can be further from the truth! **This class is all about practice!** Nearly everything we do in this class will involve planning, writing, analyzing, and fixing code. The vast majorite of modules will involve writing code!
 
@@ -56,7 +60,8 @@ Even new programmers can see the wisdom in these words. How many times during yo
 
 But this is also **the least efficient possible way to develop software**! Instead, we need to take time to plan our actions! But this isn't natural, what's natural is to just keep trying. Learning how to plan, design, test, and write code effectively **will make you more efficient**! As the tongue-in-cheek engineering expressions goes:
 
-> "Hours of work can save you minutes of planning"
+> "Hours of work can save you minutes of planning"  
+> --Unknown
 
 The fact is that learning these skills will make you better and more efficient as a programmer...eventually. But not right away.
 
@@ -143,8 +148,8 @@ And, I have some bad news. You will make *several* mistakes along the way. But..
 
 ## You will get better!
 
-> "I wish I lived next to Carnegie Hall. Then, if someone asked me how to get to my house, I would just say 'Practice, practice, practice, and then take a left."
-> __Dimitri Martin__
+> "I wish I lived next to Carnegie Hall. Then, if someone asked me how to get to my house, I would just say 'Practice, practice, practice, and then take a left."  
+> --__Dimitri Martin__
 
 The good news is practice and time make you better at all of the above! I did eventually learn how to ride a bike. And even after learning, I continued to get better with balancing, navigating traffic and rough roadways, pacing myself so I don't arrive exhausted, etc. And the key tool was **PRACTICE**. The practice had to be frequent and spaced out, because that's how humans learn! We don't learn by cramming things at the last minute.
 
@@ -184,5 +189,6 @@ But understand that these techniques and practices were developed precisely beca
 
 Just like me riding a bike without training wheels, you'll fall down, you'll make mistakes, you'll get frustrated, and you won't go particularly fast at first. But each time you do Test Driven Development, or decompose one class into two classes, or properly integrate a Design Pattern, you'll get a little better. It will feel more natural. And, before long, **you'll realize that you're going much farther faster on this bike than you ever could have gone on foot.**
 
-> "I may not have gone where I intended to go, but I think I have ended up where I needed to be." - __The Long Dark Tea-Time of the Souls__ Douglas Adams
+> "I may not have gone where I intended to go, but I think I have ended up where I needed to be."  
+> -- __The Long Dark Tea-Time of the Souls__ Douglas Adams
 

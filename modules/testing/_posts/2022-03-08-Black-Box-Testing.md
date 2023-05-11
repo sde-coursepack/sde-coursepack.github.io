@@ -2,6 +2,12 @@
 Title: Black-Box Testing
 ---
 
+
+* TOC
+{:toc}
+
+## Note
+
 The next three modules will show the construction of test cases for a single function, `calculateBill`, and how we would approach it.
 
 # Black-Box Testing

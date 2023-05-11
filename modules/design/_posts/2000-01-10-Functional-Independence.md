@@ -2,6 +2,9 @@
 Title: Functional Independence
 ---
 
+* TOC
+{:toc}
+
 # Functional Independence
 
 When we are decomposing our system into modules, we need to consider how our modules are integrated with each other as we bring all the modules back together. We want the interactions between modules to be as simple as possible. This is true both in functional decomposition and class decompositions.

@@ -2,6 +2,9 @@
 Title: Architectural Patterns
 ---
 
+* TOC
+{:toc}
+
 # Architectural Patterns
 
 In this unit, we will discuss some common Architectural ideas and structures.

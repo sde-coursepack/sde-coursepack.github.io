@@ -2,6 +2,9 @@
 Title: Installing JavaFX
 ---
 
+* TOC
+{:toc}
+
 # Installing JavaFX
 
 In this article, I walk through installing JavaFX such that you'll be able to run JavaFX applications on your local machine. I will show a number of strategies for using JavaFX in a project.

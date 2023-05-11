@@ -2,6 +2,9 @@
 Title: Buttons and Events
 ---
 
+* TOC
+{:toc}
+
 # Buttons and Events
 
 In this unit, we will build on our code from the last module to add a Button and an EventHandler.

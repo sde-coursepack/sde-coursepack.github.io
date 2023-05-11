@@ -2,6 +2,9 @@
 Title: Object Orientation Refresher
 ---
 
+* TOC
+{:toc}
+
 This page is under construction.
 
 **_Note:_** This unit covers *pre-requisite material* for CS 3140, and should already be understood by students before taking CS 3140. However, because of the heavy emphasis on Object-Oriented Programming on CS 3140, this material is included in the online textbook.
@@ -355,6 +358,10 @@ What would you expect to print here? Well, you might think what will print is `H
 
 The important difference here is that the `String` variable `s` is now actually referencing to a different String entirely. That is, the new String `"HELLO WORLD"` is stored in memory in a completely different location than the old String `"Hello World"`. As a note, after this code executes, the old String location will eventually be released back to memory to be reallocated as needed.
 
+## Java keywords related to classes
+
+There are a few Java keywords worth mentioning as it relates to class construction.
+
 ### Static vs. non-static
 
 Unless explicitly stated to be `static`, all methods are **non-static**. For example, everything, except the constants we created (`DEFAULT_CAPACITY` and `DEFAULT_COUNT`) is *non-static*. So what does that mean?
@@ -420,3 +427,31 @@ By contrast, non-static method calls will look like:
 Here, we are calling methods *on an instance of a class*, specifically an instance of `String`, `Scanner`, `List`, and `PezDispenser`.
 
 When in doubt, you should generally make your methods non-static. This is especially true if you are create a datatype that you are going to use multiple times in your program.
+
+### Mutability and `final`
+
+By default, every variable you create in Java is *mutable*, which means "it can change". However, when we create objects, there may be variables that we don't want to change. The `final` keyword gives us a syntactic way to make a variable **immutable**.
+
+For instance, consider our PezDispenser fields:
+
+```java
+public class PezDispenser {
+    //fields
+    private String characterName;
+    private final int capacity;
+    private int count;
+    
+    ...
+}
+```
+
+You'll notice that the variable `capacity` is `final`. What this means is that, after the constructor is completed, the value of capacity *can never be changed*. That is, the value of `capacity` is **immutable**. On the other hand, `count` is not stated as `final`, and is able to change. In fact, it's necessary for count *to* be able to change in order to mimic the behavior of a PezDispenser (since loading and dispensing from a Pez Dispenser changes the number of candies inside).
+
+It's worth noting that I left `characterName` as mutable. Do I have a good reason for this? Not really! And, as Brian Goetz states:
+
+>“Just as it is a good practice to make all fields private unless they need greater visibility, it is a good practice to make all fields final unless they need to be mutable.”
+> -― Brian Goetz, Java Concurrency in Practice
+
+In this case, it would make sense for me to make `characterName` `final` **unless** I am envisioning something like a PezDispenser where you can change the character head on top. If I *do* want to be able to change the character head on top, then I wouldn't make the value `final`.
+
+Note that when a value is `final`, we cannot have a `setter` method to modify it, since modifying a final variable outside of the constructor is explicitly prohibited.

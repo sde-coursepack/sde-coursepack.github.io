@@ -2,6 +2,9 @@
 Title: Types of Testing
 ---
 
+* TOC
+{:toc}
+
 # Types of Testing
 
 What we focused on in the last unit was a type of testing

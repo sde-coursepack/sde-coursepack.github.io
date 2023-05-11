@@ -2,6 +2,9 @@
 Title: Java Object Class
 ---
 
+* TOC
+{:toc}
+
 This page is under construction.
 
 # Generics

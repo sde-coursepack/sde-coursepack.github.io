@@ -2,6 +2,9 @@
 Title: Interfaces
 ---
 
+* TOC
+{:toc}
+
 This page is under construction.
 
 # Java `interface`

@@ -2,6 +2,9 @@
 Title: Design Concepts
 ---
 
+* TOC
+{:toc}
+
 # Design Concepts
 
 Underpinning our design decisions are some key concepts. These concepts apply to any system we are designing, whether we are in a structured programming language like C, an object-oriented programming language like Java, or in a functional programming language like LISP. While in this course we focus on using Java, keep in mind that these ideas extend into all programming languages and paradigms.
