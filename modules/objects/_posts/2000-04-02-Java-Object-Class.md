@@ -34,7 +34,7 @@ Hashcode is used to produce a "random-looking" integer to describe an object for
 
 You should always ensure that if two instances are "equal", that they produce the same hashcodes, whatever equal means for that particular class. Note that it is possible for two instances that are not equal to each other to produce the same hashcode. For example, the `String`s "VII" and "Ugh" produce the same `hashCode` value. But if two instances are considered equal, they must produce the same hashCode value.
 
-### no mutable fields in hashCode()
+### No mutable fields in hashCode()
 
 Additionally, if you have any mutable fields in a given object, the value of that field should never be used in a hashCode function. This is because if that value changes, the object will no longer produce the same hash code. This would cause significant problems if you use that object in a HashMap or HashSet, as an object already in the map/set could become "lost", since it's location is based on a hash value that has changed.
 
