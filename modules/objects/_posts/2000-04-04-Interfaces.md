@@ -67,9 +67,9 @@ public class EventCalendarImpl implements EventCalendar {
 }
 ```
 
-Note that you may think of other ways to implement this, or implement current time, etc. The point is, so long as our implementation provides for the features the `interface` describes, then it satisfies the `interface`. If, however, any functions are missing, or have different signatures, then Java will note a syntax error.
+Note that you may think of other ways to implement this, or implement current time, etc. The point is, so long as our implementation provides for the features the `interface` describes, then it satisfies the `interface`. If, however, any functions are missing, or have different signatures, then our program will have a Java syntax error, and be unable to compile. This is actually a great thing! The idea here is to use Java's **syntax** to enforce intended **design**.
 
-The idea here is to use Java's **syntax** to enforce intended **design**.
+This means a junior programmer can't accidentally implement a class with an incorrect API, since the API is enforced by syntax!
 
 ## `interface` limitations
 

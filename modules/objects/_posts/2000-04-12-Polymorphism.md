@@ -78,7 +78,7 @@ A `Comparator` is an `interface` with one method: `int compare(E first, E second
 
 However, the `Comparator` interface is **abstract**. That is, there is no class that can be instantiated called `Comparator`. Rather, `Comparator` only exists as a *description of a behavior*
 
-### Abstract
+### Abstract vs. Concrete
 
 Understand the idea of **abstract** constructs can be difficult for many. Often, I will hear people invoke terms like "Platonic forms" which, while accurate, only serves to make the product seem more complicated than it is.
 

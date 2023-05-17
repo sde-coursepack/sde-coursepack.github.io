@@ -386,4 +386,4 @@ Instead of high-level methods depending on low-level methods, we have high-level
 
 ## Conclusion
 
-I know these ideas are, if you'll forgive the pun, abstract, and they made be hard to tangle with. The key insight, however, is when you are thinking about your software, think about major actions not as *functions*, but instead as *abstract interfaces*. Start with the abstract description of the behavior you wish to implement *first*, and implement specifics *second*.
+I know these ideas are, if you'll forgive the pun, abstract, and they made be hard to tangle with. The key insight, however, is when you are thinking about your software, think about major actions not as *procedural code*, but instead as *abstract functional interfaces*. Start with the abstract description of the functional behavior you wish to implement *first*, and implement specifics *second*.
