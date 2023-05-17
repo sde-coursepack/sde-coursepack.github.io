@@ -118,3 +118,10 @@ Notice that this lets us change the data source and/or format at any time simply
 
 ## Abstract class vs Interfaces
 
+It may seem like abstract classes and interfaces serve similar roles, and indeed they can. However, specific differences are as follows:
+
+1) A class can only extend one other class, including abstract classes. However, a class can implement any number of interfaces.
+2) An abstract class can have fields, constructors, and working code. Interfaces can have none of these
+3) An abstract class can have `private` and `protected` methods, and interface can only have public methods
+
+In general, we use interfaces to say "this class supports this feature", whereas when we extend a class, we are describing a clear type hierarchy. That is, the child class is a "type of" the parent class.
