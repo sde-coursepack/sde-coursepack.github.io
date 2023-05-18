@@ -19,6 +19,8 @@ This course is intended to have 7 small-group (2-3 person teams) assignments. Th
 
 ### Assignments from Fall 2023:
 
+The following are a listing of assignments used in the first offering of this course, Fall 2023. Note that these assignments were released and completed via GitHub Classroom, and I cannot make the GitHub Classroom itself public. However, I have included any "starter code" repositories in the assignment description.
+
 #### Homework 1 - Getting started
 
 __Instructions:__ [Homework 1 Part 1 - Congressional Apportionment](https://drive.google.com/drive/folders/1e1vZnONK2K6Iui_cOG5hDufWbbESYvXC?usp=share_link)
