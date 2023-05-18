@@ -180,7 +180,7 @@ By calling the superclass constructor with the appropriate parameters, we can in
 The `SUV` class overrides the `drive()` method of the `Car` class and adds a message about the number of passengers the SUV is carrying. We call the superclass implementation of `drive()` using the `super.` keyword to avoid duplicating the output about the make and model of the car.
 
 ### @Override
-we can use the @Override annotation in Java to indicate that a method in a subclass is intended to override a method in the parent class. Note that we use the `@Override` annotation on the start method in the SUV class to indicate that we intend to override the same-named method in the parent class. We can quickly demo the idea here:
+We can use the @Override annotation in Java to indicate that a method in a subclass is intended to override a method in the parent class. Note that we use the `@Override` annotation on the start method in the SUV class to indicate that we intend to override the same-named method in the parent class. We can quickly demo the idea here:
 
 ```java
 package edu.virginia.cs.oo;
@@ -194,35 +194,270 @@ public class Main {
 ```
 The full implementation of both `Car` and `SUV` classes can be found in [this repo on the coursepack](https://github.com/sde-coursepack/Car).
 
+Note that the `@Override` annotation is never required. However, it is a good idea to include it. This is because if the interface you are implementing or class you are extending changes, `@Override` of any methods whose signatures have changed will throw a syntax error. This helps alert any developers to the change, and ensures their code can be updated accordingly.
 
-## Another Example: clocks
-Sometimes, we may find that two classes are very similar: `Clock` which tells us the time, and `AlarmClock` which tells us the time and has an alarm. They are so similar, in fact, `AlarmClock` is a subclass of `Clock`. This means `AlarmClock` _is-a_ `Clock` (Anything a clock can do, so can an alarm clock), but `Clock` _is-not-a_ `AlarmClock` (a clock may not has all the behaviors of an alarm clock).
+
+## Another Example: Clocks
+Sometimes, we may find that two classes are very similar: `Clock` which tells us the time, and `AlarmClock` which tells us the time and also has an alarm. They are so similar, in fact, that we can implement `AlarmClock` as a sub-class (or child class) of `Clock`. This means `AlarmClock` _is-a_ `Clock` (Anything a clock can do, so can an alarm clock), but `Clock` _is-not-a_ `AlarmClock` (a clock may not has all the behaviors of an alarm clock).
 
 ### Clock
 ```java
 public class Clock {
-   protected String brandName;
-   protected int currentHour, currentMinute, currentSecond;
-   
-   public Clock(String brandName) {
-      this.brandName = brandName;
-      update();
-   }
+    protected String brandName;
+    protected int currentHour, currentMinute, currentSecond;
+
+    public Clock(String brandName) {
+        this.brandName = brandName;
+        update();
+    }
+
+    public Clock(String brandName, int currentHour, int currentMinute, int currentSecond) {
+        this.brandName = brandName;
+        this.currentHour = currentHour;
+        this.currentMinute = currentMinute;
+        this.currentSecond = currentSecond;
+    }
+
+    public void update() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String s = dateTime.format(f);
+        currentHour = Integer.parseInt(s.substring(0, 2));
+        currentMinute = Integer.parseInt(s.substring(3, 5));
+        currentSecond = Integer.parseInt(s.substring(6, 8));
+    }
+
+    public int getCurrentHour() {
+        return currentHour;
+    }
+
+    public int getCurrentMinute() {
+        return currentMinute;
+    }
+
+    public int getCurrentSecond() {
+        return currentSecond;
+    }
+
+    public void setCurrentHour(int currentHour) {
+        this.currentHour = currentHour;
+    }
+
+    public void setCurrentMinute(int currentMinute) {
+        this.currentMinute = currentMinute;
+    }
+
+    public void setCurrentSecond(int currentSecond) {
+        this.currentSecond = currentSecond;
+    }
+
+    public String toString() {
+        return brandName + " brand clock - " + getTimeAsString();
+    }
+
+    protected String getTimeAsString() {
+        return currentHour + ":" + currentMinute + ":" + currentSecond;
+    }
 }
 ```
+
+Here, this class is *almost* a simple data structure, with fields, getters, and setters. However, the `update` method is particularly noteworthy. Specifically, the `update` method is used to set the state of our `Clock` instance to be equal to the current local time.
+
+```java
+    public void update() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String s = dateTime.format(f);
+        currentHour = Integer.parseInt(s.substring(0, 2));
+        currentMinute = Integer.parseInt(s.substring(3, 5));
+        currentSecond = Integer.parseInt(s.substring(6, 8));
+    }
+```
+
+I also want to note that the fields are all `protected` rather than `private`; this will be relevant in the next section.
 
 ### AlarmClock
+
+Below is the code for the class `AlarmClock` which is a sub-class of `Clock`. Specifically, the `AlarmClock` adds a feature where an alarm will go off if `update` is called during the alarm's time.
+
 ```java
 public class AlarmClock extends Clock {
-   private int alarmHour, alarmMinute;
+    private int alarmHour, alarmMinute;
 
-   public AlarmClock(String brandName, 
-                 int alarmHour, int alarmMinute) {
-      super(brandName);
-      this.alarmHour = alarmHour;
-      this.alarmMinute = alarmMinute;
-   }
+    public AlarmClock(String brandName,
+                      int alarmHour, int alarmMinute) {
+        super(brandName);
+        this.alarmHour = alarmHour;
+        this.alarmMinute = alarmMinute;
+    }
+
+    public AlarmClock(String brandName, int alarmHour, int alarmMinute,
+                      int currentHour, int currentMinute, int currentSecond) {
+        super(brandName, currentHour, currentMinute, currentSecond);
+        this.alarmHour = alarmHour;
+        this.alarmMinute = alarmMinute;
+    }
+
+
+    public int getAlarmHour() {
+        return alarmHour;
+    }
+
+    public int getAlarmMinute() {
+        return alarmMinute;
+    }
+
+    public void setAlarmHour(int alarmHour) {
+        this.alarmHour = alarmHour;
+        checkAlarm();
+    }
+
+    public void setAlarmMinute(int alarmMinute) {
+        this.alarmMinute = alarmMinute;
+        checkAlarm();
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        checkAlarm();
+    }
+
+    @Override
+    public String toString() {
+        String s = brandName + " brand alarm clock " + getTimeAsString();
+        return s + "\n\tAlarm: " + hour + ":" + minute + (isPM ? "p.m." : "a.m.");
+    }
+
+    private void checkAlarm() {
+        if (currentHour == alarmHour && currentMinute == alarmMinute) {
+            System.out.println("BEEEP BEEP BEEEP BEEP BEEP");
+        }
+    }
 }
 ```
-The full implementation of both `Clock` and `AlarmClock` classes can be found in [this repo on the coursepack](https://github.com/sde-coursepack/Clocks/tree/master).
 
+You may notice a couple things here. First, where are the fields for `brandName`, `currentHour`, `currentMinute`, and `currentSecond`? After all, we reference two of these values in the function `checkAlarm`, right?
+
+```java
+    private void checkAlarm() {
+        if (currentHour == alarmHour && currentMinute == alarmMinute) {
+            System.out.println("BEEEP BEEP BEEEP BEEP BEEP");
+        }
+    }
+```
+
+Also, what's with the `super.update()` call in the AlarmClock `update` function?
+
+```java
+    @Override
+    public void update() {
+        super.update();
+        checkAlarm();
+    }
+```
+
+The rest of this module will focus on answering these questions.
+
+### Method Overriding
+
+Let's look at some code that uses `Clock` and `AlarmClock`:
+
+```java
+    Clock clock = new Clock("Casio");
+    AlarmClock alarmClock = new AlarmClock("Amazon Basics", 13, 35);
+    
+    System.out.println("clock -> " + clock);
+    System.out.println("alarmClock -> " + alarmClock);
+```
+
+The following will print:
+
+```text
+    clock -> Casio brand clock - 1:36:8 p.m.
+    alarmClock -> Amazon Basics brand alarm clock 1:36:8 p.m.
+	    Alarm: 1:36p.m.
+```
+
+Why the different printing? Because the two classes have different `toString()` methods. 
+
+__Clock.toString__
+```java
+    public String toString() {
+		return brandName + " brand clock - " + getTimeAsString();
+	}
+```
+
+__AlarmClock.toString__
+```java
+    @Override
+	public String toString() {
+		String s = brandName + " brand alarm clock " + getTimeAsString(); //don't need super because no overriding method
+		return s + "\n\tAlarm: " + hour + ":" + minute + (isPM ? "p.m." : "a.m.");
+	}
+```
+
+This is because `AlarmClock` is *overriding* the parent class (`Clock`) `toString` method. Overriding in this context, means replacing. That is `AlarmClock` *has it's own* `toString` method, so it doesn't need or consider the parents.
+
+Note that the reason `AlarmClock` overrides `Clock`'s `toString` method is **not** because of the `@Override` tag. The `@Override` tag is there for stability and design purposes, but has no impact on the actual running code. The reason for the override is because `AlarmClock`'s `toString` method has the same method signature; that is, a method with the name `toString()` that takes in no arguments.
+
+I'm going to change one subtle detail of the code above. Specifically, I'm changing the compile-time type of the variable `alarmClock` to `Clock`. The constructor, however, is still `AlarmClock`. Will this change what prints?
+
+```java
+    Clock clock = new Clock("Casio");
+    Clock alarmClock = new AlarmClock("Amazon Basics", 13, 35);
+    
+    System.out.println("clock -> " + clock);
+    System.out.println("alarmClock -> " + alarmClock);
+```
+
+The answer is no! While, at compile time, the variable `alarmClock` is treated as a `Clock`, at runtime, it is still an `AlarmClock`, so when `toString` is called, Java still invokes the `AlarmClock` class's `toString` method. This is an example of using `polymorphism`.
+
+### `super` in the Constructor
+
+As mentioned before, when extending a parent class that does not have a zero-argument constructor (like `Clock`), every child must explicitly invoke the parent's compiler. This is done using `super` with the arguments you wish to pass to the parent constructor. This is similar to how we can use `this` to "pass argument" to a separate constructor, like we showed in the `PezDispenser` example in the "OO-Refresher" module.
+
+For example, in the first constructor of `AlarmClock`
+
+```java
+    public AlarmClock(String brandName, int alarmHour, int alarmMinute) {
+		super(brandName); 
+		this.alarmHour = alarmHour;
+		this.alarmMinute = alarmMinute;
+	}
+```
+
+Here, we are invoking the constructor `Clock(String brandName)`, since that matches our argument of a single String. On the other hand, the other `AlarmClock` constructor invokes the other `Clock` constructor.
+
+### `super` in other methods
+
+Consider the `AlarmClock update()` method. The idea of this method is, in addition to updating the time, I want to check the alarm. This means I want to override the parent `update` method in `Clock`, but I still want to utilize its code for updating the current time fields. I just *also* want to check the alarm.
+
+```java
+    @Override
+    public void update() {
+        super.update();
+        checkAlarm();
+    }
+```
+
+In this context, `super.update()` means "call the parent class's update method". Technically, you could use this to call *any* parent method, but you only *need* to use `super` when you want to invoke a parent method you have overridden.
+
+
+### Refactoring to remove `protected` fields
+
+Now, you may think it's necessary to leave the fields as `protected` so that the child can access them. But, in this case, you'll notice that we have getters and setters already for these fields in the parent class, `Clock`. As such, we can actually make the fields private, and just have the child class use those getters and setters when needed.
+
+For example, we can update `AlarmClock`'s `checkAlarm` method to be:
+
+```java
+    private void checkAlarm() {
+		if (getHour() == alarmHour && getMinute()== alarmMinute) {
+			System.out.println("BEEEP BEEP BEEEP BEEP BEEP");
+		}
+	}
+```
+
+That is, we use the getters `getHour()` and `getMinute()` rather than the fields `currentHour` and `currentMinute`.
+
+The advantage of this approach is that I am not interacting with fields of the parent, but rather the parent's shared *behavior* of its interface. This is beneficial here in the same way it's beneficial to generally use private fields and public methods. However, there may be instances where you *do* what the child directly manipulating fields in the parent class because those interactions are complicated enough to warrant that access. In that case, `protected` is fine. But when feasible, fields should remain `private`, even to the class's children.
