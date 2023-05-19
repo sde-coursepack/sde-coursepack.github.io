@@ -96,7 +96,7 @@ In this way, let's say our data goes from CSV to JSON via a web-service. Well, n
 ```java
 public class JSONStudentReader extends StudentReader {
     private String webServiceURL;
-    
+
     public CSVStudentReader(String webServiceURL) {
         this.webServiceURL = webServiceURL;
     }
@@ -112,6 +112,7 @@ public class JSONStudentReader extends StudentReader {
             ...
         }
     }
+}
 ```
 
 Notice that this lets us change the data source and/or format at any time simply but creating a new class that extends `StudentReader`, without actually changing the `StudentReader`, `CSVStudentReader`, or any other extending class! Additionally, each child-class of `StudentReader` will automatically support the memoization in the parent class without having to implement it themselves, and without copying/pasting code!
