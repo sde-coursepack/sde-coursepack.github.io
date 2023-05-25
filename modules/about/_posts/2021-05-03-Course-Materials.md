@@ -85,7 +85,7 @@ Similar to Homework 3, students are given a completed implementation of a previo
 Students are tasked with creating a JavaFX GUI application to play Wordle. Specifically, students must design their application layout using JavaFX's FXML format (which can be designed using Scenebuilder, a GUI program for creating layouts for JavaFX applications). From there, the students write a Controller class that handles actions on the UI by connecting them to the core application. A key insight I want students to learn from this assignment is that you can develop the "core app" (in this case, the Wordle game) separate from the interface (in this case JavaFX), and see how to do so.
 
 
-##### Homework 6 - JSON and Database
+#### Homework 6 - JSON and Database
 __Instructions__ - [Wordle GUI](https://docs.google.com/document/d/13QnUGj4tHoW_J3oHtPn9XNFfu79bZwEhVkLG8NgncO4/edit?usp=sharing)
 __Starter Code__ - https://github.com/uva-cs3140-fa22/hw6-starter-repo
 __Core Skills__ - Using JSON-based web-services, using JDBC with a SQLite database.

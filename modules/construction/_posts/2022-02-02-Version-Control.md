@@ -39,7 +39,7 @@ Have you ever been working on a project, deleted some
 old code, tried to replace it with something "better",
 only to get stuck, and then think to yourself:
 
-<img alt="Job Bluth from the show Arrested Development saying \"I've made a huge mistake.\" src="https://c.tenor.com/AVWcLTSiiZoAAAAC/arrested-development-season1.gif"/>
+![Job Bluth from the show Arrested Development saying "I've made a huge mistake"](https://c.tenor.com/AVWcLTSiiZoAAAAC/arrested-development-season1.gif"/>)
 
 I've done this! And when I was in undergrad, and not
 using version control systems (or using them poorly),
