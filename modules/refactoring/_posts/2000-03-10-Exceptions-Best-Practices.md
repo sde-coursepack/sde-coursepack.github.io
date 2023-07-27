@@ -169,7 +169,11 @@ As such, as a general rule, anytime I write a method that requires handling chec
 
 #### Throw checked exceptions as unchecked exceptions
 
-While there was good intent behind the idea of Checked Exceptions, ultimately they can be difficult to work with. For example, consider the client function that calls `readTextFile(String filename)`. Do we want that function to have to worry about `FileNotFoundException`s or any other `IOException` issues? No! We want to encapsulate all the File I/O behavior and error handling in our function `readTextFile(String filename)`. As such, if we need to throw an Exception in `readTextFile`, we can catch the Checked Exception (`IOException`) and simply throw it as an unchecked `RuntimeException`. The specific error message of the `IOException` is preserved in the `RuntimeException` because we pass the original exception into the constructor of `RuntimeException`. 
+While there was good intent behind the idea of Checked Exceptions, ultimately they can be difficult to work with. For example, consider the client function in `Main` that calls `readTextFile(String filename)`. Do we want that function to have to worry about `FileNotFoundException`s or any other `IOException` issues? No! We want to encapsulate all the File I/O behavior and error handling in our function `readTextFile(String filename)`. 
+
+As such, if we need to throw an Exception in `readTextFile`, we can catch the Checked Exception (`IOException`) and simply throw it as an unchecked `RuntimeException`. The specific error message of the `IOException` is preserved in the `RuntimeException` because we pass the original exception into the constructor of `RuntimeException`.
+
+If a client *must* handle exceptions created by a called method, that increases *coupling*. However, we should only do this when the client can *meaningfully handle* the exception. In this case, can `Main` really **do** anything with `readTextFile` if the File doesn't exist? In this example, no. If, however, we rewrote main to handle, say, a `FileNotFoundException` (such as allowing a user to prompt a different filename), well, then we might use `throws FileNotFoundException` in the `readTextFile` signature.
 
 So, for example, if I run this code with a file that doesn't exist:
 
@@ -206,7 +210,7 @@ public class InsufficientFundsException extends RuntimeException {
 }
 ```
 
-In general, the only unique aspect here is the name of the Exception. It is worth noting that we extend the `RuntimException` here. In general, this is a good class for your custom made exceptions to extend. However, depending on the situation, you may want to extent more specific classes, like `IllegalArgumentException` when your exception is related to errors in function arguments.
+In general, the only unique aspect here is the name of the Exception. It is worth noting that we extend the `RuntimException` here. In general, this is a good class for your custom-made exceptions to extend. However, depending on the situation, you may want to extent more specific classes, like `IllegalArgumentException` when your exception is related to errors in function arguments.
 
 Be aware that if you extend a checked exception, then your custom exception will also be a checked exception.
 
