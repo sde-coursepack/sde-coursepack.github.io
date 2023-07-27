@@ -57,7 +57,7 @@ I'm trying to work!
 Now, wherever I saved that file, I'm going to copy and paste (or click and drag)
 the file into my project's `src/main/resources` folder:
 
-<img alt="My text file is now visible in the project folder sub/main/resources" src="{{site.baseurl}}/modules/java/images/8/haiku_resource.png"/>
+![haiku_resource.png](..%2Fimages%2F8%2Fhaiku_resource.png)
 
 ## Resource File Example Program
 
