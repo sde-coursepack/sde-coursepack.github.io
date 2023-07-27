@@ -13,6 +13,8 @@ For this example, we will be using [this color dataset .csv file.](https://raw.g
 
 Specifically, we want to create program where the user can type a color name and get the RGB values of that color.
 
+## `Color.java`
+
 First, we will create a class to store the color RGB values:
 
 ```java
@@ -37,6 +39,8 @@ public class Color {
 ```
 
 We will also want a map of Names to Color objects. We don't need much functionality, just a way to add name/color pairs, check if a color (by name) exists, and get the RGB colors given a name. We also want to write our map such that it ignores case (which is why we normalize case using .toLowerCase() below).
+
+## `NameColorMap`
 
 ```java
 public class NameColorMap {
@@ -76,6 +80,8 @@ Using this, we can determine the columns we need. For this, assume the first col
 
 Using this information, we can write a class that parses our .csv file.
 
+## `CSVColorReader.java`
+
 ```java
 public class CSVColorReader {
     private String filename;
@@ -85,10 +91,10 @@ public class CSVColorReader {
     }
 
     public NameColorMap getNameColorMap() {
-        try (FileReader fileReader = new FileReader(filename)){
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))){
             NameColorMap colorMap = new NameColorMap();
-            for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
+            for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine())
+            {
                 addLineToColorMap(line, colorMap);
             }
             return colorMap;
@@ -122,6 +128,16 @@ public class CSVColorReader {
 }
 ```
 
+A quick note that the line:
+
+```java
+  try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))){
+```
+
+Is an example of a **try-with-resource** block. The try-with-resources block will automatically close the resource created (in this case, the BufferedReader) once the `try` block is finished.
+
+This also sets me up to handle checked File I/O Exceptions. Because opening a file in Java requires handling `FileNotFoundException`s and reading from a file requires handling `IOExceptions`, I'm using the `try-catch` to "handle" those. Since I can't handle them in a meaningful way, I just throw them as `RuntimeException`. This is to avoid using the `throws` declaration on the function, which I discuss in the [Exceptions Best Practices](https://sde-coursepack.github.io/modules/refactoring/Exceptions-Best-Practices/#checked-exceptions) unit.
+
 Specifically, the function `addLineToColorMap` is where we handle turning a line like:
 
 ```text
@@ -152,7 +168,6 @@ We build our `Color` object using the `getColor` function. Notice that we have t
         return new Color(red, green, blue);
     }
 ```
-
 
 Below is an example run of the program.
 
