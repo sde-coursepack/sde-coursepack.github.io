@@ -21,11 +21,11 @@ Instead of letting our programs lose any history or information, we can store th
 
 Consider using a simple text editing program like Notepad.
 
-![img.png](../images/notepad_ozymandias.png)
+![img.png](../images/1/notepad_ozymandias.png)
 
 If, like the mentioned Ozymandias, I wish for my works to stand as a testament to my greatness through history, than I need to be able to *save* this file.
 
-![img.png](../images/notepad_save.png)
+![img.png](../images/1/notepad_save.png)
 
 I can click the "Save" button (or use Ctrl+S on Windows). This will trigger a subroutine within the program that writes the contents of the file onto my computer's storage. If the file has been saved before, any previous version is overwritten. If the file hasn't been saved before, I will ask to give it a name.
 
