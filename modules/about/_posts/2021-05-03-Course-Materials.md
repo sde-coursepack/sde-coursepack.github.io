@@ -15,6 +15,8 @@ Public course materials from Fall 2023 (including syllabus, schedule, slides, ho
 
 ## Assignments
 
+**Note to Fall 2023 students** - In Fall 2023, I will be using new assignments (or variations on the assignment)
+
 This course is intended to have 7 small-group (2-3 person teams) assignments. These assignments are each separate, and students do not carry their own code over between assignments. This is because while this course is designed to prepare students to work on projects, it is not itself a project course. The rationale for this decision is that in project courses, if students get behind earlier, then it can often because an unsalvageable situation. We wanted to avoid that, as this is typically a second-year (sophomore) course, and may be the first experience of group work a student has experienced.
 
 ### Assignments from Fall 2023:
@@ -39,7 +41,7 @@ Here, we make changes to the requirements, like using a different apportionment 
 
 #### Homework 2 - Testing
 __Instructions:__ [Homework 2 - Testing](https://drive.google.com/drive/folders/1xi6STimSawEstbMaqq_YaIA1MpJQvWCK?usp=sharing)  
-__Starter Code:__ https://github.com/uva-cs3140-fa22/SDE-Wordle-HW2 
+__Starter Code:__ Request starter code by contacting Prof. McBurney - redacted for the time being, but will be made public again at a later date.
 __Core Skills:__ JUnit testing, black-box and white-box testing, debugging, test driven-development, enumerated types, reading and understanding existing code.
 
 In this assignment, students debugged and finished implementing a command-line user interface of the popular game [Wordle](https://www.nytimes.com/games/wordle/index.html).
@@ -52,7 +54,7 @@ The goal is to ensure students learn the syntax of JUnit testing, as well as how
 
 #### Homework 3 - Using Polymorphism
 __Instructions:__ [Homework 3 - Refactoring and Polymorphism](https://drive.google.com/drive/folders/1ONT9mpY0qXppP9UM4ieZNSSLVB36q0k6?usp=share_link)
-__Starter Code:__ https://github.com/uva-cs3140-fa22/Apportionment-HW3-Starter 
+__Starter Code:__ Request starter code by contacting Prof. McBurney - redacted because the assignment has a partial solution to Homework 1 
 __Core skills:__ Polymorphism, building from an existing design paradigm, changing existing code, Java Streams
 
 This assignment uses the same Apportionment problem as Homework 1, and revisits Homework 1 Part 2, while adding additional features and changed requirements. In this assignment, students began with **my** implementation of Homework 1, rather than their own, which uses some design techniques and patterns taught in class. For most students, they find the design that I give them was easier to modify and understand than their own designs (of course this isn't universally true, but students who already had strong designs of their own were likely already knowledgeable of many of the topics in our design unit.)
@@ -61,7 +63,7 @@ In this assignment, students reimplemented the features from Homework 1 Part 2 w
 
 #### Homework 4 - Mockito Testing and Refactoring
 __Instructions:__ [Homework 4 - Mockito, UML, and Design](https://drive.google.com/drive/folders/1WC67PfXlBG0sIluAzzVJhUylWhdkPS94?usp=sharing)
-__Starter Code:__ https://github.com/uva-cs3140-fa22/Homework-4-Starter 
+__Starter Code:__ Request starter code by contacting Prof. McBurney - redacted for the time being, but will be made public again at a later date.
 __Core skills:__ Refactoring code to fix code smells, `mockito` testing, and documenting design via UML class diagrams
 
 In this assignment, students are given code with a couple significant code smells:
@@ -77,7 +79,7 @@ Finally, students implement the class `RegistrationImpl.java` using test-driven 
 
 #### Homework 5 - JavaFX GUI using MVC Paradigm
 __Instructions__ - [Homework 5 Wordle GUI](https://docs.google.com/document/d/17yPHjeC2JL5xTTOLTQjof56IFVwQUu2QgG7knKwbhZ4/edit?usp=sharing)
-__Starter Code:__ - https://github.com/uva-cs3140-fa22/Homework-4-Starter
+__Starter Code:__ - Request starter code by contacting Prof. McBurney - redacted because the assignment has a partial solution to Homework 2
 __Core skills:__ - Basics of MVC design, JavaFX application framework, and program design.
 
 Similar to Homework 3, students are given a completed implementation of a previous homework, Homework 2. That is, a fully implemented and working command-line user interface version of the game Wordle.
@@ -87,7 +89,7 @@ Students are tasked with creating a JavaFX GUI application to play Wordle. Speci
 
 #### Homework 6 - JSON and Database
 __Instructions__ - [Wordle GUI](https://docs.google.com/document/d/13QnUGj4tHoW_J3oHtPn9XNFfu79bZwEhVkLG8NgncO4/edit?usp=sharing)
-__Starter Code__ - https://github.com/uva-cs3140-fa22/hw6-starter-repo
+__Starter Code__ - Request starter code by contacting Prof. McBurney - redacted for the time being, but will be made public again at a later date.
 __Core Skills__ - Using JSON-based web-services, using JDBC with a SQLite database.
 
 This assignment involves using an existing bus-routes webservice hosted by the University of Virginia. Students need to query that webservice to get information about bus-routes accessible to UVA students, and then store that information in a SQLite database. Students also must query that database for information like "What bus routes stop at Rice Hall"?
