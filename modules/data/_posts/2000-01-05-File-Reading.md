@@ -3,7 +3,7 @@ Title: Plaintext File Reading
 ---
 
 * TOC
-  {:toc}
+{:toc}
 
 # Reading from a CSV File
 

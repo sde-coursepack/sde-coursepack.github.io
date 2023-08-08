@@ -3,7 +3,7 @@ Title: Common Plaintext File Formats
 ---
 
 * TOC
-  {:toc}
+{:toc}
 
 # Common file formats
 
