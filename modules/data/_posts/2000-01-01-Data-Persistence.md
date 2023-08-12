@@ -43,5 +43,9 @@ Files are an incredibly common means of persisting information. Consider the fil
   * Image (.jpg, .png, .gif)
   * Video (.mp4, .avi)
 
+## Databases
 
+Another common method of data persistence are databases. Now, database implementations *will* typically use files to store data long term, but databases abstract away the details of *how* the data is stored. Additionally, most database implementations feature significant optimizations that are difficult to implement on your own. Databases can be either local (we will look at SQLite which uses a local file to store the database) or remote (such as PostgreSQL and MySQL), where the database is access through a server. Often, developers may use a local database for testing, while the app is deployed with a remote database. Databases typically use some dialect of SQL (structured query language) to manage, access, store, and update data.
+
+We will focus on using JDBC for direct database usage, as well as use Hibernate as a ORM (object relation model) to abstract away the actual SQL code out.
 
