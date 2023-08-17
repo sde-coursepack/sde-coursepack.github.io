@@ -1,29 +1,26 @@
 ---
-Title: Clean Code
+Title: Code Quality
 ---
 
 * TOC
 {:toc}
 
-## Acknowledgement
 
-Most of the material in this unit is derived from: 
-
-* [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/B08X8ZXT15/) by Robert C. Martin, a book that I highly recommend and dramatically improved my own outlook on designing and writing software.
-
-<img src="https://imgs.xkcd.com/comics/code_quality.png">  
-
-Source: [https://xkcd.com/1513/](https://xkcd.com/1513/) 
 
 ---
 
-# Clean Code
 
-What is clean code? It can be a hard term to define. For example, code that is "clean" in Java, with it's intended style and usage, may not be considered "clean" in Python or C++ because of style and syntax differences between the languages.
+<img src="https://imgs.xkcd.com/comics/code_quality.png">  
+
+Source: [https://xkcd.com/1513/](https://xkcd.com/1513/)
+
+# "Good Code"
+
+What is "good code"? It can be a hard term to define. For example, code that is "good" in Java, with it's intended style and usage, may not be considered "good" in Python or C++ because of style and syntax differences between the languages.
 
 In our last module, we talked about the Analyzability of our software. Software that is **understandable** is inherently easier to read and comprehend than software that is written poorly, even if in both cases the software works.
 
-The idea of clean code extends this idea. We need understandable code, but it goes deeper. We need code that we can build from, change, maintain, update, and improve over time.
+The idea of "code quality" extends this idea. We need understandable code, but it goes deeper. We need code that we can build from, change, maintain, update, and improve over time.
 
 ## Software Entropy
 
@@ -65,12 +62,12 @@ That one time lump payment drastically reduced the total cost of fixing my debt!
 
 ### Starting over from scratch
 
-Bob Martin refers to this as "The Big Redesign in the Sky". We'll just start from scratch. After all, now that we know that our existing design is bad, we can avoid making the same mistakes, right?
+In his book "Clean Code" Bob Martin refers to this as "The Big Redesign in the Sky". We'll just start from scratch. After all, now that we know that our existing design is bad, we can avoid making the same mistakes, right?
 
-No! If we don't commit to the practices of clean code, we will simply fall into the same trap again and again and again! If you are sitting on a project that is hard to maintain or change, then you should consider when the best time to start refactoring and cleaning your code is:
+No! If we don't commit to improving and maintaining the quality, we will simply fall into the same trap again and again and again! If you are sitting on a project that is hard to maintain or change, then you should consider when the best time to start refactoring and cleaning your code is:
 
-* The best time to start cleaning your code is immediately after you wrote it
-* The second best time is now!
+* The best time to start improving your code is immediately after you wrote it
+* The second-best time is now!
 * The absolutely worst possible time is "later".
 
 Never say "I'll do it later," because you almost certainly won't!
@@ -125,3 +122,13 @@ In the exact same way I feel proud of what I've done, I want you to feel proud f
 ## Conclusion
 
 In the rest of this unit, we will look at examples of "dirty code" and "clean code", as well as talk about techniques for turning the former into the latter. We will also look at techniques around using exceptions, as well as functional programming and streams, to help make our code simpler and shorter without sacrificing understandability.
+
+## About "Clean Code"
+
+Some of the material in this unit is derived from:
+
+* [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/B08X8ZXT15/) by Robert C. Martin. I will note that this book is criticized by many. My general thoughts on "Clean Code" is that it's a good entry point for someone looking for ideas to improve their code quality. However, *do not* take everything in Clean Code as gospel, or as a rules to always apply in every situation.
+
+Here is a [particularly well known criticism](https://qntm.org/clean) of Clean Code. Personally, I think it raises good points, but I also think it's pretty hyperbolic at times, and some of the complaints to me are things I just disagree with. I personally like [this article that highlights good lessons from the book](https://dev.to/thawkin3/in-defense-of-clean-code-100-pieces-of-timeless-advice-from-uncle-bob-5flk), even if many of the examples break good style, understandability, etc. 
+
+

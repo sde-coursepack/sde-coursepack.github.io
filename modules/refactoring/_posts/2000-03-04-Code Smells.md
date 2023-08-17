@@ -242,6 +242,8 @@ Or 5 arguments! 120 ways!
 
 In general, it's easier to make multiple **monadic** calls, where each method serves a clear individual purpose, then make one **triadic** call that combines all three purposes into one.
 
+**That said**, there is a **trade-off** here. As it stands, we have what is called *temporal coupling*, where you have to "Set up" the Record object before calling "calculateBill". Just be aware of that trade-off when designing classes. As a general rule, your class should be built ready to be used. So it may make sense to move the setters to the Constructor. Of course, if the Constructor ends up holding every argument, it can end up with a large argument list. This is where something like a Factory or Builder class could come in handy, which we will discuss in design patterns.
+
 ## Boolean Parameters
 
 Speaking of our previous example, let's consider the function:
@@ -307,7 +309,7 @@ public class StudentFinancialRecord {
 ...and...
 
 ```java
-public class TaxExemptStudentFinancialRecord extends StudentFinancialRecord {
+public class TaxExemptFinancialRecord extends StudentFinancialRecord {
 
     @Override
     public double calculateBill(List<Integer> registeredCourseNumbers) {
@@ -504,7 +506,7 @@ These two pieces of code do the same thing, but the second is more readable and 
 Additionally, we can now extract these steps into individual methods:
 
 ```java
-    public String getFirstValueFromCSVFileAsUppercase() {
+    public String getFirstValueFromCSVFileUppercase() {
         BufferedReader reader = getBufferedReaderFromFilename("filename.csv");
         String[] firstRowArray = reader.getNextRowAsStringArray(reader);
         return getStrippedStringAsUppercase(firstRowArray[0]);
@@ -516,19 +518,19 @@ Additionally, we can now extract these steps into individual methods:
         return new BufferedReader(fileReader);
     }
     
-    public String[] reader.getNextRowAsStringArray(reader) {
+    public String[] reader.getNextRow(reader) {
         String firstLine = reader.readLine();
         firstLine = firstLine.strip();
         return firstLine.split(",");
     }
 
-    public String getStrippedStringAsUppercase(String string) {
+    public String toStrippedUppercase(String string) {
         String strippedString = strip.strip();
         return strippedString.toUppercase();
     }
 ```
 
-Does this take up more space? Yes. However, now the code is easier to understand, as each individual function has a single clear purpose. Additionally, each function may be more re-usable, meaning we won't have to rewrite repeated functionality later as needed.
+Does this take up more space? Yes. However, now the code is easier to understand, as each individual function has a single clear purpose. Additionally, each function may be more re-usable, meaning we won't have to rewrite repeated functionality later as needed. Each function is also individually testable.
 
 ## Conclusion
 
