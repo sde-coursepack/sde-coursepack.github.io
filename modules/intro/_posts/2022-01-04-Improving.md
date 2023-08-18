@@ -1,16 +1,28 @@
 ---
-Title: Learning to Learn
+Title: Improving
 ---
+
+# How to Improve?
+{: .no_toc }
+
+In this module, we will discuss how we can improve as developers in order to tackle complexity and scale, and avoid or mitigate failures.
+
+---
+
+## Contents
+{: .no_toc }
 
 * TOC
 {:toc}
 
-# Don't panic
+---
+
+## Don't panic
 
 > “In many of the more relaxed civilizations on the Outer Eastern Rim of the Galaxy, the Hitch-Hiker's Guide has already supplanted the great Encyclopaedia Galactica as the standard repository of all knowledge and wisdom, for though it has many omissions and contains much that is apocryphal, or at least wildly inaccurate, it scores over the older, more pedestrian work in two important respects. First, it is slightly cheaper; and secondly it has the words DON'T PANIC inscribed in large friendly letters on its cover.”  
 > --__Hitchhiker's Guide to that Galaxy__, Douglas Adams
 
-At this point, three pages in, you may be worried this is a class about software theory, reading articles from the 1980s. Nothing can be further from the truth! **This class is all about practice!** Nearly everything we do in this class will involve planning, writing, analyzing, and fixing code. The vast majorite of modules will involve writing code!
+At this point, three pages in to this intro, you may be worried this is a class all about philosophical discussions on software theory, reading articles from the 1980s. Nothing can be further from the truth! **This class is all about practice!** Nearly everything we do in this class will involve planning, writing, analyzing, and fixing code. The vast majority of modules will cite code and write code!
 
 So far, you've been learning how to write code. Good! This is a vital skill set that will serve you the rest of your life! But now understand two unfortunate realities: 
 

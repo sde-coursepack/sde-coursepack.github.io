@@ -2,9 +2,6 @@
 Title: Internal Software Quality
 ---
 
-* TOC
-{:toc}
-
 ![](https://imgs.xkcd.com/comics/software_development.png)
 Source: [XKCD #2021](https://xkcd.com/2021/) by Randall Munroe
 
@@ -15,6 +12,17 @@ quality *from the perspective of the developers.* The primary
 measure of Internal Quality is **Maintainability**. That is, the
 internal quality of software is how **maintainable** it is from
 the developers.
+
+---
+
+## Contents
+{: .no_toc }
+
+* TOC
+{:toc}
+
+---
+
 
 ## Software Maintenance
 

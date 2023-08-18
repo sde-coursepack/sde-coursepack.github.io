@@ -2,13 +2,26 @@
 Title: Software Complexity
 ---
 
-* TOC
-{:toc}
-
-# Hidden Complexity
+# Software Complexity
+{: .no_toc }
 
 > "We demand rigidly defined areas of doubt and uncertainty!"  
 > --__Hitchhiker's Guide to that Galaxy__, Douglas Adams
+
+In this module, we will discuss *why* writing software is so complicated, and what kind of difficulties we will face as programmers trying to meet the needs of our customers.
+
+---
+
+## Contents
+{: .no_toc }
+
+* TOC
+{:toc}
+
+---
+
+
+## Hidden Complexity
 
 Software failures are easy to occur because software is *essentially* complex.
 

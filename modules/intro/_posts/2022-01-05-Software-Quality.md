@@ -2,10 +2,23 @@
 Title: Software Quality
 ---
 
+# Software Quality
+{: .no_toc }
+
+
+In this module, we will discuss the idea of software quality at a high level. The next two modules will dive deeper into focus on [External](https://sde-coursepack.github.io/modules/intro/External-Quality/) and [Internal](https://sde-coursepack.github.io/modules/intro/Internal-Quality/) software quality.
+
+---
+
+## Contents
+{: .no_toc }
+
 * TOC
 {:toc}
 
-# Software Quality
+---
+
+## What is good software?
 
 ![XKCD guide on how to write Good code](https://imgs.xkcd.com/comics/good_code.png)
 Source: [XKCD #844](https://xkcd.com/844/) by Randall Munroe
@@ -47,5 +60,5 @@ quality.
 
 ---
 
-In the next two modules, we will discuss [External Software Quality]() and [Internal Software Quality]().
+In the next two modules, we will discuss [External Software Quality](https://sde-coursepack.github.io/modules/intro/External-Quality/) and [Internal Software Quality](https://sde-coursepack.github.io/modules/intro/Internal-Quality/).
 
