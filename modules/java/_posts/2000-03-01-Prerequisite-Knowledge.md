@@ -2,16 +2,22 @@
 Title: Prerequisite knowledge
 ---
 
-* TOC
-{:toc}
-
 # Prerequisite Knowledge
 
-Before continuing further, I want to take time and clarify what the course expects you to come into the course ready to do. While most people in this course will be coming from CS 2100, some people may be coming from other programming backgrounds.
+Before continuing further, I want to take time and clarify what the course expects you to come into the course ready to do. While most UVA students in this course will be coming from CS 2100, some people may be coming from other programming backgrounds.
 
-This list is meant to briefly summarize what you are expected to know and be comfortable with in the Java programming language. This means both being able to read code and write code that uses the following tools and techniques.
+This page is meant to briefly summarize what you are expected to know and be comfortable with in the Java programming language. This means both being able to read code and write code that uses the following tools and techniques.
 
 ---
+
+## Contents
+{: .no_toc }
+
+* TOC
+  {:toc}
+
+---
+
 
 ## Control Flow
 
@@ -80,7 +86,7 @@ You should be *familiar* with:
 * The Java ```extends``` and ```abstract``` keywords
 * The Java ```Object``` class
   * ```Object``` class methods like ```equals(Object o)```, ```toString()```, and ```hashCode()```
-* Polymorphism, such as:
+* Using runtime polymorphism, such as:
 ```java
 List<String> words = new ArrayList<>();
 ```
