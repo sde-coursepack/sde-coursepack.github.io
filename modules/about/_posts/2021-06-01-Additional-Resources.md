@@ -2,8 +2,22 @@
 Title: Additional Resources
 ---
 
+# Additional Resources 
+{: .no_toc }
 
-# Books
+This page lists some additional resources I have used in writing this website that I found helpful enough to recommend.
+
+---
+
+## Contents
+{: .no_toc }
+
+* TOC
+{:toc}
+
+---
+
+## Books
 
 In planning this course, I found the following books particularly useful, in no particular order. There are no referral links of any kind here, I simply include these books because I found them overall helpful, even if I disagree with specific suggestions/guidelines in some books:
 
@@ -21,7 +35,7 @@ In planning this course, I found the following books particularly useful, in no 
 
 [__Design Patterns Explained, 2nd Edition__](https://www.amazon.com/Design-Patterns-Explained-Perspective-Oriented/dp/0321247140/) by Alan Shalloway and James R. Trott
 
-# Websites
+## Websites
 
 I found the following websites particularly helpful, whether that be with respect to design, or even just Java syntax or library usage:
 
@@ -29,3 +43,11 @@ I found the following websites particularly helpful, whether that be with respec
 
 [Refactoring Guru](https://refactoring.guru/) a great catalog for refactoring techniques and design patterns, with examples across multiple programming languages.
 
+## Youtube Channels
+
+[__Code Aesthetic__](https://www.youtube.com/@CodeAesthetic)
+
+
+## Recommend me your resources
+
+Is there some book, website, whatever you have found helpful in your programming journey? Let me know! Contact me via email at mcburney at virginia dot edu! I look forward to your suggestions!

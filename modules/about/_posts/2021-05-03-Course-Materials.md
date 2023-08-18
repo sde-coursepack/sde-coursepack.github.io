@@ -2,12 +2,22 @@
 Title: Course Materials
 ---
 
+# Course Materials
+{: .no_toc }
+
+This page broadly describes the course material. If you are an instructor wishing to use materials/assignments/exams from this course, you can reach out to Prof. McBurney at (mcburney at virginia dot edu). Please email from a verifiable institution or organization email address.
+
+---
+
+## Contents
+{: .no_toc }
+
 * TOC
 {:toc}
 
-# Course Materials
+---
 
-This broadly describes the course material. If you are an instructor wishing to use materials/assignments/exams from this course, you can reach out to Prof. McBurney at (mcburney at virginia dot edu). Please email from a verifiable institution or organization email address.
+## Public Course Materials
 
 Public course materials from Fall 2023 (including syllabus, schedule, slides, homeworks, and assigned readings) [can be found here](https://drive.google.com/drive/folders/1PnTRphKY5adKNRX_XDCGI1djVgW68uwH?usp=share_link) - be aware that the website was incomplete during the Fall 2023 term, so some reading links are missing.
 
