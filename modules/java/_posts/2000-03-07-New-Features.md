@@ -1,9 +1,9 @@
 ---
-Title: Testing With Exceptions
+Title: New Features
 ---
 
 
-# Java New Features
+# Java's New Features
 {: .no_toc }
 
 In the module, I will show some new features in Java that have been added
@@ -22,7 +22,6 @@ have found useful.
 
 ---
 
----
 
 ## Lambda Bodies and Streams
 __Introduced in Java 8__

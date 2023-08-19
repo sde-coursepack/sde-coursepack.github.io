@@ -4,6 +4,7 @@ Title: File Resources
 
 
 # Resources in Java
+{: .no_toc }
 
 Often, our programs will need to use external resources. These could include:
 
