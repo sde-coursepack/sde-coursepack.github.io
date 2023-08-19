@@ -2,17 +2,28 @@
 Title: Class Hierarchies
 ---
 
+# Inheritance
+{: .no_toc }
+
+In this module, we will discuss inheritance and class hierarchies. Specifically, we will discuss parent and child classes, how they are used in Java, and the uses cases of inheritance.
+
+---
+
+## Contents
+{: .no_toc }
+
 * TOC
 {:toc}
 
-#### Authorship note
+---
+
+
+## Authorship note
 This article was partially authored by [Prof. Rich Nguyen](https://www.cs.virginia.edu/~nn4pj/) using materials for class written by Prof. Will McBurney. Will McBurney edited and supplemented this content. Prof. Rich Nguyen co-taught the initial offering of this course in Fall 2022, and taught it solely in Spring 2023.
 
-# Class Hierarchies
-In this module, we will discuss class hierarchies. Specifically, we will discuss parent and child classes, how they are implemented in Java, 
 
 ## Definitions
-In Java, class hierarchy refers to the organization of classes. All classes in Java are organized into a hierarchy, with the root of the hierarchy being the `Object` class. This means that every class in Java ultimately inherits from the `Object` class, and can access its methods. Java's class hierarchy is based on the idea of inheritance, which allows classes to _inherit_ properties and behaviors from other classes. Specifically, a class that inherits from another class is called a `subclass` (or derived class), while the class it inherits from is called the `superclass` (or base class).
+In Java, class hierarchy describe the tree-like structures formed by inheritance. All classes in Java are organized into a hierarchy, with the root of the hierarchy being the `Object` class. This means that every class in Java ultimately inherits from the `Object` class, and can access its methods. Java's class hierarchy is based on the idea of inheritance, which allows classes to _inherit_ properties and behaviors from parent classes. Specifically, a class that inherits from another class is called a `subclass` (or derived class), while the class it inherits from is called the `superclass` (or base class).
 
 ![At the top of the class hierarchy is the `Object` class](https://docs.oracle.com/javase/tutorial/figures/java/classes-object.gif#center)
 

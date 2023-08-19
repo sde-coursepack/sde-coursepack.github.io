@@ -2,14 +2,22 @@
 Title: Interfaces
 ---
 
-* TOC
-{:toc}
-
-# Interface
+# Interfaces
+{: .no_toc }
 
 An interface is a description of behaviors and a way to access them. For example, the interface on a vending machine has a way to insert money, a way to select a product, and a way to receive the product and any change. That is, interfaces describe how a client (the person using the interface) interacts with a system that actually implements the behavior.
 
-It's important to understand that just like user applications and physical tools have interfaces, our code also has interfaces. Every time you create a class with methods, you have created an interface (API - application programming interface) that "clients" (you or other programmers using that code) will interact with.
+It's important to understand that just like user applications and physical tools have interfaces, our code also has interfaces. Every time you create a class with methods, you have created an interface (API - application programming interface) that "clients" (you or other programmers using that code) will interact with. In this module, we will explore Java `interface`s.
+
+---
+
+## Contents
+{: .no_toc }
+
+* TOC
+{:toc}
+
+---
 
 
 ## Java `interface`

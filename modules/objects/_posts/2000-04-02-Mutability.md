@@ -1,11 +1,26 @@
 ---
-Title: Values vs. References
+Title: Mutability
+---
+
+# Mutability
+{: .no_toc }
+
+In Java, all primitive data-types are stored as **values**, while all non-primitive types are stored as **references**. What does this mean?
+
+---
+
+## Contents
+{: .no_toc }
+
+* TOC
+{:toc}
+
 ---
 
 * TOC
 {:toc}
 
-# Values vs. References
+## Values vs. References
 
 In Java, all primitive data-types are stored as **values**, while all non-primitive types are stored as **references**. What does this mean?
 

@@ -2,12 +2,22 @@
 Title: Abstract Classes
 ---
 
+
+
+# Abstract Classes
+{: .no_toc }
+
+You can think of Abstract classes as something of a half-way point between parent classes like `Clock` in the last module and an `interface`. An abstract class *is* a parent-class, and like a class it can have real data, method implementations, constructors, etc. However, it also allows us to define method abstractions like an `interface`; that is, we can define method signatures without implementing them like we do in a Java `interface`. In this module, we will explore creating and extending an `abstract` class.
+
+---
+
+## Contents
+{: .no_toc }
+
 * TOC
 {:toc}
 
-# Abstract Classes
-
-You can think of Abstract classes as something of a half-way point between parent classes like `Clock` in the last module and an `interface`. An abstract class *is* a parent-class, and like a class it can have real data, method implementations, constructors, etc. However, it also allows us to define method abstractions like an `interface`; that is, we can define method signatures without implementing them like we do in a Java `interface`.
+---
 
 ## Example problem
 

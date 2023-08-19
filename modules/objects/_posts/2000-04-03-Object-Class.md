@@ -1,13 +1,22 @@
 ---
-Title: Java Object Class
+Title: Object Class
 ---
+
+# The `Object` Class
+{: .no_toc }
+
+All Java class inherit from a `superclass` called Object, either directly or indirectly. This means whenever you create class, some methods are inherited from the `Object` class. In this module, we will look at some of these methods and their purpose.
+
+---
+
+## Contents
+{: .no_toc }
 
 * TOC
 {:toc}
 
-# The `Object` Class
+---
 
-All Java class inherit from a `superclass` called Object, either directly or indirectly. This means whenever you create class, somet methods are inherited.
 
 ## toString()
 

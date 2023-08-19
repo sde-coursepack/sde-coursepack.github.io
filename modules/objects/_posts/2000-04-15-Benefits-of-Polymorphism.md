@@ -1,13 +1,21 @@
 ---
-Title: Class Hierarchies
+Title: Benefits of Polymorphism
 ---
+
+# Benefits of Polymorphism
+{: .no_toc }
+
+There are a number of design benefits we can get by leveraging polymorphism. We will explore those benefits in this module.
+
+---
+
+## Contents
+{: .no_toc }
 
 * TOC
 {:toc}
 
-# Benefits of Polymorphism
-
-There are a number of design benefits to Polymorphism.
+---
 
 ## Separate Interface and Implementation
 

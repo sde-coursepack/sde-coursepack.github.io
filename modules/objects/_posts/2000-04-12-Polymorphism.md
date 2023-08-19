@@ -2,16 +2,27 @@
 Title: Polymorphism
 ---
 
+
+# Polymorphism
+{: .no_toc }
+
+Polymorphism is a Greek word meaning "many-shaped". That definition lies at the core of how we use polymorphism in programming. Polymorphism is *the* key idea that makes object-oriented programming so powerful for designing software systems. In this module, we will explore the usage of Polymorphism. [In the next module](https://sde-coursepack.github.io/modules/objects/Benefits-of-Polymorphism/), we will discuss why polymorphism is such a powerful tool for building flexible code.
+
+
+---
+
+## Contents
+{: .no_toc }
+
 * TOC
 {:toc}
 
-This page is under construction.
+---
 
-# Polymorphism
 
-Polymorphism is a Greek word meaning "many-shaped". That definition lies at the core of how we use polymorphism in programming. Polymorphism is *the* key idea that makes object-oriented programming so powerful for designing software systems.
+## What does "Object-Oriented" give us, anways?
 
-When people think of object-orientated, they probably think of things like "classes and instances, methods and fields". Generally, what you are likely thinking of here is encapsulation. That is, we combine tightly coupled information into fields, and restrict it's access through methods. However, that idea existing before object-oriented programming. 
+When people are first introduced to object-orientated programming, they probably think the key benefit is "classes and instances, methods and fields". Generally, what you are likely thinking of here is encapsulation. That is, we combine tightly coupled information into fields, and restrict its access through methods. However, that idea existing before object-oriented programming. 
 
 For example, even though C is not object-oriented, we can use `structs` to handle encapsulation to some extent. For example, you can [find implementations of Linked-Lists in C](https://www.learn-c.org/en/Linked_lists) that look Object-Oriented. If you look at that link, you'll see a `struct` called Node. You'll see methods on a Linked List, like `push`, `print_list`, etc.
 
@@ -25,7 +36,7 @@ You would say:
 
 This isn't a dramatic change. If the only thing Object-orientation gives us is the dot operator, I can't imagine it would be a big deal.
 
-No, they key contribution of Object-orientation is **polymorphism**. The idea that a single class can have many shapes, and thus instances of that class can be used in different contexts!
+No, the key contribution of Object-orientation is **polymorphism**. The idea that a single class can have many shapes, and thus instances of that class can be used in different contexts!
 
 ## Liskov Substitution Principle
 
@@ -101,7 +112,7 @@ etc.
 
 All of these sandwiches are **concrete**. When we say concrete we mean something that is more tangible: you can make, hold, and eat a turkey sandwich. I can make a grilled-cheese sandwich. But I can't make the **idea** of a sandwich. A sandwich is simply an idea that describes the construction, components, and behaviors (such as eating by holding the two slices of bread) of several food items.
 
-So we say that sandwich is **abstract**, since it's a description of a set of food. Whereas if you hold a **kind** of sandwich in your hands, that sandwich must necessarily be a **concrete** subtype, like a grilled-cheese or ham and swiss.
+So we say that sandwich is **abstract**, since it's a description of a set of food. Whereas if you hold a **specific kind** of sandwich in your hands, that sandwich must necessarily be a **concrete** subtype, like a grilled-cheese or ham and swiss.
 
 ### Back to Comparator
 
