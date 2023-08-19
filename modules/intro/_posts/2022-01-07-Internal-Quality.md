@@ -2,7 +2,7 @@
 Title: Internal Software Quality
 ---
 
-![](https://imgs.xkcd.com/comics/software_development.png)
+![](https://imgs.xkcd.com/comics/software_development.png)  
 Source: [XKCD #2021](https://xkcd.com/2021/) by Randall Munroe
 
 # Internal Quality
