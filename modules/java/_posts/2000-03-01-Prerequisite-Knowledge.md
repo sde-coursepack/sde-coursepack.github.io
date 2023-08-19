@@ -14,7 +14,7 @@ This page is meant to briefly summarize what you are expected to know and be com
 {: .no_toc }
 
 * TOC
-  {:toc}
+{:toc}
 
 ---
 

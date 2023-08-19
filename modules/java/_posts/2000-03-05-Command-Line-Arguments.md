@@ -2,16 +2,25 @@
 Title: Command Line Arguments
 ---
 
+# Command Line Arguments
+{: .no_toc }
+
+This unit will teach you the basics of writing programs that use command line arguments.
+
+---
+
+## Contents
+{: .no_toc }
+
 * TOC
 {:toc}
+
+---
 
 ## **[Source Code Examples](https://github.com/sde-coursepack/commandline)**
 
 Click [this link](https://github.com/sde-coursepack/commandline) the example source code for this unit.
 
-# Command Line Arguments
-
-This unit will teach you the basics of writing programs that use command line arguments.
 
 ## main(String[] args)
 

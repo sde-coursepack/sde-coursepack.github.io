@@ -2,12 +2,22 @@
 Title: How Java Works
 ---
 
+# How Java Works
+{: .no_toc }
+
+This module will discuss the nature of how Java code compiles and executes.
+
+---
+
+## Contents
+{: .no_toc }
+
 * TOC
 {:toc}
 
-# How Java Works
+---
 
-This module will discuss the nature of Java and how Java code compiles and executes.
+
 
 ## What is code?
 

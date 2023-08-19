@@ -2,19 +2,26 @@
 Title: Terminal and Java
 ---
 
+
+# Terminal and Java
+{: .no_toc }
+
+In the last module, we talked about how Java works. In this module, we'll show how to manually compile and run Java, no IDE needed!
+
+---
+
+## Contents
+{: .no_toc }
+
 * TOC
 {:toc}
 
-# Terminal and Java
-
-In the last section, we talked about how Java works.
-That information is useful and valuable to understand, but
-it doesn't actually help you write and compile Java programs.
+---
 
 Until now, you have likely used an IDE, like Eclipse
 or IntelliJ, to handle compiling. And *most of the time*
 this is exactly what you will do. However, I often find
-students who think Eclipse *is* Java, or that you have
+students who think Eclipse/IntelliJ *is* Java, or that you have
 to have an IDE to compile code. And this isn't correct!
 
 Think of the IDE like AAA. If you have a flat tire, AAA 

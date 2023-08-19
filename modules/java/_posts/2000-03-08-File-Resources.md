@@ -2,8 +2,6 @@
 Title: File Resources
 ---
 
-* TOC
-{:toc}
 
 # Resources in Java
 
@@ -18,6 +16,14 @@ In this module, we will first look at some simple usage of resource files in Jav
 
 Second, we will look at some basic File I/O in Java for reading and writing to
 Plain Text files (like .txt or .csv).
+
+---
+
+## Contents
+{: .no_toc }
+
+* TOC
+{:toc}
 
 ---
 

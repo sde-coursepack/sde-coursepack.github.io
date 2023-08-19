@@ -2,16 +2,25 @@
 Title: Testing With Exceptions
 ---
 
-* TOC
-{:toc}
 
 # Java New Features
+{: .no_toc }
 
-In the article, I wanted to show some new features in Java that have been added
+In the module, I will show some new features in Java that have been added
 with Java 8 or later. Please note that this is not an exhaustive list, as there
 are tons of additions. [This Wikipedia page is a good starting point](https://en.wikipedia.org/wiki/Java_version_history)
 if you want to see all additions. Here, I am highlighting a view that I personally
 have found useful.
+
+---
+
+## Contents
+{: .no_toc }
+
+* TOC
+{:toc}
+
+---
 
 ---
 
@@ -108,7 +117,7 @@ for example, say:
 The variable must be initialized at the time it is created.
 
 Additionally, `var` **can only be used for local variables.** You cannot use `var` with class fields. Additionally,
-you cannot use `var` as a return-type or parameter type for methods.
+you cannot use `var` as a return-type or parameter type for methods. Always remember that `var` does not change the nature of a Java variable. The variable still has a specific type that cannot change.
 
 ---
 
@@ -205,6 +214,8 @@ are equal*.
 The hashCode() function similarly uses all fields to form the hashCode().
 
 ---
+
+A downside of `record`s is that, as yet, they don't work with many ORMs like Hibernate. If you aren't familiar with ORMs, don't worry. It's somethign we will cover later in the class.
 
 ## Text Blocks
 __Introduced in Java 15__
