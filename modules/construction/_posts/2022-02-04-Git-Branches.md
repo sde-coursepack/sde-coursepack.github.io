@@ -101,7 +101,7 @@ new branch out**. Your working copy will still be whatever branch you
 started with. You will need to use `git checkout my_new_branch` to switch
 to the new branch.
 
-### ```checkout```
+### ```switch``` and ```checkout```
 
 "Checkout" means "I want to switch to this branch". When you switch
 branches, your working copy will be updated to the most recent
@@ -109,6 +109,10 @@ commit in your local repository in that branch. **You should always
 commit to your current branch before switching branches.**
 
 `git checkout branch_to_switch_to`
+
+OR
+
+`git switch branch_to_switch_to`
 
 ```shell
 PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git branch
@@ -122,6 +126,13 @@ PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git branch
     main
   * my_new_branch
 ```
+
+A note that ```switch``` was introduced because ```checkout``` serves two different purposes:
+
+1) Switching between branches (same as `switch`)
+2) Restoring an old version of the repo or particular file (same as `restore`)
+
+```switch``` and ```restore``` were introduced to help alleviate confusion, creating two separate operations rather than having just one operation with two purposes.
 
 ### ```merge```
 
