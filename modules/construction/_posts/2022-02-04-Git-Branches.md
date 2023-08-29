@@ -187,3 +187,15 @@ PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git merge my_new_branch
     src/main/java/edu/virginia/cs/Main.java | 2 +-
     1 file changed, 1 insertion(+), 1 deletion(-)
 ```
+
+Be aware that a merge **without** conflicts will auto-commit. However, if there are merge conflicts, you will need to resolve them manually, and *then* add and commit the changes.
+
+
+A note that when you merge, it brings the entire commit history of that branch in with the merge. However, if we only want a "summary" of the work in the branches, we can use `--squash` to set a single commit message for that group of commits.
+
+```shell
+PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git merge --squash my_new_branch
+PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git add .
+PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git commit -m "Summary of what merge did"
+```
+
