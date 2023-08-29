@@ -130,15 +130,15 @@ PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git branch
 A note that ```switch``` was introduced because ```checkout``` serves two different purposes:
 
 1) Switching between branches (same as `switch`)
-2) Restoring an old version of the repo or particular file (same as `restore`)
+2) Restoring an old version of the repo or particular file (that is, set the working version of this file to a previous version)
 
-```switch``` and ```restore``` were introduced to help alleviate confusion, creating two separate operations rather than having just one operation with two purposes.
+```switch``` was introduced to help alleviate confusion, creating two separate operations rather than having just one operation with two purposes.
 
 ### ```merge```
 
 Once you are ready to merge your work, you need to use the merge command.
 Merge does what you think it would do, it merges the repositories of
-two seperate branches. However, a merge is a one directional operation:
+two separate branches. However, a merge is a one directional operation:
 
 If I say merge from branch_a to branch_b, what I mean is copy any
 repository changes from branch_a to branch_b, but *not the other way around.*
