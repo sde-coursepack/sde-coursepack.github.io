@@ -107,17 +107,17 @@ In short, slowing down a little more now can save you significant time in the ve
 
 Because your code must evolve and change overtime, taking time to clean it up is paying off technical debt before the interest has time to accrue! Do a little clean-up, ensure your code is readable and understandable, remove duplicate code, etc. Doing all this will mean that the next time you add to your code, you will save time! And don't think you have to write thousands of lines before this pays off. Writing clean code pays off **the very next time you have to re-read your code**, and you *will* have to re-read your code! Many, many times!
 
-Ultimately, practicing clean code will help you go faster overall. "Fast and dirty" code may make the first couple of classes and functions faster to write, but before too long, you will start to reap what you sow, and your productivity will grind to a halt.
+Ultimately, practicing the intentional effort to write readable, understandable code will help you go faster overall. "Fast and dirty" code may make the first couple of classes and functions faster to write, but before too long, you will start to reap what you sow, and your productivity will grind to a halt.
 
 ## Taking pride in your work
 
-Ultimately, the greatest reason to write clean code is because **you should want to**! Programming is an incredibly powerful tool! Consider just how much of our lives are controlled by software, or rely heavily on software. And we have the power to touch and bend software with our programming ability! Think of all the amazing things we can, no, **we will** do in our lives with programming: the problems we can solve, the suffering we can abate!
+Ultimately, the greatest reason to ensure you are writing understandable, modifiable code is because **you should want to**! Programming is an incredibly powerful tool! Consider just how much of our lives are controlled by software, or rely heavily on software. And we have the power to touch and bend software with our programming ability! Think of all the amazing things we can, no, **we will** do in our lives with programming: the problems we can solve, the suffering we can abate!
 
 Programming gives us this power, so we should aspire to be the best developers we can be! Because by being the best developers we can be, we solve the most problems we can! This very idea should give you a sense of pride!
 
 While it may be filled with typos and behind schedule, I am *proud* of this textbook. I am *proud* of the assignments I write for this class, and the lectures I have given. Because I worked really well at them. Not just worked hard, but worked well. I spent months planning this course, writing example code, writing lesson plans, writing assignments.
 
-In the exact same way I feel proud of what I've done, I want you to feel proud for your work! You're a programmer! Be the best programmer you can be! Do it right! Write code so clean that the next person who sees your code says "Wow, the person who wrote this is a professional who really cares about their craft!" Don't think writing clean code is above you, it isn't! It just takes practice and persistence!
+In the exact same way I feel proud of what I've done, I want you to feel proud for your work! You're a programmer! Be the best programmer you can be! Do it right! Write code so clean that the next person who sees your code says "Wow, the person who wrote this is a professional who really cares about their craft!" Don't think writing "great code" is above you, it isn't! It just takes practice and persistence!
 
 ## Conclusion
 
@@ -127,7 +127,7 @@ In the rest of this unit, we will look at examples of "dirty code" and "clean co
 
 Some of the material in this unit is derived from:
 
-* [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/B08X8ZXT15/) by Robert C. Martin. I will note that this book is criticized by many. My general thoughts on "Clean Code" is that it's a good entry point for someone looking for ideas to improve their code quality. However, *do not* take everything in Clean Code as gospel, or as a rules to always apply in every situation.
+* [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/B08X8ZXT15/) by Robert C. Martin. I will note that this book is criticized by many. My general thoughts on "Clean Code" is that it's a good entry point for someone looking for ideas to improve their code quality. However, *do not* take everything in Clean Code as gospel, or as a rules to always apply in every situation. In fact, I would specifically address some of the specific code examples in the book as, frankly, bad. But many of them are also good. In short, never take one book/blog/youtuber as the ultimate authority, but try to expose yourself to as many views as you can and adopt what gives you the best results.
 
 Here is a [particularly well known criticism](https://qntm.org/clean) of Clean Code. Personally, I think it raises good points, but I also think it's pretty hyperbolic at times, and some of the complaints to me are things I just disagree with. I personally like [this article that highlights good lessons from the book](https://dev.to/thawkin3/in-defense-of-clean-code-100-pieces-of-timeless-advice-from-uncle-bob-5flk), even if many of the examples break good style, understandability, etc. 
 

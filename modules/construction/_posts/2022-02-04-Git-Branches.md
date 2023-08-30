@@ -101,7 +101,7 @@ new branch out**. Your working copy will still be whatever branch you
 started with. You will need to use `git checkout my_new_branch` to switch
 to the new branch.
 
-### ```checkout```
+### ```switch``` and ```checkout```
 
 "Checkout" means "I want to switch to this branch". When you switch
 branches, your working copy will be updated to the most recent
@@ -109,6 +109,10 @@ commit in your local repository in that branch. **You should always
 commit to your current branch before switching branches.**
 
 `git checkout branch_to_switch_to`
+
+OR
+
+`git switch branch_to_switch_to`
 
 ```shell
 PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git branch
@@ -123,11 +127,18 @@ PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git branch
   * my_new_branch
 ```
 
+A note that ```switch``` was introduced because ```checkout``` serves two different purposes:
+
+1) Switching between branches (same as `switch`)
+2) Restoring an old version of the repo or particular file (that is, set the working version of this file to a previous version)
+
+```switch``` was introduced to help alleviate confusion, creating two separate operations rather than having just one operation with two purposes.
+
 ### ```merge```
 
 Once you are ready to merge your work, you need to use the merge command.
 Merge does what you think it would do, it merges the repositories of
-two seperate branches. However, a merge is a one directional operation:
+two separate branches. However, a merge is a one directional operation:
 
 If I say merge from branch_a to branch_b, what I mean is copy any
 repository changes from branch_a to branch_b, but *not the other way around.*
@@ -176,3 +187,15 @@ PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git merge my_new_branch
     src/main/java/edu/virginia/cs/Main.java | 2 +-
     1 file changed, 1 insertion(+), 1 deletion(-)
 ```
+
+Be aware that a merge **without** conflicts will auto-commit. However, if there are merge conflicts, you will need to resolve them manually, and *then* add and commit the changes.
+
+
+A note that when you merge, it brings the entire commit history of that branch in with the merge. However, if we only want a "summary" of the work in the branches, we can use `--squash` to set a single commit message for that group of commits.
+
+```shell
+PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git merge --squash my_new_branch
+PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git add .
+PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git commit -m "Summary of what merge did"
+```
+
