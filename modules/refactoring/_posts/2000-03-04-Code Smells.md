@@ -14,70 +14,135 @@ A code smell, a term coined by [Kent Beck](https://en.wikipedia.org/wiki/Kent_Be
 
 Methods that are overly long and complicated are difficult to read and understand, difficult to use, and most importantly difficult to maintain. 
 
-In __Clean Code__, Bob Martin has two rules for functions:
+Functions, as a tool, are good at doing one thing and one thing only. If our functions are overly long, especially if they feature multiple loops and conditionals, most likely the function is doing several things. This makes the function harder to understand. If the function is harder to understand, it's harder to test, re-use, modify, remove and replace, etc. 
 
-1) They should be small
-2) They should be *smaller than that*
+Consider the following example, which takes in a file of point coordinates, like:
 
-Functions, as a tool, are good at doing one thing and one thing only. If our functions are overly long, especially if they feature multiple loops and conditionals, most likely the function is doing several things. We will look at an example of decomposing a large, complicated function in the extract-method unit.
-
-In general, most of my functions tend to be 6 lines of code or fewer. Occasionally I have functions that are around 10 lines of code, but I try to keep them rare.
-
-For instance, consider this testSetup function:
-
-```java
-public class HamiltonApportionmentTest {
-    private static List<State> testStateList;
-    private static State ohio, virginia, maryland;
-
-    @BeforeAll
-    public static void initializeTestObjects() {
-        ohio = new State("Ohio", 20);
-        virginia = new State("Virginia", 15);
-        maryland = new State("Maryland", 10);
-        
-        testStateList = new ArrayList<>();
-        testStateList.add(ohio);
-        testStateList.add(virginia);
-        testStateList.add(maryland);
-    }
+```text
+1.0, 3.5
+2.7, 1.2
+0.8, -3.2
+5.0, 4.2
 ```
 
-The function `init` may seem short, but it is clearly doing two different things! The first three lines are setting up `State` objects for testing. The last four lines are setting up a List of States using the created states. 
-
-Because this function is doing two things, we can split it up:
+...and calculates the total distance between these points, printing the total distance with 3 decimal places.
 
 ```java
-public class HamiltonApportionmentTest {
-    private static List<State> testStateList;
-    private static State ohio, virginia, maryland;
+public class DistanceCalculator {
+    public static void main(String[] args) throws IOException {
+        String filename = args[0];
 
-    @BeforeAll
-    public static void initializeTestObjects() {
-        initializeState();
-        constructStateList();
+        FileReader fileReader = new FileReader(filename);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        List<Point> pointList = new ArrayList<>();
+        for(String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
+            String[] splitLine = line.split(",");
+            double x = Double.parseDouble(splitLine[0].strip());
+            double y = Double.parseDouble(splitLine[1].strip());
+            Point point = new Point(x, y);
+            pointList.add(point);
+        }
+
+        double totalDistance = 0.0;
+        for (int index = 0; index < pointList.size() - 1; index++) {
+            Point first = pointList.get(index);
+            Point second = pointList.get(index + 1);
+            double differenceX = Math.abs(first.getX() - second.getX());
+            double differenceY = Math.abs(second.getX() - second.getY());
+            double distance = Math.sqrt(differenceX * differenceX + differenceY * differenceY);
+            totalDistance += distance;
+        }
+
+        System.out.printf("Total distance = %.3f", totalDistance);
     }
-    
-    private static void initializeState() {
-        ohio = new State("Ohio", 20);
-        virginia = new State("Virginia", 15);
-        maryland = new State("Maryland", 10);
+}
+
+class Point {
+    private final double x, y;
+
+    Point(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
-    private static void constructStateList() {
-        testStateList = new ArrayList<>();
-        testStateList.add(ohio);
-        testStateList.add(virginia);
-        testStateList.add(maryland);
+    public double getX() { return x; }
+    public double getY() { return y; }
+}
+```
+
+Notice how large that `main` method is. I want to break this up into several methods. After breaking up main into several separate methods, I get the following:
+
+```java
+public class DistanceCalculator {
+    public static void main(String[] args) throws IOException {
+        String filename = args[0];
+
+        BufferedReader bufferedReader = getBufferedReader(filename);
+        List<Point> pointList = getPointList(bufferedReader);
+        double totalDistance = getTotalDistance(pointList);
+        System.out.printf("Total distance = %.3f", totalDistance);
+    }
+
+    public static BufferedReader getBufferedReader(String filename) throws FileNotFoundException {
+        FileReader fileReader = new FileReader(filename);
+        return new BufferedReader(fileReader);
+    }
+
+    public static List<Point> getPointList(BufferedReader reader) throws IOException {
+        List<Point> pointList = new ArrayList<>();
+        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+            pointList.add(getPointFromLine(line));
+        }
+        return pointList;
+    }
+
+    public static Point getPointFromLine(String line) {
+        String[] splitLine = line.split(",");
+        double x = Double.parseDouble(splitLine[0].strip());
+        double y = Double.parseDouble(splitLine[1].strip());
+        return new Point(x, y);
+    }
+
+    public static double getTotalDistance(List<Point> pointList) {
+        double totalDistance = 0.0;
+        for (int index = 0; index < pointList.size() - 1; index++) {
+            Point first = pointList.get(index);
+            Point second = pointList.get(index + 1);
+            totalDistance += first.distanceTo(second);
+        }
+        return totalDistance;
+    }
+}
+
+class Point {
+    private final double x, y;
+
+    Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public double getX() { return x; }
+    public double getY() { return y; }
+    public double distanceTo(Point point) {
+        double differenceX = Math.abs(this.getX() - point.getX());
+        double differenceY = Math.abs(this.getX() - point.getY());
+        return Math.sqrt(differenceX * differenceX + differenceY * differenceY);
     }
 }
 ```
 
-The advantage is that now each function clearly tells me what it does. `initializeTestObjects` initializes all my test objects. How does it work? Well, first it **initializes the State Objects** (`initializeStates`) then it **constructs the stateList** object (`constructStateList`).
+Notice now that each method is only a few lines. Also, it becomes much easier to design a specific test-case for each method. In general, if I ask a question, like:
 
-Each function is now doing one thing. Now, when writing a test, if I want to know the values of anyone state, I can check `initializeStates`. If I want to know which states are in my test list, I can check `constructStateList`.
+1) What are we using to read the file?  
+2) How do we read the file into a list of points?  
+3) How are we calculating the distance between two points?  
+etc.
 
-While this may seem like more code, each individual unit of code is more readable and understandable on its own. This means the code overall is more readable and maintainable.
+That the answer to those questions are in a specific function whose name and purpose is clear, and each function does only one thing.
+
+We will examine this case, as well as another case, in the "Extract Method" module.
 
 ## Large classes
 
@@ -170,7 +235,7 @@ However, many of our classes will be more complicated. For example, imagine we h
 * tracking student graduation progress
 * track faculty teaching load
 
-All of these things in one single class can make the class difficult to understand. Instead, we want to decompose all of these different needs into several smaller classes. Each class individually exposes it's behavior through a smaller interface that is easier to understand.
+All of these things in one single class can make the class difficult to understand. Instead, we want to decompose all of these different needs into several smaller classes. Each class individually exposes its behavior through a smaller interface that is easier to understand.
 
 ## Long Parameter List
 
@@ -186,10 +251,18 @@ In this case, we wrote the function like:
 
 ```java
 public class StudentFinancialRecord {
+    private Student student;
     private double overdue;
     private boolean isExempt;
+    
+    public StudentFinancialRecord(Student student) {
+        this.student = student;
+        this.overdue = 0;
+        this.isExempt = false;
+    }
 
-    public double calculateBill(List<Integer> registeredCourseNumbers) {
+    public double calculateBill() {
+        int courseCount = student.getCourseList().size();
         return 0.0; //TODO: Stub
     }
     
@@ -208,7 +281,7 @@ This is an example of a **monadic** (1 argument function). However, during lectu
 
 ```java
 public class StudentFinancialRecord {
-    public double calculateBill(List<Integer> registeredCourseNumbers, double overdue, boolean exempt) {
+    public double calculateBill(int courseCount, double overdue, boolean exempt) {
         return 0.0; //TODO: Stub
     }
 }
@@ -221,19 +294,19 @@ Which is better? Well, from a standpoint of make the code the easiest to underst
 To call `calculateBill` on the **monadic** version might look something like:
 
 ```java
-    StudentFinancialRecord record = new StudentFinancialRecord(myStudent.getID());
+    StudentFinancialRecord record = new StudentFinancialRecord(myStudent);
     record.setOverdue(2000);
     record.setExempt(true);
-    record.calculateBill(myStudent.getCourseList());
+    var balanceDue = record.calculateBill();
 ```
 
 To call `calculateBill` on the **triadic** version might look something like:
 ```java
     StudentFinancialRecord record = new StudentFinancialRecord(myStudent.getID());
-    record.calculateBill(myStudent.getCourseList(), 2000, true);
+    var balanceDue = record.calculateBill(myStudent.getCourseList().size(), 2000, true);
 ```
 
-Which is easier to understand? Generally, the first example is. This is because we can think of the `StudentFinancialRecord` as having some amount overdue, and being either exempt or not-exempt from interest. These describe the **state** of the FinancialRecord.
+Which is easier to understand? Generally, the first example is. This is because we can think of the `StudentFinancialRecord` as an **object** (or record of information) that is tied to a `Student`, and having some amount overdue, and being either exempt or not-exempt from interest. These describe the **state** of the FinancialRecord.
 
 It's also much easier to remember the order of arguments in a **monadic**. That's because there's only 1 order the arguments can go in. Without scrolling back up, can you remember the order of the arguments in the **triadic**? If you can't, then you can try to guess, but there are 6 possible ways to arrange the arguments.
 
@@ -242,7 +315,31 @@ Or 5 arguments! 120 ways!
 
 In general, it's easier to make multiple **monadic** calls, where each method serves a clear individual purpose, then make one **triadic** call that combines all three purposes into one.
 
-**That said**, there is a **trade-off** here. As it stands, we have what is called *temporal coupling*, where you have to "Set up" the Record object before calling "calculateBill". Just be aware of that trade-off when designing classes. As a general rule, your class should be built ready to be used. So it may make sense to move the setters to the Constructor. Of course, if the Constructor ends up holding every argument, it can end up with a large argument list. This is where something like a Factory or Builder class could come in handy, which we will discuss in design patterns.
+Now, modern IDEs help with this: they will show you the method signature as you are writing your method call, so you are less likely to get the order wrong. However, if your function is taking in and using so many inputs, it might be worth considering turning the function into a class like we did with `StudentFinancialRecord`. This allows to more easily isolate the complicated function that requires so much information, and test it independent of any tangentially related functionalities.
+
+There is a **trade-off** here. As it stands, we have what is called *temporal coupling*, where you have to "Set up" the `StudentFinancialRecord` object before calling "calculateBill". Just be aware of that trade-off when designing classes. As a general rule, your class should be built ready to be used. So it may make sense to move the setters to the Constructor. In fact, we could create overloaded constructors to help with this:
+
+```java
+public class StudentFinancialRecord {
+    private Student student;
+    private double overdue;
+    private boolean isExempt;
+
+    public StudentFinancialRecord(Student student, double overdue, boolean isExempt) {
+        this.student = student;
+        this.overdue = overdue;
+        this.isExempt = isExempt;
+    }
+
+    public StudentFinancialRecord(Student student) {
+        this(student, 0.0, false);
+    }
+}
+```
+
+This means the client code (the code using this class) has the choice to set up everything with the object at once *or* use the simpler constructor and the setter methods.
+
+Of course, if the Constructor ends up holding every field, and our class necessarily has a complicated structure, it can end up with a large argument list. This is where something like a Factory or Builder class could come in handy, which we will discuss in design patterns.
 
 ## Boolean Parameters
 
@@ -282,7 +379,7 @@ The reason we want to remove boolean arguments is that it requires whoever is ca
    public void orderHamburger(boolean hasCheese);
 ```
 
-Instead do:
+...do...
 
 ```java
    public void orderHamburger();
@@ -290,7 +387,7 @@ Instead do:
    public void orderCheeseburger();
 ```
 
-While the latter has more functions, both are **niladics**, and therefore cannot be called with incorrect arguments!
+While the latter has more functions, both functions are clearly communicating their intent and are **niladics**, and therefore cannot be called with incorrect arguments!
 
 ### Replace booleans with polymorphism
 
@@ -318,7 +415,7 @@ public class TaxExemptFinancialRecord extends StudentFinancialRecord {
 }
 ```
 
-Now, the **type** of the Finanical record object will handle whether or not the student is interest-exempt. If being exempt from interest can affect other functions or other classes, this may be our best approach to simplify usage.
+Now, the **type** of the Financial record object will handle whether the student is interest-exempt or not. If being exempt from interest can affect other functions or other classes, this may be our best approach to simplify usage.
 
 ## Primitive Obsessions
 
