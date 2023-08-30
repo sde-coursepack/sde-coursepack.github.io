@@ -403,6 +403,86 @@ public double squareRoot(double value) {
 
 Now, you are ensuring the client **has** to handle incorrect usage of your squareRoot function, which is more likely to result in the client only using the function correctly (by checking to ensure the input is non-negative before calling `squareRoot`).
 
+### Replace Exception with Optionals
+
+The Java [`Optional<T>` class](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html) is useful for describing a value that may or may not be present.
+
+Considering the following Java code:
+
+```java
+    public int max(List<Integer> integerList) {
+        if (integerList.isEmpty()) {
+            throw new IllegalArgumentException("Cannot get max of empty list!");
+        }
+        int maximum = integerList.get(0);
+        for (Integer value : integerList) {
+            if (value > maximum) {
+                maximum = value;
+            }
+        }
+        return maximum;
+    }
+```
+
+Here, a client would need to know not just that the function will take in a `List<Integer>` and return the max value as an int, but also that the client should be aware that this method throws an `IllegalArgumentException` if the input list is empty. That means, they have to handle both when a maximum *is present* and *is not present*. However, unless the documentation explicitly states this, a client may just assume the method works, and use it incorrectly. `Optional`s allow us to communicate *syntactically* that a method may either return a value or not.
+
+```java
+    public Optional<Integer> max(List<Integer> integerList) {
+        if (integerList.isEmpty()) {
+            return Optional.empty();
+        }
+        int maximum = integerList.get(0);
+        for (Integer value : integerList) {
+            if (value > maximum) {
+                maximum = value;
+            }
+        }
+        return Optional.of(new Integer(maximum));
+    }
+```
+
+### Replace Null with Optionals
+
+In the same way we can avoid Exceptions, we can also now avoid nulls. For instance:
+
+```java
+    public Student getStudentByComputingId(String computingId) {
+        for (Student student : studentList) {
+            if (student.getComputingID.equals(computingId)) {
+                return student;
+            }
+        }
+        return null;
+    }
+```
+
+...can instead become...
+
+```java
+    public Optional<Student> getStudentByComputingId(String computingId) {
+        for (Student student : studentList) {
+            if (student.getComputingID.equals(computingId)) {
+                return Optional.of(student);  
+            }
+        }
+        return Optional.empty();
+    }
+```
+
+On the client side, the usage of this function may look like:
+
+```java
+    Optional<Student> optionalStudent = getStudentByComputingId("abc2def");
+    if (optionalStudent.isPresent()) {
+       Student student = optionalStudent.get();
+       //do something with student
+    } else {
+       //no student with that computingId exists
+    }
+```
+
+In effect, you are not just *letting* the client decide what to do if the function cannot return a meaningful value, you are *syntactically forcing* the client to decide what to do. This forces the client to consider what to do if the function doesn't return anything, meaning they will not accidentally ignore a 'null' return.
+
 ### Preserve Whole Object
 
 Consider our building class from the Code Smells section on primitive obsession.
