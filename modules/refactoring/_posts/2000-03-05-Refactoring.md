@@ -514,7 +514,7 @@ Now imagine we had a function like:
 
 `getDistanceFromLocationTo(double lattitude, double longitude)`
 
-If I wanted to find the distance from my location to, say, Rice Hall, I might run code:
+If I wanted to find the distance from my location to, say, Rice Hall, I might run the code:
 
 ```java
     Building riceHall = buildingRepository.getBuilding("Rice Hall");
