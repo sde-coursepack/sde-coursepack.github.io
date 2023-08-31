@@ -397,8 +397,8 @@ On top of removing the boolean, we may want to consider whether a student who is
 public class StudentFinancialRecord {
     protected double overdue;
 
-    public double calculateBill(List<Integer> registeredCourseNumbers) {
-        return 0.0; //TODO: Stub  - exempt is false
+    public double calculateBill(List<Integer> registeredCourseNumbers, BillCalculator billCalculator) {
+        return billCalculator.calculate(registeredCourseNumbers);
     }
 }
 ```
@@ -406,16 +406,26 @@ public class StudentFinancialRecord {
 ...and...
 
 ```java
-public class TaxExemptFinancialRecord extends StudentFinancialRecord {
+public interface BillCalculator {
+    public double calculate(List<Integer> registeredCourseNumbers);
+}
 
-    @Override
-    public double calculateBill(List<Integer> registeredCourseNumbers) {
-        return 0.0; //TODO: Stub  - exempt is true
+public class TaxExemptBillCalculator {
+    public double calculate(List<Integer> registeredCourseNumbers) {
+        // implement tax exempt approach
+    }
+}
+
+public class NonExemptBillCalculator {
+    public double calculate(List<Integer> registeredCourseNumbers) {
+        // implement tax exempt approach
     }
 }
 ```
 
-Now, the **type** of the Financial record object will handle whether the student is interest-exempt or not. If being exempt from interest can affect other functions or other classes, this may be our best approach to simplify usage.
+Now, we calculate *at run time* the correct amount due based on whether the Student is exempt. This has the advantage of moving the logic of calculating the bill outside of the class that simply keeps a record of the information.
+
+This is called a Strategy Pattern, and is a very popular design pattern that lets us separate data from how the data is used.
 
 ## Primitive Obsessions
 
