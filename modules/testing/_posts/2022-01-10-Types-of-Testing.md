@@ -2,14 +2,16 @@
 Title: Types of Testing
 ---
 
-* TOC
-{:toc}
-
 # Types of Testing
 
 What we focused on in the last unit was a type of testing
 called **unit testing**. In this module, we'll discuss
 different kinds of testing, and what they are used for.
+
+* TOC
+{:toc}
+
+
 
 ## From Small to Large in Scope
 

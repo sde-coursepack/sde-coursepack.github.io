@@ -3,6 +3,11 @@ Title: Black-Box Testing
 ---
 
 
+# Black-Box Testing
+
+The idea of Black-Box testing is that we select what test scenarios to write according to the *specification* of the modules we are testing (typically a function). We are testing the **interface**, not the **implementation**.
+
+
 * TOC
 {:toc}
 
@@ -10,9 +15,7 @@ Title: Black-Box Testing
 
 The next three modules will show the construction of test cases for a single function, `calculateBill`, and how we would approach it.
 
-# Black-Box Testing
 
-The idea of Black-Box testing is that we select what test scenarios to write according to the *specification* of the modules we are testing (typically a function). We are testing the **interface**, not the **implementation**.
 
 ---
 
@@ -185,7 +188,7 @@ I highlighted **bare minimum** in the last second because this should be seen as
 
 ## Next Steps
 
-Be aware that as of yet, we have not written `calculateBill` or any JUnit tests. This is intentional! This is
+Be aware that as yet, we have not written `calculateBill` or any JUnit tests. This is intentional! This is
 because we are practicing **Test Driven Development**. 
 
 **Continued in the next module**

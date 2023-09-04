@@ -2,8 +2,6 @@
 Title: JUnit with Objects
 ---
 
-* TOC
-{:toc}
 
 # Testing with Objects
 
@@ -17,7 +15,14 @@ because these functions have very easy to define input and output.
 However, much of our code doesn't work like this. In fact, if
 we are using object-oriented design we cannot just test
 the input arguments and output values and have a sufficiently
-complete picture of our code.
+complete picture of our code. In this unit, we will look at testing mutable objects, and how our approach changes.
+
+---
+
+* TOC
+{:toc}
+
+
 
 ---
 
@@ -249,8 +254,17 @@ to read and understand tests.
 
 ---
 
+### Test the interface, not the implementation
 
-### Sound Tests
+Always try to write your tests to be *interface* facing, not implementation facing. For example, when tested `MySortedList`, it is a good idea to design tests that are agnostic of the underlying ArrayList. Instead, focus on how the outputs of methods in the public interface change based on the test method call.
+
+This idea of focusing on the interface over implementation, or abstraction, is a valuable design tool as well as a valuable testing tool. If implementation details change, such as changing the fields/structures to improve efficiency, but our tests only focus on the interface, we can often avoid needing to change our tests when the implementation changes.
+
+
+---
+
+
+### Ensure sound Tests
 
 A **sound** test is one that correctly tests against the specification.
 If a test is **unsound**, that means it is incorrect, and will
@@ -377,6 +391,18 @@ particular, or was it several? It becomes very hard to know. As
 such, it's better to manually set the state of the object in a
 controlled way that doesn't rely on the very methods you are trying
 to test.
+
+---
+
+### Don't try to test private methods
+
+Often, we will write private "helper" methods in our code for analyzability reasons. This is often done through an `extract method` call. These methods are useful. However, you shouldn't try to test them directly. Remember, we want to test how an object *behaves*, not how it's *implemented*, and private methods are an implementation detail.
+
+If you find that a private-method (or set of private methods) in a particular procedure is complicated enough that you need to test it, it might be worth considering if those methods should be extracted to a separate class which can be tested independently.
+
+It's worth noting that you can't call a private method directly in a test. This may make you think it's worth making a method `protected` for the sake of testing. But by introducing a `protected` method, you run the risk of complicating how your class is used by other classes in the same package.
+
+In short, if you find that you need to test at a more precise level, that tells you that your class is likely doing too much or getting overly complicated, and decomposition might be a better choice.
 
 ---
 
@@ -696,25 +722,63 @@ details of the tested class. This means if the implementation changes, our
 existing tests will likely break, and will have to be re-written, even
 if the `public` **interface** does not change.
 
-### Make a protected Constructor
+### Make an injectable Constructor
 
-If we wanted to remove the Constructor that takes in an
-`ArrayList` from the public interface, we could instead
-make it protected. This way, we still have this constructor
+We can make a constructor that takes in all "state" fields of an object that we use for testing. 
+This way, we still have this constructor
 available for testing, which allows us to directly
 configure the test object's starting state.
 
+```java
+public class MySortedList {
+    private ArrayList<Integer> mySortedList;
+    private boolean isSorted;
+    
+    protected MySortedList(ArrayList<Integer> mySortedList, boolean isSorted) {
+        this.mySortedList = mySortedList;
+        this.isSorted = isSorted;
+    }
+}
+```
+
+Now, we can simply directly instantiate objects into the state we wish to test them. Additionally, we can re-write our other constructors to avoid duplicate code:
+
+```java
+public class MySortedList {
+    private ArrayList<Integer> mySortedList;
+    private boolean isSorted;
+    
+    protected MySortedList(ArrayList<Integer> mySortedList, boolean isSorted) {
+        this.mySortedList = mySortedList;
+        this.isSorted = isSorted;
+    }
+    
+    public MySortedList(ArrayList<Integer> mySortedList) {
+        this(mySortedList, false);
+    }
+    
+    public MySortedList() {
+        this(new ArrayList<>(), true);
+    }
+}
+```
+
+This is a style I've adopted, and the advantage is that it lets me create tests directly via the constructor in one line of code:
+
+```java
+    var myTestSortedList = new MySortedList(new ArrayList<List.of(4, 5, 6), true);
+```
+
 However, this has many of the same pros and cons of making
-a field private. It violates encapsultion, and creates a problem
+a private field protected. It violates encapsulation, and creates a problem
 of having a "special constructor" in the implementation that's
 only used in the testing. In an ideal setting, the implementation
 classes should not need to be aware of the classes that test them.
+This means that the tests are tied not just to the interface, but the implementation, so if the implementation changes, the tests must necessarily change. Just like in other cases, the most reusable code will only use a public interface that hides implementation details. So you do face a trade-off with this approach.
 
 ### Testing with Reflections
 
-One tool we can use instead in Java is Reflections. This
-is a reasonably complicated topic, so we will have an
-entire module dedicated to it.
+One tool we can use instead in Java is Reflections. This approach can be complicated, and is *tightly coupled* to the implementation, and adds a significant testing overhead. I do not tend to use it, but it is worth being aware of.
 
 ### Mocking
 

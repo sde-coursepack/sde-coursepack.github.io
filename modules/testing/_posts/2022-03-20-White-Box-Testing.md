@@ -2,10 +2,18 @@
 Title: White-Box Testing
 ---
 
+# White-Box Testing
+
+In this module, we will look at **white-box testing** (sometimes called "glass-box" or "open-box" testing). We will compare it to black-box testing, and talk about how it can supplement our black-box testing in improving our confidence in code correctness.
+
+---
+
 * TOC
 {:toc}
 
-# The Story so Far
+---
+
+## The Story so Far
 
 In the last module we used Black-Box testing to select test cases for a function `calculateBill`.
 

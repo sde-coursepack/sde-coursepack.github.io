@@ -2,14 +2,21 @@
 Title: Test Plans
 ---
 
-* TOC
-{:toc}
 
 # Test Plans
 
-While we write each test one at a time, overall we want to ensure that our tests collectively give us confidence in our code's correctness.
+While we write each test one at a time, overall we want to ensure that our tests collectively give us confidence in our code's correctness. In this unit, we will look at planning a suite of tests to ensure sufficient coverage of our source code.
 
-For example, consider a function `public boolean isOdd(int x)`.
+
+---
+
+* TOC
+{:toc}
+
+
+## Starting Example
+
+Consider a function `public boolean isOdd(int x)`.
 Would it be sufficient for us to only test this function once?
 
 `assertTrue(isOdd(1))`

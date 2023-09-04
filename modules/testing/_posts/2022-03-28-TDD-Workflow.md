@@ -2,6 +2,10 @@
 Title: TDD Example
 ---
 
+# TDD Example
+
+In this module, we will use the metaphor of a `Library`, where `Patron`s can check out `Book`s. We will implement these features using Test-Driven Development (TDD).
+
 * TOC
 {:toc}
 
@@ -9,7 +13,7 @@ Title: TDD Example
 
 In this unit, I will be showing the progress of a TDD workflow starting from this point. Necessarily, I have made additional commits to this GitHub project as I progressed, but this commit is the starting point for the function we will write.
 
-# TDD Workflow
+## TDD Workflow
 
 Let's consider writing a Library checkout system. We have three classes to consider. In the space below, I show the fields for each class. All of the fields have getters and setters unless otherwise noted, but for space they aren't included. 
 

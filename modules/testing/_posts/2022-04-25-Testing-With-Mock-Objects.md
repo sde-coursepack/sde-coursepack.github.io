@@ -2,12 +2,20 @@
 Title: Mocking Objects
 ---
 
+# Mocking Objects
+
+In this unit, we can show how mock objects can be used to help us more precisely test specific functions *without* testing or needing to use their dependencies directly. This can help us with testing higher-level code without also testing or setting up their low-level dependencies.
+
+---
+
 * TOC
 {:toc}
 
+---
+
 ## [Source Code Example](https://github.com/sde-coursepack/NBAExcelTeams)
 
-# Testing more precisely
+## Testing more precisely
 
 When doing unit testing, our goal is to test a single unit of
 code. Now, this isn't new information. However, when developing
