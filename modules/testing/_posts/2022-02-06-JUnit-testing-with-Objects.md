@@ -769,8 +769,7 @@ This is a style I've adopted, and the advantage is that it lets me create tests 
     var myTestSortedList = new MySortedList(new ArrayList<List.of(4, 5, 6), true);
 ```
 
-However, this has many of the same pros and cons of making
-a private field protected. It violates encapsulation, and creates a problem
+However, this has many of the same pros and cons. It violates encapsulation a bit, and creates a problem
 of having a "special constructor" in the implementation that's
 only used in the testing. In an ideal setting, the implementation
 classes should not need to be aware of the classes that test them.
@@ -791,4 +790,4 @@ that heavily relies on other classes, without having to
 worry about doing full-on integration testing.
 
 Like with Reflections, this topic is complicated enough to have its
-own unit.
+own unit, and we will cover it after we have discussed design more thoroughly.
