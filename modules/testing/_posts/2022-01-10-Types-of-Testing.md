@@ -153,7 +153,7 @@ steps that occur in order.
 
 In reality, the best approach to testing is iterative: **test your code
 as you write your code!** The key to having effective system testing is
-to finding "silly" defects early through unit testing and integration testing.
+finding "silly" defects early through unit testing and integration testing.
 If you find that you are spending an inordinate amount of time system testing,
 consider taking a step back and testing your individual modules first!
 
