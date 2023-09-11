@@ -2,16 +2,20 @@
 Title: Exceptions-Best Practices
 ---
 
+# Exceptions
+
+Exceptions, or exceptional events, are situations where our code cannot meaningfully proceed in its current state. For example, a `NullPointerException` means that you tried to call instance methods on a `null` object, which cannot have any instance methods.
+
+---
+
 * TOC
 {:toc}
 
-# Exceptions
-
-Exceptions, or exceptional events, are situations where our code cannot meaningfully proceed in it's current state. For example, a `NullPointerException` means that you tried to call instance methods on a `null` object, which cannot have any instance methods.
+---
 
 ## When to throw exceptions
 
-When designing our functions and interfaces, we should use exceptions to enforce pre-conditions and post-conditions of our function (like we did in the last modules with `BankAccount`).
+When designing our class, functions, and interfaces, we should use exceptions to enforce pre-conditions and post-conditions of our function. For instance, consider `isPrime` below.
 
 ```java
     public boolean isPrime(int number) {
@@ -26,6 +30,8 @@ When designing our functions and interfaces, we should use exceptions to enforce
         return true;
     }
 ```
+
+Here, we are throwing an exception because we are saying, as a pre-condition, non-positive numbers cannot be prime or non-prime. Therefore, it doesn't make sense to return true/false in this situation, since the pre-condition is violated.
 
 ## When not to throw exceptions
 
@@ -94,6 +100,8 @@ public class UserInterface {
 In this case, we can handle the exception. In general, when dealing with live user input, you never want to allow the program to crash. Rather, alert the user if they make a mistake and let them try again or return to the menu they were last in. Above, we used try-catch blocks to help us handle that exception, so it doesn't crash our program!
 
 ### Never catch exceptions you can't handle
+
+There's an asterisk above that we'll address with **checked** exceptions, but it is generally good advice.
 
 Consider this function:
 

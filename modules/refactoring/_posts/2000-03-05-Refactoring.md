@@ -2,17 +2,6 @@
 Title: Refactoring
 ---
 
-* TOC
-{:toc}
-
-## Acknowledgement
-
-Most of the material in this unit is derived from:
-
-* [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/B08X8ZXT15/) by Robert C. Martin, a book that I highly recommend and dramatically improved my own outlook on designing and writing software.
-
-* [Refactoring.Guru](https://refactoring.guru/) - a great and highly recommended website for thinking about refactoring and software design. We will reference this website again, especially during design patterns
-
 # Refactoring
 
 **Refactoring** is the process of making changes to the code to improve the **internal** software quality, without making any changes to the functionality of the software. Typically, we use refactoring to improve the design, analyzability, testability, and maintainability of our software.
@@ -39,11 +28,28 @@ Into this:
 
 This wouldn't change the **external** behavior of our program, but it would make the code more understandable and more tolerant to implementation changes.
 
-## Refactoring and Clean Code
+---
 
-As we noted in the last unit, **no one writes clean code the first time!**. We should always view the first pass of development (making the feature work) as a *rough draft*. When writing any paper, the *rough draft* requires editing, rewording, restructuring, etc. in order to produce a clean paper. We aren't done when we finish the rough draft. We're done when we've polished it and cleaned it up into the final draft!
+* TOC
+{:toc}
 
-Refactoring is the process by which we are editing our code for cleanliness! And it is a vital step in keeping our code maintainable and understandable!
+---
+
+## Acknowledgement
+
+Most of the material in this unit is derived from:
+
+* [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/B08X8ZXT15/) by Robert C. Martin, a book that I highly recommend and dramatically improved my own outlook on designing and writing software.
+
+* [Refactoring.Guru](https://refactoring.guru/) - a great and highly recommended website for thinking about refactoring and software design. We will reference this website again, especially during design patterns
+
+
+
+## Code Quality
+
+As we noted in the last unit, **no one writes easily understandable/changeable code the first time every time!**. We should always view the first pass of development (making the feature work) as a *rough draft*. When writing any paper, the *rough draft* requires editing, rewording, restructuring, etc. in order to produce a clean paper. We aren't done when we finish the rough draft. We're done when we've polished it and cleaned it up into the final draft!
+
+Refactoring is the process by which we are editing our code to improve its maintainability! And it is a vital step in keeping our code maintainable and understandable!
 
 ## Testing and Refactoring
 
@@ -55,11 +61,9 @@ These tests are the scaffolding that allow us to remodel our code. If we don't h
 
 ## Refactoring in IntelliJ
 
-IntelliJ offers very strong refactoring tools.
+IntelliJ offers very strong refactoring tools. *Never use find and replace, always Refactor*
 
-#### Never use find and replace, always Refactor
-
-IntelliJ is really really good at renaming variables, functions, and class names. By using the automatic refactoring tools, it will update all references to the variable, function, or class for you throughout your project and your tests! It's going to be smarter and faster than Find and Replace, and is just as easy to use!
+IntelliJ is great at renaming variables, functions, and class names. By using the automatic refactoring tools, it will update all references to the variable, function, or class for you throughout your project and your tests! It's going to be smarter and faster than Find and Replace, and is just as easy to use!
 
 ---
 
@@ -93,7 +97,7 @@ Additionally, we can replace the number 5 in our code wherever it relates to the
 
 ### Renaming Identifiers
 
-Variables, functions, and constant can be easily renamed via refactoring. Simply right click on an identifier name, and Refactor->Rename, and type the new name.
+Variables, functions, and constant can be easily renamed via refactoring. Simply right-click on an identifier name, and Refactor->Rename, and type the new name.
 
 Personally, renaming variables and functions is **the most common refactoring** that I do. I am constantly asking myself "is this the best name". If I ever am reading over my old code and have *any* doubt whatsoever what the purpose of a variable or function is, my first step is always to rename it to ensure the name is the best it can be.
 

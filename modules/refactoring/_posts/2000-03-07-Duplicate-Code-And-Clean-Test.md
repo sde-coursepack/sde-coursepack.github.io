@@ -2,12 +2,15 @@
 Title: Duplicate Code and Clean Testing
 ---
 
-* TOC
-{:toc}
 
 # Duplicate code
 
 As we mentioned before, we want our code to be DRY (Don't Repeat Yourself) as opposed to WET (Write Everything Twice). This is especially true when writing tests!
+
+* TOC
+{:toc}
+
+
 
 ---
 
@@ -514,6 +517,12 @@ And I'm confident you can explain:
 * What it means if the test fails (that is, what feature isn't working correctly)
 
 This is what we mean by "code that reads like well-written prose", and it's just important in tests as it is in our code.
+
+### Never go to far
+
+Ultimately, we need are tests to be readable, understandable, and most of all simple. We want to avoid complicated logic in our test code at all costs after all, if we have complicated logic, then we have to tests the tests, and at that point we're on a track towards unnecessary testing.
+
+Never make the goal "the tests should be short". The goal should always be "the tests should be easy to understand at a glance." Length plays a role there, but the deeper you have to dive into a test to understand it, the worse it becomes. **Tests should be as declarative as possible!**
 
 ### That test cleanup was a lot of work
 

@@ -2,12 +2,16 @@
 Title: Testing With Exceptions
 ---
 
+# Testing with Exceptions
+
+When following best practices of defensive programming, we often *want* to throw Exceptions for incorrect or invalid inputs. In this module, we will look at writing tests that *expect* and `Exception` to be thrown.
+
+--
+
 * TOC
 {:toc}
 
-# Testing with Exceptions
-
-When following best practices of defensive programming, we often *want* to throw Exceptions for incorrect or invalid inputs.
+--
 
 Consider testing our `withdraw` function specification.
 
@@ -172,4 +176,176 @@ And then we add to our existing `withdraw` implementation.
 ```
 
 We run all of our tests (our equivalence and our two exception cases), and they pass, so we're good!
+
+## The Importance of Rolling Back
+
+We must always make sure that when exceptions are throw, we do not create any unintended side effects.
+
+Consider the following snippet of a class called `VoteTally` and specifically the function `addVotesFromPrecinct`
+
+```java
+public class VoteTally {
+    private final Map<String, Integer> candidateVotes;
+
+    public VoteTally() {
+        this.candidateVotes = new HashMap<>();
+    }
+
+    protected VoteTally(Map<String, Integer> candidateVotes) {
+        this.candidateVotes = candidateVotes;
+    }
+
+    public int getNumCandidates() {
+        return candidateVotes.size();
+    }
+
+    public Set<String> getCandidates() {
+        return candidateVotes.keySet();
+    }
+
+    public int getVotesForCandidate(String candidate) {
+        if (!candidateVotes.containsKey(candidate)) {
+            return 0;
+        }
+        return candidateVotes.get(candidate);
+    }
+
+    /**
+     * Adds a number of votes for each candidate.
+     * @param precinctResults - the results from a precinct
+     */
+    public void addVotesFromPrecinct(Map<String, Integer> precinctResults) {
+        for (int newVotes : precinctResults.values()) {
+            if (newVotes < 0) {
+                throw new IllegalArgumentException("A precinct cannot report negative votes for a candidate");
+            }
+        }
+        for (var candidate : precinctResults.keySet()) {
+            var newVotes = precinctResults.get(candidate);
+            var currentVotes = getVotesForCandidate(candidate);
+            candidateVotes.put(candidate, newVotes + currentVotes);
+        }
+    }
+}
+```
+
+An example of a test for `addVotesFromPrecinct` could be:
+
+```java
+    @Test
+    void addVotes_existingCandidates() {
+        var testVoteTally = new VoteTally(
+                new HashMap<>(Map.of("John Smith", 20, "Votey McVoteface", 10)));
+
+        testVoteTally.addVotesFromPrecinct(Map.of("John Smith", 10, "Jane Doe", 15));
+
+        assertEquals(3, testVoteTally.getNumCandidates());
+        assertTrue(testVoteTally.getCandidates().contains("John Smith"));
+        assertTrue(testVoteTally.getCandidates().contains("Jane Doe"));
+        assertTrue(testVoteTally.getCandidates().contains("Votey McVoteface"));
+        assertEquals(30, testVoteTally.getVotesForCandidate("John Smith"));
+        assertEquals(15, testVoteTally.getVotesForCandidate("Jane Doe"));
+        assertEquals(10, testVoteTally.getVotesForCandidate("Votey McVoteface"));
+```
+
+Let's also say we have the following `Exception` test (this test is insufficient as we'll show in a second).
+
+```java
+    @Test
+    void addVotes_negativeVotes_Exception() {
+        var testVoteTally = new VoteTally(
+                new HashMap<>(Map.of("John Smith", 20, "Votey McVoteface", 10)));
+        assertThrows(IllegalArgumentException.class, () ->
+            testVoteTally.addVotesFromPrecinct(Map.of("Jane Doe", 5, "John Smith", -10)));
+    }
+```
+
+Our test (successfully) expects an `IllegalArgumentException` to be thrown when a negative vote total for a candidate is found, since this shouldn't be possible.
+
+Looking at the code for `addVotesFromPrecinct`. But let's say when a junior developer reads the code for the function `addVotesFromPrecinct`, they might think the first loop is redundant. They think, "let's remove that unnecessary, and just check for negative votes in the loop that already exists, so the code is easier to understand."
+
+And so they change the code to this:
+
+```java
+    public void addVotesFromPrecinct(Map<String, Integer> precinctResults) {
+        for (var candidate: precinctResults.keySet()) {
+            var newVotes = precinctResults.get(candidate);
+            if (newVotes < 0) {
+                throw new IllegalArgumentException("A precinct cannot report negative votes for a candidate");
+            }
+            var currentVotes = getVotesForCandidate(candidate);
+            candidateVotes.put(candidate, newVotes + currentVotes);
+        }
+    }
+```
+
+They run our test, it passes, so they think, "Job well done!"
+
+**They have just created a serious bug!** This is because our test **doesn't check the expected post-conditions!**.
+
+Specifically, let's add a print-statement to our test to see what happens:
+
+```java
+    @Test
+    void addVotes_negativeVotes_Exception() {
+            var testVoteTally = new VoteTally(
+            new HashMap<>(Map.of("John Smith", 20, "Votey McVoteface", 10)));
+        assertThrows(IllegalArgumentException.class, () ->
+        testVoteTally.addVotesFromPrecinct(Map.of("Jane Doe", 5, "John Smith", -10)));
+
+        System.out.println(testVoteTally);
+        }
+```
+
+What prints is tells us the candidates have the following votes:
+
+```text
+John Smith           |     20
+Votey McVoteface     |     10
+Jane Doe             |      5
+```
+(Note that, even worse, this will only happen *some* of the time, depending on how Java builds the test Map at runtime! Other times, it will appear to work fine)
+
+Jane Doe was still added! That's because on the first iteration through our loop, we add Jane Doe, **before** we find the bad input (John Smith's -10 votes). This means while we correctly throw an exception and do not add John Smith's negative 10 votes, we have already erroneously and permanently added Jane Doe's votes!
+
+This is why the test we had was insufficient. A better test would be:
+
+```java
+@Test
+    void addVotes_negativeVotes_Exception() {
+        var testVoteTally = new VoteTally(
+                new HashMap<>(Map.of("John Smith", 20, "Votey McVoteface", 10)));
+        assertThrows(IllegalArgumentException.class, () ->
+            testVoteTally.addVotesFromPrecinct(Map.of("Jane Doe", 5, "John Smith", -10)));
+
+        assertEquals(2, testVoteTally.getNumCandidates());
+        assertTrue(testVoteTally.getCandidates().contains("John Smith"));
+        assertFalse(testVoteTally.getCandidates().contains("Jane Doe"));
+        assertTrue(testVoteTally.getCandidates().contains("Votey McVoteface"));
+        assertEquals(20, testVoteTally.getVotesForCandidate("John Smith"));
+        assertEquals(10, testVoteTally.getVotesForCandidate("Votey McVoteface"));
+    }
+```
+
+Now, our test will fail if Jane Doe's votes are erroneously added! But because our test that *was* in place didn't check the post-conditions, it just assumed "Exception means pass", we failed to catch this bug being injected!
+
+This is also why we always want to explicitly check pre-conditions first, and separate that logic entirely from the actual running of the method!
+
+```java
+public void addVotesFromPrecinct(Map<String, Integer> precinctResults) {
+        for (int newVotes : precinctResults.values()) {
+            if (newVotes < 0) {
+                throw new IllegalArgumentException("A precinct cannot report negative votes for a candidate");
+            }
+        }
+        
+        for (var candidate: precinctResults.keySet()) {
+            var newVotes = precinctResults.get(candidate);
+            var currentVotes = getVotesForCandidate(candidate);
+            candidateVotes.put(candidate, newVotes + currentVotes);
+        }
+    }
+```
+
+This can never produce the bug, because we would have failed before any existing data was changed/mutated.
 

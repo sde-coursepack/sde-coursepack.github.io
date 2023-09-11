@@ -2,6 +2,14 @@
 Title: Code Quality
 ---
 
+# "Good Code"
+
+What is "good code"? It can be a hard term to define. For example, code that is "good" in Java, with it's intended style and usage, may not be considered "good" in Python or C++ because of style and syntax differences between the languages.
+
+In our last module, we talked about the Analyzability of our software. Software that is **understandable** is inherently easier to read and comprehend than software that is written poorly, even if in both cases the software works.  The idea of "code quality" extends this idea. We need understandable code, but it goes deeper. We need code that we can build from, change, maintain, update, and improve over time.
+
+---
+
 * TOC
 {:toc}
 
@@ -14,13 +22,7 @@ Title: Code Quality
 
 Source: [https://xkcd.com/1513/](https://xkcd.com/1513/)
 
-# "Good Code"
 
-What is "good code"? It can be a hard term to define. For example, code that is "good" in Java, with it's intended style and usage, may not be considered "good" in Python or C++ because of style and syntax differences between the languages.
-
-In our last module, we talked about the Analyzability of our software. Software that is **understandable** is inherently easier to read and comprehend than software that is written poorly, even if in both cases the software works.
-
-The idea of "code quality" extends this idea. We need understandable code, but it goes deeper. We need code that we can build from, change, maintain, update, and improve over time.
 
 ## Software Entropy
 

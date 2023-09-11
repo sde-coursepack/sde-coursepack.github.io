@@ -2,9 +2,6 @@
 Title: Refactoring - Extracting a Class
 ---
 
-* TOC
-{:toc}
-
 # Extract a Class
 
 In this module, we will discuss the refactoring of extracting a class. We may extract a class for the following reasons:
@@ -12,6 +9,11 @@ In this module, we will discuss the refactoring of extracting a class. We may ex
 * A single class contains unrelated information, so we separate into two or more classes so that each class is more **cohesive**.
 * Two classes share enough in common that they should be combined into a single hierarchy, so we extract a parent-class to reduce code repetition
 * A function is complicated and requires a large number of local variables, meaning it may really be a class in disguise.
+
+* TOC
+{:toc}
+
+
 
 ## Single Responsibility Principle
 
@@ -97,11 +99,11 @@ Let's imagine we also extract our "Apportion representatives" behavior to a clas
 
 ```java
 public class ApportionmentStrategy {
-    public Map<State, Integer> getApportionment(List<State> stateList, int totalRepresentatives)
+    public Map<State, Integer> getRepresentation (List<State> stateList, int totalRepresentatives)
 }
 ```
 
-This seems straight forward: "You give me a list of states (with name and population) and a number or representatives, and I'll give you a mapping of each state to how many representatives they have."
+This seems straight forward: "You give me a list of states (with name and population) and a target number of representatives, and I'll give you a mapping of each state to how many representatives they have."
 
 But think about this: how many functions do we **need** for our `Map` here? Well, we would probably want:
 * get the number of representatives for a given state
@@ -129,7 +131,7 @@ This interface is *close*, but not exactly what we want. Further, [there are ton
 In short, the *Map<State, Integer>* isn't exactly what we want. What we want, is something like:
 
 ```java
-public class Apportionment {
+public class Representation {
     public void addRepresentativesToState(State state, int representatives);
     public int getRepresentativesFromState(State state);
     public List<String> getStateList();
@@ -140,7 +142,7 @@ By *encapsulating* our `Map` inside of this class, we are able to give it precis
 
 ### implementing Apportionment
 ```
-public class Apportionment {
+public class Representation {
    Map<State, Integer> apportionmentMap = new HashMap<>();
    
    public void addRepresentativesToState(State state, int newRepresentatives) {
@@ -159,73 +161,79 @@ public class Apportionment {
 }
 ```
 
-If you think about it, when interacting with the previous `Map`, we would have had to write much of this code anyways. Now, we extract it in its own class. This supports the Single Responsibility Principle, because now the class only changes if we need to change how apportionment are implemented and described at the data level. If we want to use a TreeMap for ease of default sorting, we can make that change inside of `Apportionment`, and no other class is affected for needs to change.
+If you think about it, when interacting with the previous `Map`, we would have had to write much of this code anyways. Now, we extract it in its own class. This supports the Single Responsibility Principle, because now the class only changes if we need to change how apportionment are implemented and described at the data level. If we want to use a TreeMap for ease of default sorting, we can make that change inside of `Representation`, and no other class is affected for needs to change.
 
 
-## Extracting an abstract class
+## Extracting an interface
 
 
 Imagine now that we have two different classes that implement the same **behavior** in different ways:
 
 ```java 
-public class HamiltonAlgorithm {
-   public Apportionment getHamiltonApportionment(List<State> stateList, int representatives) {
+public class HamiltonMethod {
+   public Representation getHamiltonApportionment(List<State> stateList, int representatives) {
       ...
    }
 }
 ```
 
 ```java
-public class HuntingtonHill {
-    public Apportionment getHuntingtonHillApportionment(List<State> states, int reps) {
+public class HuntingtonHillMethod {
+    public Representation getHuntingtonHillApportionment(List<State> states, int reps) {
        ...
     }
 }
 ```
 
-Now, the function names do not match, but both of these classes still exist to support the same **behavior**. As such, we want to *standardize* their interface. This is where we can extract an **abstract class** that describes the *behavior* with a *standardized interface*.
+Now, the function names do not match, but both of these classes still exist to support the same **behavior**. As such, we want to *standardize* their interface. This is where we can extract an **interface** that describes the *behavior* with a *standardized interface*.
 
 ```java
-public abstract class ApportionmentStrategy {
-    public abstract Apportionment getApportionment(List<State> stateList,, int representatives);
+public interface ApportionmentMethod {
+    Representation getApportionment(List<State> stateList, int representatives);
 }
 ```
 
 Then we change our other two classes to adhere to this interface **syntactically**.
 
 ```java
-public class HamiltonStrategy extends ApportionmentStrategy {
-   public abstract Apportionment getApportionment(List<State> stateList,, int representatives) {
+public class HamiltonMethod implements ApportionmentMethod {
+   public Representation getApportionment(List<State> stateList, int representatives) {
       ...
    }
 }
 ```
 
 ```java
-public class HuntingtonHillStrategy extends ApportionmentStrategy {
-   public abstract Apportionment getApportionment(List<State> stateList,, int representatives) {
+public class HuntingtonHillMethod implements ApportionmentMethod {
+   public Representation getApportionment(List<State> stateList, int representatives) {
       ...
    }
 }
 ```
 
-In this case, we are changing each classes method name, but we do not need to change the implementation. This has the added benefit where elsewhere in the program. For example, a *client* class can now simply use an instance of the abstract *ApportionmentStrategy* instead of having to juggle two different classes and figure out which to use.
+In this case, we are changing each classes method name to adhere to the interface, but we do not need to change the implementation. This has the added benefit where elsewhere in the program. For example, a *client* class can now simply use an instance of the abstract *ApportionmentMethod* instead of having to juggle two different classes and figure out which to use.
 
 For instance, let's say that we decided by default to use Huntington-Hill, but the user of our software can change the algorithm with command-line arguments by adding the argument "--hamilton" to their program.
 
 In that case, we can have a function:
 
 ```java
-    public ApportionmentStrategy getApportionmentStrategy(List<String> arguments) {
+    public ApportionmentMethod getApportionmentStrategy(List<String> arguments) {
         if (arguments.contains("--hamilton")) {
-            return new HamiltonStrategy();
+            return new HamiltonMethod();
         } else {
-            return new HuntingtonHillStrategy();
+            return new HuntingtonHillMethod();
         }
     }
 ```
 
-This lets us leverage polymorphism to mark our code simpler, as now **every single other part of our program** only every interacts with the abstract class `ApportionmentStrategy`, and never has to worry about whether under the hood the implementation is Hamilton of Huntington-Hill.
+This lets us leverage polymorphism to mark our code simpler, as now **every single other part of our program** only every interacts with the abstraction `ApportionmentMethod`, and never has to worry about whether under the hood the implementation is Hamilton of Huntington-Hill. We only need to know "which class to instantiate" when the program starts, and we never have to retain that knowledge elsewhere.
+
+### The risk of abstraction
+
+We have introduced what is called an **abstraction**. Be aware that in doing so, we have *coupled* `HamiltonMethod` and `HuntingtonHillMethod` somewhat. Namely, we are assuming that both can adhere to the given interface. We're also implicitly assuming that for *every* method we plan to implement going forward, we plan to adhere to this interface.
+
+A place where this *could* become a problem is what if we need to introduce a method that takes in a List of States, but dynamically calculates on its own the number of representatives needed (say something like the Cube Root of the population)? Well, now our abstraction could become a burden, as we would potentially have to make several changes. Be aware that every abstraction we create comes with some coupling. In general, if an abstraction becomes burdensome, it might be better to remove it entirely!
 
 ## Conclusion
 

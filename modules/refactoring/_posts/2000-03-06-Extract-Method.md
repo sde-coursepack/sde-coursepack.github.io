@@ -2,9 +2,6 @@
 Title: Refactoring - Extracting a Method
 ---
 
-* TOC
-{:toc}
-
 # Extracting Methods
 
 In this module, we will look at the refactoring practice of extracting methods. We may extract methods for the following reasons:
@@ -13,13 +10,18 @@ In this module, we will look at the refactoring practice of extracting methods. 
 * Improve the readability of our code by encapsulating low-level logic into a method with an intent-communicating name.
 * Removing duplicate code and duplicate logic by extracting the repeated behavior into a single method
 
+---
+
+* TOC
+{:toc}
+
+---
+
 ## Breaking up big methods
 
 **Function are good at doing one thing and one thing only!**
 
-But what is one thing?
-
-Consider the following method from my SudokuSolver. This method is in a class called `SudokuTextFileReader`:
+But what is one thing? Lets look at a practical example.
 
 ## Point Distance Example
 

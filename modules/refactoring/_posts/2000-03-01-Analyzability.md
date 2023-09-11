@@ -2,8 +2,16 @@
 Title: Analyzability
 ---
 
+# Analyzability
+
+**Analyzability** is a core part of software **internal** quality, **Maintainability**. Specifically, with analyzability, we are interested considering "to what extent can the code be read and understood." In this unit, we will discuss how to write code with a high degree of analyzability, and how that is measured.
+
+---
+
 * TOC
 {:toc}
+
+---
 
 ## Acknowledgement
 Much of the material is this set of modules comes from two sources:
@@ -11,10 +19,10 @@ Much of the material is this set of modules comes from two sources:
 - [Chris Murphy - Lecturer at Bryn Mawr](https://cs.brynmawr.edu/~cdmurphy/) who I was very lucky to work with previously on a software engineering course at the University of Pennsylvania
 - [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/B08X8ZXT15/) by Robert C. Martin, a book that I highly recommend and dramatically improved my own outlook on designing and writing software.
 
+---
 
-# Analyzability
 
-**Analyzability** is a core part of software **internal** quality, **Maintainability**. Specifically, with analyzability, we are interested considering "to what extent can the code be read and understood." This breaks down into two primary considerations:
+Analyzability breaks down into two primary considerations:
 
 * __Readability__: To what extent can we read and understand the code's **syntax**
 * __Understandability__: To what extent can we read and under the code's **semantics**
@@ -23,7 +31,7 @@ Much of the material is this set of modules comes from two sources:
 With **syntax**, we are talking about being able to identify the structure of the code, the variables, functions, etc. That is, we can understand the code's rigid structure that allows the computer to execute it. **Semantics** are a bit more elusive and holistic; the **semantics** of the code refers to the intent of the code. That is, how does the code relate to the features of the software.
 
 
-### Readability
+## Readability
 
 Let's start with the following java code (this example is adapted from an example in Chapter 2 of __Clean Code__). This function comes from a Minesweeper game implementation in Java.
 
@@ -217,7 +225,7 @@ Now this code is **understandable** even if you don't know the structure of the 
 
 ## Encapsulation
 
-If I had showed you this code at the beginning of the this modules, you likely could have understood it right out of the gate. You'd still have questions:
+If I had showed you this code at the beginning of this module, you likely could have understood it right out of the gate. You'd still have questions:
 
 * What is the structure of the int array?
 * How does it model a cell?
