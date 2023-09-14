@@ -15,7 +15,7 @@ Technologies in this course:
 -UML Class Diagrams  
 -IntelliJ IDE, including refactoring and testing tools  
 -JUnit 5 for unit and integration testing  
--Mockito for improving testing seperation  
+-Mockito for improving testing separation  
 -SQL querying language, along with SQLite database tools  
 -Java JDBC and Hibernate for connecting our applications to databases
 

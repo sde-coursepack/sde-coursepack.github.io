@@ -41,7 +41,7 @@ This architecture shows up in many places, such as web-browsers. Below is a **re
 
 ![img.png](../images/arch_patterns/reference_architecture.png)
 
-In this layered architecture, the User Interface represents the part you as a user see and interact with. When a user navigates to a new webpage, they send the request for handling that page to the Browser Engine, which usings the Rendering Engine to handle the external aspects, such as Networking, interpretting HTML and Javascript, etc.
+In this layered architecture, the User Interface represents the part you as a user see and interact with. When a user navigates to a new webpage, they send the request for handling that page to the Browser Engine, which usings the Rendering Engine to handle the external aspects, such as Networking, interpreting HTML and Javascript, etc.
 
 ### Networked Architectures
 

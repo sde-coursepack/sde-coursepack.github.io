@@ -17,7 +17,7 @@ Let's imagine we were building a course registration website for a University. W
 
 Each of these relates to 3 major types of concern. Respectively:
 
-- __Presentation__ - How users/other services see and interact with our system. This can range from a GUI based web-application, to an API like balldontlie.io that outputs json data based on arguments entered through a URL, and everything in between.
+- __Presentation__ - How users/other services see and interact with our system. This can range from a GUI based web-application, to an API like [balldontlie.io](https://app.balldontlie.io) that outputs json data based on arguments entered through a URL, and everything in between.
 - __Business Logic__ - Enforcing real world business rules on our system, such as Course Pre-requisites, Enrollment limits, scheduling limits, etc.
 - __Data__ - Where is our data acquired from and stored? This might be, for example, a database and code that handles storing and retrieving data as our website is used.
 
@@ -181,4 +181,4 @@ A huge advantage of this approach is **portability**. For example, we could make
 
 We could also use this to create our own API that is used to send data in a *client-server* fashion. For example, to a mobile application on Android or iOS. The application on the phone would take in the data from the server to display in app, and send requests out to the server based upon what a user requests.
 
-*This means we don't have to reimplement the entire app for every platform!* Instead, we can simply create the UI interface needed for the app to work on Android, iOS, and any other device we want to port to, and then simply interact with my existing services to get and send relavant data and interactions!
+*This means we don't have to reimplement the entire app for every platform!* Instead, we can simply create the UI interface needed for the app to work on Android, iOS, and any other device we want to port to, and then simply interact with my existing services to get and send relevant data and interactions!

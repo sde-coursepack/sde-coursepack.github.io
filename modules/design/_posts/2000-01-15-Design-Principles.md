@@ -13,7 +13,7 @@ In this module, we will focus on some additional design principles. First, we lo
 
 __Keep it simple, stupid!__
 
-A simpler design is better than a complicated one. The best design is the simplest design that meets the need. Whenever possible, we should avoid adding unneed complexity. To that end, having several well-named single purpose modules is easier to understand than having one big multi-purpose module.
+A simpler design is better than a complicated one. The best design is the simplest design that meets the need. Whenever possible, we should avoid adding un-need complexity. To that end, having several well-named single purpose modules is easier to understand than having one big multi-purpose module.
 
 ## DRY Principle
 
@@ -251,7 +251,7 @@ public abstract class DateValidator {
         return a && b;
     }
     
-    private boolean isDivisiblyBy(int number, int divisor) {
+    private boolean isDivisibleBy(int number, int divisor) {
         return isZero(number % divisor);
     }
     
@@ -261,9 +261,9 @@ public abstract class DateValidator {
 public class GregorianDateValidator extends DateValidator {
     @Override
     protected boolean isLeapYear(int year) {
-        if (isDivisiblyBy(year, 400)) {
+        if (isDivisibleBy(year, 400)) {
             return true;
-        } else if (isDivisiblyBy(year, 100)) {
+        } else if (isDivisibleBy(year, 100)) {
             return false;
         } else {
             JulianDateValidator temp = new JulianDateValidator();
@@ -275,7 +275,7 @@ public class GregorianDateValidator extends DateValidator {
 public class JulianDateValidator extends DateValidator {
     @Override
     protected boolean isLeapYear(int year) {
-        return isDivisiblyBy(year, USUAL_LEAP_YEAR_INTERVAL);
+        return isDivisibleBy(year, USUAL_LEAP_YEAR_INTERVAL);
     }
 }
 ```
@@ -286,9 +286,9 @@ The code above really isn't better. And the reason is that despite being more DR
 public class GregorianDateValidator extends DateValidator {
     @Override
     protected boolean isLeapYear(int year) {
-        if (isDivisiblyBy(year, 400)) {
+        if (isDivisibleBy(year, 400)) {
             return true;
-        } else if (isDivisiblyBy(year, 100)) {
+        } else if (isDivisibleBy(year, 100)) {
             return false;
         } else {
             JulianDateValidator temp = new JulianDateValidator();
