@@ -2,14 +2,17 @@
 Title: Java Streams
 ---
 
-* TOC
-{:toc}
-
 # Java Streams
 
 Using what we have learned about **Functional Programming**, we are now ready to tackle **Streams**
 
-A **stream** is like an assembly line. We take in some collection of information on one side, pass it through a number of steps, and then at the end we have some useful information.
+A **stream** is like an assembly line. We take in some collection of information on one side, pass it through a number of steps, and then at the end we have some useful information. In this module, we will look at why Streams are useful, how they can improve our code readability, and how to use them.
+
+
+* TOC
+{:toc}
+
+
 
 ## Simple queries
 
@@ -68,10 +71,10 @@ Reading all this code, I can't help but think "there's gotta be an easier way." 
 
 ### Why is this so ugly?
 
-Okay, now let's take a class called `Apportionment` (from our Extract Class module)
+Okay, now let's take a class called `Representation` (from our Extract Class module)
 
 ```java
-public class Apportionment {
+public class Representation {
     Map<State, Integer> apportionmentMap = new HashMap<>();
 
     public void addRepresentativesToState(State state, int newRepresentatives) {
@@ -92,7 +95,7 @@ public class Apportionment {
 ...and let's ask "Print the states in alphabetical order with their number of representatives". This *sounds* like it should be simple. And yet, our code may look like:
 
 ```java
-    public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
+    public void printApportionmentAlpabeticalOrder(Representation apportionment) {
         List<State> alphabeticalStates = apportionment.getStateList();
         alphabeticalStates.sort(new Comparator<State>() {
             @Override
@@ -133,7 +136,8 @@ Instead of this,, we can do this with streams:
 ```java
     public int getTotalPopulation(List<State> stateList) {
         return stateList.stream()
-            .collect(Collectors.summingInt(State::getPopulation()));
+            .mapToInt(state -> state.getPopulation)
+            .sum();
     }
 ```
 
@@ -201,7 +205,7 @@ And instead of:
 
 ## Wait...what is going on?
 
-Don't worry, we will breaking this code down. But as you can see, understanding lambda bodies is going to be very valuable here. `Stream`s go together with functional programming like peanut butter and chocolate.
+Don't worry, we will break this code down. But as you can see, understanding lambda bodies is going to be very valuable here. `Stream`s go together with functional programming like peanut butter and chocolate.
 
 
 ## Beginning - `.stream()`
@@ -336,7 +340,7 @@ __method__: `peek(Consumer<E> e)`
 
 __example__: `.peek(System.out::println)`
 
-__output__: `Stream<E>` with no elements removed or altered (unless altered as a side-effect of the `Consumer` function in `peek`)
+__output__: `Stream<E>` with no elements removed or altered (unless altered as a side effect of the `Consumer` function in `peek`)
 
 For example:
 
@@ -410,7 +414,7 @@ __output__: `long` - the number of items left in the `Stream`
 
 __method__: `collect(Collector<E, A, R> c)`
 
-__example__: `collect(Collectors.toList())`
+__example__: `.collect(Collectors.toList())`
 
 __output__: Some `R` value, which is an accumulation of the elements left in the `Stream`
 
@@ -421,12 +425,21 @@ __related functions__
 * `Collectors.toList()` - returns a `List<E>` which matches the state of the `Stream` at the end of the `Stream` chain of operations. Note that this List<E> is **unmodifiable**. However, you can do something like:
 
 ```java
-List outputList = originalList.stream()
+List<E> outputList = originalList.stream()
         .[intermediate operations]
         .collect(Collectors.toList());
-List modifiable = new ArrayList<>(outputList);
+List<E> modifiable = new ArrayList<>(outputList);
 ```
 
+A quick note that in Java 16, the `Stream` method `toList()` was added, so you can do:
+
+```java
+List<E> outputList = originalList.stream()
+        .[intermediate operations]
+        .toList();
+```
+
+Just be aware that is only in Java 16 and later. That list returned is also **immutable**.
 
 * `Collectors.toSet()` - returns a `Set<E>` which matches the state of the `Stream` at the end of the `Stream` chain of operations. Because this results in a Set, duplication elements are removed. Like `toList()`, the output set is **unmodifiable**.
 
@@ -434,12 +447,13 @@ List modifiable = new ArrayList<>(outputList);
 
 * `Collectors.toMap(Function<E,R> keyFunction, <E, T> Function valueFunction)` - create a *modifiable* Map where, for each value, `keyFunction` is used to determine the 'key', and 'value' is used to determine the map.
 
-Note that unlike `toSet`, `toMap` with throw an `IllegalStateException` if you try to add duplicate keys.
-
 ```java
     Map<String, Integer> namePopulationMap = stateList.stream()
         .collect(Collectors.toMap(s -> s.getName(), s -> s.getPopulation()));
 ```
+
+Note that unlike `toSet`, `toMap` with throw an `IllegalStateException` if you try to add duplicate keys.
+
 
 * `Collectors.joining()` - can be used for joining elements of a `Stream<String>` together. Joining can take in an argument that is used as a delimiter between the Strings.
 
@@ -588,7 +602,7 @@ One workaround for this problem is to use `forEachOrdered()` instead of `forEach
 
 ### ParallelPerformance
 
-Be aware that while `parallelStream()` with automatically use multi-threading, that doesn't necessarily mean your code will run faster. Managing threads creates a lot of overhead complexity. As such, `parallelStream` will typically only benefit you with large data sources.
+Be aware that while `parallelStream()` will automatically use multi-threading, that doesn't necessarily mean your code will run faster. Managing threads creates a lot of overhead complexity. As such, `parallelStream` will typically only benefit you with *very* large data sources.
 
 
 ## Files.line
@@ -602,7 +616,7 @@ List<State> stateList = br.lines()
         .collect(Collectors.toList());
 ```
 
-Of course, this approach isn't great for handling Exceptions that may emerge. For that, you'll need to look into the `CheckedFunction` and `Either<E>`, but I will leave that to you if you want to dive-deep on `Stream`s. Be aware that reading a file is necessarily a sequential-stream.
+Of course, this approach isn't great for handling Exceptions that may emerge. For that, you'll need to look into the `CheckedFunction` and `Either<E>`, but I will leave that to you if you want to dive-deep on `Stream`s. Be aware that reading a file is necessarily a sequential-stream, and cannot be run in parallel.
 
 ## Conclusion
 

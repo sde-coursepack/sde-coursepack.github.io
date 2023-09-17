@@ -2,12 +2,14 @@
 Title: Abstraction
 ---
 
-* TOC
-{:toc}
-
 # Abstraction
 
 The idea of abstraction is that all behavior that belongs to a particular module should be handled through that modules interface.
+
+* TOC
+{:toc}
+
+
 
 ## Interface vs Implementation
 
@@ -81,7 +83,7 @@ public class Registrar {
 }
 ```
 
-Now, you'll notice that we are no longer making **any** assumption about the nature of courseList, and in fact the method `registerStudentForCourse` is no longer even **aware** of courseList. This is good, because courseList is an implementation detail.
+Now, you'll notice that we are no longer making **any** assumption about the nature of the `Student` `courseList`, and in fact the method `registerStudentForCourse` is no longer even **aware** of courseList. This is good, because courseList is an implementation detail of `Student` and should be hidden from outside..
 
 In general, all interactions with another module should be made through an interface. A general guideline here is:
 

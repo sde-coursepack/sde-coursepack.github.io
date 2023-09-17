@@ -2,11 +2,14 @@
 Title: Optimization
 ---
 
+# Optimization
+In this and the next few modules, we will begin discussing **optimization**. Specifically, in this module, we will discuss the dangers of premature optimization, as well as looking at a simple optimization around String concatenation.
+
 * TOC
 {:toc}
 
 
-# Trade-offs
+## Trade-offs
 
 Before we continue talking about optimization, let's take a brief trip into economics.
 
@@ -71,11 +74,11 @@ Notice that I never say anything about efficiency. That's because the most commo
 
 For the note, typically in Java, the two are the same (because they often compile to the same or nearly the same virtual machine code). In some cases,`for` loops are *very slightly* faster. But even if they weren't, and they were somehow slightly slower, I would **still** recommend using `for` loops over `while` loops for iteration. That's because I have created far more bugs with incorrect while conditions than incorrect for loops. If I was forced to weigh a nanoscopic, if not outright imaginary, performance increase against time spent debugging silly mistakes, I would save myself the debugging every time until I absolutely cannot afford to.
 
-With apologies to Sonic the Hedgehog, you **do not** "gotta go fast". Do not aspire to always write perfectly optimized code. Not only is this a fool's errand doomed to failure that will drastically slow down if not actually halt your progress, but it will also make your code harder to adapt and change as we'll see in the next section.
+With apologies to Sonic the Hedgehog, you **do not** "gotta go fast". Do not aspire to always write perfectly optimized code. Not only is this a fool's errand doomed to failure that will drastically slow down if not actually halt your progress, but it will also make your code harder to adapt and change, as we'll see in the next module
 
 ## Code Trade-offs
 
-Efficiency is one of several goals we care about in software. But it is not the only goal. We care about functional correctness, robustness of features, usability, portability, etc. And all of those are just *external* considerations. We also care about code maintainability, analyzability, changeability and testability. A clear example of this is abstraction! We absolutely value abstractions because they greatly improve the modifiability, flexibility, and replaceability of our code. Using a `HashMap`, but you need sorting? Use a `TreeMap`! Replacing the `HashMap` with a `TreeMap` can be as simple as changing one line of code if you are using abstractions.
+Efficiency is one of several goals we care about in software. But it is not the only goal. We care about functional correctness, robustness of features, usability, portability, etc. And all of those are just *external* considerations. We also care about code maintainability, analyzability, changeability and testability. A clear example of this is abstraction! We absolutely value abstractions because they greatly improve the modifiability, flexibility, and replaceability of our code. Using a `HashMap`, but you need sorting? Use a `TreeMap`! Replacing the `HashMap` with a `TreeMap` can be as simple as changing one line of code if you are using abstractions. Is the `TreeMap` too slow? Go back to the `HashMap`!
 
 However, by their very implementation, abstractions **decrease** performance. But that's okay! Java is full of abstractions, but it's also an easy language to write in. In the next unit, we will look at a concrete example of a trade-off between simplicity and performance. You don't have to worry about handling your memory, Java abstracts away that need with garbage-collection. Garbage collection is a feature that automatically frees unreferenced memory. 
 

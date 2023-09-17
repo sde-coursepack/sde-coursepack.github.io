@@ -8,7 +8,7 @@ Title: List Comparisons
 
 # ArrayList vs LinkedList
 
-This article is just some short experiments to show various changes and how List selection they effects performance. Nothing here will be really *new*, so you can proceed to the next module and consider this reading optional. However, I feel it's worth pointing out a few examples of additional changes and how they could affect performance.
+This module shows some short experiments to show various changes and how List selection effects performance. Nothing here will be really *new*, so you can proceed to the next module and consider this reading optional. However, I feel it's worth pointing out a few examples of additional changes and how they could affect performance.
 
 Building from the example in the last module, lets consider the performance impact if we consider a `LinkedList` for `PointListPath`. I will note that, in general, `LinkedLists` are bad. To show off just *how* bad `LinkedList` can be, I wanted to illustrate by making one change to the constructor in `PointListPath`
 
@@ -18,7 +18,7 @@ Building from the example in the last module, lets consider the performance impa
     }
 ```
 
-Let's compare the runtimes of the old `PointListPath` with an `ArrayList` vs. the new one with a `LinkedList`. Note that by its nature, LinkedList cannot "pre-allocate" space. So yes, it's *terrible* style to not use the argument, but my goal was just to test this idea as quickly as possible. I never committed this change.
+Let's compare the runtimes of the old `PointListPath` with an `ArrayList` vs. the new one with a `LinkedList`. Note that by its nature, LinkedList cannot "pre-allocate" space. So yes, it's not a completely fair comparison to not use the "capacity" argument, but that is a limitation of the LinkedList. It's also bad style that the constructor's `initialCapacity` argument is ignored, but fixing it would involve changing the interface, which would change other code, and I wanted to keep this benchmark simple.
 
 Looking **only** at the `distance` with `PointListPath`
 
