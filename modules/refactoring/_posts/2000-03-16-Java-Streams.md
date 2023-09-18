@@ -75,19 +75,19 @@ Okay, now let's take a class called `Representation` (from our Extract Class mod
 
 ```java
 public class Representation {
-    Map<State, Integer> apportionmentMap = new HashMap<>();
+    Map<State, Integer> representation = new HashMap<>();
 
     public void addRepresentativesToState(State state, int newRepresentatives) {
         int currentRepresentatives = getRepresentativesForState(state);
-        apportionmentMap.put(state, currentRepresentatives + newRepresentatives);
+        representation.put(state, currentRepresentatives + newRepresentatives);
     }
 
     public int getRepresentativesForState(State state) {
-        return apportionmentMap.getOrDefault(state, 0);
+        return representation.getOrDefault(state, 0);
     }
 
     public List<State> getStateList() {
-        return new ArrayList<>(apportionmentMap.keySet());
+        return new ArrayList<>(representation.keySet());
     }
 }
 ```
@@ -95,8 +95,8 @@ public class Representation {
 ...and let's ask "Print the states in alphabetical order with their number of representatives". This *sounds* like it should be simple. And yet, our code may look like:
 
 ```java
-    public void printApportionmentAlpabeticalOrder(Representation apportionment) {
-        List<State> alphabeticalStates = apportionment.getStateList();
+    public void printRepresentationAlpabeticalOrder(Representation representation) {
+        List<State> alphabeticalStates = representation.getStateList();
         alphabeticalStates.sort(new Comparator<State>() {
             @Override
             public int compare(State o1, State o2) {
@@ -105,7 +105,7 @@ public class Representation {
         });
         List<Integer> parallelPopulationMap = new ArrayList<>();
         for (State state : alphabeticalStates) {
-            parallelPopulationMap.add(apportionment.getRepresentativesForState(state));
+            parallelPopulationMap.add(representation.getRepresentativesForState(state));
         }
         for(int i = 0; i < alphabeticalStates.size(); i++) {
             System.out.println(alphabeticalStates.get(i) + " - " + parallelPopulationMap.get(i));
@@ -174,8 +174,8 @@ Instead of ...
 And instead of:
 
 ```java
-    public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
-        List<State> alphabeticalStates = apportionment.getStateList();
+    public void printRepresentationAlpabeticalOrder(Representation representation) {
+        List<State> alphabeticalStates = representation.getStateList();
         alphabeticalStates.sort(new Comparator<State>() {
             @Override
             public int compare(State o1, State o2) {
@@ -184,7 +184,7 @@ And instead of:
         });
         List<Integer> parallelPopulationMap = new ArrayList<>();
         for (State state : alphabeticalStates) {
-            parallelPopulationMap.add(apportionment.getRepresentativesForState(state));
+            parallelPopulationMap.add(representation.getRepresentativesForState(state));
         }
         for(int i = 0; i < alphabeticalStates.size(); i++) {
             System.out.println(alphabeticalStates.get(i) + " - " + parallelPopulationMap.get(i));
@@ -195,10 +195,10 @@ And instead of:
 ...we can use streams:
 
 ```java
-    public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
-        apportionment.getStateList().stream()
+    public void printRepresentationAlpabeticalOrder(Representation representation) {
+        representation.getStateList().stream()
             .sorted(Comparator.comparing(State::getName))
-            .map(state -> state.getName() + " - " + apportionment.getRepresentativesForState(state))
+            .map(state -> state.getName() + " - " + representation.getRepresentativesForState(state))
             .forEach(System.out::println);
     }
 ```
@@ -312,7 +312,7 @@ This would result in a `Stream<Integer>`
 
 In our apportionment example, we converted `State` objects into `String` objects with:
 
-`.map(state -> state.getName() + apportionment.getRepresentativesForState(state))`
+`.map(state -> state.getName() + representation.getRepresentativesForState(state))`
 
 ---
 
@@ -551,10 +551,10 @@ In the above arguments for `reduce`, we are saying:
 We can replace `stream()` with `parallelStream()` to take advantage of automated multi-threading. However, be aware that `parallelStream()` may operations in an unpredictable order. For example:
 
 ```java
-    public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
-        apportionment.getStateList().stream()
+    public void printRepresentationAlpabeticalOrder(Representation representation) {
+        representation.getStateList().stream()
         .sorted((s1, s2) -> s1.getName().compareTo(s2.getName()))
-        .map(state -> state.getName() + apportionment.getRepresentativesForState(state))
+        .map(state -> state.getName() + representation.getRepresentativesForState(state))
         .forEach(string -> System.out.println(string));
     }
 ```
@@ -562,10 +562,10 @@ We can replace `stream()` with `parallelStream()` to take advantage of automated
 ...always prints in the order resulting from `sorted`. However, replacing `stream()` with `parallelStream()`
 
 ```java
-    public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
-        apportionment.getStateList().parallelStream()
+    public void printRepresentationAlpabeticalOrder(Representation representation) {
+        representation.getStateList().parallelStream()
         .sorted((s1, s2) -> s1.getName().compareTo(s2.getName()))
-        .map(state -> state.getName() + apportionment.getRepresentativesForState(state))
+        .map(state -> state.getName() + representation.getRepresentativesForState(state))
         .forEach(string -> System.out.println(string));
     }
 ```
@@ -592,10 +592,10 @@ We can replace `stream()` with `parallelStream()` to take advantage of automated
 One workaround for this problem is to use `forEachOrdered()` instead of `forEach()` with multi-threading:
 
 ```java
-    public void printApportionmentAlpabeticalOrder(Apportionment apportionment) {
-        apportionment.getStateList().parallelStream()
+    public void printRepresentationAlpabeticalOrder(Representation representation) {
+        Representation.getStateList().parallelStream()
         .sorted((s1, s2) -> s1.getName().compareTo(s2.getName()))
-        .map(state -> state.getName() + apportionment.getRepresentativesForState(state))
+        .map(state -> state.getName() + representation.getRepresentativesForState(state))
         .forEachOrdered(string -> System.out.println(string));
     }
 ```
