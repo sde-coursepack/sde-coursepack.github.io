@@ -312,7 +312,7 @@ This would result in a `Stream<Integer>`
 
 In our apportionment example, we converted `State` objects into `String` objects with:
 
-`.map(state -> state.getName() + representation.getRepresentativesForState(state))`
+`.map(state -> state.getName() + " - " representation.getRepresentativesForState(state))`
 
 ---
 
@@ -502,9 +502,9 @@ If you already have a `Stream<Double>`, then use just map the value to itself. F
 
 ### max, min
 
-* `max(Comparator<E> comparator)` - finds the maximum remaining value using `comparator`.
+* `max(Comparator<E> comparator)` - finds the maximum remaining value using `comparator`. In order to get the max, the `Comparator` passed in should be in "ascending" order.
 
-* `min(Comparator<E> comparator)` - finds the minimum remaining value using `comparator`.
+* `min(Comparator<E> comparator)` - finds the minimum remaining value using `comparator`. In order to get the max, the `Comparator` passed in should be in "ascending" order.
 
 Note that this method returns `Optional<E>` and not `E`. The reason for this is that if the `Stream` is empty when `max` is invoked, there is no value present to be a maximum.
 
