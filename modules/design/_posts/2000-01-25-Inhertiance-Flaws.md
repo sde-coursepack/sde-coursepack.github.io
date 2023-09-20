@@ -8,7 +8,7 @@ The above phrase, "Prefer Aggregation over Inheritance", has become a common exp
 
 
 * TOC
-  {:toc}
+{:toc}
 
 
 ## Confession
