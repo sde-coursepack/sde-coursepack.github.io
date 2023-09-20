@@ -106,6 +106,8 @@ Because `FullFileReader` is no longer *extending* `BufferedReader`, and inheriti
 
 You might say "but wait, that means I can't use polymorphism to treat a `FullFileReader` like a `BufferedReader`." Okay. Then don't. If you need a `BufferedReader` then...just use a `BufferedReader`. The only thing the polymorphism gave you was a confusing `super` call in constructor and a bunch of invisible data. **Nothing of value was lost.**
 
+Introducing abstraction to support polymorphism is valuable when it *reduces* usage complexity by more than it *increases* coupling and implementation complexity. 
+
 In short, before considering adding functions to a class via inheritance, consider just adding the class to your functions via aggregation.
 
 ## The dangers of inheritance
