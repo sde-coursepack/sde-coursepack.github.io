@@ -18,7 +18,7 @@ Building from the example in the last module, lets consider the performance impa
     }
 ```
 
-Let's compare the runtimes of the old `PointListPath` with an `ArrayList` vs. the new one with a `LinkedList`. Note that by its nature, LinkedList cannot "pre-allocate" space. So yes, it's not a completely fair comparison to not use the "capacity" argument, but that is a limitation of the LinkedList. It's also bad style that the constructor's `initialCapacity` argument is ignored, but fixing it would involve changing the interface, which would change other code, and I wanted to keep this benchmark simple.
+Let's compare the runtime of the old `PointListPath` with an `ArrayList` vs. the new one with a `LinkedList`. Note that by its nature, LinkedList cannot "pre-allocate" space. So yes, it's *terrible* style to not use the argument, but my goal was just to test this idea as quickly as possible. I never committed this change.
 
 Looking **only** at the `distance` with `PointListPath`
 
@@ -69,7 +69,7 @@ In general, if you have a LinkedList that you need to iterate through, you shoul
 
 I'm not saying this code is *too* complex, but it's one of those instances where an iterator can feel awkward to use, since I need both the `Point` I'm currently visiting and the next `Point`. I need to use `next()` both to get the nextPoint for a distance calculation *and* to update my `currentPoint` variable, which forces me to do some manual reference manipulation. It's not *bad*, but it makes the code more difficult to understand. *But*, if I insisted on using a LinkedList (I wouldn't as we'll see it a bit), this is more or less how I have to use it in order to not end up with O(n^2) running time.
 
-For the note, the iterator approach *also* would work with ArrayList, but since using `get` is constant time with `ArrayList`, I would simply stick with my previous code. In theory, this  *could* give a very very very slightly worse performance, since we are introducing another object. In practice, `ArrayList` if there was a difference in performance, I couldn't demonstrate it. I got effectively the same runtimes using either `get` or `iterator` with ArrayList, and didn't see a consistent difference even at 100 million input size.
+For the note, the iterator approach *also* would work with ArrayList, but since using `get` is constant time with `ArrayList`, I would simply stick with my previous code. In theory, this  *could* give a very very very slightly worse performance, since we are introducing another object. In practice, `ArrayList` if there was a difference in performance, I couldn't demonstrate it. I got effectively the same runtime using either `get` or `iterator` with ArrayList, and didn't see a consistent difference even at 100 million input size.
 
 So, let's see how this change helps, again only looking at `distance`
 

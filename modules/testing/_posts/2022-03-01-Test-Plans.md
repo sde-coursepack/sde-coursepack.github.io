@@ -77,7 +77,7 @@ Boundary cases are typically cases where there is something interesting or uniqu
 ---
 
 
-#### contains quandry
+#### contains quandary
 
 Once again, imagine we have a `MySortedList` instance like [1, 3, 5, 7]. And to test `contains`, you use `contains(4)`.
 

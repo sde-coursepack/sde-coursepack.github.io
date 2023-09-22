@@ -57,7 +57,7 @@ When testing existing code, we want to consider code **coverage**. That is, to w
 Statement coverage is a measure of what percentage of statements
 have been covered by our tests.
 
-Consider the following psuedocode:
+Consider the following pseudocode:
 
 ```java
 public void myFunc(int a, int b) {
@@ -121,7 +121,7 @@ Path coverage is a little trickier. Here, we are interested in what percentage o
 * enters `if`, skips *while* loop
 * skips both the `if` and the `while` loop
 
-Our two previous test cover the first and last cases, but not the second and third case. As such, in this case, if we want full path coverage, we would need at least 4 tests. Additionally, if you want both 100% `path` and `conditional` coverage, the number of tests can expand expontentially.
+Our two previous test cover the first and last cases, but not the second and third case. As such, in this case, if we want full path coverage, we would need at least 4 tests. Additionally, if you want both 100% `path` and `conditional` coverage, the number of tests can expand exponentially.
 
 Path coverage, however, can explode in complexity, especially if you have a lot of nested logic or loops.
 

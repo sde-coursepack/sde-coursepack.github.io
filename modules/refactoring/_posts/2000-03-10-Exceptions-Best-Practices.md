@@ -218,7 +218,7 @@ public class InsufficientFundsException extends RuntimeException {
 }
 ```
 
-In general, the only unique aspect here is the name of the Exception. It is worth noting that we extend the `RuntimException` here. In general, this is a good class for your custom-made exceptions to extend. However, depending on the situation, you may want to extent more specific classes, like `IllegalArgumentException` when your exception is related to errors in function arguments.
+In general, the only unique aspect here is the name of the Exception. It is worth noting that we extend the `RuntimeException` here. In general, this is a good class for your custom-made exceptions to extend. However, depending on the situation, you may want to extent more specific classes, like `IllegalArgumentException` when your exception is related to errors in function arguments.
 
 Be aware that if you extend a checked exception, then your custom exception will also be a checked exception.
 
@@ -256,4 +256,4 @@ This exception clearly communicates to whoever caused it what the problem is (pe
     }   
 ```
 
-However, it's important to note that handling the exception is the **client classes** responsibility. Throwing the exception to alert the client to mis-use is your classes reponsibility.
+However, it's important to note that handling the exception is the **client classes** responsibility. Throwing the exception to alert the client to mis-use is your classes responsibility.

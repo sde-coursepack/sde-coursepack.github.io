@@ -56,7 +56,7 @@ writing a separate Comparator class. While there's nothing *wrong* with this
 from a design perspective, it can add a lot of boilerplate classes that all
 basically do the same thing, but just sort on different fields.
 
-Instead, we can *remove the need to write a seperate class* by using a Lambda body. We can replace
+Instead, we can *remove the need to write a separate class* by using a Lambda body. We can replace
 Line 23-25 in [Enrollment.java](https://github.com/sde-coursepack/java-prerequisite/blob/main/src/main/java/example/Enrollment.java), line 23-25.
 with:
 
@@ -210,11 +210,11 @@ are equal*.
     // prints true
     System.out.println(steve.equals(alsoSteve));
 ```
-The hashCode() function similarly uses all fields to form the hashCode().
+The `hashCode()` function similarly uses all fields to form the `hashCode()`.
 
 ---
 
-A downside of `record`s is that, as yet, they don't work with many ORMs like Hibernate. If you aren't familiar with ORMs, don't worry. It's somethign we will cover later in the class.
+A downside of `record`s is that, as yet, they don't work with many ORMs like Hibernate. If you aren't familiar with ORMs, don't worry. It's something we will cover later in the class.
 
 ## Text Blocks
 __Introduced in Java 15__
@@ -388,5 +388,5 @@ like the ``add()`` functions on those fields. However, **this is bad design**. I
 plan for a class to be mutable, you generally shouldn't use Java `record`s. 
 Additionally, these field objects cannot be
 re-instantiated after the Employee record is created. If your record has such fields,
-you *must override the equals and hashcode functions* so that they do not
+you *must override the `equals` and `hashCode` functions* so that they do not
 rely on any fields with a mutable datatype.

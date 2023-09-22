@@ -367,7 +367,7 @@ This step alone means we have two different functions here:
 * one for calculating the bill when the student **is** exempt from interest
 * one for calculating the bill when the student **is not* exempt from interest
 
-As such, we can seperate this into two different functions:
+As such, we can separate this into two different functions:
 
 ```java
     public double calculateBillWithInterest(List<Integer> registeredCourseNumbers, double overdue) {
@@ -445,7 +445,7 @@ public class Building {
     private int zipCode;
     private String city;
     private String state;
-    private double lattitude;
+    private double latitude;
     private double longitude;
 }
 ```
@@ -460,7 +460,7 @@ But consider that five of the fields are simply related to the address of the bu
 
 This is an example of primitive obsession (for the sake of design, we typically consider the Java `String` class to be in effect a primitive, even though it is technically a class). We are modeling complex, unrelated data in one class directly with primitive datatypes. This means the `Building` class is more complicated than it needs to be.
 
-Instead, we can combine the primitives relevent to specific behaviors together:
+Instead, we can combine the primitives relevant to specific behaviors together:
 
 ```java 
 public class Building {
@@ -478,7 +478,7 @@ public class Address {
 }
 
 private class Coordinates {
-    private double lattitude;
+    private double latitude;
     private double longitude;
 }
 ```

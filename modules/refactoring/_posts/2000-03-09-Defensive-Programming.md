@@ -131,7 +131,7 @@ One way we could handle this is changing `withdraw` to a boolean function. For e
     }
 ```
 
-This approach falls under the example of "error codes". That is, return a value that indicates the function was used incorrectly. In this case, `true` means the transaction was valid and accepted, and `false` means it is not. There are cases where this approach is used. For example, the Java built-in `Set.add(E e)` function returns `true` if the object was added to the set, and `false` if it is not. However, one downside of error codes is that they can be ignored. The client calls the illegal `withdraw` call, and then proceeds asusming the call worked correctly, never checking the return value. To avoid this, we instead can use an exception:
+This approach falls under the example of "error codes". That is, return a value that indicates the function was used incorrectly. In this case, `true` means the transaction was valid and accepted, and `false` means it is not. There are cases where this approach is used. For example, the Java built-in `Set.add(E e)` function returns `true` if the object was added to the set, and `false` if it is not. However, one downside of error codes is that they can be ignored. The client calls the illegal `withdraw` call, and then proceeds assuming the call worked correctly, never checking the return value. To avoid this, we instead can use an exception:
 
 ```java
     public void withdraw(double amount) {

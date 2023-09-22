@@ -480,9 +480,9 @@ The question I would ask is this: does this make our tests **more understandable
 2) Execute the Method Under Test (in this case, `testLibrary.addBooks`)
 3) Check the post-conditions to ensure correct behavior (`assert`)
 
-You'll notice all of my tests have extra linebreaks between each step to improve readability.
+You'll notice all of my tests have extra line breaks between each step to improve readability.
 
-If I "hide" `addBooks` in a private helper method, it because immediately less obvious what the Method Under Test is for our two tests. Additionally, because these *are* tests, I fully expect that if the interface or behavior of `addBooks` changes, I will necessarily have to update all of my tests for `addbooks` anyways, so I'm not saving future effort.
+If I "hide" `addBooks` in a private helper method, it because immediately less obvious what the Method Under Test is for our two tests. Additionally, because these *are* tests, I fully expect that if the interface or behavior of `addBooks` changes, I will necessarily have to update all of my tests for `addBooks` anyways, so I'm not saving future effort.
 
 In short, I don't see value in extracting out that repetitive line of code, since it serves a vital purpose in the **understandability** of the test.
 
@@ -534,4 +534,4 @@ However, in order for me to continue being able to efficiently practice TDD in m
 
 ## Conclusion
 
-I showed multiple code refactorings built around extract methods here. While I focused on refactoring out duplication in a test class here, I would use this same process in any non-test class. Again, most of the refactoring I did was extracting methods, extracting fields, and renaming to improve readability. Using a good IDE like IntelliJ, this process is actually very quick once you get practice with it.
+I showed multiple code refactors built around extract methods here. While I focused on refactoring out duplication in a test class here, I would use this same process in any non-test class. Again, most of the refactoring I did was extracting methods, extracting fields, and renaming to improve readability. Using a good IDE like IntelliJ, this process is actually very quick once you get practice with it.

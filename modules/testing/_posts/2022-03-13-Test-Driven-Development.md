@@ -79,11 +79,11 @@ implement `calculateBill`
 
 ## Writing our first test
 
-Now, we can write Test 1. First, we need to create an instance of the class `StudentFinanicalRecord` to test with, and then we need to configure the object into it's starting state.
+Now, we can write Test 1. First, we need to create an instance of the class `StudentFinancialRecord` to test with, and then we need to configure the object into it's starting state.
 
 ```java
     @Test 
-    public void StudentFinancialRecordtestCalculateBill_LowCourse_BigOverdue_NoExempt() {
+    public void StudentFinancialRecordTestCalculateBill_LowCourse_BigOverdue_NoExempt() {
         //setup test object
         record = new StudentFinancialRecord(1);
         record.setOverdue(2500);
@@ -95,7 +95,7 @@ Now, we can call our the method we are testing, `calculateBill`, and check if th
 
 ```java
     @Test 
-    public void StudentFinancialRecordtestCalculateBill_LowCourse_BigOverdue_NoExempt() {
+    public void StudentFinancialRecordTestCalculateBill_LowCourse_BigOverdue_NoExempt() {
         record = new StudentFinancialRecord(1);
         record.setOverdue(2500);
         record.setExempt(false);
@@ -109,7 +109,7 @@ Finally (**don't forget our other output**), we can add our assertion that check
 
 ```java
     @Test 
-    public void StudentFinancialRecordtestCalculateBill_LowCourse_BigOverdue_NoExempt() {
+    public void StudentFinancialRecordTestCalculateBill_LowCourse_BigOverdue_NoExempt() {
         record = new StudentFinancialRecord(1);
         record.setOverdue(2500);
         record.setExempt(false);

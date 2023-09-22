@@ -22,7 +22,7 @@ It's important to understand that just like user applications and physical tools
 
 ## Java `interface`
 
-The Java `interace` keyword is a way to describe an interface separate from the implementation of that interface.
+The Java `interface` keyword is a way to describe an interface separate from the implementation of that interface.
 
 For the sake of this textbook, we will often talk about an interface in two different ways.
 
@@ -154,7 +154,7 @@ public class StudentNameComparator implements Comparator<Student> {
 
 Note that in the above code I'm using `toUpperCase` to normalize all letters in the names, as by default the `String` compareTo method *is* case-sensitive, and all capital letters come before all uppercase letters.
 
-To sort a list using the natural order, simply knowing that the class of objects we are sorting `implements Comparable` is sufficient.
+To sort a list using the natural order, simply knowing that the class of objects we are sorting implements `Comparable` is sufficient.
 
 ```java
     List<Student> studentList = ... // create an populate student list

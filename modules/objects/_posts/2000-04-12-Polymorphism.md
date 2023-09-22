@@ -40,7 +40,7 @@ No, the key contribution of Object-orientation is **polymorphism**. The idea tha
 
 ## Liskov Substitution Principle
 
-The Liskov Sustituion Principle is named for famous computer science pioneer and Turing Award winner [Barbara Liskov](https://en.wikipedia.org/wiki/Barbara_Liskov). The principle, which forms the basis of polymorphism in Object-oriented programming, is:
+The Liskov Substitution Principle is named for famous computer science pioneer and Turing Award winner [Barbara Liskov](https://en.wikipedia.org/wiki/Barbara_Liskov). The principle, which forms the basis of polymorphism in Object-oriented programming, is:
 
 > Let Φ(x) be a property provable about objects x of type T. Then Φ(y) should be true for objects y of type S where S is a subtype of T.
 
@@ -121,7 +121,7 @@ Imagine we had a list of Students:
 ```public
 public class Student {
     private int id;
-    private String firstname, lastname;
+    private String firstName, lastName;
     private Date birthDate
     private int year;
     
@@ -164,7 +164,7 @@ The `Collection<E>` interface defines basic operations for a `Collection` contai
 
 `Collection<E>` methods include:
 
-* `boolean add(E e)` - attempt to add an element to the correct - return `true` if successfully added, falsed otherwise.
+* `boolean add(E e)` - attempt to add an element to the correct - return `true` if successfully added, false otherwise.
 * `int size()`- returns the size of the collection (number of elements in it)
 * `boolean isEmpty()` - returns `true` if the collection is empty, `false` otherwise
 * `boolean contains(Object o)` - returns `true` if `o` is in the collection
@@ -173,7 +173,7 @@ The `Collection<E>` interface defines basic operations for a `Collection` contai
 * `Stream<E> stream()` - returns a `Stream` for the `Collection`
 
 
-There is no meaingful direct implementation of a `Collection`. A Collection is an abstract idea of "a group of stuff". However, it describes the basic set of behaviors that are **shared** by `Set`, `List`, `Stack`, `Queue`, and `Deque`. In this case, we are describing the abstract behavior (interface), not the concrete implementation (working code).
+There is no meaningful direct implementation of a `Collection`. A Collection is an abstract idea of "a group of stuff". However, it describes the basic set of behaviors that are **shared** by `Set`, `List`, `Stack`, `Queue`, and `Deque`. In this case, we are describing the abstract behavior (interface), not the concrete implementation (working code).
 
 ### Set
 
@@ -269,7 +269,7 @@ private Set<E> legalWords;
 }
 ```
 
-You'll notice that I made the change **without changing the interface**! This is the advantage of encapsulation: separate how code is used (interface) from how it workds (implementation). But this also shows the benefit of polymorphism: this class is now as **general** as possible:
+You'll notice that I made the change **without changing the interface**! This is the advantage of encapsulation: separate how code is used (interface) from how it works (implementation). But this also shows the benefit of polymorphism: this class is now as **general** as possible:
 
 * The field `legalWords` can be any kind of `Set` without changing any of the methods.
 * The one-argument constructor can take in any set type, meaning if I change from a default of `TreeSet` to `HashSet`, how clients (outside classes) **use** this constructor is completely unaffected!

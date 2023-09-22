@@ -129,7 +129,7 @@ of the website), and interact with the website as, say, a student would.
 
 System tests typically involve following a script to use a specific
 feature or sets of features within an application. For example,
-if you were testing a course registration system, you would likely try logging in as a student and adding a course to that student through the same web interface you expect students to use. You likely would connect your website to a separate testing data source with fake student accounts and fake courses, rather than testing on the actualy data-source that students would use. But the key insight is that your interactions with the website testing will be the same as the interactions by students when they are actually *using* the website.
+if you were testing a course registration system, you would likely try logging in as a student and adding a course to that student through the same web interface you expect students to use. You likely would connect your website to a separate testing data source with fake student accounts and fake courses, rather than testing on the actually data-source that students would use. But the key insight is that your interactions with the website testing will be the same as the interactions by students when they are actually *using* the website.
 
 System testing is, of course, vital to ensuring the final product
 meets the specification. However, because system testing relies on

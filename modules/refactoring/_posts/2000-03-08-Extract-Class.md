@@ -113,17 +113,17 @@ But think about this: how many functions do we **need** for our `Map` here? Well
 Well, the `Map<State, Integer>` interface supports that to some extent:
 
 * `get(State state)` will give us the number of representatives ... or null if our State has none
-* `put(State state, int representatives)` will set the number of representatives for `state`, but it will overwrite the previous number instead of adding. If the start already has repets and we want to add reps, we'd have to do something like:
+* `put(State state, int representatives)` will set the number of representatives for `state`, but it will overwrite the previous number instead of adding. If the start already has repeats and we want to add reps, we'd have to do something like:
 `apportionmentMap.put(ohio, apportionmentMap,get(ohio) + representatives)`, and we would also need to use `containsKey(State state)` to check if we simply use `put` or we have to use `get-put`
 * keySet() will give me a `Set` with the States in state, but I'd have to convert it to a list if I wanted to sort it...
 
 This interface is *close*, but not exactly what we want. Further, [there are tons of methods in `Map` that we don't need](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html):
 * clear()
-* compute(K key, Bifunction<? super V, ? extends V> remappingFunction)
+* compute(K key, BiFunction<? super V, ? extends V> remappingFunction)
 * entrySet()
 * equals(Object o)
 * hashCode()
-* merge(K key, V value, Bifunction<? super V, ? extends V> remappingFunction)
+* merge(K key, V value, BiFunction<? super V, ? extends V> remappingFunction)
 * remove(Object key)
 
 ...etc. We won't use any of these methods intentionally.
