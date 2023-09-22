@@ -8,7 +8,7 @@ Title: List Comparisons
 
 # ArrayList vs LinkedList
 
-This article is just some short experiments to show various changes and how List selection they effects performance. Nothing here will be really *new*, so you can proceed to the next module and consider this reading optional. However, I feel it's worth pointing out a few examples of additional changes and how they could affect performance.
+This module shows some short experiments to show various changes and how List selection effects performance. Nothing here will be really *new*, so you can proceed to the next module and consider this reading optional. However, I feel it's worth pointing out a few examples of additional changes and how they could affect performance.
 
 Building from the example in the last module, lets consider the performance impact if we consider a `LinkedList` for `PointListPath`. I will note that, in general, `LinkedLists` are bad. To show off just *how* bad `LinkedList` can be, I wanted to illustrate by making one change to the constructor in `PointListPath`
 

@@ -2,12 +2,15 @@
 Title: OO Design Principles
 ---
 
-* TOC
-{:toc}
-
 # Design Principles
 
 In this module, we will focus on some additional design principles. First, we look at some general design principles, and then second we focus on Object-Oriented Design Principles. These principles are designed to help us achieve modular, functionally independent code that adheres to proper use of abstraction and information hiding.
+
+
+* TOC
+{:toc}
+
+
 
 ## KISS Principle
 
@@ -320,6 +323,77 @@ public class GregorianDateValidator extends DateValidator {
 ...was completely understandable.
 
 In short, never unnecessarily sacrifice **understandability** and **functional independence** for DRY-ness. Certainly, if there are functions that are more complicated, it makes sense to encapsulate that as a class or method and re-use it. But you shouldn't overdo it.
+
+### The Abstraction/Coupling Trade-off
+
+Whenever we create an abstraction, we are creating coupling. Specifically, we have tied `GregorianDateValidator` and `JulianDataValidator` together with the `DateValidator` class.
+
+Note that I've now made an assumption in my `DateValidator` class: namely that every `Date` I will validate is a `Date` expressed as a `year`, `month`, and `day` which can be expressed as `int`s. Looking at the code for `DateValidator`:
+
+```java
+public abstract class DateValidator {
+    public boolean isValidDate(int year, int month, int day) {
+        return (isValidYear() && isMonthValid() && isDayValid());
+    }
+    
+    private boolean isValidYear(int year) {
+        return year != 0; //year 0 doesn't exist on Gregorian Calendar
+    }
+    
+    private boolean isMonthValid(int month) {
+        return 1 <= month && month <= 12;
+    }
+    
+    private boolean isDayValid(int year, int month, int day) {
+        return 1 <= day && day <= daysInMonth(year, month);
+    }
+    
+    private int daysInMonth(int year, int month) {
+        return switch (month) {
+            case 1, 3, 5, 7, 8, 10, 12 -> 31;
+            case 4, 6, 9, 11 -> 30;
+            case 2 -> getDaysInFebruary(year);
+            default -> throw new IllegalArgumentException("Error: invalid month" + month);
+        };
+    }
+    
+    private int getDaysInFebruary(int year) {
+        if (isLeapYear(year)) {
+            return 29;
+        } else {
+            return 28;
+        }
+    }
+    
+    protected abstract boolean isLeapYear(int year);
+}
+```
+
+Notice just how many assumptions we are tying to the idea of validating a date:
+
+* A date is an int day, month, and year.
+* There are 12 months in a year
+* Month 1, 3, 5, 7, 8, 10, and 12 all have 31 days
+* Month 4, 6, 9, and 11 all have 30 days
+* Leap years only affect month 2, and whether month 2 has 29 days is *only* a function of the year, and no other data.
+
+Now, in a given program I would write, such as a calendar program to keep track of upcoming events, these assumptions would likely be fine.
+
+But what if, instead, this software were used for historical reasons. And now, I need to track dates using the Hebrew Calendar or Islamic Calendar, both of which are incompatible with these assumptions. For example, in both calendars, the number of days in a given month vary from year-to-year based on lunar phases.
+
+Now, I have a problem. This abstraction, which seemingly good for being DRY, becomes a hindrance.
+
+At this point, maybe you think, okay, let's change `DateValidator` to `WesternDateValidator`, an abstraction of `Julian` and `GregorianDateValidator`, and then we can introduce `HebrewDateValidator` and `IslamicDateValidator`, and then bundle them all under an even more abstract `DateValidator` class whose only job is describing the interface of the method `boolean isValidDate(int year, int month, int day)`.
+
+Well, that could work...until you are dealing with the Mayan Calendar. For example, on the day I'm writing this (September 17, 2023), the current Mayan long count date is 13.0.10.16.2. The Mayan calendar subdivision of days and years is fundamentally different from the other three we have mentioned. 
+
+So...what's the best solution?
+
+At this point, I would simply create one DateValidation module for each Calendar I want to handle, and honestly not try to combine them. The second an abstraction becomes cumbersome, and you have to make changes that become increasingly difficult, it's time to cut your losses and just separate things.
+
+Instead, consider using *Aggregation* (a class has a member of another class) instead of *Inheritance* (a class is a subtype of another). We will discuss this more in design patterns, but the following video is helpful in explaining this:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hxGOiiR9ZKg?si=O5YfkgXdrQYJUpsr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ---
 

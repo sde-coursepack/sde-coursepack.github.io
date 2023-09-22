@@ -2,14 +2,17 @@
 Title: Functional Programming
 ---
 
-* TOC
-{:toc}
 
 # Functional Programming
 
-Functional Programming is a programming paradigm (Object-oriented programming is another paradigm) where we treat functions like **first-class citizens**. What we mean by this is that functions can be treated as variables, passes as arguments, and even returned by functions. 
+Functional Programming is a programming paradigm (Object-oriented programming is another paradigm) where we treat functions like **first-class citizens**. What we mean by this is that functions can be treated as variables, passes as arguments, and even returned by functions. In this unit, we will discuss how Java enables "functional-like programming", how it differs from true functional programming, and how to use functional programming principles in Java.
 
-We can actually show this behavior in Python:
+* TOC
+{:toc}
+
+## Python Functional programming
+
+We can actually show functional programming in Python:
 
 ```python
 def my_func(input):
@@ -18,7 +21,7 @@ def my_func(input):
     
 x = my_func
 print(x)
-print(x(10))
+x(10)
 ```
 
 This prints:
@@ -29,7 +32,10 @@ I am a function
 My input is 10
 ```
 
-That is, we assigned the variable `x` to the function `my_func`.
+That is, we assigned the variable `x` to the function `my_func`. The first line prints where in memory the
+function instructions are stored. The second and third
+printing statements are inside of the function, which we
+call by calling `x(10)`.
 
 Unfortunately, Java *does not support treating functions* as first-class citizens. That is, we cannot assign functions to variables, pass them as arguments, etc.
 
@@ -127,7 +133,7 @@ However, that syntax is still a bit long. Instead, wouldn't it be great if we co
 
 ```java
     public void getStudentsSortedById(List<UVAStudent> studentList) {
-        studentList.sort((s1, s2) -> Integer.compare(s1.getId(), s2.getId()));
+        studentList.sort((UVAStudent s1, UVAStudent s2) -> Integer.compare(s1.getId(), s2.getId()));
     }
 ```
 
@@ -139,7 +145,7 @@ Well it turns out we can. Because the code above, as written, works. It sorts st
 
 A lambda function is an **unnamed function**. Rather than naming a function, we create a function **when it's needed** on the fly *at runtime*. 
 
-The general structure of a lambda statement is:
+The general structure of a lambda statement is either:
 
 ```java
 (parameters) -> {code block}
@@ -159,9 +165,9 @@ From there, we can shorten this a bit. For example, we know that the types of `s
 
 ```java
     Comparator<String> ignoreCase = (s1, s2) -> {
-        s1 = s1.toUpperCase();
-        s2 = s2.toUpperCase();
-        return s1.compareTo(s2);
+        s1Upper = s1.toUpperCase();
+        s2Upper = s2.toUpperCase();
+        return s1Upper.compareTo(Upper);
     };
 ```
 
@@ -211,7 +217,7 @@ If a lambda body has **exactly one argument**, you do not need parentheses aroun
 ```(x) -> x * x```
 ```x -> x * x```
 
-Both work, and both define a lambda for squaring an input number.
+Both of the above work, and both define a lambda for squaring an input number.
 
 ## We've seen this before
 
@@ -239,19 +245,24 @@ This method takes in nothing, and returns nothing. So, when we write...
 
 ```()-> account.withdraw(700)```
 
-...we are defining a function that takes in nothing, and simply calls `account.withdraw(700)`. And we are asserting that, while executing this function, an `InsufficientFundsException` will be thrown.
+...we are defining a function that takes in nothing, and simply calls `account.withdraw(700)`. And we are asserting that, while executing this lambda function, an `InsufficientFundsException` will be thrown.
 
 We could have written this out as:
 
 ```java
-    Executable testExecutable = new Executable() {
-        @Override
-        public void execute() throws Throwable {
-            testAccount.withdraw(600);
-        }
-    };
-    assertThrows(InsufficientFundsException.class, testExecutable);
-    assertEquals(500, testAccount.getBalance(),1e-4);
+    @Test
+    public void withdraw_InsufficientFunds_Exception(){
+        //define executable that creates exception 
+        Executable testExecutable=new Executable() {
+            @Override
+            public void execute() throws Throwable{
+                testAccount.withdraw(600);
+            }
+        };
+        
+        assertThrows(InsufficientFundsException.class,testExecutable);
+        assertEquals(500,testAccount.getBalance(),1e-4);
+    }
 ```
 
 However, the above code is arguably harder to read than:
@@ -263,9 +274,13 @@ However, the above code is arguably harder to read than:
 
 This is because there is more text that is **extraneous**, or unnecessary. For example `Executable`, `new Executable() `, `@Override`, etc. All of this introduces **accidental complexity** to our test that can be removed. Since both do the same thing, we use the second version.
 
-In essence, we want to highlight the **function** and hide the **class**, since the class only exists to be a simple wrapper for the Function.
+In essence, we want our code to only include that which is *needed*. We want to highlight the **function** and hide the **class**, since the class only exists to be a vessel for the Function.
 
 ## Functional interfaces to know:
+
+There are a few functional interfaces it's a good idea to be generally familiar with. These are interfaces that have one function (some have static "default" functions, but that isn't usually relevant to using the class).
+
+Nearly all of these interfaces have some equivalent interface in other languages that don't support true functional programming, like Kotlin, C#, etc. Other languages that do allow functions to be passed/assigned as variables (Python, Typescript, C++, for example) will still use interfaces to describe expect function inputs/outputs.
 
 ### Comparator<E>
 
@@ -287,13 +302,17 @@ __example__: `() -> student.enroll(cs3140)`
 
 Defines an executable where a student enrolls in a given class. Specifically in JUnit, this is primarily used in `assertThrows` to check for an `Exception` being thrown.
 
-Be aware that there is a separate Java class called `Executable` which **is-not** a functional interface. Java, however, does have an equivalent functional interface called `Runnable` which you used with Threads:
+Be aware that there is a separate Java class called `Executable` which **is-not** a functional interface. Java, however, does have an equivalent functional interface called `Runnable` which you can use with Threads.
 
-`Thread(Runnable target)`
+### Runnable (JUnit5)
 
-As such, you can define a thread using lambdas:
+__method__: `public void run()`
 
-`Thread newThread = new Thread(() -> myRunFunction())`
+__use__: used to describe a procedure to be executed, typically by a Thread.
+
+__example__: `Thread newThread = new Thread(() -> myRunFunction())`
+
+Threading is a topic that, at the University of Virginia, is taught in CS 2100, and so, as yet, I do not have a section on it in this textbook. It is something I'm considering adding eventually.
 
 ### Predicate<E>
 
@@ -309,7 +328,7 @@ The above returns true for students with at least a 3.5 [would be eligible for t
 
 __method__: `public void accept(E e)`
 
-__use__: Take in some value and doing something with it. Used specifically in Java's `foreach` function on Collections.
+__use__: Take in some value and doing something with it, but don't return anything. Used specifically in Java's `foreach` function on Collections, as well as `foreach` and `peek` in Streams (next module).
 
 __example__: `(value) -> System.out.println(value)`
 
@@ -329,21 +348,23 @@ With:
 
 __method__: `public E get()`
 
-__use__: get results from some source and do something with it.
+__use__: get results from some source and do something with it. This function does not take in any input.
 
 __example__: `() -> (int) (Math.random() * 6) + 1`
 
-Generate a random integer from 1-6 (rolling a six-sided die);
+This function generate a random integer from 1-6 (rolling a six-sided die);
 
 ### Function<E, R>
 
 __method__: `public R apply(T)`
 
-__use__: pass some instance of T as an argument, return an instancec of R. Used in the `map` function in Java Streams.
+__use__: pass some instance of T as an argument, return an instance of R. Used in the `map` function in Java Streams.
 
 __example__: `x -> x.toString().toUpperCase()`
 
 A function that takes in some object `x` and returns its `String` representation as an uppercase `String`.
+
+A `Function<Double, Integer>` would take as input a `Double` and return an `Integer`. We could, for instance, implement a rounding function: `d -> (int)(d + 0.5)`
 
 ### ActionListener
 
@@ -411,7 +432,7 @@ public class UVAStudentManager {
 }
 ```
 
-Note that we use `this` because we are calling that function on our instance. However,, because the function `compareLastNameThenFirstName` doesn't use any instance variables (it only uses the functions inputs), we can safely make the function `static`. Because the function is static, we can refer to it by its class name:
+Note that we use `this` because we are calling that function on our instance. However, because the function `compareLastNameThenFirstName` doesn't use any `this` instance variables (it only uses the functions inputs), we can safely make the function `static`. Because the function is static, we can refer to it by its class name:
 
 ```java
 public class UVAStudentManager {

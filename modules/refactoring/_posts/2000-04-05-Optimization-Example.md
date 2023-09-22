@@ -2,13 +2,17 @@
 Title: Optimization Example
 ---
 
+# Optimization Example
+
+For this section, we will use [this source code example](https://github.com/sde-coursepack/EfficiencyExample) at two ways to store a list of coordinates and calculate the total distance between them.
+
+
+
 * TOC
 {:toc}
 
 
-# Source Code Example
-
-For this section, we will use [this source code example](https://github.com/sde-coursepack/EfficiencyExample) at two ways to store a list of coordinates and calculate the total distance between them.
+## Point Class
 
 For this code, we define the idea of a `Point` as two coordinates, and `x` and a `y`. I include the class Constructor and distance function below.
 
@@ -22,7 +26,7 @@ public class Point {
         this.x = x;
         this.y = y;
     }
-    ...
+    ... //getters and setters
     //Euclidean distance
     public double distanceTo(Point point) {
         double xDiff = this.getX() - point.getX();
@@ -50,7 +54,7 @@ public interface Path {
 
 
 
-You'll notice I have two different `add` methods, one which adds two coordinates as `double` values, and one that uses a `Point` instance. However, from the perspective of someone looking at this code, I would view these methods as doing the same thing. This will, however, become relevant later, so put a mental pin there.
+You'll notice I have two different `add` methods, one which adds two coordinates as `double` values, and one that uses a `Point` instance. However, from the perspective of someone looking at this code, I would view these methods as doing the same thing, just with different inputs. This will, however, become relevant later, so put a mental pin there.
 
 Let's take a look as an "obvious" way to implement Path, using an `ArrayList<Point>`:
 
@@ -105,7 +109,7 @@ public class PointListPath implements Path {
 }
 ```
 
-This seems a pretty straightforward implementation, letting the `ArrayList points` handle most of the work, and using a simple accumulator `for` loop to get the distance. And this approach is fine! I would be happy to see a student write this code, especially with [useful test-cases](https://github.com/sde-coursepack/EfficiencyExample/blob/master/src/test/java/edu/virginia/cs/sde/efficiency/PointListPathTest.java)!
+This seems a pretty straightforward implementation, letting the `ArrayList<Point>` handle most of the work, and using a simple accumulator `for` loop to get the distance. And this approach is fine! I would be happy to see a student write this code, especially with [useful test-cases](https://github.com/sde-coursepack/EfficiencyExample/blob/master/src/test/java/edu/virginia/cs/sde/efficiency/PointListPathTest.java)!
 
 A quick note about the two Constructors: The `ArrayList<E>()` constructor, when creating an empty `ArrayList`, creates an array of size 10. Remember that if the `ArrayList` needs to handle more than 10 elements, it doubles the size of the underlying array. While this by itself is an **O(n)** operation, this still means that `ArrayList.add` still has an amortized constant runtime. That said, if we know how large we need our `ArrayList` to be ahead of time, we can get a small optimization by specifying the `ArrayList<E>(int capacity)` constructor, which defines the size of the initial array. If we pick a good number for the capacity based on our needs, we may never need to run this doubling array size operation. So I have already made some minor optimizations here.
 
@@ -127,15 +131,17 @@ This diagram looks a bit more chaotic, with a lot more arrows. The key here is t
 2) Go to the memory address `points` references and access the reference value of `contents` plus 8 bytes (at least, typically 8 bytes, since each reference is 4 bytes "wide")
 3) Go to *that* memory address and access the `double` value of `x`
 
-For step 2, it's important to note that Arrays are stored sequentially, and for step 3, primitive data types are stored **by value**, not by reference. But the key takeaway is that even if we have a reference to `path`, we still have to travel to three different memory addresses to get a single value.
+For step 2, it's important to note that Arrays are stored sequentially, and for step 3, primitive data types are stored **by value**, not by reference. But the key takeaway is that even if we already have the reference to `path`, we still have to travel to three different memory addresses to get a single value.
 
 ### Before you panic and burn down your code
 
-Let me repeat what I said before: "And this approach is fine! I would be happy to see a student write this code...". There is nothing *wrong* about this code. But what you should be aware of is that jumping around memory locations *takes time*! Remember, ***premature optimization is the root of all evil!***
+Let me repeat what I said before: "And this approach is fine! I would be happy to see a student write this code...". There is nothing *wrong* about this code. But what you should be aware of is that jumping around memory locations *takes time*! The rest of this unit is looking at a way to perform these operations *faster* (as well as how to measure this). That, however, doesn't mean the above approach is bad.
+
+Remember, ***premature optimization is the root of all evil!***
 
 ### Where this hurts performance
 
-This is why arrays are so good, because they store all contents sequentially in order! The fact that all the data is sequential makes iterating through it faster. Modern computers are optimized, using *caching*, to store sequential data directly in the CPU's cache, instead of having to go to memory, which takes longer. This is the main reason why iterating through an `ArrayList` is **substantially** faster than iterating through a `LinkedList`, even though **both** are O(n).
+Arrays, even as part of ArrayLists, are fantastic for performance, because they store all contents sequentially in order. The fact that all the data is sequential makes iterating through it faster. Modern computers are optimized, using *caching*, to store sequential data directly in the CPU's cache, instead of having to go to memory, which takes longer. This is the main reason why iterating through an `ArrayList` is **substantially** faster than iterating through a `LinkedList`, even though **both** are O(n).
 
 Every time we call a constructor using `new`, the JRE allocates a location in memory for our data. However, the JRE is never the only process on your computer allocating memory! This means even if we create several points in a row in our code...
 
@@ -249,7 +255,7 @@ This *does* make my logic a bit more complicated. Compare, for example, the `dis
     }
 ```
 
-Fundamentally these two pieces of code are doing the same thing. However, the first version uses an "Object Oriented" approach (letting the `ArrayList` and `Point` classes do all the actual work). The second approach has code which is harder to understand at a glance (you have to understand the structure of the array, which is not trivially obvious when looking at this function), *and* the code is less DRY! We're re-implementing Euclidean distance which exists elsewhere in our code base! From a "code quality" perspective, these both seem like red flags. **However** the advantage is that, because the entire contents of the path are in a single array, we will get the most benefit out of using the processor cache.
+Fundamentally these two pieces of code are doing the same thing. However, the first version uses an "Object-Oriented" approach (letting the `ArrayList` and `Point` classes do all the actual work). The second approach has code which is harder to understand at a glance (you have to understand the structure of the array, which is not trivially obvious when looking at this function), *and* the code is less DRY! We're re-implementing Euclidean distance which exists elsewhere in our code base! From a "code quality" perspective, these both seem like red flags. **However** the advantage is that, because the entire contents of the path are in a single array, we will get the most benefit out of using the processor cache.
 
 ## Benchmarking
 
@@ -319,7 +325,7 @@ Remember, this is only the **distance** calculation, not the "build" time. We wi
 | 10000000   |          19ms |                15ms |
 | 100000000  |         199ms |               153ms |
 
-Looking at the last two rows in particular, it appears that `CoordinateArrayPath` *is* about 25% faster than PointListPath. Of course, these numbers are dependent on my own hardware, so things like having a smaller or large cache size on your processor could affect the relative difference.  This is a significant performance increase...**But** don't overly focus on the percentage value and lose focus of the actual raw time difference, which is 46ms. This means, *per loop iteration*, we are only saving, on average **0.46 nanoseconds** per iteration. Because both implementations scale linearly, I'm confident this value wouldn't change dramatically with larger input sizes, provided you actually have the memory available to run the application at that scale.
+Looking at the last two rows in particular, it appears that `CoordinateArrayPath` *is* about 25% faster than PointListPath. Of course, these numbers are dependent on my own hardware, so things like having a smaller or large cache size on your processor could affect the relative difference.  This is a significant performance increase...**but** don't overly focus on the percentage value and lose focus of the actual raw time difference, which is 46ms. This means, *per loop iteration*, we are only saving, on average **0.46 nanoseconds** per iteration. Because both implementations scale linearly, I'm confident this value wouldn't change dramatically with larger input sizes, provided you actually have the memory available to run the application at that scale.
 
 #### What even is 0.46 nanoseconds
 This section is more written for my own enjoyment, and is about physics. You can skip it, as there's nothing here about code writing or optimization. 
@@ -417,4 +423,16 @@ If I were maintain this application that is used by customers, and it became an 
 At that point, this change potentially becomes the "low-hanging fruit", at least on the side of building my Path, since the distance calculation really isn't that much faster.
 
 In short, I would prioritize code understandability and flexibility over performance **until performance becomes a problem.** While it is a fun intellectual exercise to optimize code, and it is a *very* valuable skill to practice, I view optimization like a fire alarm. When there's a fire, you pull it. But otherwise, beyond making sure I'm using the right data structures and known algorithms for a particular problem, I don't look for micro-optimizations unless I *really* need to.
+
+## Some optimization heuristics
+
+**Heuristics** refers to "common rules that have worked well". In optimization, we always want to *measure* to check if our changes actually make things better or worse:
+
+1) Implement both approaches
+2) Separate out the part you are benchmarking from the rest of the code as much as possible.
+3) Test with increasing values of **magnitude**. Never rely on tests with "small" values. If dealing with a linear function, I'm usually measuring in the tens of thousands as a minimum.
+4) Also consider the *real* usage of your system. Let's say one approach is faster when dealing with input sizes of 10 million and greater, and a second approach is faster when dealing with *less* than that. Is your software *actually* going to deal with 10 million? This acts as sort of balance to Step 3.
+5) **Run multiple tests** - a single test running on your computer could be thrown off by any number of unrelated background processes, never rely on a single test run
+6) **Vary the order** - If testing A and B sequentially, test A then B, and then B then A, etc. This is because the order can actually affect the speed dramatically. For example, if your code is particularly intensive enough, it may lead to the processor heating up. Your computer may then "throttle" your processor (slow it down) to prevent overheating.
+7) Related to 6) - when possible, especially with laptops, consider ambient temperature, as well as the surface your laptop is sitting on. If your laptop cannot dissipate heat effectively, your results are going to decrease in reliability and repeatability.
 
