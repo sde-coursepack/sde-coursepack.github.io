@@ -6,7 +6,7 @@ Title: UML Class Diagrams
 
 In this module, we'll look at UML Class Diagrams. Class diagrams are a means of communicating design plan and structure. Note that there are many conventions in diagrams. In general, UML Class Diagram rules are not **commandments** describing an exact structure, but rather a set of general guidelines and common practices. Ultimately, the best diagram is one that *aids in communication*.
 
-![img.png](example.png)  
+![example.png](images%2Fuml%2Fexample.png)
 Image credit of [Visual Paradigm.](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/uml-class-diagram-tutorial/) 
 
 * TOC
