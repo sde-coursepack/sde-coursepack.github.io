@@ -6,7 +6,7 @@ Title: UML Class Diagrams
 
 In this module, we'll look at UML Class Diagrams. Class diagrams are a means of communicating design plan and structure. Note that there are many conventions in diagrams. In general, UML Class Diagram rules are not **commandments** describing an exact structure, but rather a set of general guidelines and common practices. Ultimately, the best diagram is one that *aids in communication*.
 
-![img.png](example.png)  
+![example.png](../images/uml/example.png)
 Image credit of [Visual Paradigm.](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/uml-class-diagram-tutorial/) 
 
 * TOC
@@ -28,7 +28,7 @@ Before we go further, this article is very closely related with our discussion o
 
 When describing an individual class, we will often use a structure like this: 
 
-![classExample.png](images%2Fuml%2FclassExample.png)
+![classExample.png](..%2Fimages%2Fuml%2FclassExample.png)
 
 Here, the class name is at the top. It may be indicated as `<<abstract>>` or `<<interface>>` when appropriate it is describing an `abstract class` or `interface`.
 
@@ -62,7 +62,7 @@ A simplified UML Diagram simply lists the classes, but doesn't include fields or
 
 Here we will show how relationships between classes are diagrammed. For this class, I want to focus on 6 relationship types in particular:
 
-![relationships.png](images%2Fuml%2Frelationships.png)
+![relationships.png](..%2Fimages%2Fuml%2Frelationships.png)
 
 ### Dependency
 
@@ -90,7 +90,7 @@ Here, `ClosestCenterStateFinder` is **using** Tweet and Coordinate. It uses `Twe
 
 We illustrate this relationship below.
 
-![closestCenterStateFinder.png](images%2Fuml%2FclosestCenterStateFinder.png)
+![closestCenterStateFinder.png](..%2Fimages%2Fuml%2FclosestCenterStateFinder.png)
 
 Notice specifically the direction: the arrow points from the **client** (`ClosestCenterStateFinder`) to the **dependency** (`Tweet`, `Coordinate`)
 
@@ -100,7 +100,7 @@ Aggregation/Composition refer to when one class *possesses* another, specificall
 
 For example, in `ClosestCenterStateFinder` above, the class possesses multiple instances of State (as a `List`, but since `List` is a common enough idea for storing a collection of data, we don't need to diagram `List` out in our diagram.) This can be diagrammed as below.
 
-![aggregationUML.png](images%2Fuml%2FaggregationUML.png)
+![aggregationUML.png](..%2Fimages%2Fuml%2FaggregationUML.png)
 
 Specifically, the diamond is on the side of the **owner**, that is the class that has the field containing the other class. Additionally, we label the line with the field name (annotating that this is a `List`).
 
@@ -114,7 +114,7 @@ In general, we can think of a bidirectional association as a relationship where 
 
 In this way, it makes sense to model the data with a mutual aggregation. We illustrate that below.
 
-![bidirectionalAssociation.png](images%2Fuml%2FbidirectionalAssociation.png)
+![bidirectionalAssociation.png](..%2Fimages%2Fuml%2FbidirectionalAssociation.png)
 
 Notice the key difference is a lack of a diamond indicating which side is the "owner".
 
@@ -133,13 +133,13 @@ In general, we express the in the diagram using:
 * `0*`- Zero or more
 * `x..y` - between x and y (inclusive). Example, `0..1` means zero or one.
 
-![closestCenterStateFinder.png](images%2Fuml%2FclosestCenterStateFinder.png)
+![closestCenterStateFinder.png](..%2Fimages%2Fuml%2FclosestCenterStateFinder.png)
 
 For instance, `ClosestCenterStateFinder` to `State` indicates that `ClosestCenterStateFinder` has 1 or more `States`.
 
 Meanwhile, in our `Student` and `Course` example:
 
-![bidirectionalAssociation.png](images%2Fuml%2FbidirectionalAssociation.png)
+![bidirectionalAssociation.png](..%2Fimages%2Fuml%2FbidirectionalAssociation.png)
 
 This means "Each student is enrolled in zero or more courses, each course has zero or more students".
 
@@ -158,7 +158,7 @@ Always remember, we are talking about how data and procedures are interacting **
 
 Finally, our last relationship is realization/generalization, which refers to inheritance (through implementing `interface`s or extended other `class`es). This is denoted with a triangular arrowhead. The arrow head points to the *class being implemented/extended* (i.e., the interface or parent class.)
 
-![interfaces.png](images%2Fuml%2Finterfaces.png)
+![interfaces.png](..%2Fimages%2Fuml%2Finterfaces.png)
 
 In this context, the `interface` refers to `interface` as described in Java code: a set of abstract functions with an intended behavior, but not tied to any one specific implementation. An `interface` is *not* a user interface!
 
