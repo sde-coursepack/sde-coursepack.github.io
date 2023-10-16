@@ -165,7 +165,7 @@ Instead of ...
 ```java
     public List<State> getSmallestNStates(List<State> stateList, int numberOfStates) {
         return stateList.stream()
-            .sorted(Comparator.comparing(State::getPopulation()).reversed())
+            .sorted(Comparator.comparing(State::getPopulation()))
             .limit(numberOfStates)
             .collect(Collectors.toList());
     }
