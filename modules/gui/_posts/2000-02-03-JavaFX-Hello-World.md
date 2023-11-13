@@ -2,14 +2,14 @@
 Title: Hello World GUI
 ---
 
-* TOC
-{:toc}
-
 # Hello World GUI
 
 In this module, we will iteratively create a very simple application, introducing JavaFX basics one at a time.
 
 Note that in this unit I will paste code containing a large number comments. Generally, this is bad style, and I am not encouraging students to duplicate it. However, because JavaFX is likely a first experience for my studnets with GUI development, I want to ensure each step of the way that students understand why a particular line of code was written.
+
+* TOC
+{:toc}
 
 ## Getting started
 
