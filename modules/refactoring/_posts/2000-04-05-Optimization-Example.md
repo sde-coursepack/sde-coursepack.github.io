@@ -127,9 +127,9 @@ The problem is, _this isn't actually how Java works_, or how most implementation
 
 This diagram looks a bit more chaotic, with a lot more arrows. The key here is to illustrate that the `Point` objects **are not actually inside the `PointListPath`** object at all! For instance, if I had a `PointListPath` variable called `path`, it's important to note that `path` is a **reference** to a `PointListPath` object in memory. That is `path` tells me where to **look** for its contents, not the contents themselves. So, something that seems simple, like getting the `x` coordinate of the point at index `2` involves the following:
 
-1) Go to the memory address `path` references and access the reference value of `points`
-2) Go to the memory address `points` references and access the reference value of `contents` plus 8 bytes (at least, typically 8 bytes, since each reference is 4 bytes "wide")
-3) Go to *that* memory address and access the `double` value of `x`
+1) Go to the memory address `path` references and access the reference value of `points`  
+2) Go to the memory address `points` references and access the reference value of `contents` plus 8 bytes (at least, typically 8 bytes, since each reference is 4 bytes "wide")  
+3) Go to *that* memory address and access the `double` value of `x`  
 
 For step 2, it's important to note that Arrays are stored sequentially, and for step 3, primitive data types are stored **by value**, not by reference. But the key takeaway is that even if we already have the reference to `path`, we still have to travel to three different memory addresses to get a single value.
 
@@ -261,8 +261,8 @@ Fundamentally these two pieces of code are doing the same thing. However, the fi
 
 My instinct is that the second approach will be computationally faster. But instincts can be wrong! So let's *measure*! [You can see the entire file by clicking here](https://github.com/sde-coursepack/EfficiencyExample/blob/master/src/main/java/edu/virginia/cs/sde/efficiency/Main.java). Below I have a snippets of code to show me benchmarking two things:
 
-1) **Building** the two `Path` implementations (using `add`) from a list of two `double` arrays (one for x coordinates, one for y coordinates).
-2) **Calculating the total distance of the path**
+1) **Building** the two `Path` implementations (using `add`) from a list of two `double` arrays (one for x coordinates, one for y coordinates).  
+2) **Calculating the total distance of the path**  
 
 To generate the random list of coordinates, I use:
 
@@ -388,8 +388,8 @@ There's value in having obvious code, because obvious code can be understood at 
 
 Consider that the `distance` function is really doing two different things in `CoordinateArrayPath`
 
-1) Calculating the distance between every adjacent pair of points
-2) Calculating the sum of those distances and returning it
+1) Calculating the distance between every adjacent pair of points  
+2) Calculating the sum of those distances and returning it  
 
 This isn't modular! To show this, I could refactor the code as follows:
 
@@ -428,11 +428,11 @@ In short, I would prioritize code understandability and flexibility over perform
 
 **Heuristics** refers to "common rules that have worked well". In optimization, we always want to *measure* to check if our changes actually make things better or worse:
 
-1) Implement both approaches
-2) Separate out the part you are benchmarking from the rest of the code as much as possible.
-3) Test with increasing values of **magnitude**. Never rely on tests with "small" values. If dealing with a linear function, I'm usually measuring in the tens of thousands as a minimum.
-4) Also consider the *real* usage of your system. Let's say one approach is faster when dealing with input sizes of 10 million and greater, and a second approach is faster when dealing with *less* than that. Is your software *actually* going to deal with 10 million? This acts as sort of balance to Step 3.
-5) **Run multiple tests** - a single test running on your computer could be thrown off by any number of unrelated background processes, never rely on a single test run
-6) **Vary the order** - If testing A and B sequentially, test A then B, and then B then A, etc. This is because the order can actually affect the speed dramatically. For example, if your code is particularly intensive enough, it may lead to the processor heating up. Your computer may then "throttle" your processor (slow it down) to prevent overheating.
-7) Related to 6) - when possible, especially with laptops, consider ambient temperature, as well as the surface your laptop is sitting on. If your laptop cannot dissipate heat effectively, your results are going to decrease in reliability and repeatability.
+1) Implement both approaches  
+2) Separate out the part you are benchmarking from the rest of the code as much as possible.  
+3) Test with increasing values of **magnitude**. Never rely on tests with "small" values. If dealing with a linear function, I'm usually measuring in the tens of thousands as a minimum.  
+4) Also consider the *real* usage of your system. Let's say one approach is faster when dealing with input sizes of 10 million and greater, and a second approach is faster when dealing with *less* than that. Is your software *actually* going to deal with 10 million? This acts as sort of balance to Step 3.  
+5) **Run multiple tests** - a single test running on your computer could be thrown off by any number of unrelated background processes, never rely on a single test run  
+6) **Vary the order** - If testing A and B sequentially, test A then B, and then B then A, etc. This is because the order can actually affect the speed dramatically. For example, if your code is particularly intensive enough, it may lead to the processor heating up. Your computer may then "throttle" your processor (slow it down) to prevent overheating.  
+7) Related to 6) - when possible, especially with laptops, consider ambient temperature, as well as the surface your laptop is sitting on. If your laptop cannot dissipate heat effectively, your results are going to decrease in reliability and repeatability.  
 

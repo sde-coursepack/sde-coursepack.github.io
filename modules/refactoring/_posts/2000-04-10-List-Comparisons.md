@@ -114,8 +114,8 @@ In the table above, "LL" means `LinkedList` and "AL" means `ArrayList`, "add" re
 Ignoring the 153-second elephant in the room for a second, it's worth noticing that `add`ing on a `LinkedList` is slower than `removing`, despite bother operations seemingly working with the same number of references. The reason for the difference is memory allocation. Allocating memory takes significant more time than dereferencing memory. Be aware, however, that this time does *not* account for Java's garbage collection to actually free the memory.
 
 And, yeah, this is the one case where `ArrayList` is waaaaay worse, and it's because adding/removing `n` elements at the front of an `ArrayList` becomes an `O(n^2)` problem, whereas it's simply `O(n)` for the Linked List. However, you'll notice that I don't get a spike until 100 thousand, and while slower, it's still really quick at 10 thousand. I think the reason for the spike is two-fold:
-1) It's quadratic, and quadratic grows more rapidly
-2) At 10000 and below, while we still have to shift values, the ArrayList is small enough that we can do everything in the cache, and Java has a lot of optimizations built for this. Once we exceed the cache limit, those optimizations can no longer be used.
+1) It's quadratic, and quadratic grows more rapidly  
+2) At 10000 and below, while we still have to shift values, the ArrayList is small enough that we can do everything in the cache, and Java has a lot of optimizations built for this. Once we exceed the cache limit, those optimizations can no longer be used.  
 
 That said, this is the only time when `LinkedList` is better. Anytime you expect to need random access (i.e., using `get`) or adding anywhere but the front, `ArrayList` are going to be as good or better.
 
