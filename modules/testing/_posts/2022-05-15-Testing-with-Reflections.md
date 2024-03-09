@@ -13,7 +13,7 @@ in testing.
 ## Reflection Overview
 
 Reflection is an aptly named tool that a Java program can use to "reflect" upon itself and retrieve information at
-runtime about the objects and classes that it consists of. This includes any class's fields, methods, and constructors,
+runtime about the objects and classes that it consists of. This includes a class's fields, methods, and constructors,
 as well as any annotations that have been applied to it (e.g. `@Override`).
 
 If you have written any JUnit testing code, you have already used and benefited from reflection! Annotations
@@ -58,14 +58,14 @@ public class Person {
 }
 ```
 
-As in reality, we want to provide very minimal access to an individual's Social Security number to avoid
-tampering/misuse, and thus have made relevant fields/methods private. However, given its importance, we also have some
+As in real life, we want to provide very minimal access to an individual's Social Security number to avoid
+tampering/misuse, and thus have made relevant fields/methods `private`. However, given its importance, we also have some
 motivation to test that it is being generated and validated correctly, and that its value is not being incorrectly
 mutated by any of the methods in `Person`.
 
 ## Testing Private Members
 
-### Setup Class Reference
+### Getting a Class Reference
 
 As mentioned previously, the entry point for using reflection is to get a `Class` object representing the class to be
 reflected upon. In testing, there are two primary ways of doing this:
@@ -136,9 +136,9 @@ found, then
 a [`Method`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/reflect/Method.html) object is
 returned.
 
-We then override the access permissions for this particular reference to the `generateSocialSecurityNumber()` method by
-calling `Method.setAccessible()` with the flag set to `true`. This will tell Java to skip any access checks when the
-method is called via this particular `Method` object.
+We then override the access permissions for this reference to the `generateSocialSecurityNumber()` method by calling
+`Method.setAccessible()` with the flag set to `true`. This will tell Java to skip any access checks when the method is
+called via this particular `Method` object.
 
 We can now use `Method.invoke()` to call the method. Because `generateSocialSecurityNumber()` is an instance method
 (i.e. not static), it needs an instance of its declaring class in order to be called, just like how we regularly call
@@ -158,7 +158,7 @@ generateSocialSecurityNumberMethod.invoke(testPerson, "Jane Doe", true);
 
 ### Setting and Getting Fields
 
-Now, we want to test `validateSocialSecurityNumber()` for defects. However, we don't have any way of manually setting
+Now, we want to test `validateSocialSecurityNumber()`. However, we don't have any way of manually setting
 the value for `socialSecurityNumber` to cover various partitions of valid and invalid SSNs, as the `Person` class does
 not provide any public access to that field. We will need to use reflection to perform this access instead:
 
