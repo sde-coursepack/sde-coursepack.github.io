@@ -105,7 +105,7 @@ class PersonTest {
 
 The `getDeclaredMethod(String name)` method on `personClass` will search for a method in that class that has a name matching the provided string, and will include `private` and `protected` methods in its search. There is another method, `getMethod(String name)`, but this will only retrieve `public` methods, so it is not suitable here. If a match is found, then a [`Method`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/reflect/Method.html) object is returned.
 
-We then override the access permissions for this reference to the `generateSocialSecurityNumber()` method by calling `Method.setAccessible()` with the flag set to `true`. This will tell Java to skip any access checks when the method is called via this particular `Method` object. Other calls to the method, either via regular usage or through other instances of `Method` objects for the same method, will still be subject to normal access checks.
+We then override the access permissions for this reference to the `generateSocialSecurityNumber()` method by calling `Method.setAccessible()` with the flag set to `true`. This will tell Java to skip any access checks when the method is called via this particular `Method` object. Other calls to the method, either via regular usage or through other `Method` objects representing the same method, will still be subject to normal access checks.
 
 We can now use `Method.invoke()` to call the method. Because `generateSocialSecurityNumber()` is an instance method (i.e. not static), it needs an instance of its declaring class in order to be called, just like how we regularly call instance methods. So, the `testPerson` object is passed as the first argument to `invoke()`. If the method being invoked is static, then this argument is still required but will be ignored, and so passing `null` will suffice.
 
@@ -203,7 +203,7 @@ As you were reading the test code, the use of string literals for method and fie
 
 If these were regular method calls or field usages, our code would fail to compile, and the issue would be quickly identifiable and solvable. However, when reflection operations fail, they do so at runtime, and become much harder to trace when not isolated to the class in question. While we can design our tests defensively to handle these exceptions, we still can't expect that these private members won't ever change; the private methods and fields were never part of the `Person` class's outward-facing API, and so it would be acceptable to change these implementation details without considering whether any code outside the class relied on it.
 
-The use of reflection in this way has thus *tightly coupled* our tests with our implementation: changes in the implementation require changes in the tests in order for them to function as designed. Introducing this sort of overhead imposes inefficiencies in maintainability that grow exponentially with the size and complexity of a software product, and is thus the primary reason why the use of reflection for bypassing access modifiers is generally discouraged.
+The use of reflection in this way has *tightly coupled* our tests with our implementation: changes in the implementation require changes in the tests in order for them to function as designed. Introducing this sort of overhead imposes inefficiencies in maintainability that grow exponentially with the size and complexity of a software product, and is thus the primary reason why the use of reflection for bypassing access modifiers is generally discouraged.
 
 ### Performance Overhead
 
