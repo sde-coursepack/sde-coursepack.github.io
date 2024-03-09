@@ -105,7 +105,7 @@ class PersonTest {
 
 The `getDeclaredMethod(String name)` method on `personClass` will search for a method in that class that has a name matching the provided string, and will include `private` and `protected` methods in its search. There is another method, `getMethod(String name)`, but this will only retrieve `public` methods, so it is not suitable here. If a match is found, then a [`Method`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/reflect/Method.html) object is returned.
 
-We then override the access permissions for this reference to the `generateSocialSecurityNumber()` method by calling `Method.setAccessible()` with the flag set to `true`. This will tell Java to skip any access checks when the method is called via this particular `Method` object.
+We then override the access permissions for this reference to the `generateSocialSecurityNumber()` method by calling `Method.setAccessible()` with the flag set to `true`. This will tell Java to skip any access checks when the method is called via this particular `Method` object. Other calls to the method, either via regular usage or through other instances of `Method` objects for the same method, will still be subject to normal access checks.
 
 We can now use `Method.invoke()` to call the method. Because `generateSocialSecurityNumber()` is an instance method (i.e. not static), it needs an instance of its declaring class in order to be called, just like how we regularly call instance methods. So, the `testPerson` object is passed as the first argument to `invoke()`. If the method being invoked is static, then this argument is still required but will be ignored, and so passing `null` will suffice.
 
