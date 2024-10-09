@@ -6,8 +6,9 @@ Title: UML Class Diagrams
 
 In this module, we'll look at UML Class Diagrams. Class diagrams are a means of communicating design plan and structure. Note that there are many conventions in diagrams. In general, UML Class Diagram rules are not **commandments** describing an exact structure, but rather a set of general guidelines and common practices. Ultimately, the best diagram is one that *aids in communication*.
 
-![example.png](../images/uml/example.png)
+![example.png](../images/uml/example.png) 
 Image credit of [Visual Paradigm.](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/uml-class-diagram-tutorial/) 
+
 
 * TOC
 {:toc}
@@ -173,7 +174,7 @@ I will note that many developers view UML Diagrams to be a waste of time. In gen
 
 Does this mean I recommend diagramming everything? No! UML Diagrams take time to make, and, just like any other form of documentation, can become outdated if not readily maintained.
 
-However, I have absolutely used UML Class Diagram relationships to "sketch out" a design idea on the board. Additionally, I find UML Diagrams are a useful way to help visually communicate design pattern structure, which will be important when learning common design patterns. But when I say "sketch out", I mean on a whiteboard to help me solidify an idea before I jump into code.
+However, I have used UML Class Diagram relationships to "sketch out" a design idea on the board. Additionally, I find UML Diagrams are a useful way to help visually communicate design pattern structure, which will be important when learning common design patterns. But when I say "sketch out", I mean on a whiteboard to help me solidify an idea before I jump into code. I do *not* directly translate UML Diagrams to code, for example, and I let myself make design changes while writing code, as I will find ideas that I overlooked in my original design.
 
-So do not take me presenting this unit as a vital industry skill that all companies require programmers to do: it isn't, and they don't. However, UML class diagrams are a common means of communication that are worth learning.
+So do not take me presenting this unit as a vital industry skill that all companies require programmers to do: it isn't, and they don't. However, UML class diagrams are a common enough means of communication that they are worth learning the basics of.
 
