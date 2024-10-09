@@ -39,7 +39,7 @@ There are a few classes here to highlight.
 
 - [`BestSellersApi`](https://github.com/sde-coursepack/ThreeLayerBooks/blob/master/src/main/java/edu/virginia/cs/threelayer/data/BestSellersApi.java) - this class handles getting the raw BestSellers data (as JSON) from the New York Times API
 - [`BestSellersJSON`](https://github.com/sde-coursepack/ThreeLayerBooks/blob/master/src/main/java/edu/virginia/cs/threelayer/data/BestSellersJSON.java) - this class interprets the JSON from BestSellersApi to produce `Book` and `BestSellerList` data objects which are passed up to the Business Logic and Presentation layer.
-- [`BestSellersFacade`](https://github.com/sde-coursepack/ThreeLayerBooks/blob/master/src/main/java/edu/virginia/cs/threelayer/data/BestSellersFacade.java) - This class exists to simplify interactions with the data. Our Business Logic Layer directly interacts with this facade to get the `Book` and `BestSellerList` objects. A facade is a design pattern of hiding multiple modules behind a single, simpler interface. Here, this Facade hides the other classes in the Data Layer related to the New York Times Best SellerList.
+- [`BestSellersManager`](https://github.com/sde-coursepack/ThreeLayerBooks/blob/master/src/main/java/edu/virginia/cs/threelayer/data/BestSellersFacade.java) - This class exists to simplify interactions with the data. Our Business Logic Layer directly interacts with this facade to get the `Book` and `BestSellerList` objects. A facade is a design pattern of hiding multiple modules behind a single, simpler interface. Here, this Facade hides the other classes in the Data Layer related to the New York Times Best SellerList.
 
 As you can see, the primary purpose of this class is to **manage data**. In this case, I'm managing data using an external API, and my Data Layer simply creates the data structures I use to interpret the data in higher layers.
 
@@ -60,7 +60,7 @@ Some of these summaries are simple, simply passing data from the Data Layer up t
     }
 ```
 
-One of these analyzes the data to find the book that has been on a particular BestSeller list the longest:
+One of our summarization methods analyzes the data to find the book that has been on a particular BestSeller list the longest:
 
 ```java
     public Book getLongestCurrentBestSeller(ListName listName) {
@@ -84,7 +84,9 @@ Each of these services would have their own set of modules in the Data Layer, an
 
 ## [Presentation Layer](https://github.com/sde-coursepack/ThreeLayerBooks/tree/master/src/main/java/edu/virginia/cs/threelayer/presentation)
 
-You'll notice the Presentation Layer has two classes, both, in this case, with a `main` function. This is because I intentionally made two different "front-ends" for the BestSeller application.
+You'll notice the Presentation Layer has two classes in the main branch, both, in this case, with a `main` function. This is because I intentionally made two different "front-ends" for the BestSeller application.
+
+You can also checkout the gui branch where I implemented a simple JavaFX UI for the BestSellers app, but be aware that it requires additional installation and setup that we will cover in the JavaFX GUI unit of the course.
 
 ### Arguments Version
 
@@ -158,9 +160,10 @@ __CommandLineUI__
         int choice = Integer.parseInt(entry);
         ListName listName = getListNameFromEntry(choice);
         BestSellersList bestSellersList = service.getCurrentBestSellerList(listName);
-        for (int rank = 1; rank <= bestSellersList.getMaxRank(); rank++) {
+        for (int rank = 1; rank <= bestSellersList.getMaxRank(); rank++){
             Book book = bestSellersList.getBookByRank(rank);
-            System.out.printf("\t%2d. %s - by %s%n", rank, book.getTitle(), book.getAuthorName());
+            System.out.printf("\t%2d. %s - by %s%n",rank, book.getTitle(),book.getAuthorName());
+        }    
 
 ```
 __CommandLineArgs__
@@ -172,10 +175,30 @@ __CommandLineArgs__
         for (int rank = 1; rank <= bestSellersList.getMaxRank(); rank++) {
             Book book = bestSellersList.getBookByRank(rank);
             System.out.printf("\t%2d. %s - by %s%n", rank, book.getTitle(), book.getAuthorName());
-    }
+        }
 ```
 
 You'll notice that **both** of these versions interact with the rest of the application *exactly the same*. That is, the same Service Layer used in one app can be used in another. 
+
+### GUI Version
+
+Additionally, in my GUI application version of the code, I have the following method in GUIController.java
+
+```java
+    
+        ListName listName = listSelector.getValue();
+        BestSellersList bookList = service.getCurrentBestSellerList(listName);
+        ObservableList<Book> obsList = FXCollections.observableList(bookList.getAllBooksInOrderOfRank());
+        tableView.getItems().clear();
+        tableView.getItems().addAll(obsList);
+}
+```
+
+Notice that **how** the service is interacted with is exactly the same, we just simply change how we present (that is, we clear and update "tableView", which is a UI element in the app). You can see an example of the UI below.
+
+![bestSellersScreen.png](..%2Fimages%2FthreeLayer%2FbestSellersScreen.png)
+
+## Portability
 
 A huge advantage of this approach is **portability**. For example, we could make a GUI Application that can run on a desktop simply by creating the modules to handle the UI in our Presentation Layer, but otherwise interacting with the same services in the same way.
 
