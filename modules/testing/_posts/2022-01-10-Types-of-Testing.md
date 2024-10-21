@@ -172,7 +172,7 @@ isn't radically changed.
 
 The idea of regression testing is to ensure we do not reintroduce old
 defects into our code, or break portions of our code that are already
-working. Gradle actually performs integration testing for us using the
+working. Gradle actually performs regression testing for us using the
 `gradlew test` command, which is part of the `gradlew build` command.
 
 Typically, in regression testing, we run our entire suite of **automated

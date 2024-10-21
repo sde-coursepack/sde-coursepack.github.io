@@ -230,7 +230,9 @@ I know it looks like a lot here, but we'll break this down in general.
 
 What we are doing here is using a library called Mockito to create an "on-the-fly" (that is, at runtime) stub for the class ReviewManager. Rather than implement ReviewManager, we are simply (for the sake of this test) hard coding the output to the function to be a map that allows us to test our basic functionality.
 
-We hardcode a map of restaurants in the `private` method `getTestReviewMapTwoRestaurant()` to generate a simple example of what a map returned from `ReviewManager.getRestaurantReviewsMap(int zipcode)`. We are saying we want it to be a map with two restaurants, "Bodo's Bagels" and "Chipotle". Thus, we aren't really using (or implementing) `ReviewManager`, but rather using a "mock". The syntax for the `when` and `thenReturn` will be covered in more detail in the next unit. They key takeaway, however, is that this mocking **allows us to test, even when we have not integrated, or even unimplemented, dependencies, so long as we know their interface**.
+
+We hard-code a map of restaurants in the `private` method `getTestReviewMapTwoRestaurant()` to generate a simple example of what a map returned from `ReviewManager.getRestaurantReviewsMap(int zipcode)`. We are saying we want it to be a map with two restaurants, "Bodo's Bagles" and "Chipotle". Thus, we aren't really using (or implementing) `ReviewManager`, but rather using a "mock". The syntax for the `when` and `thenReturn` will be covered in more detail in the next unit. They key takeaway, however, is that this mocking **allows us to test, even when we have unintegrated, or even unimplemented, dependencies, so long as we know their interface**.
+
 
 In the same way we wrote the above **unit test**, In this way, we can easily create prototypes based around this hard coded data that we can take as far as needed. Obviously, we won't use this data long-term, but you'll notice this data is only created in our **testing environment**, and thus safely won't affect our **main** source code environment.
 
@@ -242,7 +244,7 @@ You may think writing up all these mocks is time-consuming. In truth however, wi
 
 #### Disadvantages of Top-Down
 
-One disadvantage, however, can be the difficulty in testing user-interfaces directly. This can be tricky, as mocking user input can be difficult. Additionally, the lowest-level resources are often interacting with files, databases, web-services, etc., and interactions with real external resources can be hard to mock (for instance, the most common advice on Stack Overflow for "How can I mock a File class in Java" is "do not try to mock a File in Java").
+One disadvantage, however, can be the difficulty in testing user-interfaces directly. This can be tricky, as mocking user input can be difficult. Additionally, the lowest-level resources are often interacting with files, databases, web-services, etc., and interactions with real external resources can be hard to mock (for instance, the most common advice on Stack Overflow for "How can I mock a File in Java" is "do not try to mock a File in Java").
 
 Another disadvantage is that lower-level modules are often integrated last, and are typically tested in fewer integration tests as a result (as compared to Bottom-Up) since in most integration tests, the lower levels are either absent or mocked.
 
@@ -254,4 +256,4 @@ Also called hybrid integration testing, this combines bottom-up and top down. Ge
 
 A major advantage of sandwich testing is that it can be very valuable in larger applications, as it allows for more scalability as new modules and sub-projects are integrated. We are often able to isolate the User Interface (which is typically the most volatile part of our application), while still being able to test by decomposing features into individual modules.
 
-One major disadvantage is that this approach struggles where there are a large number of interdependencies between modules, as isolate a "target layer" to integrate up and down from becomes difficult.
+One major disadvantage is that this approach struggles where there are a large number of interdependencies between modules, as isolate a "target layer" to integrate up and down from becomes difficult. 

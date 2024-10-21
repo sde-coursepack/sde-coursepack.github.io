@@ -11,7 +11,7 @@ Title: Data Persistence
 
 However, consider how limiting this is. For example, let's say you implement a command-line version of the game [Wordle](https://en.wikipedia.org/wiki/Wordle). Specifically, one feature of the game is to show users their guess count history, win%, etc., such as in the image below from the New York Times Wordle game.
 
-![ny_times_wordle.png](..%2Fimages%2Fny_times_wordle.png)
+![ny_times_wordle.png](../images/1/ny_times_wordle.png)
 
 Unlike real life Wordle, your command-line Wordle allows a player to play as much as they want. A user can play the game over and over and eventually build up a history. However, without **data persistence**, as soon as the user closes your program, or the terminal window they are playing it in, all of that history will be lost.
 

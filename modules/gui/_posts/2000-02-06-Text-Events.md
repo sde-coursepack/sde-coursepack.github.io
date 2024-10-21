@@ -2,12 +2,14 @@
 Title: JavaFX KeyEvents
 ---
 
-* TOC
-{:toc}
-
 # Using the Enter Key
 
 For now, after you type the number in the TextField, you must use your mouse to click the "Calculate" button. Wouldn't it be nice if, since we're typing anyways, we could just hit Enter on our keyboard to trigger the "Calculate" button handler? Well we can!
+
+* TOC
+{:toc}
+
+
 
 ## Starter Code
 

@@ -193,6 +193,25 @@ Flash forward to the weekend before I'm writing this, and I wrote a solution for
 
 ---
 
+## You have to struggle
+
+> "Sacred Valley is too soft. Only storms turn fish into dragons, and there are no storms here."  
+> -- __Unsouled: Book 1 of the Cradle Series__ Will Wight
+
+I suck at guitar. I can do basic chords, enough to sing some songs. I've taken time to learn some very simple picking for a few of those songs, but I otherwise am not very good. Yet, I've been playing guitar nearly half of my life. Why am I not an expert by now?
+
+I've played chess since I was 8, yet on Chess.com, as of this writing, I'm ~1150 in rapid (10 minute chess), and ~1000 in blitz (3 or 5 minute chess), neither of which is frankly any good. How is it that I've played chess this long and am not better?
+
+Because I don't push myself. Practice isn't enough if it's easy practice. I don't push myself with guitar and chess. I'm fine playing the same four chord songs, I'm fine losing at chess, because I use both to relax. I'm not trying to get better. If I wanted to get better at guitar, I would have to force myself to play harder music. And I would force myself to practice longer. If I wanted to get better at chess, I'd spend more time studying openings and endgames, force myself into deeper calculations, making less impulsive moves. But I'm happy where I am there.
+
+But I'm not happy where I am as a programmer or as a teacher. I want to be better at both. And so I force myself to struggle. I don't operate at a level of comfort. When programming, I don't solve problems I already know how to solve. I look for new problems that require skills I don't have. When teaching, I spend time looking at industry, trying to figure out why there's such a disconnect, especially in CS, and what I can do to close it. I have to go out of my way and spend hours doing these things.
+
+Passive practice, like I do with guitar and chess, will not make you better. Just doing a task doesn't make you better. It's the **struggle** that makes you stronger. Always push your abilities, and if you are finding problems you are solving too easy, then find the next problem that challenges you. Push against that. Practice is only practice when it is deliberate.
+ 
+Ultimately, you can never truly succeed if you don't give yourself a significant chance to fail, and rise above it.
+
+---
+
 ## Summing it up
 
 You will struggle when presented with new information, or a new challenge. And learning how to do things "the right way" sounds a lot like "eat your peas and carrots."
@@ -203,4 +222,7 @@ Just like me riding a bike without training wheels, you'll fall down, you'll mak
 
 > "I may not have gone where I intended to go, but I think I have ended up where I needed to be."  
 > -- __The Long Dark Tea-Time of the Souls__ Douglas Adams
+
+> "There are a million Paths in this world, Lindon, but any sage will tell you they can all be reduced to one. **Improve yourself.**"  
+> -- __Unsouled: Book 1 of the Cradle Series__ Will Wight
 

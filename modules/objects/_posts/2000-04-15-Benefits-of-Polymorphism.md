@@ -39,13 +39,13 @@ However, the **interface** (the concept, not the keyword) is a bit more detailed
 
 We want a method `compare` that tells us *how two elements should be sorted*. That is, the **interface** is both the syntax (`interface` and `implements`) and the **intended abstract behavior**.
 
-In this way, an **interface** can be either an `interface` or an `abstract class`. In general, we should use some *abstraction* for every major behavior in our software system. That is, we hide implementation details behind an easy-to-understand interface that clearly communicated *intended abstract behavior*
+In this way, an **interface** can be either an `interface` or an `abstract class`. In general, we will use some *abstraction* for every major behavior in our software system. That is, we hide implementation details behind an easy-to-understand interface that clearly communicated *intended abstract behavior*.
 
-### Implementation
+## Implementation
 
-At some point, we have to actually address the details. Abstract descriptions of behavior are the best starting point, but eventually somebody is going to start writing code. And that code has to actually carry out producing the intended behavior.
+At some point, we have to actually address the implementation details. Abstract descriptions of behavior may be a good starting point, but eventually somebody is going to have to start writing code. And that code has to actually carry out producing the intended behavior.
 
-The key, however, is that all implementation details should be **hidden** from the **interface** (whether it is an `interface`, `class`, or `abstract class`). That is, any information that isn't strictly included in the **interface** should only exist inside the implementation.
+The key, however, is that all implementation details should be **hidden** from the **interface** (whether it is an `interface`, `class`, or `abstract class`). And the interface should have as little information as possible (specifically, what is the input, and what is the output?). That is, any information that isn't strictly included in the **interface** should only exist inside the implementation.
 
 However, with a good use of polymorphism, we can hide implementation details from *most* of our software system, instead utilizing only abstract **interface**. We will show what that can look like in the following design example.
 
@@ -58,8 +58,8 @@ You are tasked with writing a program that apportions representatives to states 
 
 Specifically, you are told:
 * You will be given a file, such as .csv file, containing the name of each State and its total population
-* You will then use a particular algorithm, such as The Hamilton/Vinton method)
-* You need to display the states in some order, such as alphabetical order
+* You will then use a particular algorithm (such as The Hamilton/Vinton method)
+* You need to display the states in some order (such as alphabetical order)
 
 From here, I see three very clear **abstract** behaviors:
 
@@ -67,15 +67,15 @@ From here, I see three very clear **abstract** behaviors:
 * `ApportionmentMethod` - Take in a List of State objects (with name and population) and a number of representatives to Apportion. Return an Apportionment (mapping of states to a number of representatives)
 * `ApportionmentFormat` - Take in an Apportionment and return a String of the desired output format.
 
-By focusing on the **abstractions** first, we can find it will give us flexibility.
+By focusing on the **abstractions** first, we organize our software to maximize flexibility
 
 ### StateSupplier
 
 Consider the following abstract class:
 
 ```java
-public abstract class StateSupplier {
-    public abstract List<State> getStates();
+public interface StateSupplier {
+    public List<State> getStates();
 }
 ```
 
@@ -84,7 +84,7 @@ This class describes a behavior: get me states! Where? That doesn't matter to de
 From there, we can **implement** the behavior with something like:
 
 ```java
-public class CSVStateSupplier extends StateSupplier {
+public class CSVStateSupplier implements StateSupplier {
     private String filename;
     
     public CSVStateSupplier(String filename) { this.filename = filename; }
@@ -120,7 +120,7 @@ What if our data source changes? For example, what if the Department of Commerce
 Does this mean we have to change `StateSupplier` or `CSVReader`? No! We can simply add a new **concrete** implementation of `StateSupplier`
 
 ```java
-public class DeptOfCommerceStateSupplier {
+public class DeptOfCommerceStateSupplier implements StateSupplier {
     private final String COMMERCE_CENSUS_SERVICE_URL = "..." // link to census web-service
     
     @Override 
@@ -145,7 +145,7 @@ Now, we simply **replace the constructor call** in our client method:
     }
 ```
 
-That's it! One line of code change! And with no giant "If-statement of doom"! Everything else is just adding new code! This is very powerful, as it is much easier to add code than to change code.
+That's it! Only one line of code changed! And with no giant "If-statement of doom"! Everything else is just adding new code! This is very powerful, as it is much easier to add code than to change code.
 
 And this was enabled by our setup with polymorphism!
 
@@ -154,15 +154,16 @@ And this was enabled by our setup with polymorphism!
 Now that we have the idea, let's apply it to the other **abstractions** we came up with:
 
 ```java
-public abstract class ApportionmentMethod {
-    public abstract Apportionment getApportionment(List<State> stateList, int representatives);
+public interface ApportionmentMethod {
+    public Apportionment getApportionment(List<State> stateList, int representatives);
 }
 ```
 
-Then we can implement the Hamilton/Vinton method, which we'll shorten to `HamiltonApportionmentMethod`:
+Then we can implement the Hamilton/Vinton method, which we'll shorten to `HamiltonMethod`:
 
 ```java
-public class HamiltonApportionmentMethod extends ApportionmentMethod {
+public class HamiltonMethod implements ApportionmentMethod {
+    @Override
     public Apportionment getApportionment(List<State> stateList, int representatives) {
         Apportionment apportionment = new Apportionment();
         int totalPopulation = getTotalPopulation(stateList);
@@ -182,14 +183,15 @@ Now, going to our `executeApportionment` function
     }
 
     private ApportionmentMethod getApportionmentMethod() {
-        return new HamiltonApportionmentMethod();
+        return new HamiltonMethod();
     }
 ```
 
 We want to change the method to Huntington-Hill (the current method used by the US Congress, which was adopted in 1929)?
 
 ```java
-public class HuntingtonHillApportionmentMethod extends ApportionmentMethod {
+public class HuntingtonHillMethod implements ApportionmentMethod {
+    @Override
     public Apportionment getApportionment(List<State> stateList, int representatives) {
         Apportionment apportionment = new Apportionment();
         allocateOneRepresentativeEach(apportionment, stateList);
@@ -210,7 +212,7 @@ public class HuntingtonHillApportionmentMethod extends ApportionmentMethod {
     }
 
     private ApportionmentMethod getApportionmentMethod() {
-        return new HuntingtonHillApportionmentMethod();
+        return new HuntingtonHillMethod();
     }
 ```
 
@@ -219,15 +221,15 @@ public class HuntingtonHillApportionmentMethod extends ApportionmentMethod {
 You're starting to get it now, right? Let's define the abstract behavior:
 
 ```java
-public abstract class ApportionmentFormat{
-    public abstract String getString(Apportionment Apportionment);
+public interface ApportionmentFormat{
+    public String getString(Apportionment Apportionment);
 }
 ```
 
 ...and then the implementation...
 
 ```java
-public class AlphabeticalApportionmentFormat {
+public class AlphabeticalFormat implements ApportionmentFormat{
     public String getString(Apportionment Apportionment) {
         StringBuilder sb = new StringBuilder();
         for (State state : Apportionment.getStates())
@@ -250,7 +252,7 @@ public class AlphabeticalApportionmentFormat {
     }
 
     private ApportionmentFormat getApportionmentFormat() {
-        return new AlphabeticalApportionmentFormat();
+        return new AlphabeticalFormat();
     }
 ```
 
@@ -272,17 +274,21 @@ Well, now we simply update our `getApportionmentMethod()`
     }
 ```
 
+In this case `isHamiltonApportionment()` would be a boolean function that would, say, parse the command-line arguments or runtime configuration to determine which algorithm should be used.
+
 Yes, this is one method returning two different data types. But because we are using the **abstract** data type `ApportionmentMethod`, this is completely fine!
 
-## Reduced coupling
+## Mix and Match
 
 Notice a few things about our apportionment example?
 
 * We can combine *any* StateSupplier with *any* ApportionmentMethod
 * We can combine *any* combination of those two with *any* ApportionmentFormat
-* We managed this flexibility without any subclass having to interact directly with *any other* subclass. The author of `HamiltonApportionmentMethod` doesn't need to know anything about `StateSupplier` or any of its subclasses, nor know anything about `ApportionmentFormat` or any of its subclasses.
+* We managed this flexibility without any subclass having to interact directly with *any other* subclass. The author of `HamiltonMethod` doesn't need to know anything about `StateSupplier` or any of its subclasses, nor know anything about `ApportionmentFormat` or any of its subclasses.
 
 The only *shared* classes are data structures: `State` (`String name`, `int population`) and `Apportionment` (effectively wrapper for a `Map<State,Integer>`). However, none of the subclasses have to worry about where there input is coming from, as that is handled by the interface.
+
+In this way, each sub-class is closer to the "pure" idea of a function: Something that takes in input and produces output, without a broader context to worry about. Such functions are far easier to write, test, and debug, compared to side effect heavy functions.
 
 ## Dependency
 
@@ -299,9 +305,9 @@ This means changes to implementation details in low level functions can trickle 
 
 For example, if `executeApportionment()` wants to call a `getStates()` function, it has to say **exactly which function it will call**. This means the `getStates` function can only have 1 implementation. Now, you could put it an if-statement that calls one implementation or another, but how is the if-statement getting its information about which subfunction to call? Higher level functions will have to **know** and **understand** the inner workings of that if-statement in order to setup the correct configuration. Now our code is a tightly coupled mess.
 
-### Dependency Inversion
+## Dependency Inversion
 
-Okay, let's leave that nightmare and come back to the flexible world of polymorphism we build in our Apportionment example.
+Okay, let's leave that nightmare and come back to the flexible world of polymorphism we built in our Apportionment example.
 
 It's important to understand that `executeApportionment` never picks what method to call! In fact, there are ways where to can write the class that executeApportionment is in where it **never has to know our subclasses even exist!**. The consequences of how this affects software construction are significant.
 
