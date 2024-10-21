@@ -20,7 +20,7 @@ In this course, we will review three major groups of design patterns:
 Each pattern type addresses a certain kind of problem that arises in code.
 
 ## Creational Design Patterns
-Creational patterns are any design patterns that either hide or limit constructor useage. Essentially, they provide object creation and instantion mechanisms that increase flexibility and re-use of existing code. Examples of creational design patterns include:
+Creational patterns are any design patterns that either hide or limit constructor usage. Essentially, they provide object creation and instantiation mechanisms that increase flexibility and re-use of existing code. Examples of creational design patterns include:
 * Singleton
 * Factory
 * Abstract Factory
@@ -44,6 +44,6 @@ Our last group of design patterns is the behavioral design pattern. These take c
 > "When you have a hammer, everything looks like a nail." 
 <br>- Abraham Maslow
 
-Design patterns should never be forced, or over-used. While they are great tools for adressing issues in software quality, it is easy to misuse design patterns, especially if you use too many or attempt to use a pattern when there is a better solution available. 
+Design patterns should never be forced, or over-used. While they are great tools for addressing issues in software quality, it is easy to misuse design patterns, especially if you use too many or attempt to use a pattern when there is a better solution available. 
 
 Above all, be aware that **over-design** is a thing. Remember the [YAGNI principle](https://sde-coursepack.github.io/modules/design/Design-Principles/#yagni-principle)!

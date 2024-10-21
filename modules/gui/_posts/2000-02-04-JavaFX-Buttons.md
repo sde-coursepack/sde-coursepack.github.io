@@ -133,7 +133,7 @@ We run our application, and when we press the button, we get:
 
 We have a working button! Now, pressing the Button multiple times doesn't accomplish anything, as our handler is very simple, but this is a starting point.
 
-You'll note our `handle` function doesn't actually *do* anything with the parameter `actionEvent`. This is okay in this context. In some more advanced cases, you may what to use the inputed event. For example, if you were writing a handler for a `MouseEvent`, you would want to check the position of the Mouse when the Event occurred. This would be accessible inside of the passed-in `MouseEvent` object. This event is syntacticly necessary as part of the interface so that if we *do* need more information about the event, we are able to access it through the pass-in `Event` object. It doesn't mean we **have** to do something with it.
+You'll note our `handle` function doesn't actually *do* anything with the parameter `actionEvent`. This is okay in this context. In some more advanced cases, you may what to use the inputted event. For example, if you were writing a handler for a `MouseEvent`, you would want to check the position of the Mouse when the Event occurred. This would be accessible inside of the passed-in `MouseEvent` object. This event is syntactically necessary as part of the interface so that if we *do* need more information about the event, we are able to access it through the pass-in `Event` object. It doesn't mean we **have** to do something with it.
 
 Still, using an external .java file to define a public class like this has some drawbacks:
 1) We are creating a class that exists in the package's namespace, meaning we cannot reuse MyButtonHandler in any other class in the package.
@@ -196,7 +196,7 @@ public class HelloWorld extends Application {
     }
 }
 ```
-We nowno longer need a constructor in our Button Handler, since it is accessing a field of the class, `helloLabel`. The trade-off is that this EventHandler is now non-reusable, but given the scope of our application, that's acceptable. Remember the YAGNI principle - you don't need a general solution in every situation.
+We now no longer need a constructor in our Button Handler, since it is accessing a field of the class, `helloLabel`. The trade-off is that this EventHandler is now non-reusable, but given the scope of our application, that's acceptable. Remember the YAGNI principle - you don't need a general solution in every situation.
 
 ### Anonymous Class
 

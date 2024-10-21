@@ -509,22 +509,22 @@ public class Address {
 }
 
 private class Coordinate {
-    private double lattitude;
+    private double latitude;
     private double longitude;
 }
 ```
 
 Now imagine we had a function like:
 
-`getDistanceFromLocationTo(double lattitude, double longitude)`
+`getDistanceFromLocationTo(double latitude, double longitude)`
 
 If I wanted to find the distance from my location to, say, Rice Hall, I might run the code:
 
 ```java
     Building riceHall = buildingRepository.getBuilding("Rice Hall");
-    double riceLattitude = riceHall.getCoordinates.getLattitude();
+    double riceLatitude = riceHall.getCoordinates.getLatitude();
     double riceLongitude = riceHall.getCoordinates.getLongitude();
-    distanceScreen.display(getDistanceFromLocationTo(riceLattitude, riceLongitude));
+    distanceScreen.display(getDistanceFromLocationTo(riceLatitude, riceLongitude));
 ```
 
 But hang on a second! The entire reason we created the Coordinate class was to avoid *primitive obsession*, and here we are using primitives again! Instead, we should refactor the function:
@@ -547,7 +547,7 @@ One concern in Java is that the most commonly used collections (`ArrayList`, `Ha
 
 ```java
 private class Coordinate {
-    private double lattitude;
+    private double latitude;
     private double longitude;
     //getters and setters for each field
 }
@@ -586,8 +586,8 @@ And then adding a Constructor to our coordinates class:
 
 ```java
     public Coordinate(Coordinate coordinate) {
-        this.lattitude = coordinate.lattitude;
-        this.longtidue = coordinate.longtidue;
+        this.latitude = coordinate.latitude;
+        this.longitude = coordinate.longitude;
     }
 ```
 
@@ -680,7 +680,7 @@ Some refactoring techniques are inherently opposites of one another. For instanc
 
 * [Change Reference to Value](https://refactoring.guru/change-reference-to-value)
 
-These two refactorings *are* opposite. That because each refactoring technique is a tool that solves a specific design or coding flaw. However, not all refactoring techniques are useful *all* the time. As you practice and with refactoring and learn and study techniques, you will learn when to use which. Much of this comes from experience, but it requires staying vigilant and routinely making a habit of refactoring to clean your code.
+These two refactors *are* opposite. That because each refactoring technique is a tool that solves a specific design or coding flaw. However, not all refactoring techniques are useful *all* the time. As you practice and with refactoring and learn and study techniques, you will learn when to use which. Much of this comes from experience, but it requires staying vigilant and routinely making a habit of refactoring to clean your code.
 
 ## Conclusion
 

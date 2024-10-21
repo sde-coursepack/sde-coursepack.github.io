@@ -42,7 +42,7 @@ This page has a massive source code base! Each of these lines you are seeing are
 
 ## Why do we write software?
 
-We write software to *solve problems.* That problem might be "When is my next meeting?", or "I need to book a flight", or "who won the football game last night", or even "I'm bored, let me play a game to stave off this boredom." Many of the problems we solve had solutions before software, but software can make it easier, more efficient, more avaiable, and more accurate. 
+We write software to *solve problems.* That problem might be "When is my next meeting?", or "I need to book a flight", or "who won the football game last night", or even "I'm bored, let me play a game to stave off this boredom." Many of the problems we solve had solutions before software, but software can make it easier, more efficient, more available, and more accurate. 
 
 And yet, even simple sounding problems can have tons of hidden complexities.
 
@@ -60,13 +60,13 @@ Wait, what!?!? So which is it? February 22, 1732, or February 11, 1731? To add t
 
 ![A calendar showing England's September in 1752. The day after September 2nd is September 14, and there is no September 3rd through 11th]({{site.baseurl}}/img/September1752.png)
 
-What the heck was going on in September? Well, as some of you may have guessed, like every other confusing bit of European history, this has to do with religious schisms. In 1582, the then Pope Gregory XIII introduced the Gregorian Calendar, which is used in the United States and most of the world today. However, England and many other Protestant European countries continued to use the Julian calendar that was already in place for centuries. Because these calendars handle leap years differently (specifically, years like 1700, 1800, and 1900 **are** Leap Years in the Julian calendar, but are *not* Leap Years in the Gregorian calendar), the calendars wouldn't agree on what day it was. Feburary 11th on the Julian Calendar **is the same day** as February 22 on the Gregorian calendar, because the two calendars had drifted 11 days apart!
+What the heck was going on in September? Well, as some of you may have guessed, like every other confusing bit of European history, this has to do with religious schisms. In 1582, the then Pope Gregory XIII introduced the Gregorian Calendar, which is used in the United States and most of the world today. However, England and many other Protestant European countries continued to use the Julian calendar that was already in place for centuries. Because these calendars handle leap years differently (specifically, years like 1700, 1800, and 1900 **are** Leap Years in the Julian calendar, but are *not* Leap Years in the Gregorian calendar), the calendars wouldn't agree on what day it was. February 11th on the Julian Calendar **is the same day** as February 22 on the Gregorian calendar, because the two calendars had drifted 11 days apart!
 
 ### What is the start of the year?
 
 Another relevant detail is that the "first day of the year" in England used to be considered "the first day of Spring." And as such, March 25 was "New Year's Day" in England during and after the Middle Ages. So February 11, 1731 (Julian) *is the same day* as February 22, 1732 (Gregorian). However, England (and by extension the Colonies) did not adopt the Gregorian calendar until 1752, 20 years after Washington was born. But all of this means your program could have produced incorrect output if you didn't know and account for this history ahead of time!
 
-Time presents all sorts of challenges, as shown in the Computerphile video below (it's a great channel, by the by).
+Time presents all sorts of challenges, as shown in the *Computerphile* video below (it's a great channel, by the by).
 
 ---
 
@@ -102,13 +102,13 @@ One of the key takeaways from No Silver Bullet is that
 software difficulty is made up of difficulties that are 
 **essential** and **accidental.**
 
-**Essential** difficulties are that are intrinsic to developing software. These difficulties cannot be seperated from the software development process.
+**Essential** difficulties are that are intrinsic to developing software. These difficulties cannot be separated from the software development process.
 
 **Accidental** difficulties emerge because of circumstance. For example, in the 1960s, most programs were written on pencil and paper, and transcribed into punch cards. This process was slow, and great care had to be taken to ensure cards were punched correctly and ordered correctly. These difficulties can be address by improved technology (like keyboards, IDEs, GUIs, etc.). 
 
 Imagine if you had a stripped screw that you were trying to unscrew. The fact that it's difficult to unscrew isn't *essential*, as if the screw weren't stripped, it would be very easy. However, if I asked you to "build a bookshelf", then that is *essentially* more complicated than unscrewing a screw, even if you removed all *accidental complexity* and shop at IKEA for "Billy" the bookcase.
 
-<img src="https://www.sheknows.com/wp-content/uploads/2018/08/ikea9_svxdy8.jpeg" alt="Ikea's Bookcase lies broken and irreperable">
+![Ikea's Bookcase lies broken and irreparable](https://www.sheknows.com/wp-content/uploads/2018/08/ikea9_svxdy8.jpeg)
 
 The crux of Brooks's argument is that *there are essential difficulties* that will never completely go away. Developing software will always be hard, even as our technological and methodological improvements gives us more power to thwart the *accidental complexities*. While technology can help us be better and more efficient at writing code, it doesn't help us solve problems related to *specification*, *design*, etc.
 

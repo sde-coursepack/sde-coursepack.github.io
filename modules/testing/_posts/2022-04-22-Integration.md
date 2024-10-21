@@ -230,13 +230,15 @@ I know it looks like a lot here, but we'll break this down in general.
 
 What we are doing here is using a library called Mockito to create an "on-the-fly" (that is, at runtime) stub for the class ReviewManager. Rather than implement ReviewManager, we are simply (for the sake of this test) hard coding the output to the function to be a map that allows us to test our basic functionality.
 
+
 We hard-code a map of restaurants in the `private` method `getTestReviewMapTwoRestaurant()` to generate a simple example of what a map returned from `ReviewManager.getRestaurantReviewsMap(int zipcode)`. We are saying we want it to be a map with two restaurants, "Bodo's Bagles" and "Chipotle". Thus, we aren't really using (or implementing) `ReviewManager`, but rather using a "mock". The syntax for the `when` and `thenReturn` will be covered in more detail in the next unit. They key takeaway, however, is that this mocking **allows us to test, even when we have unintegrated, or even unimplemented, dependencies, so long as we know their interface**.
+
 
 In the same way we wrote the above **unit test**, In this way, we can easily create prototypes based around this hard coded data that we can take as far as needed. Obviously, we won't use this data long-term, but you'll notice this data is only created in our **testing environment**, and thus safely won't affect our **main** source code environment.
 
 #### Advantages of Top-Down
 
-The biggest advantage is that this lets us integrate our system in the same we want to design our system: from the high-level to the low-level. This means we are able to make desicions about the high-level classes early before we integrate low-level classes, allowing us to ensure our high-level design is effective and flexible.
+The biggest advantage is that this lets us integrate our system in the same we want to design our system: from the high-level to the low-level. This means we are able to make decisions about the high-level classes early before we integrate low-level classes, allowing us to ensure our high-level design is effective and flexible.
 
 You may think writing up all these mocks is time-consuming. In truth however, with practice it can be a pretty quick process. In fact, most likely even if you were testing without a mock, you would still need to build the objects you are testing with during the test setup. Arguably, these mocks make it easier, as you aren't working with a real class. And in actuality, we are better off testing with mocks anyway, especially during **unit testing**. We will discuss the reasons why in the next unit (Mockito Unit Testing).
 
@@ -252,6 +254,6 @@ Additionally, in smaller apps, the mocking may be overkill if there are only a s
 
 Also called hybrid integration testing, this combines bottom-up and top down. Generally, in sandwich integration, we will often start with a **target layer**. This could include class in the middle (like `ApplicationController` or `RestaurantManager`, for example). In this case, we can integrate both up and down, in the order we choose, testing as we go. In this case, we use Bottom-Up integration strategies to test **upwards** from our target layer, and Top-Down integration strategies to test **downwards** from our target layer.
 
-A major advantage of sandwich testing is that it can be very valuable in larger applications, as it allows for more scalability as new modules and subprojects are integrated. We are often able to isolate the User Interface (which is typically the most volatile part of our application), while still being able to test by decomposing features into individual modules.
+A major advantage of sandwich testing is that it can be very valuable in larger applications, as it allows for more scalability as new modules and sub-projects are integrated. We are often able to isolate the User Interface (which is typically the most volatile part of our application), while still being able to test by decomposing features into individual modules.
 
 One major disadvantage is that this approach struggles where there are a large number of interdependencies between modules, as isolate a "target layer" to integrate up and down from becomes difficult. 

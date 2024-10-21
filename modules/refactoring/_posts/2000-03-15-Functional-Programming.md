@@ -100,7 +100,7 @@ This data structure class represents a student at UVA. Imagine we were making a 
 
 ## Anonymous classes
 
-One way around this is the anonymous class. That is, rather than write `StudentIdCCompartor` as a separate class in the package, we can define the class *in-line* in our code.
+One way around this is the anonymous class. That is, rather than write `StudentIdComparator` as a separate class in the package, we can define the class *in-line* in our code.
 
 ```java
 public class UVAStudentManager {
@@ -233,7 +233,7 @@ public void testWithdrawInsufficientFunds() {
 }
 ```
 
-If you look at the [official javadocs for the assertThrows method](https://junit.org/junit5/docs/5.0.3/api/org/junit/jupiter/api/Assertions.html#assertThrows-java.lang.Class-org.junit.jupiter.api.function.Executable-), you'll see the signature is:
+If you look at the [official javadoc for the assertThrows method](https://junit.org/junit5/docs/5.0.3/api/org/junit/jupiter/api/Assertions.html#assertThrows-java.lang.Class-org.junit.jupiter.api.function.Executable-), you'll see the signature is:
 
 ```public static <T extends Throwable> T assertThrows(Class<T> expectedType, Executable executable)```
 
@@ -272,7 +272,7 @@ However, the above code is arguably harder to read than:
     assertEquals(500, testAccount.getBalance(),1e-4);
 ```
 
-This is because there is more text that is **extraneous**, or unnecessary. For example `Executable`, `new Executable() `, `@ovverride`, etc. All of this introduces **acidental complexity** to our test that can be removed. Since both do the same thing, we use the second version.
+This is because there is more text that is **extraneous**, or unnecessary. For example `Executable`, `new Executable() `, `@Override`, etc. All of this introduces **accidental complexity** to our test that can be removed. Since both do the same thing, we use the second version.
 
 In essence, we want our code to only include that which is *needed*. We want to highlight the **function** and hide the **class**, since the class only exists to be a vessel for the Function.
 
