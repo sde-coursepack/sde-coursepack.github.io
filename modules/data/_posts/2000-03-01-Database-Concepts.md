@@ -86,3 +86,4 @@ In general, our Primary Key should always be a **Integer**, often automatically 
 # Other concepts
 
 We will cover more concepts as we need them, like foreign keys, constraints, etc. In this module, we simple what to clarify what a relational database is, and what tables, attributes, and records are. In the next module, we will dive in SQLite command line and start looking at the basics of our SQL query-writing language.
+
