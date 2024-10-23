@@ -278,9 +278,9 @@ Here, I can add multiple rows in one query by separate them with a column. You'l
 
 ```shell
 sqlite> INSERT INTO Books(Title, Series, SeriesOrder, Author, Published, Rating)
-   ...>     VALUES ('Memories of Ice', 'Malazan Book of the Fallen',3, 'Steven Erikson', 2001, 5.0),
-   ...>            ('Unsouled', 'Cradle', '1', 'Will Wight', 2016, 3.7);
-sqlite> select * from Books;
+       VALUES ('Memories of Ice', 'Malazan Book of the Fallen',3, 'Steven Erikson', 2001, 5.0),
+              ('Unsouled', 'Cradle', '1', 'Will Wight', 2016, 3.7);
+sqlite> SELECT * FROM Books;
 1|Hitchhiker's Guide to the Galaxy|Hitchhiker's Guide to the Galaxy|1|Douglas Adams|1979|4.2
 2|Memories of Ice|Malazan Book of the Fallen|3|Steven Erikson|2001|5.0
 3|Unsouled|Cradle|1|Will Wight|2016|3.7
@@ -344,7 +344,7 @@ INSERT INTO Books(Title, Author, Published, Rating)
 Now that we added our last row, we can use `SELECT * FROM Books` again and get:
 
 ```shell
-sqlite> select * from books;
+sqlite> SELECT * FROM Books;
 1|Hitchhiker's Guide to the Galaxy|Hitchhiker's Guide to the Galaxy|1|Douglas Adams|1979|4.2
 2|Memories of Ice|Malazan Book of the Fallen|3|Steven Erikson|2001|5.0
 3|Unsouled|Cradle|1|Will Wight|2016|3.7
@@ -376,9 +376,250 @@ But in general, I wouldn't worry too much about making the console pretty, as in
 
 ## SELECT
 
+When checking `INSERT`, we use `SELECT * FROM Books;` to print out all our data. This is the simplest way to print every record and attribute in the table `Books`. The format is:
+
+`SELECT * FROM table_name;`
+
+However, if we have very large tables, we may not want to display the whole thing all at once. Instead, let's just get every book's `Title` and `Author`
+
+```sql
+SELECT Books.Title, Books.Author FROM Books;
+```
+
+...and running in our Shell, we get:
+
+```shell
+sqlite> SELECT Books.Title, Books.Author FROM Books;
+Title                             Author
+--------------------------------  --------------
+Hitchhiker's Guide to the Galaxy  Douglas Adams
+Memories of Ice                   Steven Erikson
+Unsouled                          Will Wight
+The Shadow Rising                 Robert Jordan
+Happier as Werewolves             Andrew Heaton
+```
+
+As a note, you can *just* use the column names, and it's not necessary to use the Table names in most cases, so the following is fine
+
+```sql
+SELECT Title, Author FROM Books;
+```
+
+However, we will eventually start querying *across multiple tables*. Once we start doing that, we can run into two columns in different tables with the same name, and we need to be able to distinguish one from the other. In that situation, it will become *necessary* to use `TableName.ColumnName`.
+
 ### WHERE
 
+Now imagine this table were every book McBurney every read (there is going to be a *lot* of Star Wars books). It now can become difficult to find the book that we care about. For instance, what if we want to find only the ratings for books by the author Douglas Adams?
+
+For the sake of this example, I inserted into my table Douglas Adams "The Long Dark Tea-Time of the Soul", so it will appear in the data below.
+
+```shell
+sqlite> SELECT Title, Author, Published, Rating
+   FROM Books
+   WHERE Author = 'Douglas Adams';
+   
+Title                               Author         Published  Rating
+----------------------------------  -------------  ---------  ------
+Hitchhiker's Guide to the Galaxy    Douglas Adams  1979       4.2
+The Long Dark Tea-Time of the Soul  Douglas Adams  1988       2.3
+```
+
+This shows the use case of the `WHERE expression` clause - `expression` is any boolean expression, and we only display rows where the expression is true. As a result, we get both Douglas Adams books I added to my database, but we *don't* get books by any other author. (Also, I'm sorry, I didn't like "Long Dark Tea-Time of the Soul", Douglas Adams fans - I still love his other books!)
+
+We can use this, for example, to book that I thought were 4.0 or better:
+
+```shell
+sqlite> SELECT Title, Author, Published, Rating
+    FROM Books
+    WHERE Rating >= 4.0;
+   
+Title                             Author          Published  Rating
+--------------------------------  --------------  ---------  ------
+Hitchhiker's Guide to the Galaxy  Douglas Adams   1979       4.2
+Memories of Ice                   Steven Erikson  2001       5.0
+The Shadow Rising                 Robert Jordan   1992       4.8
+sqlite>
+```
+
+#### LIKE
+
+One of the more common filtering needs is to filter by Text. However, with text, we have to worry about **exact** matching (case, exact use of spacing, etc.). This is where `LIKE` comes into play. For example:
+
+```sql
+SELECT Title, Author
+   FROM Books
+   WHERE Title LIKE 'THE SHADOW RISING';
+```
+
+gives us
+
+```shell
+Title              Author
+-----------------  -------------
+The Shadow Rising  Robert Jordan
+```
+
+On the other hand, if we simply use equals...
+
+```sql
+SELECT Title, Author
+   FROM Books
+   WHERE Title = 'THE SHADOW RISING';
+```
+
+We get no match at all, because `=` is case-sensitive.
+
+We can also use this to look for partial matches:
+
+```sql
+SELECT Title, Author
+    FROM Books
+    WHERE Title LIKE "%the%";
+```
+
+Gives us every title that contains "THE" in any case at any position:
+
+```shell
+Title                               Author
+----------------------------------  -------------
+Hitchhiker's Guide to the Galaxy    Douglas Adams
+The Shadow Rising                   Robert Jordan
+The Long Dark Tea-Time of the Soul  Douglas Adams
+```
+
+
+### Order By
+
+With OrderBy, we can define a sorting order for our output (by default, you shoud assume the data is fundamentally un-ordered). For example:
+
+```sql
+SELECT Title, Author, Rating
+    FROM Books
+    ORDER BY Rating DESC;
+```
+
+Here, we are saying sort by Rating in descending (`DESC`) order. Use this in our sqlite shell and we get:
+
+```shell
+Title                               Author          Rating
+----------------------------------  --------------  ------
+Memories of Ice                     Steven Erikson  5.0
+The Shadow Rising                   Robert Jordan   4.8
+Hitchhiker's Guide to the Galaxy    Douglas Adams   4.2
+Happier as Werewolves               Andrew Heaton   3.9
+Unsouled                            Will Wight      3.7
+The Long Dark Tea-Time of the Soul  Douglas Adams   2.3
+```
+
+By default, sorts are Ascending (`ASC`). 
+
+#### Order by Text
+
+However, be aware that sorting by Text sorts **lexographically** (meaning, in ascending order, capital letters come before lower case letters -- ZEBRA before aardvark). This is because the String are sorted by character Unicode values in ascending order, not by "letter".
+
+To sort alphabetically in a **case-insensitive** way, there's a couple options, but I feel the most obvious is:
+
+```sql
+SELECT Title, Author, Rating
+    FROM Books
+    ORDER BY LOWER(Title);
+```
+
+This works because we are sorting not by `Title` on its own, but the result of `Lower(Title)` that is, converting the text of Title to lowercase. You could also use `Upper(Title)`, but be aware this will still have issues with special characters, like Shōgun being "alphabetized" after Shutter Island, since case changes don't affect special characters order relative to ASCII english letters. If you run into this, the best solution I can find is:
+
+```sql
+SELECT Title, Author, Rating
+    FROM Books
+    ORDER BY Title COLLATE LOCALIZED
+```
+
+(No, that won't be on the test, and no you won't have to deal with special characters in our homework)
+
+#### Order by multiple criteria
+
+So, if I add Steven Erikson's "Deadhouse Gates" to our database 
+
+```sql
+sqlite> INSERT INTO BOOKS (Title, Series, SeriesOrder, Author, Published, Rating)
+    VALUES ("Deadhouse Gates", "Malazan Book of the Fallen", 2, "Steven Erikson", 2000, 4.9);
+```
+
+Now, I want to display every book sorted by `Series` alphabetically, and *then* sorted by `SeriesOrder` in Ascending order
+
+```sql
+SELECT Title, Series, SeriesOrder, Author
+   FROM Books
+   WHERE Series is not NULL
+   ORDER BY 
+       LOWER(Series),  
+       SeriesOrder;  --remember: ASC by default
+```
+
+then I get:
+
+```shell
+Title                               Series                            SeriesOrder  Author
+----------------------------------  --------------------------------  -----------  --------------
+Unsouled                            Cradle                            1            Will Wight
+The Long Dark Tea-Time of the Soul  Dirk Gentley                      2            Douglas Adams
+Hitchhiker's Guide to the Galaxy    Hitchhiker's Guide to the Galaxy  1            Douglas Adams
+Deadhouse Gates                     Malazan Book of the Fallen        2            Steven Erikson
+Memories of Ice                     Malazan Book of the Fallen        3            Steven Erikson
+The Shadow Rising                   The Wheel of Time                 4            Robert Jordan
+```
+
+As you can see, we sort by Series first, but then use Series Order when the Series have the same name.
+
 ## Transactions
+
+Before we move onto `UPDATE` and `DELETE`, it's **very** important to talk about transactions.
+
+In SQLite, by default **auto-commit is on**! This means after every `CREATE`, `INSERT`, `UPDATE`, `DELETE`, and `DROP` query, any changes to the underlying data are immediately made permanent!
+
+Understand that a mistake in an `UPDATE` or `DELETE` query can end up corrupting or deleting data in every record of the table! As such, before you *ever* do anything with `UPDATE` or `DELETE`, I recommend the following:
+
+1) Make a back-up - this is **really* easy in SQLite, actually. Just copy the database file and paste it somewhere else. That copy is your back-up. If you accidently damage or lose your data, just go back and get that backup file, and copy and paste it back in to where your database should be.  
+2) `BEGIN TRANSACTION`
+
+### `BEGIN TRANSACTION`
+
+This sets a "restore point" (similar to making a commit in git - it's a point you can come back to). Here's where this is beneficial:
+
+```shell
+sqlite> BEGIN TRANSACTION;
+sqlite> DELETE FROM Books; --oops I accidently put a semicolon when I only wanted to delete a specific book
+sqlite> SELECT * FROM Books;
+```
+
+Oh no! I meant to do a `DELETE FROM Books WHERE ...` but I accidently put a semicolon at the end of the line! Because of this, I just deleted my entire table!
+
+### `ROLLBACK`
+
+This would be **catostrophic** without a backup or a restore point. Luckily, I have both, but let's use the restore point.
+
+See, right now, me deleting every record in books is **transient** - that is, a pending change that hasn't actually been saved to the database permanently. Thinking quickly, I can simply `ROLLBACK`, and it will take me back to the last time I used `BEGIN TRANSACTION`
+
+```shell
+sqlite> ROLLBACK;
+sqlite> SELECT * FROM Books;
+BookID  Title                               Series                            SeriesOrder  Author          Published  Rating
+------  ----------------------------------  --------------------------------  -----------  --------------  ---------  ------
+1       Hitchhiker's Guide to the Galaxy    Hitchhiker's Guide to the Galaxy  1            Douglas Adams   1979       4.2
+2       Memories of Ice                     Malazan Book of the Fallen        3            Steven Erikson  2001       5.0
+3       Unsouled                            Cradle                            1            Will Wight      2016       3.7
+4       The Shadow Rising                   The Wheel of Time                 4            Robert Jordan   1992       4.8
+5       Happier as Werewolves                                                              Andrew Heaton   2016       3.9
+6       The Long Dark Tea-Time of the Soul  Dirk Gentley                      2            Douglas Adams   1988       2.3
+7       Deadhouse Gates                     Malazan Book of the Fallen        2            Steven Erikson  2000       4.9
+```
+
+However, **this is only possible because I began a transaction!** If I never called `BEGIN TRANSACTION`, then the accidental `DELETE` query would have immediately been commited to the database.
+
+### `COMMIT`
+
+`COMMIT` does the opposite of `ROLLBACK` - `ROLLBACK` undoes any transient changes, but `COMMIT` permanently stores those changes in the database. As such, if I had used `COMMIT` instead of `ROLLBACK`, then I would have permanently lost my data from the accidental delete call. 
+
+Again, by default, **SQLite autocommits if you do not manually begin a transaction!** So always and forever, when you start doing anything with `UPDATE`, `DELETE`, or `DROP` - <ins>**MAKE A BACKUP** and **USE `BEGIN TRANSACTION`**</ins> -- this was bolded in all caps and underlined because it really really really is that important.
 
 ## UPDATE
 
