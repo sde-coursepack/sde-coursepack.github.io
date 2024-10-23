@@ -48,13 +48,13 @@ For this module, we will be creating a table to keep track of some of Prof. McBu
 
 I want a table like so:
 
-| BookId | Title                            | Series                           | SeriesOrder | Author         | Published | Rating |
+| BookID | Title                            | Series                           | SeriesOrder | Author         | Published | Rating |
 |--------|----------------------------------|----------------------------------|-------------|----------------|-----------|--------|
 | 1      | Hitchhiker's Guide to the Galaxy | Hitchhiker's Guide to the Galaxy | 1           | Douglas Adams  | 1979      | 4.2    |
 | 2      | Memories of Ice                  | Malazan Book of the Fallen       | 3           | Steven Erikson | 2001      | 5.0    |
 | 3      | Unsouled                         | Cradle                           | 1           | Will Wight     | 2016      | 3.7    |
 | 4      | The Shadow Rising                | The Wheel of Time                | 4           | Robert Jordan  | 1992      | 4.8    |
-| 5      | Happier as Werewolves            |                                  |             | Andrew Heaton  | 1975      | 3.9    |
+| 5      | Happier as Werewolves            |                                  |             | Andrew Heaton  | 2016      | 3.9    |
 
 Here, for the fields, I have:
 
@@ -80,7 +80,7 @@ CREATE TABLE Books (
     SeriesOrder INTEGER,
     Author TEXT NOT NULL,
     Published INTEGER NOT NULL,
-    Rating REAL DEFAULT 1.0
+    Rating REAL DEFAULT 1.0 CHECK(Rating >= 1.0 AND RATING <= 5.0)
 ) STRICT;
 ```
 
@@ -104,7 +104,7 @@ CREATE TABLE Books (
     SeriesOrder INTEGER,
     Author TEXT NOT NULL,
     Published INTEGER NOT NULL,
-    Rating REAL DEFAULT 1.0
+    Rating REAL DEFAULT 1.0 CHECK(Rating >= 1.0 AND RATING <= 5.0)
 ) STRICT;
 ```
 
@@ -146,7 +146,7 @@ Parse error: table Books already exists
                ^--- error here
 ```
 
-Often, when running starting a program that uses SQLite, we want to check if the necessary tables are setup. As such, at start-up, we can run:
+Often, when running starting a program that uses SQLite, we want to check if the necessary tables are set up. As such, at start-up, we can run:
 
 ```sql
 CREATE TABLE IF NOT EXISTS Books (
@@ -217,7 +217,162 @@ This is why, in general, the recommended approach whenever you need to modify co
 
 Sound exhausting and error-prone? It is. So in short, do your best to create the table right the first time in SQLite.
 
+And **always** back-up your database before trying to do any kind of change like this, or [you could lose all your data](https://www.theguardian.com/technology/2019/mar/18/myspace-loses-all-content-uploaded-before-2016).
+
 ## INSERT
+
+Yay! We have a table. A lonely, empty, useless table...wee...
+
+So now, let's add some data!
+
+I'm going to start by adding Hitchhiker's Guide to the Galaxy. here is the `INSERT` command to add that. For this, it's useful to have our schema handy, so before writing the `INSERT` query, I would use the `.schema` command.
+
+```sql
+sqlite> .schema Books
+CREATE TABLE Books (
+    BookID INTEGER PRIMARY KEY,
+    Title TEXT NOT NULL,
+    Series TEXT,
+    SeriesOrder INTEGER,
+    Author TEXT NOT NULL,
+    Published INTEGER NOT NULL,
+    Rating REAL DEFAULT 1.0 CHECK(Rating >= 1.0 AND RATING <= 5.0)
+) STRICT;
+```
+
+Using the column names, I write the following to add one record to our Books
+
+```sql
+INSERT INTO Books(BookID, Title, Series, SeriesOrder, Author, Published, Rating)
+  VALUES (1, 'Hitchhiker''s Guide to the Galaxy', 'Hitchhiker''s Guide to the Galaxy',
+         1, 'Douglas Adams', 1979, 4.2);
+```
+Once again, any linebreaks are style and to make sure things fit on the page.
+
+To check if our `INSERT`, we can use a `SELECT` statement. We will explain what this means in the `SELECT` Section below, but for now, we can use our sqlite shell and type `SELECT * FROM Books;`
+
+```shell
+sqlite> SELECT * FROM Books;
+1|Hitchhiker's Guide to the Galaxy|Hitchhiker's Guide to the Galaxy|1|Douglas Adams|1979|4.2
+```
+
+And there is our data! It's important to note that this data is **persistent**. If we close our SQLite shell and reopen it, the data is still there. If we turn off our computer and turn it back on, the data is still there. This is what persistence means. The only way to remove this data now is to use a `DELETE` or `DROP` command, or delete the entire database.
+
+### Text Literals note
+
+A quick note that the *typical* way of doing text literals in SQL is using **single-quotes** (aka, apostrophe's). Of course, the problem I have is "Hitchhiker's Guide to the Galaxy" contains an apostrophe. And so `'Hitchhiker's Guide to the Galaxy'` would cause a problem, since the apostrophe in the word "Hitchhiker's" would be mistaken for the end of the String. So, to indicate a String containing an apostrophe, and that it's not the end of the Text literal, we simply use 2 apostrophes ('') inside our text literal, which means "this is an apostrophe, not the end of the String".
+
+SQLite also supports using double-quote literals, or `"Hitcherhiker's Guide to the Galaxy"`
+
+### Inserting multiple records
+
+Now, let's add more than one piece of data at a time. I'm also going leave the `BookID` field off to illustrate what happens.
+
+```sql
+INSERT INTO Books(Title, Series, SeriesOrder, Author, Published, Rating)
+    VALUES ('Memories of Ice', 'Malazan Book of the Fallen',3, 'Steven Erikson', 2001, 5.0),
+           ('Unsouled', 'Cradle', '1', 'Will Wight', 2016, 3.7);
+```
+
+Here, I can add multiple rows in one query by separate them with a column. You'll notice I only say `VALUES` once. But I run my query, and then use `SELECT * FROM Books;`
+
+```shell
+sqlite> INSERT INTO Books(Title, Series, SeriesOrder, Author, Published, Rating)
+   ...>     VALUES ('Memories of Ice', 'Malazan Book of the Fallen',3, 'Steven Erikson', 2001, 5.0),
+   ...>            ('Unsouled', 'Cradle', '1', 'Will Wight', 2016, 3.7);
+sqlite> select * from Books;
+1|Hitchhiker's Guide to the Galaxy|Hitchhiker's Guide to the Galaxy|1|Douglas Adams|1979|4.2
+2|Memories of Ice|Malazan Book of the Fallen|3|Steven Erikson|2001|5.0
+3|Unsouled|Cradle|1|Will Wight|2016|3.7
+```
+and my data has been added!
+
+### Auto Increment
+
+But wait...where did those `BookID`s come from? Well, by default, when I have an `INTEGER PRIMARY KEY` field in SQLite,
+this *auto-increments* by default (that is, each time I add a new record, the ID is automatically assigned to the next
+available ID). 
+
+Now, be aware that in most SQL dialect, you would actually need to explicitly state that the primary key is auto-increment at the time you create the table. For instance, in PostgreSQL, you would use
+
+```sql
+CREATE TABLE Books (
+  BookID SERIAL PRIMARY KEY
+  ...);
+```
+
+In MySQL, you would use
+
+```sql
+CREATE TABLE Books (
+    BookID INT NOT NULL AUTO_INCREMENT,
+    ...
+    PRIMARY KEY (BookID)
+);
+```
+
+This is one of the places I've seen the most differences. Be aware that there is also an `AUTOINCREMENT` keyword in SQLite, but it has a bit of a unique behavior - it ensures that no two records in **any** have the same ID regardless of Table. In general, don't worry too much about this, just be aware of it.
+
+
+### Inserting without column names
+
+You **can** insert without column names. For instance
+
+```sql
+INSERT INTO Books 
+  VALUES(4, 'The Shadow Rising', 'The Wheel of Time', 4, 'Robert Jordan', 1992, 4.8);
+```
+
+This is called a **blind insert**. <ins>But you should **never** do this!</ins> The reasons for this are:  
+1) You're assuming the column name order which can change. Columns can also be removed, renamed, etc.  
+2) We should think of a record like an entry in a Map, where the key is the primary key, and the value is a mapping of column names to values (not unlike JSON) - `BookID=4 -> {"Title"="The Shadow Rising", "Series"="The Wheel of Time"...}`
+3) The scheme of our table may change in a way that we *think* this insert is valid, but now we're inserting "The Wheel of Time" into `PublicationCity` because of changes.
+
+As such, **never use** blind insert in your own code. Always explicitly list the columns you intend to insert to.
+
+### Inserting null values
+
+Now we reach Andrew Heaton's "Happier as Werewolves" which isn't part of a series. As such, we want to leave `Series` and `SeriesOrder` null.
+
+One way to do this is simply to ignore those columns when inserting.
+
+```sql
+INSERT INTO Books(Title, Author, Published, Rating)
+  VALUES ('Happier as Werewolves', 'Andrew Heaton', 2016, 3.9);
+```
+
+Now that we added our last row, we can use `SELECT * FROM Books` again and get:
+
+```shell
+sqlite> select * from books;
+1|Hitchhiker's Guide to the Galaxy|Hitchhiker's Guide to the Galaxy|1|Douglas Adams|1979|4.2
+2|Memories of Ice|Malazan Book of the Fallen|3|Steven Erikson|2001|5.0
+3|Unsouled|Cradle|1|Will Wight|2016|3.7
+4|The Shadow Rising|The Wheel of Time|4|Robert Jordan|1992|4.8
+5|Happier as Werewolves|||Andrew Heaton|2016|3.9
+```
+
+You'll notice that the data isn't great to read in this format, it's hard to line-up for instance. We can somewhat improve this with:
+
+```shell
+sqlite> .mode columns
+sqlite> SELECT * FROM Books;
+BookID  Title                             Series                            SeriesOrder  Author          Published  Rating
+------  --------------------------------  --------------------------------  -----------  --------------  ---------  ------
+1       Hitchhiker's Guide to the Galaxy  Hitchhiker's Guide to the Galaxy  1            Douglas Adams   1979       4.2
+
+2       Memories of Ice                   Malazan Book of the Fallen        3            Steven Erikson  2001       5.0
+
+3       Unsouled                          Cradle                            1            Will Wight      2016       3.7
+
+4       The Shadow Rising                 The Wheel of Time                 4            Robert Jordan   1992       4.8
+
+5       Happier as Werewolves                                                            Andrew Heaton   2016       3.9
+
+```
+
+But in general, I wouldn't worry too much about making the console pretty, as in practice we're not going to be working with the console directly very frequently.
+
 
 ## SELECT
 
