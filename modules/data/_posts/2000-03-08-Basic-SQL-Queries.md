@@ -623,6 +623,135 @@ Again, by default, **SQLite autocommits if you do not manually begin a transacti
 
 ## UPDATE
 
+`UPDATE` commits are used to *change* existing data. For instance, "Steven Erikson" is a psuedonym, his real name is "Steve Rune Lundin". Let's say I wanted
+to update my data to replace his psuedonym with his real name.
+
+**The `WHERE` clause is **extremely** important in update**.
+
+```sql
+BEGIN TRANSACTION;
+
+UPDATE Books
+    SET Author = "Steve Rune Lundin"
+    WHERE Author = "Steven Erikson";
+
+SELECT * FROM Books;
+```
+
+The above select would show:
+
+```shell
+BookID  Title                               Series                            SeriesOrder  Author             Published  Rating
+------  ----------------------------------  --------------------------------  -----------  -----------------  ---------  ------
+1       Hitchhiker's Guide to the Galaxy    Hitchhiker's Guide to the Galaxy  1            Douglas Adams      1979       4.2
+2       Memories of Ice                     Malazan Book of the Fallen        3            Steve Rune Lundin  2001       5.0
+3       Unsouled                            Cradle                            1            Will Wight         2016       3.7
+4       The Shadow Rising                   The Wheel of Time                 4            Robert Jordan      1992       4.8
+5       Happier as Werewolves                                                              Andrew Heaton      2016       3.9
+6       The Long Dark Tea-Time of the Soul  Dirk Gentley                      2            Douglas Adams      1988       2.3
+7       Deadhouse Gates                     Malazan Book of the Fallen        2            Steve Rune Lundin  2000       4.9
+```
+
+Notice that *only* the records that met my `WHERE` clause were effected.
+
+Because of this, I feel comfortable using `COMMIT` to save my results.
+
+### Forgetting WHERE clause
+
+Let's say I wrote the following (if you're following along, make sure you use `BEGIN TRANSACTION`)
+
+```sql
+BEGIN TRANSACTION;
+
+UPDATE Books
+    SET Author = "Steve Rune Lundin";
+
+SELECT * FROM Books;
+```
+
+This would be *bad*. Because, here's what would display.
+
+```shell
+BookID  Title                               Series                            SeriesOrder  Author             Published  Rating
+------  ----------------------------------  --------------------------------  -----------  -----------------  ---------  ------
+1       Hitchhiker's Guide to the Galaxy    Hitchhiker's Guide to the Galaxy  1            Steve Rune Lundin  1979       4.2
+2       Memories of Ice                     Malazan Book of the Fallen        3            Steve Rune Lundin  2001       5.0
+3       Unsouled                            Cradle                            1            Steve Rune Lundin  2016       3.7
+4       The Shadow Rising                   The Wheel of Time                 4            Steve Rune Lundin  1992       4.8
+5       Happier as Werewolves                                                              Steve Rune Lundin  2016       3.9
+6       The Long Dark Tea-Time of the Soul  Dirk Gentley                      2            Steve Rune Lundin  1988       2.3
+7       Deadhouse Gates                     Malazan Book of the Fallen        2            Steve Rune Lundin  2000       4.9
+``` 
+
+Because there is no `WHERE` clause, then **every single record** in the `Books` table is affected. Now, don't get me wrong. I love me some Steve "Steven Erikson" Lundin books. He is easily my favorite author. But that doesn't mean I want him to write **every** book, nor should be get credit for every book. Because I used `BEGIN TRANSACTION`, I would realize my mistake and I would immediately `ROLLBACK`
+
+But this is *why* it's important to **always** use a back-up and `BEGIN TRANSACTION` whenever you start making changes. Again, if you don't use `BEGIN TRANSACTION`, then all commits are **immediately** made permanent, with no chance of a rollback.
+
 ## DELETE
 
+`DELETE` works very similar to `UPDATE`, only instead of changing records, you are selecting records for deletion. For instance, lets say I decide to update this database to **only** include books I own print versions of. Sorry, Will Wight, I only own the ebooks for Cradle! As a result, I need to remove "Unsouled" from the database. As a general rule, if you know specifically you want to remove **a single specific record**, you should always use the Primary Key attribute to remove it, since it is guaranteed to be unique.
+
+So I might do something like this to *find* the ID
+
+```sql
+SELECT ID, Title, Author
+    FROM Books
+    WHERE Author = "Will Wight"
+    AND Title = "Unsouled";
+```
+
+And I get:
+
+```shell
+BookID  Title                               Author             
+------  ----------------------------------  ----------
+3       Unsouled                            Will Wight
+```
+
+From here, I can see that the only book that matches my query is BookID 3, so I know I can delete that record:
+
+```sql
+BEGIN TRANSACTION; -- ALWAYS ALWAYS ALWAYS!!!
+
+DELETE FROM Books
+    WHERE BookID = 3;
+```
+
+Then do a SELECT to ensure only 1 row was deleted. Once you are certain you only deleted the row you intended, and nothing
+else, then you can do `COMMIT;`
+
+### "Truncate" doesn't exist
+
+In many SQL implementations, there is a query `TRUNCATE` where you would do something like
+
+```sql
+TRUNCATE TABLE Books;
+```
+
+The intent of this query is to delete all of the **data** in the table, but leave the table's Schema (that is, structure, datatypes, constraints, etc.) While there is no `TRUNCATE` in SQLite, you can create the same result with
+
+```sql
+DELETE FROM Books;
+```
+
+Just like update, if you don't include a `WHERE` clause, then **every single record** in the table will be deleted. Because it is easy to accidently write a bad query or a bad `WHERE` clause, this is why you ALWAYS USE `BEGIN TRANSACTION` -- look, I know I keep repeating it, but it's that important.
+
 ## DROP
+
+`DROP` doesn't just delete data, DROP deletes entire tables (data, schema, and all). 
+
+```sql
+DROP TABLE Books;
+```
+
+If I did this, my entire table would be gone. My database would no longer even *have* a Books Table, and all the table data would be lost. Similar to create, you can also use:
+
+```sql
+DROP TABLE IF EXISTS Books;
+```
+
+This will drop the table if it exists, otherwise do nothing. (without `IF EXISTS`, if the table doesn't exist an error is thrown).
+
+# Conclusion
+
+There is a lot of ground to cover with SQL Queries, and the rabbit hole goes much deeper than I've shown here, but this is the starting point for covering SQL Database usage. Next, we will start looking at querying **across** tables and foreign keys to ensure data consistency across tables.
