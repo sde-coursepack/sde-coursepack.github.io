@@ -6,6 +6,15 @@ Title: Basic Queries
 
 In this unit, we will cover running basic SQL queries via the sqlite shell. A later module will cover using SQL queries from Java via JDBC (Java DataBase Connection). We will be using the SQLite dialect for this unit. It is often completely compatible with PostgreSQL, MySQL, etc., but you may run into some specific differences.
 
+As another note, we are giving you "just enough" SQL here. You can do most basic needed behavior. You could take an entire course on database (which UVA has: CS 4750: Database Systems) and still have more to learn. We just want to give you enough tools to:
+
+* Create some tables  
+* Insert data into tables  
+* Get data out of those tables  
+* Update and delete data in those tables  
+
+
+
 * TOC
 {:toc}
 
@@ -211,9 +220,9 @@ Because of this, in SQLite, you can never add a new `UNIQUE` column to an existi
 This is why, in general, the recommended approach whenever you need to modify columns in an existing table is:
 
 1) Create a brand new table with a different name, but the same columns plus whatever changes you want.  
-2) Copy existing data and insert new data into the table at the same time with an `INSERT` command  
-3) Once you have copied the data, `DROP` the old table  
-4) Then use `ALTER TABLE` to rename the new Table to the old name  
+2) Copy existing data and insert new data into the table at the same time with an `INSERT` command   
+3) Once you have copied the data, `DROP` the old table   
+4) Then use `ALTER TABLE` to rename the new Table to the old name   
 
 Sound exhausting and error-prone? It is. So in short, do your best to create the table right the first time in SQLite.
 
