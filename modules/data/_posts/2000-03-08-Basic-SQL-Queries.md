@@ -761,6 +761,74 @@ DROP TABLE IF EXISTS Books;
 
 This will drop the table if it exists, otherwise do nothing. (without `IF EXISTS`, if the table doesn't exist an error is thrown).
 
+## UPSERT
+
+In many modern SQL implementations, there is the idea of an **upsert** - a combination of an insert and an update.
+
+Specifically, using our unique ID for our data entity (in our running example, we have a "Book", and the Book has an ID that uniquely identifies it), we can then use that information to decide, on the fly, whether we are **INSERT**-ing or **UPDATE**-ing data.
+
+Now, **UPSERT** itself is not a command in SQLite, or in many SQL dialects. Rather, it's an add-on to an insert-query. For example, let's say after reading the first Dirk Gently book, my opinion of The Long Dark Tea-Team of the Soul improves, so I update the rating from a lowly 2.3 to 2.7, as well as add a review for the first book, Dirk Gently's Holistic Detective Agency.
+
+As such I run the following "upsert" query
+
+```sqlite
+INSERT INTO Books(BookID, Title, Series, SeriesOrder, Author, Published, Rating)
+    VALUES (6, 'The Long Dark Tea-Time of the Soul', 'Dirk Gently Holistic Detective Agency', 2, 'Douglas Adams', 1988, 2.7),
+           (null, 'Dirk Gently''s Holistic Detective Agency', 'Dirk Gently', 1, 'Douglas Adams', 1987, 3.1)
+    ON CONFLICT (BookID) DO UPDATE 
+        SET Rating = excluded.Rating;
+```
+
+Note that we are upserting null for our new book ID. Remember that SQLite will automatically replace a null ID with the next available Primary Key (since our largest primary key is 6, this will mean we use 7). Inserting 'Dirk Gently' otherwise behaves normally.
+
+### ON CONFLICT 
+
+Specifically here, `ON CONFLICT (BookID)` is sort of like a "try-catch" block. By default, a `CONFLICT` causes the query to stop executing and throw an error, in this case, a `CONSTRAINT_PRIMARY_KEY` error. That's because it appears we are trying to insert a duplicate primary key.
+
+Note that we **do not** get a conflict for inserting the second book, "Dirk Gently's Holistic Detective Agency", because it's ID is not already in our database. As such, our second insert completely ignores the `ON CONFLICT (BookID)` clause, just like a try-catch block that doesn't end up throwing an exception.
+
+However, with `ON CONFLICT (BookID)`, we "catch" any conflict error on the BookID column (like we do with "Long Dark Tea-Team of the Soul"), and instead ...
+
+### DO UPDATE
+
+`DO UPDATE` means instead do an "Update" query. Specifically, `DO UPDATE SET Rating = excluded.Rating` means **for the row that cause a conflict**, set it's `Rating` attribute to the `excluded.Rating`. `excluded` means "the row that would have been inserted, but caused a conflict". Here, we are saying "if the Book ID in the row we try to insert causes a conflict, then update the record for that ID to match the rating we tried but failed to insert"
+
+### Results
+
+Verifying the results with the `SELECT` below, you can see that the rating of "Long Dark Tea-Time of the Soul" has **updated**, but I have also **inserted** "Dirk Gently's Holistic Detective Agency". 
+
+```shell
+sqlite> Select BookID, Title, Rating from Books;
+BookID  Title                                    Rating
+------  ---------------------------------------  ------
+1       Hitchhiker's Guide to the Galaxy         4.2
+2       Memories of Ice                          5.0
+3       Unsouled                                 3.7
+4       The Shadow Rising                        4.8
+5       Happier as Werewolves                    3.9
+6       The Long Dark Tea-Time of the Soul       2.7
+7       Dirk Gently's Holistic Detective Agency  3.1
+
+```
+
+### Dangers of Upsert
+
+Upserting can have the same dangers as Updating. Namely, if you unintentionally "re-use" an ID, you will end up corrupting or replacing part or all of that record. As such, it is important to ensure that when you have a record with a set ID, that the ID isn't already used.
+
+## Ensuring unique ID
+
+So this brings up - how do we ensure each new book we add has a unique ID? While we can insert null, what if other logic in our code dictates that we need to define the ID of the book at instantiation time.
+
+Well, for this, we can simply get the **existing** maximum BookID, and then add one to it.
+
+```sqlite
+SELECT MAX(BookID)+1 FROM Books; 
+```
+
+This query above returns a single integer, 8, which is the next available ID in our Books table. 
+
+Be aware that when dealing with confidential and sensitive data, there are significant risks with auto-incrementing IDs such as this, but that is well beyond the scope of this class. Certainly nothing in our existing examples is what I considered sensitive information.
+
 # Conclusion
 
 There is a lot of ground to cover with SQL Queries, and the rabbit hole goes much deeper than I've shown here, but this is the starting point for covering SQL Database usage. Next, we will start looking at querying **across** tables and foreign keys to ensure data consistency across tables.
