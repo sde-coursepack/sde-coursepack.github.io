@@ -297,3 +297,7 @@ But since StudentID 3 wouldn't exist anymore, this means that Enrollments is now
 
 We would have to do a workaround by first deleting all the records associated with StudentID 3 in Enrollment **first**, and only **then** could we delete Students. `ON CASCADE DELETE` simply does this for us automatically by ensuring that when we delete Bob Quitsalot in Students, it deletes any records that **reference** that record via a foreign key in any other table.
 
+
+## Next...
+
+Now that we have multiple related tables, we can start doing summary data across multiple tables.
