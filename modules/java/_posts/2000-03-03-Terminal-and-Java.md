@@ -51,7 +51,7 @@ going to focus on two right now.
 
 ### ```ls```
 
-```ls``` is a command for "long listing", or printing a list of the contents of the
+```ls``` is a command for "long listing," or printing a list of the contents of the
 directory you are currently in. For example, I have pictures
 below from the [Prerequisite knowledge module](https://github.com/sde-coursepack/java-prerequisite)
 open in Windows Powershell below:
@@ -71,7 +71,7 @@ the ```ls``` command.
 
 ### ```cd```
 
-```cd``` stands for "change directory". Let's say I wanted
+```cd``` stands for "change directory." Let's say I wanted
 to look in the ```example``` sub-folder above. Well, I can
 simply use the command:
 
@@ -90,18 +90,18 @@ since that is the only folder that starts with ex. Getting
 comfortable using Tab for autocompletion can improve your
 speed and comfort with command line tools.
 
-If you want to go "back up", such as going from ```example```
+If you want to go "back up," such as going from ```example```
 back to the parent folder ```java```, simply use:
 
 ```cd ..```
 
-The ```..``` means "parent folder". 
+The ```..``` means "parent folder."
 
 ---
 
 ## Getting started with Java Commands
 
-When you fully install Java to your computer, you can then use command-line java
+When you fully install Java to your computer, you can then use command-line Java
 commands. The first command we always want to test is:
 
 ### java -version
@@ -118,8 +118,8 @@ Note that you may have a different version of Java installed than me.
 For this class, you are required to have Java 8 or later. It is highly
 recommended to have Java version 17 or later.
 
-**If you get an error message saying java can't be found**, that means your java is not installed
-correctly. Either you have not [installed a java JDK](https://www.oracle.com/java/technologies/downloads/), or you have
+**If you get an error message saying Java can't be found**, that means your Java is not installed
+correctly. Either you have not [installed a Java JDK](https://www.oracle.com/java/technologies/downloads/), or you have
 not correctly [added it to your **system path**](https://qualitestgroup.com/insights/technical-hub/how-to-add-java-to-your-system-path/).
 The system PATH variable is used to list folders where you have installed
 programs you want to use from command-line.
@@ -133,8 +133,8 @@ and/or [uninstall your older JDKs](https://docs.oracle.com/en/java/javase/15/ins
 
 ### javac
 
-The Javac command (think "java compile") can be used to
-compile a java file into a .class file. For instance, I can
+The javac command (think "java compile") can be used to
+compile a Java file into a .class file. For instance, I can
 compile Student.java using the command:
 
 ```javac Student.java```
@@ -208,11 +208,11 @@ public class Main {
 }
 ```
 The first line tells Java that this class is part of a package called
-"example". We can think of this as "in a folder called example".
+"example". We can think of this as "in a folder called example."
 
 We will talk more about packages and why we want them later, but for now it's sufficient
-to think that ```example.Main``` means "In the package example, run the class
-Main". 
+to think that ```example.Main``` means "in the package example, run the class
+Main."
 
 ### Hidden complexity
 
@@ -226,7 +226,7 @@ if we were building a more complicated program. We will address these
 complexities later, but the short version is to be thankful to your
 IDE for handling all of this for you.
 
-### .Jar files
+### .jar files
 
 Another issue with the above code is that if we want to share the
 executable program Main above, we would have to share all four classes.
@@ -276,7 +276,7 @@ In the above command, notice we added "e" to the argument after jar. This tells
 the jar tool that we want to change the "entry point" (aka, "Main-Class") of our
 jar. The argument "example.Main" tells the jar program which class to set as the
 Main-Class. Note that the order of the arguments here are relevant, the first argument
-is the nam of the Jar, the second argument is the Main-Class, and the third argument
+is the name of the jar, the second argument is the Main-Class, and the third argument
 is the classes to compile.
 
 **Do not worry about memorizing all of these commands.** Your IDE is going to take
@@ -293,6 +293,6 @@ However, for actually making jar files, we will eventually be using
 a tool called ```gradle``` which we will cover later. This tool
 will add a lot of simplicity to our *build process*.
 
-[^1] As mentioned in the last section, we recommend Windows users use Powershell rather than Command Prompt
+[^1]: As mentioned in the last section, we recommend Windows users use Powershell rather than Command Prompt
 
-[^2] If you are confused about the difference between .java and .class files, refer back to the previous section, "How Java Works"
+[^2]: If you are confused about the difference between .java and .class files, refer back to the previous section, "How Java Works"
