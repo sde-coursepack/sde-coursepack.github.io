@@ -36,13 +36,13 @@ The same is true of everyone! Accepting this is the first step in the act of lea
 ## In this course 
 
 In this course, you will be exposed to several tools and techniques for software development:  
-1) Version control systems to help ensure everyone is able to work together, share code, and track changes/improvements/fixes.  
-2) Testing practices to efficiently detect and correct bugs, and ensure they stay corrected .
-3) Design principles and patterns that allows the system to evolve over time with less effort and more stability.
-4) Communicating design decisions to your team and others.
-5) Writing and refactoring code in such a way that it's easier to understand, re-use, and test.
-6) Building GUIs to broaden the usability of our software.
-7) Connecting to a database to ensure our software system data can persist even when it's not running.  
+1. Version control systems to help ensure everyone is able to work together, share code, and track changes/improvements/fixes.
+2. Testing practices to efficiently detect and correct bugs, and ensure they stay corrected . 
+3. Design principles and patterns that allows the system to evolve over time with less effort and more stability. 
+4. Communicating design decisions to your team and others. 
+5. Writing and refactoring code in such a way that it's easier to understand, re-use, and test. 
+6. Building GUIs to broaden the usability of our software. 
+7. Connecting to a database to ensure our software system data can persist even when it's not running.  
 
 Learning these tools and techniques is a valuable undertaking for its own purposes - having these skill sets already under your belt will make you a more attractive candidate for an employer. But in learning, we seek not just to use these tools, but to use them creatively and wisely, knowing their limits, and planning how to look for and prevent failures.
 
