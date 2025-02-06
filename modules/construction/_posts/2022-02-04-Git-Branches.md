@@ -22,7 +22,7 @@ this is typically the branch you mean.
 
 Now, if you are working alone on a person project you do not plan
 to release publicly, it may make sense to only work in main. However,
-there are several reasons we want to avoid primarily working in the main
+there are several reasons why we want to avoid primarily working in the main
 branch:
 
 * If we are releasing this software publicly, we want to avoid
@@ -43,15 +43,15 @@ This is **highly recommended** when you are first getting used to
 working with git, as the GUI means you won't have to worry
 about remembering specific commands.
 
-In IntelliJ, you can manage branches by going to Git-> Branches,
+In IntelliJ, you can manage branches by going to Git -> Branches,
 and using the GUI, either add a branch ("+ New Branch"), which
-boths creates a **checks out** (switches your working directory to)
+boths creates and **checks out** (switches your working directory to)
 the new branch. The starting state of this new branch will be whatever
 the working branch and working copy of the files you have. You can
 also do all of this with the "Git" tab in the bottom right by
 right-clicking on the branches to switch between them or add a new branch.
 
-You can also handle branch merging. Just got to Git-> Merge and
+You can also handle branch merging. Just go to Git -> Merge and
 select the branch you want to merge into the branch you are currently
 working in. If you want to merge your current branch into another branch,
 checkout the other branch first, and then you can use merge. As a general
@@ -129,15 +129,15 @@ PS C:\Users\pm8fc\sde-Homeworks\HibernateDemo> git branch
 
 A note that ```switch``` was introduced because ```checkout``` serves two different purposes:
 
-1) Switching between branches (same as `switch`)
-2) Restoring an old version of the repo or particular file (that is, set the working version of this file to a previous version)
+1. Switching between branches (same as `switch`)
+2. Restoring an old version of the repo or particular file (that is, set the working version of this file to a previous version)
 
 ```switch``` was introduced to help alleviate confusion, creating two separate operations rather than having just one operation with two purposes.
 
 ### ```merge```
 
 Once you are ready to merge your work, you need to use the merge command.
-Merge does what you think it would do, it merges the repositories of
+Merge does what you think it would do: it merges the repositories of
 two separate branches. However, a merge is a one directional operation:
 
 If I say merge from branch_a to branch_b, what I mean is copy any
