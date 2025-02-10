@@ -27,7 +27,7 @@ There are a number of Apache Poi libraries. The specific packages
 we want for reading Excel files are:
 
 * `org.apache.poi.ss` - Library for reading and writing an abstract SpreadSheet
-* `org.apache.poi.xssf` - Library for reading and writing a `.xlsx`, or Excel 2007 and later, spreadsheet.
+* `org.apache.poi.xssf` - Library for reading and writing an `.xlsx`, or Excel 2007 and later, spreadsheet.
 
 XSSF stands for "XML Spreadsheet Format" because the file 
 format is XML based. There is also a library for reading from
@@ -52,7 +52,7 @@ From there, we copy the text that says:
 `implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.2'`
 
 ...and then simply paste that into our build.gradle file
-inside of the `dependencies` closure. Thus, our dependencies will
+inside of the `dependencies` closure. Thus, our dependencies will look
 like: 
 
 ```groovy
@@ -124,7 +124,7 @@ You'll notice that the JUnit libraries are listed as:
 This is because we are separating the process of **testing our
 code** from the process of **running our code**. 
 
-**When we run this program**, we want to have the program either write
+**When we run this program**, we want to have the program write
 information about NBA teams to an Excel file.
 
 **When we test this program**, we are running our battery of tests
@@ -134,7 +134,7 @@ In fact, we can run our tests without building using:
 
 ./gradlew test
 
-We will talk more about testing in the Testing unit.
+We will talk more about testing in the [Testing](https://sde-coursepack.github.io/modules/testing/V-and-V/) module.
 
 ### Connecting with IntelliJ
 
@@ -142,7 +142,7 @@ Sometimes, even after building, IntelliJ's Java editor may not
 immediately recognize the libraries you've imported. If this happens,
 you can either close and re-open the project, or, on the right side
 of the screen, open the Gradle Tab and click the "Refresh" symbol
-for "Reload all Gradle Projects".
+for "Reload all Gradle Projects."
 
 ![Showing the location of "Reload all Gradle Projects" button](../images/demo/reload_gradle.png)
 
@@ -157,10 +157,10 @@ that implement the interfaces for an `.xlsx` Spreadsheet
 
 Package: `org.apache.poi.ss.usermodel.*`
 
-`Workbook` - represents a generic Spreadsheet style workbook
-`Sheet` - represents an individual generic Spreadsheet in a Workbook
-`Row` - represents a row in a generic spreadsheet
-`Cell` - represents a single cell in a generic spreadsheet
+* `Workbook` - represents a generic Spreadsheet style workbook
+* `Sheet` - represents an individual generic Spreadsheet in a Workbook
+* `Row` - represents a row in a generic spreadsheet
+* `Cell` - represents a single cell in a generic spreadsheet
 
 You'll note there is no class for Column. We typically access columns
 via a getColumn(int index) function on Sheet or Row
@@ -169,17 +169,17 @@ via a getColumn(int index) function on Sheet or Row
 
 Package: `org.apache.poi.xssf.usermodel.*`
 
-`XSSFWorkbook` - represents a `.xlsx` Workbook
-`XSSFSheet` - represents an individual Spreadsheet in an `.xlsx` spreadsheet
-`XSSFRow` - represents a row in an `.xlsx` spreadsheet
-`XSSFCell` - represents a cell in an `.xlsx` spreadsheet
+* `XSSFWorkbook` - represents an `.xlsx` Workbook
+* `XSSFSheet` - represents an individual Spreadsheet in an `.xlsx` spreadsheet
+* `XSSFRow` - represents a row in an `.xlsx` spreadsheet
+* `XSSFCell` - represents a cell in an `.xlsx` spreadsheet
 
 Package: `org.apache.poi.hssf.usermodel.*`
 
-`XSSFWorkbook` - represents a `.xls` Workbook
-`XSSFSheet` - represents an individual Spreadsheet in an `.xls` spreadsheet
-`XSSFRow` - represents a row in an `.xls` spreadsheet
-`XSSFCell` - represents a cell in an `.xls` spreadsheet
+* `HSSFWorkbook` - represents am `.xls` Workbook
+* `HSSFSheet` - represents an individual Spreadsheet in an `.xls` spreadsheet
+* `HSSFRow` - represents a row in an `.xls` spreadsheet
+* `HSSFCell` - represents a cell in an `.xls` spreadsheet
 
 #### Which to use
 
@@ -191,8 +191,7 @@ like `org.apache.poi.jssf.usermodel.*`. If, as much as possible, we use the
 abstract classes, then our code is much more reusable. We only have to 
 re-write one line (the Constructor call), but can still use our Worksheet from there.
 
-Consider the following function in the [class `NBATeamsExcelWriter`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/main/java/edu/virginia/cs/nbateams/NBATeamXSLXWriter.java)
-`:
+Consider the following function in the [class `NBATeamsExcelWriter`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/main/java/edu/virginia/cs/nbateams/NBATeamXSLXWriter.java):
 
 ```java
     private void addTeamsToWorkbook(List<NBATeam> nbaTeamList) throws IOException {
@@ -204,7 +203,7 @@ Consider the following function in the [class `NBATeamsExcelWriter`](https://git
     }
 ```
 
-This function takes in a List of NBA Teams, and a Workbook. Is this Workbook
+This function takes in a List of NBA Teams and a Workbook. Is this Workbook
 for `.xls`, `.xlsx`, or something cool we haven't even heard of yet? It doesn't
 matter! In the same way we don't care what *kind* of List the first parameter is (ArrayList
 Vector, LinkedList), we don't care what *kind* of Workbook the second parameter is (HSSFWorkbook, 
@@ -246,9 +245,9 @@ is reusable and flexible.
 ## Writing to an Excel Workbook
 
 To create a new `.xlsx` Excel Workbook, we have to do the following steps:
-1) Create a new XSSFWorkbook Object
-2) Populate the workbook with data
-3) Save the Workbook object with the intended filename and close it
+1. Create a new XSSFWorkbook Object 
+2. Populate the workbook with data 
+3. Save the Workbook object with the intended filename and close it
 
 And if you look, this is exactly what our `writeNBATeamsToFile` function does:
 
@@ -266,7 +265,7 @@ writing our code this way can improve readability, as it becomes clear
 
 Let's say we wanted to generate the following spreadsheet. We've already covered
 1, so now let's dive into the [class `NBATeamsExcelWriter`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/main/java/edu/virginia/cs/nbateams/NBATeamXSLXWriter.java)
-the function `populateSaveAndCloseWorkbook` in our code. We will go line by
+function `populateSaveAndCloseWorkbook` in our code. We will go line by
 line, diving into the helper-functions as needed.
 
 ### Worksheet
@@ -313,8 +312,8 @@ Looking at the function `putHeaderStringArrayInFirstRow`, we see:
 ```
 
 Here, for each String we want to put into the Row `titleRow`, we:
-1) Create a new Cell with the column number we want, where 0 is the first column 
-2) Use setCellValue to set the contents of the Cell.
+1. Create a new Cell with the column number we want, where 0 is the first column 
+2. Use setCellValue to set the contents of the Cell.
 
 Note that setCellValue will also set the cells type. For example:
 
@@ -351,7 +350,7 @@ I do want to briefly point out one element of styling in the function `resizeCol
 
 This is just a simple for-loop that goes through each column and auto-sizes
 the width so no text is cut off. This is about as far into the styling rabbit-hole
-as I want to go for now, but it's worth doing so your spreadsheet is readable.
+as I want to go for now, but it's worth doing so that your spreadsheet is readable.
 There are lots of tutorials and documentation on the `CellStyle` class in poi
 if you want to look into it, but you won't have to in this course.
 
@@ -371,7 +370,7 @@ Finally, let's look at how our file is saved:
 Here, I'm just using a standard file-writing approach with a `FileOutputStream`.
 The `poi` library handles actually writing the file, I just need to tell
 the `Workbook` object **where** I want the file written. In this case,
-I'm writing the filename specified in the classes constructor.
+I'm writing the filename specified in the class' constructor.
 
 Always make sure to close both the `FileOutputStream` and the `Workbook`! If you
 don't close, the file may appear to not be written, as it's still open in
