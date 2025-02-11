@@ -99,10 +99,10 @@ But let's break down each step:
 ```NumberChanges nc = new NumberChanges(7, 4);```
 
 It is important when performing this step that you **should never
-call the method you are testing!**. The reason is that if you call
+call the method you are testing!** The reason is that if you call
 the method you are testing multiple times, it's difficult to tell
 which time the tested method caused a bug if the test fails. We will discuss
-this more in "Only call the tested operation once" below.
+this more in [Only call the tested operation once](https://sde-coursepack.github.io/modules/testing/JUnit-testing-with-Objects/#only-call-the-tested-operation-once) below.
 
 2) Execute the operation to be tested
 
@@ -113,7 +113,7 @@ this more in "Only call the tested operation once" below.
 Note that if this function returned something, we could test 
 the output value with an assertStatement. For
 example, imagine `setNumber` returned a boolean (`true` if the
-number changed, `false` if it didn't.) Example:
+number changed, `false` if it didn't). Example:
 
 ```java
     assertTrue(nc.setNumber(13));
@@ -131,7 +131,7 @@ output to check.
 Note that we need to check *both* conditions in this case! This is
 because the method can change *both* numbers, so we want to ensure
 that both are changing correctly! **It is not sufficient to only
-test `nc.getNumber()` OR `nc.getChanges`.
+test `nc.getNumber()` OR `nc.getChanges`.**
 
 ---
 
@@ -236,7 +236,7 @@ Let's say instead we did the following:
 ```
 
 Is this test better because it's testing more things? Here's another
-question: is this test **Sound** (see below)? It's hard to tell because the test
+question: is this test [Sound](https://sde-coursepack.github.io/modules/testing/JUnit-testing-with-Objects/#ensure-sound-tests) (see below)? It's hard to tell because the test
 is so complicated. This test is testing 3 different `add` operations
 and 2 `remove` operations. It therefore is difficult to **understand**
 this test, meaning if this test fails it won't be immediately clear why.
@@ -290,7 +290,7 @@ remember our goal in testing: **We are trying to find bugs!** As such,
 presence of a defect. A test passing is a positive result because it
 indicates that we don't need to look deeper for defects there.
 
-**Unsound test** should be avoided **at all costs**. Whenever a test
+**Unsound tests** should be avoided **at all costs**. Whenever a test
 fails, the first thing you should check is always to make sure
 that the **failing test is sound.** Do not start debugging until
 you have verified that the test is sound!
@@ -346,7 +346,7 @@ However, in the second case with two tests, I would see **both** AssertionErrors
 
 **That said, I do not follow this practice, nor do I 
 generally recommend it**. My reason is that if
-a test fails, I'm going to be debugging regardless, as so I will, in
+a test fails, I'm going to be debugging regardless, and so I will, in
 the debugger, see the state of both fields of the object anyways. I also
 dislike the 2nd approach because it encourages *copying and pasting* code which
 is *always* a bad idea.
@@ -355,9 +355,9 @@ My biggest concern, however, is **readability**. I want a test to
 be quickly readable, and I want to test to be a simple statement of
 *how the specification describes the operation.* The first test
 clearly states "this function can change both of these fields, but
-in this particular setup it doesn't". Because it's all in one
+in this particular setup it doesn't." Because it's all in one
 test, I think of it as **a single operation that affects both fields.**
-When I split them into two tests, the two test independently are less
+When I split them into two tests, the two tests independently are less
 **understandable**, because each of them tells only half the story.
 
 To be clear, I am not saying one assertion per test is a bad idea.
@@ -574,7 +574,7 @@ to change the other two:
 ```
 
 This allows us to create one or more test objects all in one place,
-which reduces the repetition in our tests (and thus to desire
+which reduces the repetition in our tests (and thus the desire
 to copy and paste code).
 
 ---
