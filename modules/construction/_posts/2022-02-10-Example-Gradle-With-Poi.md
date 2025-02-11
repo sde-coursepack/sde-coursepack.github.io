@@ -111,7 +111,7 @@ start to add up.
 The short way to understand this:
 * If you ever import a package from a library in your code, it must be in `implementation`
 * If you depend on a package, but do not import it in your code, it can be in either `implementation` or `runtimeOnly`
-  * `runtimeOnly` is generally preferred in this case, but not required.
+* `runtimeOnly` is generally preferred in this case, but not required.
 
 If you're ever unsure, it's fine to just leave your dependencies as `implementation`
 
@@ -380,7 +380,7 @@ your program's memory.
 
 ## Reading from XSSF Workbook
 
-Let's say we wanted to read a file like [sampleTeams.xlsx](https://github.com/sde-coursepack/NBAExcelTeams/raw/main/sampleTeams.xlsx)
+Let's say we wanted to read a file like [sampleTeams.xlsx](https://github.com/sde-coursepack/NBAExcelTeams/raw/main/sampleTeams.xlsx).
 As you can see, this Spreadsheet is formatted like our output spreadsheet from the writing tool.
 
 I came up with an interesting query: "What NBA teams have good abbreviations?" I arbitrarily decided that a
@@ -392,8 +392,8 @@ I wrote a program to answer this question in [`GoodAbbreviationReader.java`](htt
 
 A small note that sampleTeams.xlsx isn't *exactly* like the output of our `Main` class for the NBA writer. However,
 to make the files match perfectly, I would have to write a significant amount of more code to handle styling of cells
-in the Writer class, and I simply wanted to avoid that, as it would overcomplicated what these examples need to be:
-just a quick tutorial on writing to and reading from Excel files with 'poi'.
+in the Writer class, and I simply wanted to avoid that, as it would overcomplicate what these examples need to be:
+just a quick tutorial on writing to and reading from Excel files with poi.
 
 Much like when writing, we are predominantly going to use Abstract class. The difference is that instead of
 saving a file at the end, we are opening the file at the beginning. Here is how we open an Excel file to be read:
@@ -411,10 +411,10 @@ saving a file at the end, we are opening the file at the beginning. Here is how 
     }
 ```
 
-You'll notice as a matter of style I'm keeping methods for opening files short. This is because I want to separate
+You'll notice, as a matter of style, I'm keeping methods for opening files short. This is because I want to separate
 all the error handling that comes from opening a file from the actual reading of the file. I avoid having to
-worry about handling checked exceptions (`FileNotFoundException` and `IOException`) by just replace them with a
-`RuntimeException`. I find that this dramatically cuts down on the repetitive try-catch blocks I need, and keeps
+worry about handling checked exceptions (`FileNotFoundException` and `IOException`) by just replacing them with a
+`RuntimeException`. I find that this dramatically cuts down on the repetitive try-catch blocks I need and keeps
 them away from the **interesting** code that is actually handling our reading logic.
 
 ### Iterator<Row>
@@ -434,7 +434,7 @@ We can step through all of the rows by using our `rowIterator` field. That varia
     }
 ```
 
-You may notice something here you haven't seen me use a lot. a comment (on the line where skipRow() is called).
+You may notice something here you haven't seen me use a lot: a comment (on the line where skipRow() is called).
 You may have been told in earlier classes to comment your code. And you should!...when you are first learning how
 to code and don't know how to write expressive code. But consider the functions names and variable names I have.
 What do you think the function `skipRow()` does? Well, it tells the iterator to skip a row. The only clarification
@@ -442,7 +442,7 @@ I needed was to say **why** I'm calling `skipRow()` where I am. This just clarif
 
 Generally, my goal is to write small functions that are written almost like prose. I hide all that gross low level
 logic of booleans and String operations inside function names that clearly explain **why the function exists**. We
-will talk more about this later in the Code Quality unit, but try to practice this in your code!
+will talk more about this later in the [Code Quality](https://sde-coursepack.github.io/modules/refactoring/Code-Quality/) unit, but try to practice this in your code!
 
 Anyways, we initialize the `rowIterator` field. We use the `boolean` function `hasNext()` on the iterator to check if there
 are any more rows:
@@ -531,7 +531,7 @@ incredibly arbitrary standards.
 ## Things in this code that may be new
 
 There's a lot of things in this code you maybe haven't seen before that I didn't mention in the tutorial
-above. We will talk about many of them in the Code Quality unit. I wanted to at least briefly point some out.
+above. We will talk about many of them in the [Code Quality](https://sde-coursepack.github.io/modules/refactoring/Code-Quality/) unit. I wanted to at least briefly point some out.
 
 ### Enumerated Types
 
@@ -581,10 +581,10 @@ disguise, making checking equality of two different ChessWinner variables much f
 Now, you may be thinking "Okay, but there are only two possibilities for conference: EASTERN and WESTERN, so let's use
 a `boolean`". And that's reasonable, but *what if that changes*. What if, say, the NBA expanded to 32 teams, as many
 suggest they are exploring, and in doing so switch to 4 conferences for scheduling reasons? **How many places in our
-code would __necessarily have to change?** With effective use of the enumerated type, the only place in our code
+code would necessarily have to change?** With effective use of the enumerated type, the only place in our code
 where we will necessarily need to make changes is in the `Conference.java` file! This makes our code much more
 **stable**, where a change is one place doesn't have to propagate to other places! We will talk much more
-about this in Design.
+about this in the [Design](https://sde-coursepack.github.io/modules/design/Design/) module.
 
 ### Hey, where are your comments?
 
@@ -605,25 +605,25 @@ Consider the one situation below where I actually used an in-line comment.
 
 You may have been told in earlier classes to comment your code. And you should!...when you are first learning how
 to code and don't know how to write expressive code. But consider the functions names and variable names I have. I
-would wager confidently that each of these functions, on their own, are more readable than much heavily commented
+would wager confidently that each of these functions, on their own, are more readable than the heavily commented
 code you wrote in 1110 or 2100. Why? Because when I was a student taking those classes, **I wrote code the same way!**
 I wrote really large functions, with short variable names like `x` and `y`, and function names like `getList` and `read`.
 And I thought having short function and variable names was great, because I could type faster!
 
-Let me ask you a question: **without looking at the code for it**, shat do you think the function `skipRow()` does? 
-If you answered "it skips the next row", you're right! The only clarification
+Let me ask you a question: **without looking at the code for it**, what do you think the function `skipRow()` does? 
+If you answered "it skips the next row," you're right! The only clarification
 I needed was to say **why** I'm calling `skipRow()` where I am. This just clarifies which row I'm skipping (the header row).
 I thought about naming the function `skipHeaderRow()`, without changing any code, but that would be confusing if I
-wanted to use this function in another context to skip another row. So I compromised by adding a comment
+wanted to use this function in another context to skip another row. So I compromised by adding a comment.
 
 Generally, my goal is to write small functions (if a function is 10 lines, it's probably too long) that are written 
 almost like prose. I hide all that gross low level logic of booleans and String operations inside function 
 names that clearly explain **why the function exists** and **what the function does**.
 
-I learned this practice from reading [__Clean Code__ by Bob Martin](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
+I learned this practice from reading [__Clean Code__ by Bob Martin](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882),
 which I personally recommend very highly.
 
-We will talk more about this later in the Code Quality unit, but try to practice this in your code!
+We will talk more about this later in the [Code Quality](https://sde-coursepack.github.io/modules/refactoring/Code-Quality/) unit, but try to practice this in your code!
 
 ### Java Streams and Lambda Bodies
 
@@ -638,8 +638,8 @@ In the `main` function of `GoodAbbreviationReader`, we have the following:
 We will dive deeper into this structure later, but the basic idea is to loop through the list of teams returned
 from `reader.getGoodAbbreviationTeams()` and extract a String like `"WAS : Washington Wizards"`. So instead
 of changing the toString() function for teams, I am defining a new function that takes in an `NBATeam` object that
-we call `team` and concatenate that teams abbreviation, city, and name (with special characters and spacing) for 
-appearance. Then, on each of those Strings, we call `System.out.println`. The equivalent code without streams
+we call `team` and concatenates that team's abbreviation, city, and name (with special characters and spacing for 
+appearance). Then, on each of those Strings, we call `System.out.println`. The equivalent code without streams
 would look something like:
 
 ```java
@@ -654,7 +654,7 @@ would look something like:
 ```
 
 These two pieces of code produce exactly the same printing, but one does so in much fewer lines. However,
-once you understand the basic of `streams`, including the `map` and `forEach` functions, this code is arguably
+once you understand the basics of `streams`, including the `map` and `forEach` functions, this code is arguably
 even more readable, largely because it takes up so much less screen space.
 
 ### `BallDontLieReader` and `NBATeamReader`
@@ -663,7 +663,7 @@ These two classes will be brought up later, specifically when we talk about
 the JSON file-format, and how it is used in web-service APIs. `BallDontLieReader`
 reads information about the teams in the NBA from [https://www.balldontlie.io/](https://www.balldontlie.io/),
 a free API for getting NBA information. Specifically, the data is pulled
-from the [teams API output](https://www.balldontlie.io/api/v1/teams).
+from the [teams' API output](https://www.balldontlie.io/api/v1/teams).
 
 This file format is JSON (JavaScript Object Notation). It is a common file
 format for sending raw-data (no HTML, no formatting, just information) over the
@@ -671,7 +671,7 @@ internet. `NBATeamReader` then takes this JSONObject and parses it into a list
 of NBA Teams.
 
 However, without understanding the specific usages of the `org.json` Library,
-you can probably skim over the code an broadly understand what it does.
+you can probably skim over the code and broadly understand what it does.
 
 * `BallDontLieReader` accesses the "Ball Don't Lie" API to get the JSONObject for `NBATeamReader`
 * `NBATeamReader` uses the JSONObject from `BallDontLieReader` to create a `List<NBATeam>`
@@ -698,7 +698,7 @@ and smaller pieces that are easier to test, easier to understand, and easier to 
 Ultimately, the role of testing is to increase your confidence in your code. You can
 never be absolutely certain that your code is bug-free. However, testing can increase
 your confidence. Do not think "does your code have defects" as a yes or no question.
-This is because you can never be certain the answer is "No".
+This is because you can never be certain the answer is "no".
 
 Instead, think of your confidence as a scalar. You can never be 100% confident your
 code as no defects. However, you can be *more* confident with more testing.
