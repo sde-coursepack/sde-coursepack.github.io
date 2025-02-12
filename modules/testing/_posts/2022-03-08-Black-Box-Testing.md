@@ -188,7 +188,7 @@ I highlighted **bare minimum** in the last section because this should be seen a
 
 ## Next Steps
 
-Be aware that as of yet, we have not written `calculateBill` or any JUnit tests. This is intentional! This is
+Be aware that as yet, we have not written `calculateBill` or any JUnit tests. This is intentional! This is
 because we are practicing **Test Driven Development**. 
 
 **Continued in the next module**
