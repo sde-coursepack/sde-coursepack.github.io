@@ -311,6 +311,6 @@ However, by default in Java, `AssertionError`s are actually disabled. To enable 
 
 ![img.png](../images/defensive/assertion_vm_arguments.png)
 
-Note that by default, VM arguments are hidden in IntelliJ. You can find them by clicking "modify options" (up and left of the class name you are running, in the above picture `BankAccount.main`). From there, click "add VM Options". They can also be enabled with the hotkey `Alt + V` in the run configurations window.
+Note that by default, VM arguments are hidden in IntelliJ. You can find them by clicking "modify options" (up and left of the class name you are running, in the above picture `BankAccount.main`). From there, click "add VM Options" They can also be enabled with the hotkey `Alt + V` in the run configurations window.
 
 However, `assert` statements should not be replied upon for deployed software! Instead, if you need an `assert` to enforce correct behavior, especially if the class is a library that will be used by client programs, then replace `assert` statements with `Exceptions`. 
