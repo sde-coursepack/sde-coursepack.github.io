@@ -364,7 +364,7 @@ We can similarly rewrite the second version, and then by extracting the method f
 ```java
     public String openXLSXWorkbookAndGetA1(String filename) throws IOException {
         InputStream stream = getInputStreamFromFilename(filename);
-        Workbook workbook = new HSSFWorkbook(stream);
+        Workbook workbook = new XSSFWorkbook(stream);
         return getStringFromCellA1(workbook);
     }
 
