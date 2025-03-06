@@ -165,7 +165,7 @@ Having one giant `Main` class that handles all features is a worst-case example 
 
 This is bad because it makes navigating code difficult. If there is no rhyme or reason to how your code is organized, finding a particular concept in your code becomes extremely difficult (and a single concept may be spread across several seemingly unrelated modules).
 
-### Logical cohesion
+### Logical Cohesion
 
 Elements are grouped into a module because they described the same general activity, or have similar interfaces, or are otherwise categorized the same.
 
