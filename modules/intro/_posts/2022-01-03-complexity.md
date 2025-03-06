@@ -36,13 +36,13 @@ Seems simple enough! What's that, like 20-30 lines of code, right? In most brows
 
 The Horror!
 
-This page has a massive source code base! Each of these lines you are seeing are large functions, with hundreds of lines, variables, etc. And yet, you've almost certainly never dealt with any of this code before. That's because, as a user, you are on the customer side. If you need to ever even *see* at source code of software you are using at a consumer level, chances are something has gone very wrong.
+This page has a massive source code base! Each of these lines you are seeing are large functions, with hundreds of lines, variables, etc. And yet, you've almost certainly never dealt with any of this code before. That's because, as a user, you are on the customer side. If you need to ever even *see* the source code of software you are using at a consumer level, chances are something has gone very wrong.
 
 ---
 
 ## Why do we write software?
 
-We write software to *solve problems.* That problem might be "When is my next meeting?", or "I need to book a flight", or "who won the football game last night", or even "I'm bored, let me play a game to stave off this boredom." Many of the problems we solve had solutions before software, but software can make it easier, more efficient, more available, and more accurate. 
+We write software to *solve problems.* That problem might be "when is my next meeting," or "I need to book a flight," or "who won the football game last night," or even "I'm bored, let me play a game to stave off this boredom." Many of the problems we solve had solutions before software, but software can make it easier, more efficient, more available, and more accurate. 
 
 And yet, even simple sounding problems can have tons of hidden complexities.
 
@@ -116,7 +116,7 @@ And this idea has held up. "No Silver Bullet" is considered among the most, if y
 
 Programming is hard because the problems we are solving are themselves hard and full of hidden complexity. *And if you still aren't convinced*, I have only one question:
 
-How many seconds old is George Washington (be sure to include time zones, [leap seconds](https://en.wikipedia.org/wiki/Leap_second) and Daylight Savings where appropriate. Also, be aware that any consideration for Daylight Savings in your solution has to work differently for people in Arizona, and [might have to change in 2023](https://www.congress.gov/bill/117th-congress/senate-bill/623/text). No wait, just kidding, the house never took up the bill, so we still have Daylight Savings. Unless the House takes up the Bil and votes in favor of it).
+How many seconds old is George Washington (be sure to include time zones, [leap seconds](https://en.wikipedia.org/wiki/Leap_second) and Daylight Savings where appropriate. Also, be aware that any consideration for Daylight Savings in your solution has to work differently for people in Arizona, and [might have to change in 2023](https://www.congress.gov/bill/117th-congress/senate-bill/623/text). No wait, just kidding, the house never took up the bill, so we still have Daylight Savings. Unless the House takes up the bill and votes in favor of it).
 
 > "Let's think the unthinkable, let's do the undoable. Let us prepare to grapple with the ineffable itself, and see if we may not eff it after all."  
 > -- __Dirk Gently's Holistic Detective Agency__, Douglas Adams 

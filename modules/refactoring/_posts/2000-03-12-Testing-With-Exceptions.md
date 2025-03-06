@@ -4,14 +4,14 @@ Title: Testing With Exceptions
 
 # Testing with Exceptions
 
-When following best practices of defensive programming, we often *want* to throw Exceptions for incorrect or invalid inputs. In this module, we will look at writing tests that *expect* and `Exception` to be thrown.
+When following best practices of defensive programming, we often *want* to throw Exceptions for incorrect or invalid inputs. In this module, we will look at writing tests that *expect* an `Exception` to be thrown.
 
---
+---
 
 * TOC
 {:toc}
 
---
+---
 
 Consider testing our `withdraw` function specification.
 
@@ -77,7 +77,7 @@ The `assertThrows` function is a JUnit 5 assertion that says "the code must thro
 
 
 What this code is saying is that I expect the code `testAccount.withdraw(600)` to result in a 
-`RuntimeException` being thrown. The rest of the line (`.class` and `() ->`) are syntax items. We use `RuntimeException.class` because Java needs to know what `class` of Exception is returned. The `() ->` relates to lambda bodies in Java, and we will discuss this during our Functional Programming unit. However, for now just assume that it needs to be there.
+`RuntimeException` being thrown. The rest of the line (`.class` and `() ->`) are syntax items. We use `RuntimeException.class` because Java needs to know what `class` of Exception is returned. The `() ->` relates to lambda bodies in Java, and we will discuss this during our [Functional Programming](https://sde-coursepack.github.io/modules/refactoring/Functional-Programming/) unit. However, for now, just assume that it needs to be there.
 
 ### Passing our test
 
@@ -101,7 +101,7 @@ Here, I am simply using the function `getInsufficientFundsMessage(double amount)
 
 ### Refining our test
 
-Remember that in our Defensive Programming unit, we wanted to make sure that if an exception was throw, we didn't change the state of the object in question. As such, we want to ensure after the `RuntimeException` was thrown, that the value of `balance` did not change, since no transaction should have been allowed. As such, we add to our test:
+Remember that in our [Defensive Programming](https://sde-coursepack.github.io/modules/refactoring/Defensive-Programming/) unit, we wanted to make sure that if an exception was thrown, we didn't change the state of the object in question. As such, we want to ensure that after the `RuntimeException` is thrown, the value of `balance` does not change, since no transaction should have been allowed. As such, we add to our test:
 
 ```java
     @Test
@@ -179,9 +179,9 @@ We run all of our tests (our equivalence and our two exception cases), and they 
 
 ## The Importance of Rolling Back
 
-We must always make sure that when exceptions are throw, we do not create any unintended side effects.
+We must always make sure that when exceptions are thrown, we do not create any unintended side effects.
 
-Consider the following snippet of a class called `VoteTally` and specifically the function `addVotesFromPrecinct`
+Consider the following snippet of a class called `VoteTally` and specifically the function `addVotesFromPrecinct`:
 
 ```java
 public class VoteTally {
@@ -262,7 +262,7 @@ Let's also say we have the following `Exception` test (this test is insufficient
 
 Our test (successfully) expects an `IllegalArgumentException` to be thrown when a negative vote total for a candidate is found, since this shouldn't be possible.
 
-Looking at the code for `addVotesFromPrecinct`. But let's say when a junior developer reads the code for the function `addVotesFromPrecinct`, they might think the first loop is redundant. They think, "let's remove that unnecessary, and just check for negative votes in the loop that already exists, so the code is easier to understand."
+But let's say when a junior developer reads the code for the function `addVotesFromPrecinct`, they might think the first loop is redundant. They think, "let's remove that unnecessary loop and just check for negative votes in the loop that already exists, so the code is easier to understand."
 
 And so they change the code to this:
 
@@ -281,7 +281,7 @@ And so they change the code to this:
 
 They run our test, it passes, so they think, "Job well done!"
 
-**They have just created a serious bug!** This is because our test **doesn't check the expected post-conditions!**.
+**They have just created a serious bug!** This is because our test **doesn't check the expected post-conditions!**
 
 Specifically, let's add a print-statement to our test to see what happens:
 
@@ -327,7 +327,7 @@ This is why the test we had was insufficient. A better test would be:
     }
 ```
 
-Now, our test will fail if Jane Doe's votes are erroneously added! But because our test that *was* in place didn't check the post-conditions, it just assumed "Exception means pass", we failed to catch this bug being injected!
+Now, our test will fail if Jane Doe's votes are erroneously added! But because our test that *was* in place didn't check the post-conditions and just assumed "Exception means pass," we failed to catch this bug being injected!
 
 This is also why we always want to explicitly check pre-conditions first, and separate that logic entirely from the actual running of the method!
 

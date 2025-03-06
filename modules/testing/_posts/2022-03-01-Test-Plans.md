@@ -98,7 +98,7 @@ Now consider the function `find(int target)`. In our same `MySortedList` instanc
 
 But now consider `find(4)`. Once again, take a minute and think about it, and decide if you think this is an **equivalence** or **boundary** test case.
 
-In this case, this is now a **boundary** test case. The reason is that `find` is based on `indexOf` in the Collections framework. `find` should return the index of the first element equal to target. However, if the element is not found in the list at all, then the function should return `-1`. The value `-1` is an example of a **sentinel value**. That is, the value returned doesn't literally mean "the item is at index -1", but rather -1 acts as a form of "special value", meaning "target not found." In general, we should actually avoid using sentinel values in our code, but `indexOf` returning -1 meaning "not found" is traditional and well understood, so it's still around.
+In this case, this is now a **boundary** test case. The reason is that `find` is based on `indexOf` in the Collections framework. `find` should return the index of the first element equal to target. However, if the element is not found in the list at all, then the function should return `-1`. The value `-1` is an example of a **sentinel value**. That is, the value returned doesn't literally mean "the item is at index -1", but rather -1 acts as a form of "special value," meaning "target not found." In general, we should actually avoid using sentinel values in our code, but `indexOf` returning -1 meaning "not found" is traditional and well understood, so it's still around.
 
 It may seem odd that we consider `contains(4)` in the above case an **equivalence** case, while `find(4)` is a boundary case. In truth, there isn't a clear black-and-white line between the two cases. To some extent, whether a case is equivalence or boundary can be subjective. In either case, it depends *heavily* on the context of the specific function.
 
@@ -121,7 +121,7 @@ On the other hand, `contains`, `find`, and `add` have no exception cases. This i
 Robustness test cases are cases that are **syntactically valid** but
 **semantically** meaningless. Often times in these cases, it may be unclear how they are intended to behave, and it may be worth checking the specification itself.
 
-* `contains("Three")` is a syntactically valid way to call the `contains(Object target)` function. However, semantically, it wouldn't make sense to call `contains` with a String when our underlying ArrayList is made up of Integers. In general, Java Collections allow you to call contains on a Collection made up non-matching datatype. It just returns false. The metaphor I use is you can go to a grocery store and ask "Hey, do you have any Computers for sale?" The answer is obviously no because grocery stores sell food, not computers. But even though the answer is no, the question itself is still valid.
+* `contains("Three")` is a syntactically valid way to call the `contains(Object target)` function. However, semantically, it wouldn't make sense to call `contains` with a String when our underlying ArrayList is made up of Integers. In general, Java Collections allow you to call contains on a Collection made up of a non-matching datatype. It just returns false. The metaphor I use is you can go to a grocery store and ask "Hey, do you have any Computers for sale?" The answer is obviously no because grocery stores sell food, not computers. But even though the answer is no, the question itself is still valid.
 
 ---
 
@@ -141,7 +141,7 @@ Now consider calling this function with a negative input:
 
 `withdraw(-50)`
 
-What does this **mean?** Is this meant to deposit 50 dollars? Should this be accepted? In this situation, we may have found a *gap* in the specification and should work with our team to clarify the **intent** of the `withdraw` function. If may be that we should never allow a negative amount, at which point `withdraw(-50)` should be an **exception** case. OR, it may be that this is actually the intended way to handle depositing, at which point this would be an **equivalence** case. The point is: as written, with a specification that doesn't clarify intended behavior in this abnormal case, we cannot be certain.
+What does this **mean?** Is this meant to deposit 50 dollars? Should this be accepted? In this situation, we may have found a *gap* in the specification and should work with our team to clarify the **intent** of the `withdraw` function. It may be that we should never allow a negative amount, at which point `withdraw(-50)` should be an **exception** case. OR, it may be that this is actually the intended way to handle depositing, at which point this would be an **equivalence** case. The point is: as written, with a specification that doesn't clarify intended behavior in this abnormal case, we cannot be certain.
 
 ---
 
@@ -158,12 +158,12 @@ The next three modules should help us answer this question. Using the idea here,
 
 ## "Perfect" Testing
 
-The idea of a *perfect* test suite is ephemeral, and virtually impossible to define. It would be like asking you to imagine the perfect car. Not *your favorite car*, but the objective perfect car. Philosophically, it seems impossible, as the context of the situation around how we will use the car greatly influence our idea of perfection.
+The idea of a *perfect* test suite is ephemeral, and virtually impossible to define. It would be like asking you to imagine the perfect car. Not *your favorite car*, but the objective perfect car. Philosophically, it seems impossible, as the context of the situation around how we will use the car will greatly influence our idea of perfection.
 
 However, while I cannot confidently say what a perfect car is, I can point out faults in specific cars. For example, my first car was a 2000 Nissan Frontier pick-up truck I got from my father. This car had several notable flaws, making it hard for me as a grad student on a stipend:
 * Shortly after I got it, a head gasket cracked on the car's engine, costing over $1500 to fix.
-* The care got 17 miles to the gallon highway. At the time, I rarely drove it except to visit family. A round trip from South Bend, Indiana to Charleston, WV in early 2014 cost me nearly $200 just in gasoline alone.
-* It was a pick-up truck with rear-wheel drive only. In the snow, since there was no weight on the rear tires, I had difficulty doing even basic driving. I was got stuck in my drive-way for 2 weeks after a 4-foot snow. My roommate had a Toyota Coralla that fared better.
+* The car got 17 miles to the gallon highway. At the time, I rarely drove it except to visit family. A round trip from South Bend, Indiana to Charleston, WV in early 2014 cost me nearly $200 just in gasoline alone.
+* It was a pick-up truck with rear-wheel drive only. In the snow, since there was no weight on the rear tires, I had difficulty doing even basic driving. I was got stuck in my drive-way for 2 weeks after a 4-foot snow. My roommate had a Toyota Corolla that fared better.
 
 The point is, while we can't easily say in the abstract what a perfect car is, we can point out flaws in a **specific** car, and note clear places where the car failed.
 

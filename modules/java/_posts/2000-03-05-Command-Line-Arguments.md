@@ -19,7 +19,7 @@ This unit will teach you the basics of writing programs that use command line ar
 
 ## **[Source Code Examples](https://github.com/sde-coursepack/commandline)**
 
-Click [this link](https://github.com/sde-coursepack/commandline) the example source code for this unit.
+Click [this link](https://github.com/sde-coursepack/commandline) for the example source code for this unit.
 
 
 ## main(String[] args)
@@ -33,10 +33,10 @@ because it has to be called externally. It's `static` because the method is call
 of the class the main method is in. It's `void` because the method doesn't return anything. The method must be
 called `main` because that's the name of the method Java will look for when we run.
 
-But what about `String[] args`? Obvious this is an Array of String objects with the variable name `args`. But barring
+But what about `String[] args`? Obviously, this is an Array of String objects with the variable name `args`. But barring
 making you think about the noises angry pirates make, what does it do?
 
-Well, this array is use for **command-line arguments**.
+Well, this array is used for **command-line arguments**.
 
 Let's consider an example of a program we run when making jar files:
 
@@ -75,7 +75,7 @@ And we get:
 ### Package Reminder
 
 Reminder that when we want to run class files from command line, we need to include the package name. Refer back
-to the module on packages if you feel you still need a reminder.
+to [Packages](https://sde-coursepack.github.io/modules/java/Packages/) if you feel you still need a reminder.
 
 ### Why do we want these?
 
@@ -84,7 +84,7 @@ the source code of the program, and without us having to worry about dealing wit
 or a Scanner.
 This is important, because we may be writing a program for something that doesn't have an easily accessible user console.
 In fact, *our "users" may not even be human at all.* Many large software suites rely on programs communicating directly,
-which is typically by done *by* using command line arguments.
+which is typically done *by* using command line arguments.
 
 ## String Arguments
 Example: [HelloWho.java](https://github.com/sde-coursepack/commandline/blob/main/src/main/java/edu/virginia/cs/commandline/HelloWho.java)
@@ -108,7 +108,7 @@ How does this work at a code level? Well, let's look:
     }
 ```
 
-If you look at **_line 2_**, you can see that his is where I tell Java **"Take the first argument and store it in a `String` variable."**
+If you look at **_line 2_**, you can see that this is where I tell Java **"Take the first argument and store it in a `String` variable."**
 
 Now, let's try:
 
@@ -256,8 +256,8 @@ Thus, the run above simply prints:
 
 Example: [IsLeapYear](https://github.com/sde-coursepack/commandline/blob/main/src/main/java/edu/virginia/cs/commandline/IsLeapYear.java)
 
-In the isLeapYear example, I wanted to allow the user to ask if a given year was/will be a Leap Year in either the Gregorian
-calendar or the Julian Calendar. If you are unfamiliar, with the difference, years divisible by 100 like 1900 and 2100 are *not* Leap years in the
+In the IsLeapYear example, I wanted to allow the user to ask if a given year was/will be a Leap Year in either the Gregorian
+calendar or the Julian Calendar. If you are unfamiliar with the difference, years divisible by 100 like 1900 and 2100 are *not* Leap years in the
 Gregorian calendar, while both *are* in the Julian calendar (years divisible by 400 like 2000 and 2400 are leap years in both).
 
 Because we use the Gregorian calendar today, I'm going to assume the user is asking about whether or not the
@@ -318,7 +318,7 @@ As a general convention, the short form has one hyphen, and the long form has tw
 
 ### Optional Parameter Arguments
 
-Note that you can also have option arguments with parameters. For example, let's say instead of have `-j`, I have `-c`
+Note that you can also have optional arguments with parameters. For example, let's say instead of `-j`, I have `-c`
 which lets the user specify any one of several calendars (including the Julian), but I still default to Gregorian because
 it is the most widely used calendar in the world today. At that point, I may have a command lined like:
 
@@ -338,7 +338,7 @@ As we showed in the first two code examples we looked at (HelloWho and HelloNTim
 error messages that tell the user when they enter the command line arguments incorrectly. If a user sees a stacktrace without
 a clear error message explaining their error in non-programming terms,
 they will think that the programmer has a bug in their code. 
-This is bad, because the correct interpretation that it was the **user** who made an error.
+This is bad, because the correct interpretation is that it was the **user** who made an error.
 A clear error message makes it clear that the error was actually a *user error*, and tells the user specifically
 what it was they did wrong.
 
@@ -353,7 +353,7 @@ Required arguments should generally come first in order.
 
 ### ```Arrays.asList(args)``` is your friend
 
-Working with raw arrays is annoying to work with. Lists, on the other hand, are not annoying, and much easier to work with. 
+Raw arrays are annoying to work with. Lists, on the other hand, are not annoying, and much easier to work with. 
 
 ```java
     List<String> argsList = Arrays.toList(args);
@@ -376,5 +376,5 @@ whenever we can check arguments beforehand, we want to.
 
 ### Complicated Arguments
 
-If you have a list of large, complicated Arguments, you should create a separate class to handle parsing the Arguments.
-We will talk about an example of this when we get to Design.
+If you have a list of large, complicated arguments, you should create a separate class to handle parsing the arguments.
+We will talk about an example of this when we get to [Design](https://sde-coursepack.github.io/modules/design/Design/).

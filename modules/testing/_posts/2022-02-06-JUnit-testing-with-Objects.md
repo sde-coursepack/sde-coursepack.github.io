@@ -99,10 +99,10 @@ But let's break down each step:
 ```NumberChanges nc = new NumberChanges(7, 4);```
 
 It is important when performing this step that you **should never
-call the method you are testing!**. The reason is that if you call
+call the method you are testing!** The reason is that if you call
 the method you are testing multiple times, it's difficult to tell
 which time the tested method caused a bug if the test fails. We will discuss
-this more in "Only call the tested operation once" below.
+this more in [Only call the tested operation once](https://sde-coursepack.github.io/modules/testing/JUnit-testing-with-Objects/#only-call-the-tested-operation-once) below.
 
 2) Execute the operation to be tested
 
@@ -113,7 +113,7 @@ this more in "Only call the tested operation once" below.
 Note that if this function returned something, we could test 
 the output value with an assertStatement. For
 example, imagine `setNumber` returned a boolean (`true` if the
-number changed, `false` if it didn't.) Example:
+number changed, `false` if it didn't). Example:
 
 ```java
     assertTrue(nc.setNumber(13));
@@ -131,7 +131,7 @@ output to check.
 Note that we need to check *both* conditions in this case! This is
 because the method can change *both* numbers, so we want to ensure
 that both are changing correctly! **It is not sufficient to only
-test `nc.getNumber()` OR `nc.getChanges`.
+test `nc.getNumber()` OR `nc.getChanges`.**
 
 ---
 
@@ -236,7 +236,7 @@ Let's say instead we did the following:
 ```
 
 Is this test better because it's testing more things? Here's another
-question: is this test **Sound** (see below)? It's hard to tell because the test
+question: is this test [Sound](https://sde-coursepack.github.io/modules/testing/JUnit-testing-with-Objects/#ensure-sound-tests) (see below)? It's hard to tell because the test
 is so complicated. This test is testing 3 different `add` operations
 and 2 `remove` operations. It therefore is difficult to **understand**
 this test, meaning if this test fails it won't be immediately clear why.
@@ -290,7 +290,7 @@ remember our goal in testing: **We are trying to find bugs!** As such,
 presence of a defect. A test passing is a positive result because it
 indicates that we don't need to look deeper for defects there.
 
-**Unsound test** should be avoided **at all costs**. Whenever a test
+**Unsound tests** should be avoided **at all costs**. Whenever a test
 fails, the first thing you should check is always to make sure
 that the **failing test is sound.** Do not start debugging until
 you have verified that the test is sound!
@@ -346,7 +346,7 @@ However, in the second case with two tests, I would see **both** AssertionErrors
 
 **That said, I do not follow this practice, nor do I 
 generally recommend it**. My reason is that if
-a test fails, I'm going to be debugging regardless, as so I will, in
+a test fails, I'm going to be debugging regardless, and so I will, in
 the debugger, see the state of both fields of the object anyways. I also
 dislike the 2nd approach because it encourages *copying and pasting* code which
 is *always* a bad idea.
@@ -355,9 +355,9 @@ My biggest concern, however, is **readability**. I want a test to
 be quickly readable, and I want to test to be a simple statement of
 *how the specification describes the operation.* The first test
 clearly states "this function can change both of these fields, but
-in this particular setup it doesn't". Because it's all in one
+in this particular setup it doesn't." Because it's all in one
 test, I think of it as **a single operation that affects both fields.**
-When I split them into two tests, the two test independently are less
+When I split them into two tests, the two tests independently are less
 **understandable**, because each of them tells only half the story.
 
 To be clear, I am not saying one assertion per test is a bad idea.
@@ -574,7 +574,7 @@ to change the other two:
 ```
 
 This allows us to create one or more test objects all in one place,
-which reduces the repetition in our tests (and thus to desire
+which reduces the repetition in our tests (and thus the desire
 to copy and paste code).
 
 ---
@@ -583,12 +583,12 @@ to copy and paste code).
 ## What methods to test?
 
 In general, we want to test all `public` and `protected` methods in a given class
-to ensure correct behavior. These methods describe the classes
+to ensure correct behavior. These methods describe the class'
 **interface**. We want to ensure the class **interface** behaves
 correctly.
 
 In general, we do not test `private` methods. While it is
-possible to call these methods using Java Reflections (more on this
+possible to call these methods using [Java Reflections](https://sde-coursepack.github.io/modules/testing/JUnit-testing-with-Objects/#testing-with-reflections) (more on this
 below), we primarily want our tests to test **how the object behaves**,
 not *how the object is implemented.*
 
@@ -606,7 +606,7 @@ list *becomes* sorted isn't relevant to the client using the `MySortedList`
 class.
 
 Ultimately, we test to the **interface**, not the implementation, because
-of what simple question: **What if the implementation changes?** What
+of one simple question: **What if the implementation changes?** What
 if we find a better underlying data structure to use, or we optimize
 the `ArrayList` interactions later on so they are thread-safe? Or
 what if we change our sorting algorithm? Or we get rid of the
@@ -614,7 +614,7 @@ lazy evaluation and instead sort on each add?
 
 If we are testing on `private` fields and methods, we will have
 tests that prevent the code from changing. Instead, we want
-our **implementation** to be as flexible as possible, and test
+our **implementation** to be as flexible as possible and test
 only the **interface** of our classes.
 
 ---
@@ -638,7 +638,7 @@ How many tests do we need to write? Well, my first instinct would be:
 * Let's write another test where `b` is bigger than `a`
 * Let's write another test where `a` and `b` are equal
 
-But is that sufficient? What is `a` and/or `b` is negative? Are you
+But is that sufficient? What if `a` and/or `b` is negative? Are you
 **absolutely certain** that would work if the first 3 tests work?
 I know I wasn't when I first came up with this method. So now I want
 to test:
@@ -650,14 +650,14 @@ to test:
 Of course, as we mentioned before, this function won't work
 with really big numbers. So I'll want to change this function
 to alert people when their numbers are too big. So now I need
-to consider combinations of 'a' and 'b' are both very far from
+to consider combinations of 'a' and 'b' that are both very far from
 zero, either positive or negative, and check for an Exception...
 
-You can see how our testing expectations can explode. And this is the point,
-there is no perfect answer to the questions "How many tests should
-I write". However, there are strategies we can use to determine
+You can see how our testing expectations can explode. And this is the point;
+there is no perfect answer to the question "How many tests should
+I write." However, there are strategies we can use to determine
 how many tests we should write depending on our level of uncertainty,
-and that will be the focus of the next module: Test Plans
+and that will be the focus of the next module: [Test Plans](https://sde-coursepack.github.io/modules/testing/Test-Plans/).
 
 ---
 
@@ -668,11 +668,11 @@ During testing, there may be times we want to directly access
 private fields. For example, in `MySortedListTest`, in order to
 set up our test state with `MySortedList`, we are effectively 
 "setting" the value of the private field `mySortedList` with
-the constructor. However, what is this constructor were not there?
+the constructor. However, what if this constructor were not there?
 That is, what if we wanted to **remove this constructor**?
 
 How could we configure the state of `MySortedList` without direct
-access to the underlying `List` field or violating the rule "Only 
+access to the underlying `List` field or violating the rule "only 
 call the tested operation **once**" (meaning we can't call
 `add` multiple times)? There are a few solutions:
 
@@ -692,7 +692,7 @@ having to know any details of how the class is **implemented**. The
 client doesn't need to understand the lazy evaluation, for example.
 However, having direct access to the underlying ArrayList would
 mean the client would need to understand, for example, why the
-underlying ArrayList isn't always sorted. Now interacting with
+underlying ArrayList isn't always sorted. Now, interacting with
 the class is more complicated, and that means correctly
 using the class is harder.
 
@@ -714,12 +714,12 @@ This is the simplest solution, though there are drawbacks:
 * By making something that was `private` instead `protected`, we
 are changing the interface of the affected class. We run the risk
 of developers mistakenly assuming they can access and use `protected`
-field and method we **do not** want them to use. In short, this
+fields and methods we **do not** want them to use. In short, this
 violates the principle of **encapsulation**.
 * By directly accessing fields and methods that were intended to
 be `private`, our tests are more tightly coupled with **implementation**
 details of the tested class. This means if the implementation changes, our
-existing tests will likely break, and will have to be re-written, even
+existing tests will likely break and will have to be re-written, even
 if the `public` **interface** does not change.
 
 ### Make an injectable Constructor
@@ -777,7 +777,7 @@ This means that the tests are tied not just to the interface, but the implementa
 
 ### Testing with Reflections
 
-One tool we can use instead in Java is Reflections. This approach can be complicated, and is *tightly coupled* to the implementation, and adds a significant testing overhead. I do not tend to use it, but it is worth being aware of.
+One tool we can use instead in Java is Reflections. This approach can be complicated and is *tightly coupled* to the implementation. It also adds a significant testing overhead. I do not tend to use it, but it is worth being aware of.
 
 ### Mocking
 

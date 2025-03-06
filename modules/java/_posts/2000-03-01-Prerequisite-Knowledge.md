@@ -60,17 +60,17 @@ You should be *very comfortable* writing functions in Java, and understand:
 
 ## Classes
 
-You should be *very comfortable* with Java Classes
+You should be *very comfortable* with Java classes
 * Using pre-defined Java classes, like String and ArrayList
 * Writing your own Java classes
 * The difference between a class and an instance
 * Methods and fields
-  * getters and setters
+  * Getters and setters
 * Constructors
   * Using constructors with the ```new``` keyword
-  * Writing Constructors
+  * Writing constructors
 * The ```static``` keyword and what it means
-* Class field and method visibility with ```public``` and ```private``` keywords.
+* Class field and method visibility with ```public``` and ```private``` keywords
 
 ---
 
@@ -129,8 +129,8 @@ class does and how each class interacts with each other.
 You should be able to download these
 Java files, put them into a project in your IDE of choice, and run
 the Main.java program, and you should be able to understand why
-the output displays.
+the output displays what it does.
 
-Note that, in your IDE, you'll have to add the code to a package called "example". This can be done by right-clicking on your source code folder (typically "src") and going to New -> Package. Then, simply make a package called "example", and drop the downloaded files in there. We will talk about packages, and why we have them, soon.
+Note that, in your IDE, you'll have to add the code to a package called "example" This can be done by right-clicking on your source code folder (typically "src") and going to New -> Package. Then, simply make a package called "example", and drop the downloaded files in there. We will talk about packages, and why we have them, soon.
 
 As we go further in the class, you'll learn how to "clone" the Github Repository this code is in, as well as "build" it in order to run the code as is.

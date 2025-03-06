@@ -6,7 +6,7 @@ Title: Code Smells
 
 A code smell, a term coined by [Kent Beck](https://en.wikipedia.org/wiki/Kent_Beck), refers to problems within the design and structure of the underlying code in software. However, code smells are explicitly not bugs or defects. Rather, they are problems with the **internal** quality of the software; that is, problems with maintainability, analyzability, complexity, testability, etc.
 
-In this module, we will long as some common examples of "smelly code", and look at solutions.
+In this module, we will look as some common examples of "smelly code," and look at solutions.
 
 ---
 
@@ -143,19 +143,18 @@ Notice now that each method is only a few lines. Also, it becomes much easier to
 
 1) What are we using to read the file?  
 2) How do we read the file into a list of points?  
-3) How are we calculating the distance between two points?  
-etc.
+3) How are we calculating the distance between two points?
 
-That the answer to those questions are in a specific function whose name and purpose is clear, and each function does only one thing.
+The answer to those questions are in a specific function whose name and purpose are clear, and each function does only one thing.
 
-We will examine this case, as well as another case, in the "Extract Method" module.
+We will examine this case, as well as another case, in the [Extract Method](https://sde-coursepack.github.io/modules/refactoring/Extract-Method/) module.
 
 ## Large classes
 
 One of the most common mistakes I see in newer programmers is putting their entire program inside of a single Main.java class. This is a completely understandable mistake:
 
-1) Newer programmers may not be as comfortable knowing when to create multiple classes
-2) Newer programmers may not be comfortable with Object-Oriented programming
+1. Newer programmers may not be as comfortable knowing when to create multiple classes
+2. Newer programmers may not be comfortable with Object-Oriented programming
 
 However, a programmer looking at a class can only keep *so many* ideas inside their head at one time. A class can therefore become hard to understand if:
 
@@ -163,7 +162,7 @@ However, a programmer looking at a class can only keep *so many* ideas inside th
 * The class has too many methods that do wildly different things
 * The class is thousands of lines of code
 
-There is no *ideal* class length. Some classes, like "Plain Old Java Objects" (POJOs) will inherently be short: just some fields, a constructor, and some getters and setters. An example of a POJO may be:
+There is no *ideal* class length. Some classes, like "Plain Old Java Objects" (POJOs), will inherently be short: just some fields, a constructor, and some getters and setters. An example of a POJO may be:
 
 ```java
 public class Student implements Comparable<Student> {
@@ -239,7 +238,7 @@ However, many of our classes will be more complicated. For example, imagine we h
 * all grades in all classes
 * all graduation requirements
 * tracking student graduation progress
-* track faculty teaching load
+* tracking faculty teaching load
 
 All of these things in one single class can make the class difficult to understand. Instead, we want to decompose all of these different needs into several smaller classes. Each class individually exposes its behavior through a smaller interface that is easier to understand.
 
@@ -247,7 +246,7 @@ All of these things in one single class can make the class difficult to understa
 
 To reference __Clean Code__ once again:
 
-> "The ideal number of arguments for a function is zero (niladic). Next comes one (monadic), followed closely by two (dyadic). Three arguments (triadic) should be avoided where possible. More than three (polyadic) requires very special justification - and then should be used anyway."
+> "The ideal number of arguments for a function is zero (niladic). Next comes one (monadic), followed closely by two (dyadic). Three arguments (triadic) should be avoided where possible. More than three (polyadic) requires very special justification - and they shouldn't be used anyway."
 >
 > __Clean Code__ Chapter 3, Page 40 - Bob Martin
 
@@ -312,7 +311,7 @@ To call `calculateBill` on the **triadic** version might look something like:
     var balanceDue = record.calculateBill(myStudent.getCourseList().size(), 2000, true);
 ```
 
-Which is easier to understand? Generally, the first example is. This is because we can think of the `StudentFinancialRecord` as an **object** (or record of information) that is tied to a `Student`, and having some amount overdue, and being either exempt or not-exempt from interest. These describe the **state** of the FinancialRecord.
+Which is easier to understand? Generally, the first example is. This is because we can think of the `StudentFinancialRecord` as an **object** (or record of information) that is tied to a `Student`, having some amount overdue and being either exempt or non-exempt from interest. These describe the **state** of the FinancialRecord.
 
 It's also much easier to remember the order of arguments in a **monadic**. That's because there's only 1 order the arguments can go in. Without scrolling back up, can you remember the order of the arguments in the **triadic**? If you can't, then you can try to guess, but there are 6 possible ways to arrange the arguments.
 
@@ -321,9 +320,9 @@ Or 5 arguments! 120 ways!
 
 In general, it's easier to make multiple **monadic** calls, where each method serves a clear individual purpose, then make one **triadic** call that combines all three purposes into one.
 
-Now, modern IDEs help with this: they will show you the method signature as you are writing your method call, so you are less likely to get the order wrong. However, if your function is taking in and using so many inputs, it might be worth considering turning the function into a class like we did with `StudentFinancialRecord`. This allows to more easily isolate the complicated function that requires so much information, and test it independent of any tangentially related functionalities.
+Now, modern IDEs help with this: they will show you the method signature as you are writing your method call, so you are less likely to get the order wrong. However, if your function is taking in and using so many inputs, it might be worth considering turning the function into a class like we did with `StudentFinancialRecord`. This allows us to more easily isolate the complicated function that requires so much information and test it independent of any tangentially related functionalities.
 
-There is a **trade-off** here. As it stands, we have what is called *temporal coupling*, where you have to "Set up" the `StudentFinancialRecord` object before calling "calculateBill". Just be aware of that trade-off when designing classes. As a general rule, your class should be built ready to be used. So it may make sense to move the setters to the Constructor. In fact, we could create overloaded constructors to help with this:
+There is a **trade-off** here. As it stands, we have what is called *temporal coupling*, where you have to "set up" the `StudentFinancialRecord` object before calling "calculateBill". Just be aware of that trade-off when designing classes. As a general rule, your class should be built ready to be used. So it may make sense to move the setters to the Constructor. In fact, we could create overloaded constructors to help with this:
 
 ```java
 public class StudentFinancialRecord {
@@ -379,7 +378,7 @@ public double calculateInterestExemptBill(List<Integer> registeredCourseNumbers,
         }
 ```
 
-The reason we want to remove boolean arguments is that it requires whoever is calling the function to know at least some information about how the function works. This means understanding the function requires **more knowledge**. Instead, we want our functions to be simple to use as possible. So instead of:
+The reason we want to remove boolean arguments is that it requires whoever is calling the function to know at least some information about how the function works. This means understanding the function requires **more knowledge**. Instead, we want our functions to be as simple to use as possible. So instead of:
 
 ```java
    public void orderHamburger(boolean hasCheese);
@@ -454,9 +453,9 @@ This class has 8 different fields! Imagine if each of these fields had getters/s
 
 But consider that five of the fields are simply related to the address of the building. Two of the fields relate to the geographic coordinates of the building. In effect, we actually have three different ideas here:
 
-1) The idea of a building with a name, address, and geolocation
-2) The address of the building
-3) The geolocation of the building
+1. The idea of a building with a name, address, and geolocation
+2. The address of the building
+3. The geolocation of the building
 
 This is an example of primitive obsession (for the sake of design, we typically consider the Java `String` class to be in effect a primitive, even though it is technically a class). We are modeling complex, unrelated data in one class directly with primitive datatypes. This means the `Building` class is more complicated than it needs to be.
 
@@ -539,7 +538,7 @@ Look at the two for loops that start with:
 
 These two for-loops are nearly completely identical! In fact, the only difference is in the `return` String at the end. This is particularly bad because `RowContainer` and `BoxContainer` both extend the same class,  `SudokuContainer`, so I've already done the design work to avoid this repetition.
 
-The problem with this duplication is that this is a bug waiting to happen. Imagine if I need to update this function, for example to remove this violation of *abstraction* (we will discuss this later)
+The problem with this duplication is that this is a bug waiting to happen. Imagine if I need to update this function, for example, to remove this violation of *abstraction* (we will discuss this later)
 
 `int boxNumber = cells.get(0).getBoxNumber();`
 
@@ -588,7 +587,7 @@ This is still not perfect (the functions are too long and complicated), but it i
 
 ## Message Chains
 
-It's important to note that **fewer lines of code** isn't inherently better. That is, doing things to shorten the number of lines of code without actually changing the code complexity isn't beneficial.
+It's important to note that **fewer lines of code** aren't inherently better. That is, doing things to shorten the number of lines of code without actually changing the code complexity isn't beneficial.
 
 Consider the following code:
 
@@ -647,4 +646,4 @@ Does this take up more space? Yes. However, now the code is easier to understand
 
 ## Conclusion
 
-The above was just a sampling of Code Smells. You can find a more thorough  and larger list at [Refactoring Guru](https://refactoring.guru/refactoring/smells)
+The above was just a sampling of Code Smells. You can find a more thorough  and larger list at [Refactoring Guru](https://refactoring.guru/refactoring/smells).

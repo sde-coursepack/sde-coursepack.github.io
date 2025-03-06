@@ -34,32 +34,32 @@ do a more complex operation.
 
 Before a push you should:
 
-1) Commit your code
-2) Pull
-3) Resolve any conflicts
-4) Commit
-5) Push
+1. Commit your code 
+2. Pull 
+3. Resolve any conflicts 
+4. Commit 
+5. Push
 
 ## Merge into the more specialize branch first
 
 If you are working in a feature branch you want to merge with main:
 
-1) Commit your changes in your feature branch
-2) Checkout main
-3) Pull main
-4) Checkout feature branch
-5) `git merge main` to merge main into your feature branch
-6) Resolve any conflicts, commit and push
-7) Checkout main
-8) `git merge featureBranch`
+1. Commit your changes in your feature branch 
+2. Checkout main 
+3. Pull main 
+4. Checkout feature branch
+5. `git merge main` to merge main into your feature branch 
+6. Resolve any conflicts, commit and push 
+7. Checkout main
+8. `git merge featureBranch`
 
 You want to handle conflicts in the most specialized branches first. That way, if
-a conflict requires a more substantial change than just "pick the one you want", you can
+a conflict requires a more substantial change than just "pick the one you want," you can
 handle that separately without breaking the program on the main branch.
 
 ## Always push when you stop working
 
-If you have written a ton of code, and are done for the night, *push*! The longer you go without
+If you have written a ton of code and are done for the night, *push*! The longer you go without
 pushing, the more chances there are to get a ton of annoying conflict resolutions to deal with.
 
 ## Commit early and often
@@ -79,11 +79,11 @@ You will be working with teammates this term. Committing new code to master (esp
 untested code) can be a recipe for disaster. As much as possible, you always want main working,
 even if main doesn't have all the features.
 
-Generally, in larger projects,0 I like to have two "special" branches where you 
+Generally, in larger projects, I like to have two "special" branches where you 
 don't write new code directly.
 
-main - this is the current working version of the product
-development - this is the main "development branch"
+1. main - this is the current working version of the product 
+2. development - this is the main "development branch"
 
 From there, everyone works in a branch off development. Each feature is a new branch. When that
 feature is completed, it's merged into development. You then do integration testing
@@ -105,7 +105,7 @@ making tons of small commits at the last second, often directly to main. Either 
 to fix or hide a bug, fixing some minor typo, or just trying to make one function work
 right before the deadline. Every semester, I get students who, because of a last second
 commit, have code that won't compile anymore, and as a result they end up losing far more
-points than they would have had with that one minor bug.
+points than they would have with that one minor bug.
 
 Accept that you need to start early, and plan to finish 2-3 days early, so you have time
 to catch and fix small bugs, safely knowing the major parts of the program are done.
@@ -116,11 +116,11 @@ to catch and fix small bugs, safely knowing the major parts of the program are d
 
 This is especially true when you finish a feature or make changes to
 an existing class! You want to track this progress! Avoid "fixed some bugs"
-and "more work". Git messages are your chance to communicate what you did.
+and "more work." Git messages are your chance to communicate what you did.
 Messages can be short. For instance "added test for getDistance(Location l)"
 is perfectly sufficient. It communicates what you were working on, and what
 your goal was.
 
 Eventually, you may need to go back through hundreds of commits and find where
-a particular change was made. If all of your messages are "message", you're
+a particular change was made. If all of your messages are "message," you're
 going to be mad at your past self for their selfish and lazy decisions!

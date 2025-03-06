@@ -32,7 +32,7 @@ Last time, we used the Black-Box test plan strategy of **equivalence partitionin
 
 ## Calculated expected return values
 
-We now want to break out a calculator, maybe some pencil and paper, and work out what these functions should return. We want to be **very careful** during this step, as if we calculate the values incorrectly, it will cause our tests to produce incorrect output, and potentially lead us to breaking working code, or missing a defect because our test is unsound.
+We now want to break out a calculator, maybe some pencil and paper, and work out what these functions should return. We want to be **very careful** during this step, as if we calculate the values incorrectly, it will cause our tests to produce incorrect output and potentially lead us to breaking working code or missing a defect because our test is unsound.
 
 | Test# | courseCount | overdue | exempt | expected return |
 |-------|-------------|---------|--------|-----------------|
@@ -46,8 +46,8 @@ We now want to break out a calculator, maybe some pencil and paper, and work out
 
 In addition to our return value, does anything else change as a result of our method call? Yes! The state of the variable `overdue` can change. Specifically in bullet point 3:
 
-> 3) Increase the value of the field overdue amount by 10% if **exempt** is false (this is done AFTER step 2)
-  >    * if **exempt** is true, this penalty is waived, and overdue does not change.
+> 3. Increase the value of the field overdue amount by 10% if **exempt** is false (this is done AFTER step 2)
+  >    * If **exempt** is true, this penalty is waived, and overdue does not change.
 
 This means in addition to our return value, the ending value of `overdue` is also part of the output of this method.
 
@@ -91,7 +91,7 @@ Now, we can write Test 1. First, we need to create an instance of the class `Stu
 	}
 ```
 
-Now, we can call our the method we are testing, `calculateBill`, and check if the return value matches are expected.
+Now, we can call the method we are testing, `calculateBill`, and check if the return value matches our expected value.
 
 ```java
     @Test 
@@ -103,7 +103,7 @@ Now, we can call our the method we are testing, `calculateBill`, and check if th
 	}
 ```
 
-Remember that when comparing doubles, we have to allow for some tolerance factor. In this case, I'm using 1 ten-thousandth.
+Remember that when comparing doubles, we have to allow for some tolerance factor. In this case, I'm using one ten-thousandth.
 
 Finally (**don't forget our other output**), we can add our assertion that checks that the value of `overdue` either changed for stayed the same correctly.
 
@@ -164,7 +164,7 @@ From there, we can implement the function. Let's say we wrote the following:
 		}
 	}
 ```
-Please be aware that the above code is intentionally written in a way to be confusing. This way, we have to rely on our tests to tell us if it works or not! Also, just like any paper, the first-draft of any method is typically going to be ugly and hard to read. We'll edit this later in our Code Quality unit.
+Please be aware that the above code is intentionally written in a way to be confusing. This way, we have to rely on our tests to tell us if it works or not! Also, just like any paper, the first-draft of any method is typically going to be ugly and hard to read. We'll edit this later in our [Code Quality](https://sde-coursepack.github.io/modules/refactoring/Code-Quality/) unit.
 
 Now, we run our tests, and we get:
 
@@ -175,7 +175,7 @@ Now, we run our tests, and we get:
 | 3     | 51150       | 2750         | 51150       | 2500         | FAIL   |
 {:.mbtablestyle}
 
-Oh no! Two of our tests failed! Why did this happen! Well, if we look, our actual return matches are expected return in all three tests. However, anytime we expected overdue to change, it didn't! You realize that while you multiplied `overdue` by `1.1` when you were supposed to, you never actually stored the new value of `overdue`. So,
+Oh no! Two of our tests failed! Why did this happen! Well, if we look, our actual return matches our expected return in all three tests. However, anytime we expected overdue to change, it didn't! You realize that while you multiplied `overdue` by `1.1` when you were supposed to, you never actually stored the new value of `overdue`. So,
 you write a quick fix, simply copying and pasting `overdue = overdue * 1.1;` before each time you did the multiplication, and then delete the `* 1.1` in the return statement.
 
 ```java
@@ -232,7 +232,7 @@ into
         }
 ```
 
-Because we didn't think carefully while changing our code, we made a mistake. While `overdue` is correctly, `total` is no longer increasing by 10% as specified! So, we make one more change:
+Because we didn't think carefully while changing our code, we made a mistake. While `overdue` is correct, `total` is no longer increasing by 10% as specified! So, we make one more change:
 
 ```java
     public double calculateBill(List<Integer> registeredCourseNumbers) {

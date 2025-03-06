@@ -23,25 +23,25 @@ At core here is the **Single Responsibility Principle** (SRP). Coined by __Clean
 - Apportions representatives to those states based on some algorithm
 - Prints the states in some order (say alphabetical)
 
-You may think "Okay this seems straightforward: I'll write three functions in main, one for each of these three parts. Then my main function will simply call those three functions."
+You may think, "Okay this seems straightforward: I'll write three functions in main, one for each of these three parts. Then my main function will simply call those three functions."
 
 This is a reasonable approach for ad hoc software. But consider this: what if you were actually writing this software for Congress to use every 10 years when they reapportion the states? Now, you have to consider a number of complications:
 
-1) What if Congress wants to use different sources of data?
-   1) Maybe the first time they use a .csv file
-   2) Later on, they want to use Excel
-   3) Or, to streamline the process, they want you to get the data directly from Department of Commerce (who runs the Census) via a web-API
-2) What if the algorithm changes?
-   1) It's changed many times!
-   2) George Washington's very first veto was about Apportionment
-   3) Thomas Jefferson proposed an algorithm used for much of the early history
-   4) It was replaced by Hamilton's algorithm
-   5) That was replaced by Jefferson's algorithm again
-   6) That was replaced in 1929 by our current algorithm, Huntington-Hill
-3) What if they want results in different ways?
-   1) Printed alphabetically? In descending order by representatives?
-   2) Uploaded to a server or database?
-   3) Generate a PDF printout and automatically email it to several people?
+1. What if Congress wants to use different sources of data?
+   * Maybe the first time they use a .csv file
+   * Later on, they want to use Excel
+   * Or, to streamline the process, they want you to get the data directly from the Department of Commerce (who runs the Census) via a web-API
+2. What if the algorithm changes?
+   * It's changed many times!
+   * George Washington's very first veto was about Apportionment 
+   * Thomas Jefferson proposed an algorithm used for much of the early history 
+   * It was replaced by Hamilton's algorithm 
+   * That was replaced by Jefferson's algorithm again 
+   * That was replaced in 1929 by our current algorithm, Huntington-Hill
+3. What if they want results in different ways?
+   * Printed alphabetically? In descending order by representatives? 
+   * Uploaded to a server or database? 
+   * Generate a PDF printout and automatically email it to several people?
 
 All of these are reasonable changes that could occur. And that's without even adding new features! (Hey! Could you also use this software to calculate the electoral college for Presidential elections?)
 
@@ -50,12 +50,12 @@ That's a *lot* of reasons that the software can change. As such, we want to brea
 ## Apportionment classes
 
 When defining a class, we want to focus on two things first:
-1) What is the purpose of the class?
-2) What is its **interface?**
+1. What is the purpose of the class? 
+2. What is its **interface**?
 
-It's important to think about the interface first, as we want to design the simplest interface that we can that meets the needs of the **client**. A **client** is any other part of our software system that interacts with this interface (not to be confused with **customer**, the human users of our system). 
+It's important to think about the interface first, as we want to design the simplest interface we can that meets the needs of the **client**. A **client** is any other part of our software system that interacts with this interface (not to be confused with **customer**, the human users of our system). 
 
-Note that when we say **interface**, we do not strictly mean a Java `interface`. In general, we use the term to mean "The `public` methods that we interact with when using the class."
+Note that when we say **interface**, we do not strictly mean a Java `interface`. In general, we use the term to mean "the `public` methods that we interact with when using the class."
 
 For example in the class below:
 
@@ -87,15 +87,15 @@ This is not dissimilar to how we think of functions. However, the key distinctio
 
 ### Encapsulation
 
-The entire goal of classes is to hide implementation details. If, for example, our file structure changes, or we need to use a completely different file format, we necessarily have to change our **implementation**. However, our interface **does not need to change** so long as we are a) taking in data from some file b) returning a List of states. 
+The entire goal of classes is to hide implementation details. If, for example, our file structure changes or we need to use a completely different file format, we necessarily have to change our **implementation**. However, our interface **does not need to change** so long as we are a) taking in data from some file and b) returning a List of states. 
 
-This means that we have made it so changes to the implementation of this behavior only requires changes to StateReader.java, **and** the only reason we would change StateReader.java is to change the implementation of reading states.
+This means that we have made it so changes to the implementation of this behavior only require changes to StateReader.java, **and** the only reason we would change StateReader.java is to change the implementation of reading states.
 
-So by extracting one behavior to a separate, we have made Main smaller and less complicated, as well as clearly communicate where in the system the "getting states from a data source" behavior is located.
+So by extracting one behavior to a separate class, we have made Main smaller and less complicated, as well as clearly communicated where in the system the "getting states from a data source" behavior is located.
 
 ## Simplifying data access
 
-Let's imagine we also extract our "Apportion representatives" behavior to a class:
+Let's imagine we also extract our "apportion representatives" behavior to a class:
 
 ```java
 public class ApportionmentStrategy {
@@ -113,9 +113,9 @@ But think about this: how many functions do we **need** for our `Map` here? Well
 Well, the `Map<State, Integer>` interface supports that to some extent:
 
 * `get(State state)` will give us the number of representatives ... or null if our State has none
-* `put(State state, int representatives)` will set the number of representatives for `state`, but it will overwrite the previous number instead of adding. If the start already has repeats and we want to add reps, we'd have to do something like:
+* `put(State state, int representatives)` will set the number of representatives for `state`, but it will overwrite the previous number instead of adding. If the state already has reps and we want to add more reps, we'd have to do something like:
 `apportionmentMap.put(ohio, apportionmentMap,get(ohio) + representatives)`, and we would also need to use `containsKey(State state)` to check if we simply use `put` or we have to use `get-put`
-* keySet() will give me a `Set` with the States in state, but I'd have to convert it to a list if I wanted to sort it...
+* keySet() will give me a `Set` with the States in stateList, but I'd have to convert it to a list if I wanted to sort it...
 
 This interface is *close*, but not exactly what we want. Further, [there are tons of methods in `Map` that we don't need](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html):
 * clear()
@@ -140,7 +140,7 @@ public class Representation {
 
 By *encapsulating* our `Map` inside of this class, we are able to give it precisely the interface we want.
 
-### implementing Apportionment
+### Implementing Apportionment
 ```
 public class Representation {
    Map<State, Integer> apportionmentMap = new HashMap<>();
@@ -161,7 +161,7 @@ public class Representation {
 }
 ```
 
-If you think about it, when interacting with the previous `Map`, we would have had to write much of this code anyways. Now, we extract it in its own class. This supports the Single Responsibility Principle, because now the class only changes if we need to change how apportionment are implemented and described at the data level. If we want to use a TreeMap for ease of default sorting, we can make that change inside of `Representation`, and no other class is affected for needs to change.
+If you think about it, when interacting with the previous `Map`, we would have had to write much of this code anyways. Now, we extract it in its own class. This supports the Single Responsibility Principle, because now the class only changes if we need to change how apportionment is implemented and described at the data level. If we want to use a TreeMap for ease of default sorting, we can make that change inside of `Representation`, and no other class is affected or needs to change.
 
 
 ## Extracting an interface
@@ -211,9 +211,9 @@ public class HuntingtonHillMethod implements ApportionmentMethod {
 }
 ```
 
-In this case, we are changing each classes method name to adhere to the interface, but we do not need to change the implementation. This has the added benefit where elsewhere in the program. For example, a *client* class can now simply use an instance of the abstract *ApportionmentMethod* instead of having to juggle two different classes and figure out which to use.
+In this case, we are changing each class' method name to adhere to the interface, but we do not need to change the implementation. This has the added benefit elsewhere in the program. For example, a *client* class can now simply use an instance of the abstract *ApportionmentMethod* instead of having to juggle two different classes and figure out which to use.
 
-For instance, let's say that we decided by default to use Huntington-Hill, but the user of our software can change the algorithm with command-line arguments by adding the argument "--hamilton" to their program.
+For instance, let's say that we decided by default to use Huntington-Hill, but the user of our software can change the algorithm with command-line arguments by adding the argument "---hamilton" to their program.
 
 In that case, we can have a function:
 
@@ -227,7 +227,7 @@ In that case, we can have a function:
     }
 ```
 
-This lets us leverage polymorphism to mark our code simpler, as now **every single other part of our program** only every interacts with the abstraction `ApportionmentMethod`, and never has to worry about whether under the hood the implementation is Hamilton of Huntington-Hill. We only need to know "which class to instantiate" when the program starts, and we never have to retain that knowledge elsewhere.
+This lets us leverage polymorphism to make our code simpler, as now **every single other part of our program** only ever interacts with the abstraction `ApportionmentMethod` and never has to worry about whether under the hood the implementation is Hamilton or Huntington-Hill. We only need to know "which class to instantiate" when the program starts, and we never have to retain that knowledge elsewhere.
 
 ### The risk of abstraction
 
@@ -239,8 +239,8 @@ A place where this *could* become a problem is what if we need to introduce a me
 
 Learning how and when to decompose a program into separate classes can be one of the first big hurdles in understanding and implementing object-oriented programming. In this article, I gave 3 examples where I would separate one class into two:
 
-1) Encapsulate a feature or behavior's **implementation** behind an interface
-2) Simplifying a complex interface into a simpler interface that more precisely meets our needs
-3) Combining two similar behaviors via polymorphism by extract an abstract parent class.
+1. Encapsulate a feature or behavior's **implementation** behind an interface 
+2. Simplifying a complex interface into a simpler interface that more precisely meets our needs 
+3. Combining two similar behaviors via polymorphism by extracting an abstract parent class.
 
-We will revisit these ideas, and the idea of polymorphism and the Single Responsibility Principle throughout our design unit.
+We will revisit these ideas, the idea of polymorphism, and the Single Responsibility Principle throughout our [Design](https://sde-coursepack.github.io/modules/design/Design/) module.

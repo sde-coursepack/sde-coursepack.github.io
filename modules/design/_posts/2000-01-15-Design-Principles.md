@@ -4,7 +4,7 @@ Title: OO Design Principles
 
 # Design Principles
 
-In this module, we will focus on some additional design principles. First, we look at some general design principles, and then second we focus on Object-Oriented Design Principles. These principles are designed to help us achieve modular, functionally independent code that adheres to proper use of abstraction and information hiding.
+In this module, we will focus on some additional design principles. First, we look at some general design principles, and then second, we focus on Object-Oriented Design Principles. These principles are designed to help us achieve modular, functionally independent code that adheres to proper use of abstraction and information hiding.
 
 
 * TOC
@@ -16,7 +16,7 @@ In this module, we will focus on some additional design principles. First, we lo
 
 __Keep it simple, stupid!__
 
-A simpler design is better than a complicated one. The best design is the simplest design that meets the need. Whenever possible, we should avoid adding un-need complexity. To that end, having several well-named single purpose modules is easier to understand than having one big multi-purpose module.
+A simpler design is better than a complicated one. The best design is the simplest design that meets the need. Whenever possible, we should avoid adding un-needed complexity. To that end, having several well-named single purpose modules is easier to understand than having one big multi-purpose module.
 
 ## DRY Principle
 
@@ -75,7 +75,7 @@ public class GregorianDateValidator {
 }
 ```
 
-Now, imagine we also wanted to make `JulianDateValidator`. And you note that, functionally, this is doing the same task as `GregorianDateValidator`. Only,  One possibility would be something like:
+Now, imagine we also wanted to make `JulianDateValidator`. And you note that, functionally, this is doing the same task as `GregorianDateValidator`. One possibility would be something like:
 
 ```java
 public abstract class DateValidator {
@@ -161,7 +161,7 @@ public abstract class DateValidator {
 }
 ```
 
-You'll note here we only made `isLeapYear` protected, and all the other methods are still private. This was because I don't *want* either child class overriding the above methods. If, later on, I add new implementations which may need to override additional functions, then I can do that later. By now, the concrete child classes are:
+You'll note here we only made `isLeapYear` protected, and all the other methods are still private. This was because I don't *want* either child class overriding the above methods. If, later on, I add new implementations which may need to override additional functions, then I can do that later. But now, the concrete child classes are:
 
 ```java
 public class GregorianDateValidator extends DateValidator {
@@ -193,7 +193,7 @@ Now, the shared logic is all in one place.
 
 ### Don't be too DRY
 
-However, his principle shouldn't necessarily be taken as a hard-and-fast rule as it may be stated. Some new programmers interpret this as "if there are any two places in your entire project that repeat any code whatsoever, you should fix that".
+However, his principle shouldn't necessarily be taken as a hard-and-fast rule as it may be stated. Some new programmers interpret this as "if there are any two places in your entire project that repeat any code whatsoever, you should fix that."
 
 Consider the following code modification of the above. I'll ask you: is this code better?
 
@@ -381,7 +381,7 @@ Now, in a given program I would write, such as a calendar program to keep track 
 
 But what if, instead, this software were used for historical reasons. And now, I need to track dates using the Hebrew Calendar or Islamic Calendar, both of which are incompatible with these assumptions. For example, in both calendars, the number of days in a given month vary from year-to-year based on lunar phases.
 
-Now, I have a problem. This abstraction, which seemingly good for being DRY, becomes a hindrance.
+Now, I have a problem. This abstraction, which was seemingly good for being DRY, becomes a hindrance.
 
 At this point, maybe you think, okay, let's change `DateValidator` to `WesternDateValidator`, an abstraction of `Julian` and `GregorianDateValidator`, and then we can introduce `HebrewDateValidator` and `IslamicDateValidator`, and then bundle them all under an even more abstract `DateValidator` class whose only job is describing the interface of the method `boolean isValidDate(int year, int month, int day)`.
 
@@ -389,7 +389,7 @@ Well, that could work...until you are dealing with the Mayan Calendar. For examp
 
 So...what's the best solution?
 
-At this point, I would simply create one DateValidation module for each Calendar I want to handle, and honestly not try to combine them. The second an abstraction becomes cumbersome, and you have to make changes that become increasingly difficult, it's time to cut your losses and just separate things.
+At this point, I would simply create one DateValidation module for each Calendar I want to handle and honestly not try to combine them. The second an abstraction becomes cumbersome and you have to make changes that become increasingly difficult, it's time to cut your losses and just separate things.
 
 Instead, consider using *Aggregation* (a class has a member of another class) instead of *Inheritance* (a class is a subtype of another). We will discuss this more in design patterns, but the following video is helpful in explaining this:
 
@@ -405,9 +405,9 @@ The YAGNI Principle states that you should only add features to your code when r
 
 This was specifically a common problem in **plan-driven** software development (as opposed to *agile*). Because most major design decisions had to be made before implementation in a *plan-driven* approach. It was necessary to try to anticipate changes **and** develop the infrastructure to support those changes.
 
-Because agile promotes add features iteratively, with an emphasis on refactoring often, it's often better to wait until you *know* what new features you need before you start designing and implementing. A reason for this is that if we anticipate a feature will be needed in the future, we could be wrong! Now any design changes we have made, code and tests we've written, etc. are useless. The time spent on those features was wasted.
+Because agile promotes adding features iteratively, with an emphasis on refactoring often, it's often better to wait until you *know* what new features you need before you start designing and implementing. A reason for this is that if we anticipate a feature will be needed in the future, we could be wrong! Now any design changes we have made, code and tests we've written, etc. are useless. The time spent on those features was wasted.
 
-Additionally, over design of our software system can make it **harder** to understand, even if the software is theoretically easier to change. Remember, the first step to any software change is **understanding** the software. So avoiding over-design is just as important as avoiding under design!
+Additionally, over-design of our software system can make it **harder** to understand, even if the software is theoretically easier to change. Remember, the first step to any software change is **understanding** the software. So avoiding over-design is just as important as avoiding under-design!
 
 > “Such is the vastness of his genius that he can outwit even himself.”
 > Stephen Erickson, Deadhouse Gates, Book 2 of the Malazan Book of the Fallen

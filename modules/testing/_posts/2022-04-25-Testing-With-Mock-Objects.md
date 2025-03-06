@@ -62,11 +62,11 @@ we are also reliant on the class `BallDontLieReader` working.
 This means our test `getThirtyTeams()` is **not** a Unit Test
 for the following reasons:
 
-1. We are testing more than on operation, since we are also testing
+1. We are testing more than one operation, since we are also testing
 `getAllNBATeams()` in the class `BallDontLieReader`. This means
 if *either* function has a defect, both tests will fail.
 2. `BallDontLieReader.getAllNBATeams()` could fail for reasons
-**that have nothing to do with code being test!**
+**that have nothing to do with the code being tested!**
    1. You could be disconnected from the internet
    2. The BallDontLie API could be down for maintenance
    3. We could get an IO error when connecting to the server for any one of dozens of reasons
@@ -76,7 +76,7 @@ if *either* function has a defect, both tests will fail.
 
 With this in mind, even [`BallDontLieReaderTest`](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/test/java/edu/virginia/cs/nbateams/BallDontLieReaderTest.java) is full of tests which **are not unit tests**. We have an external dependency to a web service API, and a failure in that communication would cause our tests to fail **even if our code is functionally correct**.
 
-When unit testing, we only want to test the class we are testing! We do not want our tests to fail for any other reason, of our tests could be considered misleading, and people could ignore failures, attributing them to external dependency issues. Note that dealing with this in a class directly interacting with external information can be difficult. However, in a class like NBATeamReader, which only interacts with other classes in the program, we should be able isolate the class for testing with external dependencies.
+When unit testing, we only want to test the class we are testing! We do not want our tests to fail for any other reason, or our tests could be considered misleading and people could ignore failures, attributing them to external dependency issues. Note that dealing with this in a class directly interacting with external information can be difficult. However, in a class like NBATeamReader, which only interacts with other classes in the program, we should be able isolate the class for testing with external dependencies.
 
 ## The engine light
 
@@ -85,10 +85,10 @@ Consider this classic scene from the TV Show the Simpsons:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ddPQAJSm2cQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 In the scene, Lisa notices that Homer's "Check Engine" light is on.
-Homer says "Uh-oh, tape must have fallen off." Homer then puts a
-piece of electric tape over the light to block it out, and says "There, problem solved!" Humorously, the care immediately breaks down due to an engine issue.
+Homer says, "Uh-oh, tape must have fallen off." Homer then puts a
+piece of electric tape over the light to block it out, and says "There, problem solved!" Humorously, the car immediately breaks down due to an engine issue.
 
-**We do not want a failing unit test to be a check engine light!** Ideally, a unit test should fail **if and only if** the code being tested has a defect. We want to avoid *false positives* (that is, a failing test indicating a defect when there is none), because if we allow too many, you and your fellow developers will begin to think that a failed test "probably isn't your fault", and that way madness lies.
+**We do not want a failing unit test to be a check engine light!** Ideally, a unit test should fail **if and only if** the code being tested has a defect. We want to avoid *false positives* (that is, a failing test indicating a defect when there is none), because if we allow too many, you and your fellow developers will begin to think that a failed test "probably isn't your fault," and that way madness lies.
 
 ## Don't delete integration tests!
 
@@ -102,7 +102,7 @@ If you wish to disable a test from automated testing because it relies on extern
 ## Test Doubles
 
 Of course, the obvious question is "how do we test an API reader
-without an API"? The answer is **Test Doubles*. 
+without an API"? The answer is **Test Doubles**. 
 
 **Test Doubles** are classes that replace *external dependency* objects with replacement  objects that imitate the behavior of the external dependency they are replacing. In this case, an external dependency is any code used by a class that isn't part of the class.
 
@@ -144,8 +144,8 @@ A reminder that in our earlier unit on Poi, we described a
 team's city matches the team's name. As such, our output from
 `getNBATeams()` in `StubNBATeamReader` is perfect for this test,
 as it gives us one team with a good abbreviation (Boston Celtics)
-and on team without a good abbreviation (LA Lakers). Thus, we know
-our **input** (our `StubNBATeamReader`), and are expected output (a list containing only the Boston Celtics).
+and one team without a good abbreviation (LA Lakers). Thus, we know
+our **input** (our `StubNBATeamReader`), and our expected output (a list containing only the Boston Celtics).
 
 Below is our [`GoodAbbreviationsTest`](https://github.com/sde-coursepack/NBAExcelTeams/blob/d0482f054179498a2b0c643546757d04fd9a5665/src/test/java/edu/virginia/cs/nbateams/GoodAbbreviationsTest.java) class.
 
@@ -178,4 +178,4 @@ One limitation of this stub is that we only designed it for testing one method. 
 
 2. Create a new stub class for each test. But this means creating a lot of classes that are only used in a single class, polluting the global name space.
 
-What we need is a way to create a Stub class without actually creating a class. We will cover that in the next unit with mockito.
+What we need is a way to create a Stub class without actually creating a class. We will cover that in the next unit with [Mockito](https://sde-coursepack.github.io/modules/testing/Mockito/).

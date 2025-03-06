@@ -154,7 +154,7 @@ One annoyance of the Java programming language is Checked Exceptions: that is, e
     private BufferedReader getBufferedReader(String filename) throws FileNotFoundException {
         FileReader fileReader = new FileReader(filename);
         return new BufferedReader(fileReader);
-        }
+    }
     
     private String getFileContents(BufferedReader bufferedReader) throws IOException {
         StringBuilder fileContents = new StringBuilder();
@@ -206,7 +206,7 @@ Caused by: java.io.FileNotFoundException: FileThatDoesntExist.txt (The system ca
 
 Writing your own Exceptions can be a valuable way to communicate information unique to your context. For example, we can use the method name to **communicate intent** of why an Exception was thrown.
 
-For instance, if we were writing software for Bank transactions, we might want an Exception that communicate "Insufficient Funds". This way, when a transaction is rejected because of an Exception, that **reason why** the transaction was rejected is clear.
+For instance, if we were writing software for Bank transactions, we might want an Exception that communicates "Insufficient Funds." This way, when a transaction is rejected because of an Exception, the **reason why** the transaction was rejected is clear.
 
 Writing your own Exception classes can be very simple:
 
@@ -226,8 +226,8 @@ Be aware that if you extend a checked exception, then your custom exception will
 
 The error messages for Exceptions should also meaningfully communicate:
 
-a) What caused the exception
-b) How to avoid it in the future.
+1. What caused the exception
+2. How to avoid it in the future.
 
 Consider a function that generates an error message for `InsufficientFundsException`
 
@@ -246,7 +246,7 @@ And so, if we `throw new InsufficientFundsException` with this message, we would
 
 `Exception in thread "main" edu.virginia.cs.exceptions.InsufficientFundsException: Error: insufficient funds in account #1234 - balance: 500.0 for transaction amount 700.0`
 
-This exception clearly communicates to whoever caused it what the problem is (performing a transaction with an account that cannot cover the amount of the transaction). They would like adapt by adding in their own check, something like:
+This exception clearly communicates to whoever caused it what the problem is (performing a transaction with an account that cannot cover the amount of the transaction). They would likely adapt by adding in their own check, something like:
 
 ```java
     try {
@@ -256,4 +256,4 @@ This exception clearly communicates to whoever caused it what the problem is (pe
     }   
 ```
 
-However, it's important to note that handling the exception is the **client classes** responsibility. Throwing the exception to alert the client to mis-use is your classes responsibility.
+However, it's important to note that handling the exception is the **client class'** responsibility. Throwing the exception to alert the client to misuse is your class' responsibility.

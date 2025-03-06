@@ -150,7 +150,7 @@ You'll notice we have some extra code here:
     return stream;
 ```
 
-It's important to be aware that `getResourceAsStream` **does not throw `FileNotFoundException` if the resource file isn't found. Rather, it simply returns a `null` InputStream. Personally, I think this is bad design, but nobody at Java asked me (which is probably a good idea). But this *does* mean you need to do a null check on your InputStream, or be prepared to handle a `NullPointerException.
+It's important to be aware that `getResourceAsStream` *does not throw `FileNotFoundException` if the resource file isn't found*. Rather, it simply returns a `null` InputStream. Personally, I think this is bad design, but nobody at Java asked me (which is probably a good idea). But this *does* mean you need to do a null check on your InputStream, or be prepared to handle a `NullPointerException`.
 
 This gives us the String variable `inputStream` which we can then use to read via a `BufferedReader` as follows:
 
@@ -167,7 +167,7 @@ Note that you may often see people combine these two lines:
     return new BufferedReader(new InputStreamReader(filename));
 ```
 
-However, we'll discuss later how this could be seen as bad style in many contexts because it makes the code harder to read and understand if you use this nest constructor call approach. That said, it's common enough for these "repetitive" file IO situations that we tend to overlook it.
+However, we'll discuss later how this could be seen as bad style in many contexts because it makes the code harder to read and understand if you use this nested constructor call approach. That said, it's common enough for these "repetitive" file IO situations that we tend to overlook it.
 
 Now, we can simply read the file via a BufferedReader. We cover reading from a BuffedReader below.
 
@@ -231,7 +231,7 @@ When we discuss testing in that unit, it's worth noting that our test classes wi
 
 ## User specified files shouldn't be resources
 
-If you program can take in a filename from the user, such as via command-line, text entry, file browser window, etc., you should *never* that file with `ClassLoader`. In that case, it's sufficient to just create a `BufferedReader` from the filename the user gives you.
+If your program can take in a filename from the user, such as via command-line, text entry, file browser window, etc., you should *never* read that file with `ClassLoader`. In that case, it's sufficient to just create a `BufferedReader` from the filename the user gives you.
 
 Something like:
 
@@ -259,15 +259,14 @@ You only use Resources when you are trying to access a resource file that you wo
 
 ## Resource usage example
 
-Consider the puzzle game (Picross S)[https://www.youtube.com/watch?v=ph0ADToB-1c], which involves solving puzzles called nonograms [https://en.wikipedia.org/wiki/Nonogram]. 
+Consider the puzzle game [Picross S](https://www.youtube.com/watch?v=ph0ADToB-1c), which involves solving puzzles called [nonograms](https://en.wikipedia.org/wiki/Nonogram). 
 
 ![img.png](../images/8/nonogram_example.png)
 Image Source: [Wikipedia](https://en.wikipedia.org/wiki/Nonogram#/media/File:Nonogram_wiki.svg)
 
 If you are a programmer of the game Picross S, which seems like the better approach for development?
 
-
-1) Create a Java class for every single puzzle that describes how the puzzle works and hard-code what the data values are for each row/column
+1) Create a Java class for every single puzzle that describes how the puzzle works and hard-code what the data values are for each row/column 
 2) Describe a generic puzzle class that works for all puzzles, and store the *data* of each row and column as a file.
 
 Saw we wanted to implement 300 puzzles. In the first case, we would need at least 300 classes. In the second case, we'd need probably two classes (one to read in the file, and the other to model the state of the puzzle) and 300 resource files. These files might be formatted something like (using the puzzle above):
@@ -290,7 +289,7 @@ columns:
 
 ```
 
-Again, this is hypothetical. (As a note, If I were implementing this, I would likely use something like JSON, rather than the text above, but that's beyond what we've covered so far). The point, however, is that this allows us to simply create 300 puzzle files with a consistent, human-readable format. This lets us separate *how the game works* from the individual puzzles in the game, and allows them to be edited separately from the source code.
+Again, this is hypothetical. (As a note, if I were implementing this, I would likely use something like JSON, rather than the text above, but that's beyond what we've covered so far). The point, however, is that this allows us to simply create 300 puzzle files with a consistent, human-readable format. This lets us separate *how the game works* from the individual puzzles in the game, and allows them to be edited separately from the source code.
 
 ## Conclusion
 

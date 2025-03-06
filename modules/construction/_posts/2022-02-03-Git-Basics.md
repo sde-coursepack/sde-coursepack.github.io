@@ -61,7 +61,7 @@ gradle-app.setting
 !gradle-wrapper.jar
 ```
 
-This is an incomplete excerpt from this [.gitignore file](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/.gitignore)
+This is an incomplete excerpt from this [.gitignore file](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/.gitignore).
 We will discuss this project and gradle in a later unit. You are welcome
 to use the linked example as a .gitignore file, but I would encourage
 you to delete lines 1-3, as ignoring Excel files is unique to that project.
@@ -85,7 +85,7 @@ we want to limit our git repositories to storing only what is necessary
 for building the source code locally.
 
 **Be aware that .gitignore files are not retroactive**. .gitignore only
-prevent future commits from adding a file to the repository. It will not
+prevents future commits from adding a file to the repository. It will not
 remove files that are already in the repository.
 
 ### Creating a new empty repository
@@ -105,9 +105,8 @@ makes the next few steps easier. You can then skip to cloning a new repo
 create git repository, and it will make a local git repository. You can
 then skip to "Pushing a local repo."
 3. Using a terminal inside of an empty folder in your system, 
-you can use `git init` to create a git repository. Then, as you 
-4. add files and changes to that folder,
-the local repository will track them. 
+you can use `git init` to create a git repository. Then, as you add files and
+changes to that folder, the local repository will track them. 
 
 ### Adding a git repo to an existing project
 
@@ -115,9 +114,9 @@ If you already have a project, and you want to start a repo, there's
 a couple ways to do it.
 
 1. In IntelliJ, I can click the tab that says "Version Control" in the
-bottom left, then click "create git repository". When the file browser pops
+bottom left, then click "create git repository." When the file browser pops
 up asking where you want the repository, you can simply select the same
-folder you are working in. (be aware that this creates a main branch named
+folder you are working in. (Be aware that this creates a main branch named
 "master", but you can rename it by right-clicking on name and going
 to rename after your first commit).
 2. Do the same `git init` as Step 3 under creating a git repository, but in the folder
@@ -130,7 +129,7 @@ git add and git commit to add all the files in the folder to the repo.
 **This is the first step you will do in the homework assignments.**
 
 Cloning means downloading an existing remote repository to your local machine.
-For simplicity, we're going to focus on clone a repository from GitHub, [like
+For simplicity, we're going to focus on cloning a repository from GitHub, [like
 this one](https://github.com/sde-coursepack/NBAExcelTeams). Each remote
 repository on GitHub has a `.git` link that is used to clone a repository.
 You can find it under the Green "Code" button towards the top right
@@ -139,18 +138,18 @@ of the repository's home page.
 ![Shows location of the git link](../images/vcs/github_clone.png)
 
 If you are comfortable using SSH, you are welcome to use that, but
-otherwise I generally encourage starting out with the HTTPS link.
+otherwise, I generally encourage starting out with the HTTPS link.
 SSH can be more secure and convenient, but requires learning how to
 set up an SSH key.
 
 1. Within IntelliJ, we can open a remote repository as a project with
 File -> New -> Project from Version Control. From there, click on
 Github in the column to the left, and you'll be prompted to log-in
-to GitHub (unless you are already logged in IntelliJ) if you log-in
-to GitHub within IntelliJ, it can find the repositories you have
+to GitHub (unless you are already logged-in in IntelliJ). If you log-in
+to GitHub within IntelliJ, IntelliJ can find the repositories you have
 access to, and you can simply select the Repository you want to use.
 IntelliJ will then automatically download the repository to your computer.
-2. First, you will need a the `.git` link for the repository, then we can 
+2. First, you will need the `.git` link for the repository. Then, we can 
 use that .git link as the Repository URL in "Repository URL" in IntelliJ.
 From there, it works the same as option 1.
 3. In a folder on your computer (I tend to use something like 
@@ -167,8 +166,8 @@ one commit. Additionally, you should ensure you commit a .gitignore
 file before you commit any other files.
 
 1. In an IntelliJ project where you have already created a local 
-git repository with Version Control (see "Adding a git repo to an existing
-project" option 1) with at least one commit, go to Git -> GitHub -> Share
+git repository with Version Control (see [Adding a git repo to an existing
+project](https://sde-coursepack.github.io/modules/construction/Git-Basics/#adding-a-git-repo-to-an-existing-project) option 1) with at least one commit, go to Git -> GitHub -> Share
 Project on GitHub. At that point, you'll be prompted to Log-in if you
 are not already logged in. Then you can specify the name of your repository,
 deciding whether or not it is private, then hit "Share"

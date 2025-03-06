@@ -17,12 +17,12 @@ Driving defensively is *driving so that if other drivers make a mistake, you won
 
 ## Understanding Defensiveness
 
-Considered writing a command line program that takes in the name of, say, an Excel file, and performs some data manipulation or summarization based on the contents of the file. Consider all the ways the program could fail that are *not* the fault of the developer of that program:
+Consider writing a command line program that takes in the name of, say, an Excel file, and performs some data manipulation or summarization based on the contents of the file. Consider all the ways the program could fail that are *not* the fault of the developer of that program:
 
-1) The user may not include any command line arguments  
-2) The user may link to an invalid file  
-3) The user may have errors in their input file, such as missing columns, or bad format.  
-4) The user may have the file open in Excel, which can result in the file not being openable within your program  
+1. The user may not include any command line arguments  
+2. The user may link to an invalid file  
+3. The user may have errors in their input file, such as missing columns, or bad format.  
+4. The user may have the file open in Excel, which can result in the file not being openable within your program  
 
 In general, all of these exceptions are not the fault of the program, but rather how the program is being used.
 
@@ -30,16 +30,16 @@ These exceptions are fundamentally different from programmer errors, like NullPo
 
 In general:
 
-1) A user should never see a programmer error: the program as released to the user should be stable and function correctly.  
-2) A user should be informed when they make a user error. The error message should include a clear description of what the user did incorrectly in their interaction with the software
+1. A user should never see a programmer error: the program as released to the user should be stable and function correctly.  
+2. A user should be informed when they make a user error. The error message should include a clear description of what the user did incorrectly in their interaction with the software
 
 ## Client Class
 
-When developing our own classes, we have to consider **clients**. A client class is any class that uses the code we are writing. This can be another class in the project, or this could be someone using our class like a library (such as the spreadsheet libraries in poi). In this case, we want to design our class so that:
+When developing our own classes, we have to consider **clients**. A client class is any class that uses the code we are writing. This can be another class in the project or this could be someone using our class like a library (such as the spreadsheet libraries in poi). In this case, we want to design our class so that:
 
-1) The client uses our class correctly and as intended
-2) If the client uses our class incorrectly, they are made aware of this
-3) Our class cannot be used incorrectly by the client to produce an erroneous state.
+1. The client uses our class correctly and as intended
+2. If the client uses our class incorrectly, they are made aware of this
+3. Our class cannot be used incorrectly by the client to produce an erroneous state.
 
 ## Example: `BankAccount`
 
@@ -69,7 +69,7 @@ Using this constructor, a client class could violate this rule:
     BankAccount negativeAccount = new BankAccount(23145, -2000);
 ```
 
-The above line creates a bank account with a negative balance. Because this is a constructor method, we can't "not return" an object. However, we also can't do something like "just set the balance the zero", because whatever client instantiates a BankAccount object this way is clearly confused about this "no negative balance rule." So, instead, we can throw an exception!
+The above line creates a bank account with a negative balance. Because this is a constructor method, we can't "not return" an object. However, we also can't do something like "just set the balance t0 zero," because whatever client instantiates a BankAccount object this way is clearly confused about this "no negative balance rule." So, instead, we can throw an exception!
 
 ### Creating our Exception
 
@@ -131,7 +131,7 @@ One way we could handle this is changing `withdraw` to a boolean function. For e
     }
 ```
 
-This approach falls under the example of "error codes". That is, return a value that indicates the function was used incorrectly. In this case, `true` means the transaction was valid and accepted, and `false` means it is not. There are cases where this approach is used. For example, the Java built-in `Set.add(E e)` function returns `true` if the object was added to the set, and `false` if it is not. However, one downside of error codes is that they can be ignored. The client calls the illegal `withdraw` call, and then proceeds assuming the call worked correctly, never checking the return value. To avoid this, we instead can use an exception:
+This approach falls under the example of "error codes." That is, return a value that indicates the function was used incorrectly. In this case, `true` means the transaction was valid and accepted, and `false` means it is not. There are cases where this approach is used. For example, the Java built-in `Set.add(E e)` function returns `true` if the object was added to the set, and `false` if it is not. However, one downside of error codes is that they can be ignored. The client calls the illegal `withdraw` call and then proceeds assuming the call worked correctly, never checking the return value. To avoid this, we instead can use an exception:
 
 ```java
     public void withdraw(double amount) {
@@ -170,7 +170,7 @@ Note that we check the pre-condition (`amount` shouldn't be greater than `balanc
     }
 ```
 
-You might think this makes no difference, because after all, an Exception is being thrown. However, let's consider the programmer of the client class knows just enough about Exceptions to be dangerous, but not enough to actually work with the correctly. They might write code like the following:
+You might think this makes no difference, because after all, an Exception is being thrown. However, let's consider the programmer of the client class knows just enough about Exceptions to be dangerous, but not enough to actually work with them correctly. They might write code like the following:
 
 ```java
     BankAccount account = new BankAccount(8675309, 200);
@@ -190,7 +190,7 @@ Then, when the developer gets an `InsufficientFundsException` on line 2, they de
     System.out.println(account.getId() + " - " + account.getBalance())
 ```
 
-Now, obviously the above code is silly. But remember, we are practicing **defensive** programming. If, in our `withdraw` method, we change the balance **before** throwing, like we do in the most recent version of `withdraw`, this can result in incorrect behavior:
+Now obviously, the above code is silly. But remember, we are practicing **defensive** programming. If, in our `withdraw` method, we change the balance **before** throwing, like we do in the most recent version of `withdraw`, this can result in incorrect behavior:
 
 ```shell
 8675309 - -100.0
@@ -213,7 +213,7 @@ Our goal is to make our code **impossible to use incorrectly**. But the above br
 8675309 - 200.0
 ```
 
-That is, the transaction never "goes through". We have ensured correct behavior, even if the client tries to get around our exceptions.
+That is, the transaction never "goes through." We have ensured correct behavior, even if the client tries to get around our exceptions.
 
 
 
@@ -311,6 +311,6 @@ However, by default in Java, `AssertionError`s are actually disabled. To enable 
 
 ![img.png](../images/defensive/assertion_vm_arguments.png)
 
-Note that by default, VM arguments are hidden in IntelliJ. You can find them by clicking "modify options" (up and left of the class name you are running, in the above picture `BankAccount.main`). From there, click "add VM Options". They can also be enabled with the hotkey `Alt + V` in the run configurations window.
+Note that by default, VM arguments are hidden in IntelliJ. You can find them by clicking "modify options" (up and left of the class name you are running, in the above picture `BankAccount.main`). From there, click "add VM Options" They can also be enabled with the hotkey `Alt + V` in the run configurations window.
 
 However, `assert` statements should not be replied upon for deployed software! Instead, if you need an `assert` to enforce correct behavior, especially if the class is a library that will be used by client programs, then replace `assert` statements with `Exceptions`. 

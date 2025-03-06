@@ -6,7 +6,7 @@ Title: New Features
 # Java's New Features
 {: .no_toc }
 
-In the module, I will show some new features in Java that have been added
+In this module, I will show some new features in Java that have been added
 with Java 8 or later. Please note that this is not an exhaustive list, as there
 are tons of additions. [This Wikipedia page is a good starting point](https://en.wikipedia.org/wiki/Java_version_history)
 if you want to see all additions. Here, I am highlighting a view that I personally
@@ -25,12 +25,12 @@ have found useful.
 
 ## Lambda Bodies and Streams
 __Introduced in Java 8__
-This new feature will be covered **in depth** in the "Code Quality" module.
+This new feature will be covered **in depth** in the [Code Quality](https://sde-coursepack.github.io/modules/refactoring/Code-Quality/) module.
 
 However, as a quick useful example, consider a sorting example we looked at in
-**Prerequisite Knowledge**.
+[Prerequisite Knowledge](https://sde-coursepack.github.io/modules/java/Prerequisite-Knowledge/).
 
-From the class [Enrollment.java](https://github.com/sde-coursepack/java-prerequisite/blob/main/src/main/java/example/Enrollment.java), line 23-25.
+From the class [Enrollment.java](https://github.com/sde-coursepack/java-prerequisite/blob/main/src/main/java/example/Enrollment.java), line 23-25:
 
 ```java
     public void sortStudentsByName() {
@@ -38,7 +38,7 @@ From the class [Enrollment.java](https://github.com/sde-coursepack/java-prerequi
     }
 ```
 
-And From the class [StudentNameComparator.java](https://github.com/sde-coursepack/java-prerequisite/blob/main/src/main/java/example/StudentNameComparator.java):
+And from the class [StudentNameComparator.java](https://github.com/sde-coursepack/java-prerequisite/blob/main/src/main/java/example/StudentNameComparator.java):
 
 ```java
     public int compare(Student s1, Student s2) {
@@ -124,8 +124,8 @@ you cannot use `var` as a return-type or parameter type for methods. Always reme
 __Introduced in Java 16__
 
 A record is a useful, shorter way of declaring a Java *Data Transfer Object*, or **DTO**.
-A DTO is useful as a class for modelling data that can easily be passed between
-different modules, tiers, and layers of the system. The idea is that these objects
+A DTO is useful as a class for modeling data that can easily be passed between
+different modules, tiers, and layers of a system. The idea is that these objects
 should be used **only to store tightly coupled information**. The class shouldn't
 *do* anything else. 
 
@@ -158,7 +158,7 @@ you often won't need to, because the record keyword automatically gives the clas
 You'll notice that I *didn't* list **setters**. That's because each field in the
 `Employee` record are `private final` variables. That is, after an Employee record
 is created, you cannot modify the fields. That is, each record is **immutable**[^1]. As
-such, if you are modelling data that will need to change, you likely will still
+such, if you are modeling data that will need to change, you likely will still
 want to use a Java class instead of a record.
 
 However, this doesn't allow us to avoid writing a lot of boilerplate code. With just
@@ -201,7 +201,7 @@ Note that you can override the toString() method if you wish.
 ### check equality and store in hash tables
 
 Records also give you a default `equals(Object o)` and `hashCode()` function.
-The `equals` method returns **true** if-and-only-if *the values are every field
+The `equals` method returns **true** if-and-only-if *the values of every field
 are equal*.
 
 ```java
@@ -338,7 +338,7 @@ We can also use it in assignment statements:
 ```
 
 This syntax is very similar to Lambda bodies, which we will cover in the 
-**Code Quality** module.
+[Code Quality](https://sde-coursepack.github.io/modules/refactoring/Code-Quality/) module.
 
 ---
 
@@ -382,7 +382,7 @@ class from being extended.*
 
 Footnotes:
 
-[^1] - Note that you can have mutable fields in a record. For example, you can have
+[^1]: - Note that you can have mutable fields in a record. For example, you can have
 a record which contains a List or Map. This lets you still use things
 like the ``add()`` functions on those fields. However, **this is bad design**. If you 
 plan for a class to be mutable, you generally shouldn't use Java `record`s. 

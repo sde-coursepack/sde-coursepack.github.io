@@ -4,7 +4,7 @@ Title: Java Streams
 
 # Java Streams
 
-Using what we have learned about **Functional Programming**, we are now ready to tackle **Streams**
+Using what we have learned about **Functional Programming**, we are now ready to tackle **Streams**.
 
 A **stream** is like an assembly line. We take in some collection of information on one side, pass it through a number of steps, and then at the end we have some useful information. In this module, we will look at why Streams are useful, how they can improve our code readability, and how to use them.
 
@@ -27,7 +27,7 @@ public class State {
 }
 ```
 
-I might say something like "Give me the total population of all states". To implement this, your first thought would likely be an accumulator pattern.
+I might say something like, "Give me the total population of all states." To implement this, your first thought would likely be an accumulator pattern.
 
 ```java
     public int getTotalPopulation(List<State> stateList) {
@@ -46,7 +46,7 @@ This is pretty straightforward, easy to read, succinct code.
 
 But now let's consider a more complicated query:
 
-"Give me the smallest 5 states, in order of smallest to largest"
+"Give me the smallest 5 states, in order of smallest to largest."
 
 This one gets tricky. There are a lot of ways to implement it. My naive approach that required the least mental effort is:
 
@@ -71,7 +71,7 @@ Reading all this code, I can't help but think "there's gotta be an easier way." 
 
 ### Why is this so ugly?
 
-Okay, now let's take a class called `Representation` (from our Extract Class module)
+Okay, now let's take a class called `Representation` (from our [Extract Class](https://sde-coursepack.github.io/modules/refactoring/Extract-Class/) module).
 
 ```java
 public class Representation {
@@ -92,7 +92,7 @@ public class Representation {
 }
 ```
 
-...and let's ask "Print the states in alphabetical order with their number of representatives". This *sounds* like it should be simple. And yet, our code may look like:
+...and let's ask, "Print the states in alphabetical order with their number of representatives." This *sounds* like it should be simple. And yet, our code may look like:
 
 ```java
     public void printRepresentationAlpabeticalOrder(Representation representation) {
@@ -119,7 +119,7 @@ public class Representation {
 
 ## Streams
 
-So now we turn to Streams. Streams were introduced in Java 8, and allow us to utilize **functional programming** to simplify queries and operation on collections of data. For example, let's go back to our total population example:
+So now we turn to Streams. Streams were introduced in Java 8, and allow us to utilize **functional programming** to simplify queries and operations on collections of data. For example, let's go back to our total population example:
 
 ```java
     public int getTotalPopulation(List<State> stateList) {
@@ -131,7 +131,7 @@ So now we turn to Streams. Streams were introduced in Java 8, and allow us to ut
     }
 ```
 
-Instead of this,, we can do this with streams:
+Instead of this, we can do this with streams:
 
 ```java
     public int getTotalPopulation(List<State> stateList) {
@@ -214,7 +214,7 @@ A stream starts with a Collection, like a `List` or a `Set` (not a `Map` directl
 
 `myCollectionVariable.stream()`
 
-This gives us a Stream that we can now perform zero or more **intermediate** operations one (which will be the bulk of our logic), and one *terminal* option on, which converts the stream back into something useful like a `List`, or gives us summary information (such as an integer sum).
+This gives us a Stream that we can now perform zero or more **intermediate** operations on (which will be the bulk of our logic) and one *terminal* option on, which converts the stream back into something useful like a `List`, or gives us summary information (such as an integer sum).
 
 ---
 ---
@@ -239,14 +239,13 @@ __explanation__: We may want to sort during our intermediate steps (such as when
 
 __related functions__: 
 
-`Compator<E> Compator.comparing(Function<E,R> keyExtractor)`
+`Comparator<E> Comparator.comparing(Function<E,R> keyExtractor)`
 
 Sort by a particular key. For example:
 
-Assuming input is `Stream<State>`
-` .sorted(Comparator.comparing(x -> x.getName())`
+Assuming input is `Stream<State>.sorted(Comparator.comparing(x -> x.getName())`
 
-This will sort states by their `name` field. Because `name` is a String, it uses the `String` instance method `compareTo`. When used with number, this defaults to sorted in ascending order.
+This will sort states by their `name` field. Because `name` is a String, it uses the `String` instance method `compareTo`. When used with numbers, this defaults to sorting in ascending order.
 
 Additionally, we can capture the getStateName() method to make this even simpler to read:
 
@@ -254,7 +253,7 @@ Additionally, we can capture the getStateName() method to make this even simpler
 
 This line should be read as "Sort states by their name by their natural order" (where natural order is the result of `.compareTo()`). Be aware that you can only use this for data types that have implemented `Comparable`. `String`, `Integer`, `Double`, and other wrapper classes for primitive datatype have implemented `Comparable`, and are safe to use here.
 
-Additionally, useful function is `reversed()` which can be called on a Comparator to reverse it. For example, by default, `Comparator.comparing(State::getPopulation())` sorts in ascending order by population. But `Comparator.comparing(State::getPopulation()).reversed()` sorts in descending order.
+Additionally, another useful function is `reversed()` which can be called on a Comparator to reverse it. For example, by default, `Comparator.comparing(State::getPopulation())` sorts in ascending order by population. But `Comparator.comparing(State::getPopulation()).reversed()` sorts in descending order.
 
 ---
 
@@ -266,7 +265,7 @@ __example__: `.filter(x -> x.getPopulation > 1000000)`
 
 __output__: `Stream<E>` with only elements that return `true` for our `Predicate` function. Elements that return `false` are removed from the Stream.
 
-__explanation__: We may want to "filter out" certain values from our stream, or only keep certain other values. For example, above, we are saying "only keep items whose population is over 1 million". Thus, any state with a smaller population will be removed by this filter.
+__explanation__: We may want to "filter out" certain values from our stream, or only keep certain other values. For example, above, we are saying "only keep items whose population is over 1 million." Thus, any state with a smaller population will be removed by this filter.
 
 ---
 
@@ -439,7 +438,7 @@ List<E> outputList = originalList.stream()
         .toList();
 ```
 
-Just be aware that is only in Java 16 and later. That list returned is also **immutable**.
+Just be aware that this is only in Java 16 and later. That list returned is also **immutable**.
 
 * `Collectors.toSet()` - returns a `Set<E>` which matches the state of the `Stream` at the end of the `Stream` chain of operations. Because this results in a Set, duplication elements are removed. Like `toList()`, the output set is **unmodifiable**.
 
@@ -452,7 +451,7 @@ Just be aware that is only in Java 16 and later. That list returned is also **im
         .collect(Collectors.toMap(s -> s.getName(), s -> s.getPopulation()));
 ```
 
-Note that unlike `toSet`, `toMap` with throw an `IllegalStateException` if you try to add duplicate keys.
+Note that unlike `toSet`, `toMap` will throw an `IllegalStateException` if you try to add duplicate keys.
 
 
 * `Collectors.joining()` - can be used for joining elements of a `Stream<String>` together. Joining can take in an argument that is used as a delimiter between the Strings.
@@ -460,7 +459,7 @@ Note that unlike `toSet`, `toMap` with throw an `IllegalStateException` if you t
 ```java
 List<String> myList = List.of("Aaron", "Betty", "Carol", "David");
 String outputString = myList.stream.joining("\n");
-System.out.println(outputString)
+System.out.println(outputString);
 ```
 
 ...prints:
@@ -488,7 +487,7 @@ For the sake of limiting repetition, I'm only going to show the `Double` version
 
 `double averagePopulation = stateList.stream().collect(Collectors.averagingInt(State::getPopulation)))`
 
-If you already have a `Stream<Double>`, then use just map the value to itself. For example: `(x -> x)`
+If you already have a `Stream<Double>`, then just map the value to itself. For example: `(x -> x)`
 
 ```java
     double averagePopulation = stateList.stream()
@@ -548,7 +547,7 @@ In the above arguments for `reduce`, we are saying:
 
 ## `parallelStream`
 
-We can replace `stream()` with `parallelStream()` to take advantage of automated multi-threading. However, be aware that `parallelStream()` may operations in an unpredictable order. For example:
+We can replace `stream()` with `parallelStream()` to take advantage of automated multi-threading. However, be aware that `parallelStream()` may have operations in an unpredictable order. For example:
 
 ```java
     public void printRepresentationAlpabeticalOrder(Representation representation) {

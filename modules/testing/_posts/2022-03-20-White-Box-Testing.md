@@ -15,20 +15,20 @@ In this module, we will look at **white-box testing** (sometimes called "glass-b
 
 ## The Story so Far
 
-In the last module we used Black-Box testing to select test cases for a function `calculateBill`.
+In the last module, we used Black-Box testing to select test cases for a function `calculateBill`.
 
 The specification read:
 
 Follow the specification steps IN ORDER
-1) First, calculate total:
+1. First, calculate total:
    * All courses cost the same, and cost per course is determined by the number of courses taken
    * $8000/ course if less than 3 course
    * $6000/ course if 3-6 course
    * $5500/course if greater than 6 courses  
-2) Increase the value total by 10% if overdue is greater than 2000  
-3) Increase the value of the field overdue amount by 10% if **exempt** is false (this is done AFTER step 2)
-   * if **exempt** is true, this penalty is waived, and overdue does not change.  
-4) Return the sum of total and overdue
+2. Increase the value total by 10% if overdue is greater than 2000  
+3. Increase the value of the field overdue amount by 10% if **exempt** is false (this is done AFTER step 2)
+   * If **exempt** is true, this penalty is waived, and overdue does not change.  
+4. Return the sum of total and overdue
 
 In Black-Box testing, we select what test cases to write based on the specification. 
 
@@ -80,8 +80,8 @@ If we tested this function with `myFunc(3, 1)`, we could get
 
 ### Branch Coverage
 
-For example, what if `statement1` sets up an object that `statement3` relies on? This means that if `statement3` runs without `statement1` running, you could get a `NullPointerException`? Even though our previous test had 100%
-statement coverage, it still didn't consider that possibility?
+For example, what if `statement1` sets up an object that `statement3` relies on? This means that if `statement3` runs without `statement1` running, you could get a `NullPointerException`. Even though our previous test had 100%
+statement coverage, it still didn't consider that possibility.
 
 With **branch** coverage, we want to write tests such that we test the outcome of all conditional logic. That is:
 
@@ -95,11 +95,11 @@ So now, using our existing test, we need to add one more to get branch coverage.
 
 ### Conditional Coverage
 
-Similar to branch coverage, but our distinction is that in conditional coverage, for everyone boolean value, we want to evaluate the code if it's `true` or `false`. For example, in the `if` statement:
+Similar to branch coverage, but our distinction is that in conditional coverage, for every boolean value, we want to evaluate the code if it's `true` or `false`. For example, in the `if` statement:
 
 `if (a > b && b > 0)`
 
-When aiming for complete conditional coverage, We don't just want to consider if the **whole** statement is true or false, we want at least once test for every possible combination of `true` or `false`. For this if-statement, we could do this with 4 tests:
+When aiming for complete conditional coverage, We don't just want to consider if the **whole** statement is true or false, we want at least one test for every possible combination of `true` or `false`. For this if-statement, we could do this with 4 tests:
 
 * `myFunc(3, 1)` - `true` and `true`
 * `myFunc(-2, -1)` - `false` and `false`
@@ -164,7 +164,7 @@ Now let's write test 4. For this, we are going to try to reach the last two line
     }
 ```
 
-First, we need to ask "What inputs lets us reach this line". Working backwards, it tells us that both of these if-statements must be false:
+First, we need to ask "What inputs lets us reach this line?" Working backwards, it tells us that both of these if-statements must be false:
 
 * `if (overdue <= 2000 && isExempt)`
 * `else if (overdue > 2000)`
@@ -177,7 +177,7 @@ So, our test input must have `overdue <= 2000`, and `isExempt = false`. The numb
 |-------|-------------|---------|----------|-------------|--------------|
 | 4     | 5           | 1500    | false    | 31650       | 1650         |
 
-We calculated the expected values by handing using the specification. We then write this test as a JUnit:
+We calculated the expected values by hand using the specification. We then write this test as a JUnit:
 
 ```java
     @Test 
@@ -249,7 +249,7 @@ We multiplied the wrong value by 1.1! We apply our fix:
     }
 ```
 
-And run our tests, and now Test 5 passes! And now we have full statement coverage!
+And we run our tests, and now Test 5 passes! And now we have full statement coverage!
 
 ![](../images/white-box/full_statement_coverage.png)
 
@@ -257,8 +257,8 @@ And run our tests, and now Test 5 passes! And now we have full statement coverag
 
 It may seem that getting to 100% path and conditional coverage is unrealistic; and in some cases, it can be mathematically impossible. However, part of the problem is that our functions may be more complicated than they need to be.
 
-In fact, this function **is** too complicated, which hurts its testability. In our Code Quality unit, we will revisit this function and re-write it to simplify its testability.
+In fact, this function **is** too complicated, which hurts its testability. In our [Code Quality](https://sde-coursepack.github.io/modules/refactoring/Code-Quality/) unit, we will revisit this function and re-write it to simplify its testability.
 
 ## White-Box vs Black-Box
 
-Understand that white-box and black-box do not tell us **how** we are testing. are strategies that tell us what tests to write! The tests themselves are structurally the same. We simply used both techniques to select the inputs of our test.
+Understand that white-box and black-box do not tell us **how** we are testing. They are strategies that tell us what tests to write! The tests themselves are structurally the same. We simply used both techniques to select the inputs of our test.

@@ -47,10 +47,10 @@ In this case, we can *partition* our input space into two groups: positive numbe
 
 This tells us we want to write **at least one test** for each partition, but we do not necessarily need to write several tests for each partition. In fact, we can cover both partitions with just one test each:
 
-`Math.abs(4)` - covers positive partition
-`Math.abs(-5)` - covers negative partition
+* `Math.abs(4)` - covers positive partition
+* `Math.abs(-5)` - covers negative partition
 
-Think about it. If we know that `Math.abs(4)` is working, do we *need* to test `Math.abs(5)`, `Math.abs(6)`, `Math.abs(327)`? Is there any reason to believe those numbers behave differently? No. So additional tests like this end up being "testing for the sake of testing", which isn't progress.
+Think about it. If we know that `Math.abs(4)` is working, do we *need* to test `Math.abs(5)`, `Math.abs(6)`, `Math.abs(327)`? Is there any reason to believe those numbers behave differently? No. So additional tests like this end up being "testing for the sake of testing," which isn't progress.
 
 ---
 
@@ -95,15 +95,15 @@ Inside this class, we want to implement a method `double calculateBill(List<Inte
 Here is the specification for the method.
 
 Follow the specification steps IN ORDER
-1) First, calculate total:
+1. First, calculate total:
    * All courses cost the same, and cost per course is determined by the number of courses taken
    * $8000/ course if less than 3 course 
    * $6000/ course if 3-6 course 
    * $5500/course if greater than 6 courses
-2) Increase the value total by 10% if overdue is greater than 2000
-3) Increase the value of the field overdue amount by 10% if **exempt** is false (this is done AFTER step 2)
-   * if **exempt** is true, this penalty is waived, and overdue does not change.
-4) Return the sum of total and overdue
+2. Increase the value total by 10% if overdue is greater than 2000
+3. Increase the value of the field overdue amount by 10% if **exempt** is false (this is done AFTER step 2)
+   * If **exempt** is true, this penalty is waived, and overdue does not change.
+4. Return the sum of total and overdue
 
 Using this specification, let's design some test cases we can use to test our function as we write it.
 
@@ -140,14 +140,14 @@ Since we have 3 partitions here, we want to test each partition **at least once*
 
 #### What fields are included in our inputs?
 
-Our class has four fields: `id`, `classYear`, `overdue`, `isExempt`. Are all of the fields relevant inputs to our function? Well, if we look at the specification, clearly we are referencing the values of `overdue` and `isExempt`. From this, we can assume these two fields are inputs to our function, since their values will affect how the function behaves. Note that these fields are inputs due to controlling the state of our class, specifically the parts of the state of the class relevant to the `calculateBill` function. You'll also notice, however, that `id` and `classYear` are not relevant to our `calculateBill` method. These two fields do not impact the function behavior or output. As such, we **do not** consider `id` and `classYear` inputs.
+Our class has four fields: `id`, `classYear`, `overdue`, and `isExempt`. Are all of the fields relevant inputs to our function? Well, if we look at the specification, clearly we are referencing the values of `overdue` and `isExempt`. From this, we can assume these two fields are inputs to our function, since their values will affect how the function behaves. Note that these fields are inputs due to controlling the state of our class, specifically the parts of the state of the class relevant to the `calculateBill` function. You'll also notice, however, that `id` and `classYear` are not relevant to our `calculateBill` method. These two fields do not impact the function behavior or output. As such, we **do not** consider `id` and `classYear` inputs.
 
 #### `overdue`
 
 What are our partitions of `overdue`? If we look at bullet point 2 of the specification, we see that the function behaves different if the value of `overdue` is greater than 2000 (specifically, it causes us to change the value of total, which directly affects the function output). So, we have two partitions to consider:
 
-1. "Small" - `overdue` > 2000 - we'll use 2500
-2. "Big" - `overude` <= 2000 - we'll use 1500
+1. "Small" - `overdue` <= 2000 - we'll use 1500
+2. "Big" - `overdue` > 2000 - we'll use 2500
 
 #### `isExempt`
 
@@ -181,7 +181,7 @@ Now, you may have combined partitions differently, but we will start working wit
 
 ### A warning about this approach
 
-I highlighted **bare minimum** in the last second because this should be seen as the bare minimum. A fault with this approach is assuming that the values of each input are independent of one another. However, **certain combinations of partitions** may be specifically important! When reading a specification, you should consider how partitions relate to one another. In fact, we will show in our next unit how these tests are insufficient. Just keep that in the back of your mind for now.
+I highlighted **bare minimum** in the last section because this should be seen as the bare minimum. A fault with this approach is assuming that the values of each input are independent of one another. However, **certain combinations of partitions** may be specifically important! When reading a specification, you should consider how partitions relate to one another. In fact, we will show in our next unit how these tests are insufficient. Just keep that in the back of your mind for now.
 
 ---
 

@@ -22,7 +22,7 @@ In this module, we will discuss how we can improve as developers in order to tac
 > “In many of the more relaxed civilizations on the Outer Eastern Rim of the Galaxy, the Hitch-Hiker's Guide has already supplanted the great Encyclopaedia Galactica as the standard repository of all knowledge and wisdom, for though it has many omissions and contains much that is apocryphal, or at least wildly inaccurate, it scores over the older, more pedestrian work in two important respects. First, it is slightly cheaper; and secondly it has the words DON'T PANIC inscribed in large friendly letters on its cover.”  
 > --__Hitchhiker's Guide to that Galaxy__, Douglas Adams
 
-At this point, three pages in to this intro, you may be worried this is a class all about philosophical discussions on software theory, reading articles from the 1980s. Nothing can be further from the truth! **This class is all about practice!** Nearly everything we do in this class will involve planning, writing, analyzing, and fixing code. The vast majority of modules will cite code and write code!
+At this point, three pages into this intro, you may be worried this is a class all about philosophical discussions on software theory, reading articles from the 1980s. Nothing can be further from the truth! **This class is all about practice!** Nearly everything we do in this class will involve planning, writing, analyzing, and fixing code. The vast majority of modules will cite code and write code!
 
 So far, you've been learning how to write code. Good! This is a vital skill set that will serve you the rest of your life! But now understand two unfortunate realities: 
 
@@ -36,15 +36,15 @@ The same is true of everyone! Accepting this is the first step in the act of lea
 ## In this course 
 
 In this course, you will be exposed to several tools and techniques for software development:  
-1) Version control systems to help ensure everyone is able to work together, share code, and track changes/improvements/fixes.  
-2) Testing practices to efficiently detect and correct bugs, and ensure they stay corrected 
-3) Design principles and patterns that allows the system to evolve over time with less effort and more stability.  
-4) Communicating design decisions to your team and others  
-5) Writing and refactoring code in such a way that it's easier to understand, re-use, and test  
-6) Building GUIs to broaden the usability of our software  
-7) Connecting to a database to ensure our software system data can persist even when it's not running.  
+1. Version control systems to help ensure everyone is able to work together, share code, and track changes/improvements/fixes.
+2. Testing practices to efficiently detect and correct bugs, and ensure they stay corrected. 
+3. Design principles and patterns that allows the system to evolve over time with less effort and more stability. 
+4. Communicating design decisions to your team and others. 
+5. Writing and refactoring code in such a way that it's easier to understand, re-use, and test. 
+6. Building GUIs to broaden the usability of our software. 
+7. Connecting to a database to ensure our software system data can persist even when it's not running.  
 
-Learning these tools and techniques is a valuable undertaking for its own purposes - having these skill sets already under your belt will make you a more attractive candidate for an employer. But in learning, we seek not just to use these tools, but use them creatively and wisely, knowing their limits, and planning how to look for and prevent failures.
+Learning these tools and techniques is a valuable undertaking for its own purposes - having these skill sets already under your belt will make you a more attractive candidate for an employer. But in learning, we seek not just to use these tools, but to use them creatively and wisely, knowing their limits, and planning how to look for and prevent failures.
 
 ---
 
@@ -70,9 +70,9 @@ Even new programmers can see the wisdom in these words. How many times during yo
 * Be disappointed
 * Repeat
 
-But this is also **the least efficient possible way to develop software**! Instead, we need to take time to plan our actions! But this isn't natural, what's natural is to just keep trying. Learning how to plan, design, test, and write code effectively **will make you more efficient**! As the tongue-in-cheek engineering expressions goes:
+But this is also **the least efficient possible way to develop software**! Instead, we need to take time to plan our actions! But this isn't natural, what's natural is to just keep trying. Learning how to plan, design, test, and write code effectively **will make you more efficient**! As the tongue-in-cheek engineering expression goes:
 
-> "Hours of work can save you minutes of planning"  
+> "Hours of work can save you minutes of planning."  
 > --Unknown
 
 The fact is that learning these skills will make you better and more efficient as a programmer...eventually. But not right away.
@@ -85,25 +85,25 @@ All the "do I really need to..." questions above remind me of...well...me. I did
 
 I had support! I had the tools I needed! I had all the time I wanted to practice! I had a bike with training wheels to practice. I had everything in my favor pushing me towards riding a bike, and yet I never learned.
 
-Why? **Because I built bad habits and I refused to change them**. I naturally leaned to the right while riding a bike, on the right side training wheel. And I was okay with that! The extra wheel gave me stability, I didn't have to worry about balance. *Why would I change when my what I was doing worked with the bike I was riding?*
+Why? **Because I built bad habits and I refused to change them**. I naturally leaned to the right while riding a bike, on the right side training wheel. And I was okay with that! The extra wheel gave me stability; I didn't have to worry about balance. *Why would I change when what I was doing worked with the bike I was riding?*
 
 <img src="https://images.unsplash.com/photo-1595182747080-3b43712dd27d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" width="40%" alt="Two children riding bikes with training wheels">
 
-And then, when it came time to ride a bike for real at the age of 6. My dad took off my training wheels. When I went to ride my bike, I was surprised the training wheels weren't there, but tried riding anyways. I kept falling over on my right side. So I tried to correct it, and I fell over on my left side. So I tired to correct it, and fell over on my right side.
+And then, when it came time to ride a bike for real at the age of 6, my dad took off my training wheels. When I went to ride my bike, I was surprised the training wheels weren't there, but tried riding anyways. I kept falling over on my right side. So I tried to correct it, and I fell over on my left side. So I tired to correct it, and fell over on my right side.
 
-After falling down enough times, bruises and abrasions were just part of the damage. My pride also took a pretty big beat down (yes, I had an ego already at 6-years-old). And I got frustrated with everyone telling me it was easy. "Just go faster and you won't fall!" "Just keep your balance!" "Just don't think about falling and keep pedalling" 
+After falling down enough times, bruises and abrasions were just part of the damage. My pride also took a pretty big beat down (yes, I had an ego already at 6-years-old), and I got frustrated with everyone telling me it was easy. "Just go faster and you won't fall!" "Just keep your balance!" "Just don't think about falling and keep pedalling" 
 
-Inside my head, all I could think was "**Well if it was so easy, why couldn't I do it?"
+Inside my head, all I could think was "Well if it was so easy, why couldn't I do it?"
 
-And so, *I stopped trying.* After all, I reasoned, **if I'm going to fall down every three feet, wouldn't it be faster if I just ran** Obviously, to anyone who has either ridden a bike or seen a bike, you know a bike lets you go far faster than a human can run, and with far less effort. But for me, in that moment, **it was easier to not learn and exhaust myself running than it was to learn.** Because learning a new skill *is* hard!
+And so, *I stopped trying.* After all, I reasoned, **if I'm going to fall down every three feet, wouldn't it be faster if I just ran?** Obviously, to anyone who has either ridden a bike or seen a bike, you know a bike lets you go far faster than a human can run, and with far less effort. But for me, in that moment, **it was easier to not learn and exhaust myself running than it was to learn.** Because learning a new skill *is* hard!
 
 "Okay", I thought, "So I'll just use my training wheels forever." Except the dirty secret about training wheels is this: **they slow you down**! When you lean on the training wheels, you have more friction! More friction means you're converting all that wonderful speed into useless heat and sound, and you have to pedal even harder to go the same speed. All I was doing was riding slow and [speeding up the entropy of the Universe!](https://en.wikipedia.org/wiki/Heat_death_of_the_universe)
 
-This is a perfect parallel to conversations I have with students every semester about, for example, unit testing. "It takes me a really long time to write unit tests." "It's just busy work that slows me down." "If I know my code works, why di I have to test it?" "Writing these tests is slowing me down".
+This is a perfect parallel to conversations I have with students every semester about, for example, unit testing. "It takes me a really long time to write unit tests." "It's just busy work that slows me down." "If I know my code works, why do I have to test it?" "Writing these tests is slowing me down".
 
 And you know what, they're right! **Unit testing does slow them down!** But that isn't because unit testing slows everyone down. It's because they are like me **trying to ride a bike for the first time without training wheels**: they keep falling over. They don't write effective tests because they had an auto-grader that did the testing for them. Or they take too long to think about what tests to write because the auto-grader told them what types of inputs they were failing on. Or they write their code in a way that makes it difficult to test because they don't know how to write testable code.
 
-Students don't do this because they are "bad programmers". They do it because they are **inexperienced** and relying on the same skills they used in an introductory programming course.
+Students don't do this because they are "bad programmers." They do it because they are **inexperienced** and relying on the same skills they used in an introductory programming course.
 
 But the only way to get better, faster, and more efficient, is **PRACTICE**. No one has ever learned to ride a bike without falling off it at least a couple times.
 
@@ -123,10 +123,10 @@ In the two previous programming courses at the University of Virginia, your prog
 &nbsp;&nbsp;6) Here are the classes you are going to write  
 &nbsp;&nbsp;7) Here are the fields in your classes  
 &nbsp;&nbsp;8) Here is what to name everything  
-&nbsp;&nbsp;9) Here is how each function affects or is affected by each field  
-&nbsp;&nbsp;10) Here is a submission system, where you submit your code and get feedback telling you if it's right or wrong.
-&nbsp;&nbsp;11) Here are the exact library import statements to use  
-&nbsp;&nbsp;12) Here are plenty of lecture examples using that library  
+&nbsp;&nbsp;9) Here is how each function affects or is affected by each field
+&nbsp;&nbsp;10) Here is a submission system, where you submit your code and get feedback telling you if it's right or wrong
+&nbsp;&nbsp;11) Here are the exact library import statements to use
+&nbsp;&nbsp;12) Here are plenty of lecture examples using that library
 
 **These are training wheels!** Of course when you are learning we're giving you this much direction! We're helping you learn the foundational basics. But just like riding a bike, if you want to go fast and go far, **The training wheels have to come off!**
 
@@ -138,7 +138,7 @@ When you develop real software, here is how many of those conversations start:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Customer**: \[*staring blankly*\] no.
 
-Admittedly, the above is in jest and over the top, but there is an entire field of software engineering, Requirements Engineering, that focuses specifically on techniques to get and check the basic details of "what the software should do", because it's a very hard, and very important problem. You'll see more of that in CS 3240 (or, if you aren't at UVA, in a Software Engineering class).
+Admittedly, the above is in jest and over the top, but there is an entire field of software engineering, Requirements Engineering, that focuses specifically on techniques to get and check the basic details of "what the software should do," because it's a very hard and very important problem. You'll see more of that in CS 3240 (or, if you aren't at UVA, in a Software Engineering class).
 
 This means:  
 &nbsp;&nbsp;1) **You will decide** what program to write  
@@ -152,7 +152,7 @@ This means:
 &nbsp;&nbsp;9) **You will decide** how each class behaves and interacts with other classes  
 &nbsp;&nbsp;10) **You will decide** how to figure out how to tell if your code is working or not  
 &nbsp;&nbsp;11) **You will decide** how to investigate if there is code out there that you want to use, what the licenses allow for, etc.  
-&nbsp;&nbsp;12) **You will decide** what documentation or tutorials to use to learn a new technology/language/library.  
+&nbsp;&nbsp;12) **You will decide** what documentation or tutorials to use to learn a new technology/language/library
 
 And, I have some bad news. You will make *several* mistakes along the way. But...
 
@@ -169,7 +169,7 @@ My first programming language I learned was TI-BASIC 83 (a dialect of BASIC writ
 
 Just kidding, he made me delete it, line by line, right there in front of him. If you think I'm still bitter, understand that I was 15 at the time, and as of this writing I'm in my mid-30s, and I'm still bitter. I did ultimately rewrite it on my own later at home on my family's laptop. In my early 20s, I wanted to include it in a portfolio for grad school, saying "look, I've been programming for years!" It was still on a hard drive, so I asked my stepdad sent it to me.
 
-The code is **awful**. It's hard to read because of tons of duplicate code and overly complex structure. It's littered with gotos because I didn't understand the idea of writing functions. The variable names are horrible, all one letter *a*/*b*/*c* names. There is a ton of duplicate code. There was actually a serious bug in solving side-side-side triangles that caused the program to crash if the triangle was obtuse that I never noticed.
+The code is **awful**. It's hard to read because of tons of duplicate code and an overly complex structure. It's littered with gotos because I didn't understand the idea of writing functions. The variable names are horrible, all one letter *a*/*b*/*c* names. There is a ton of duplicate code. There was actually a serious bug in solving side-side-side triangles that caused the program to crash if the triangle was obtuse that I never noticed.
 
 In short, I realized that 15-year-old me was **awful** at writing code. Mid-thirties me is a lot better. I've gotten much better at writing code since through practice. But would I call myself an "expert programmer"? No! Because I still have a long way to go! And the way I get better is practice!
 
@@ -181,13 +181,13 @@ Even during summer or winter break when I'm not teaching, I try to write some me
 
 But back to BASIC: it took me about an hour to figure out how to *print the value of a variable* in basic. That command? ":DISP [variable_name]". That simple command cost me an hour of my life. And I felt dumb, and like I was learning slower than I should have been.
 
-The next language I learned was Java. And I struggled with it. Semi-colons, when to declare a variables type, public static void main(String\[\] args), Objects and classes, interfaces, data structures, FileNotFoundExceptions, on and on and on. And it was hard. But, made easier because I understood if statements and variables ahead of time.
+The next language I learned was Java. And I struggled with it. Semicolons, when to declare a variable's type, public static void main(String\[\] args), Objects and classes, interfaces, data structures, FileNotFoundExceptions, on and on and on. And it was hard. But, it made my life easier because I understood if statements and variables ahead of time.
 
 And then I learned Python. And I found it easier to do scripting, but I struggled with the Object-Orientation. It still took me a couple weeks, but certainly not the months of Java.
 
 The next language I learned was C, and...well other than learning how to deal with pointers, I found it pretty easy to learn. It has a ton in common with Java, sans object orientation. But since I only needed it for some low level multi-threading, I didn't worry about this feature not being there. But, **man** I struggled with pointers. Why? Because they were new!
 
-And then came Common-Lisp. Fundamentally very different, but everything was basically functions which I was more than familiar with, so it took me three weeks to get the basics down. I wouldn't call myself "proficient", and I use the `proc` keyword far too much in Lisp, but I will say learning it made me a lot better at writing functional code.
+And then came Common-Lisp. Fundamentally very different, but everything was basically functions which I was more than familiar with, so it took me three weeks to get the basics down. I wouldn't call myself "proficient," and I use the `proc` keyword far too much in Lisp, but I will say learning it made me a lot better at writing functional code.
 
 Flash forward to the weekend before I'm writing this, and I wrote a solution for the first homework in this class in Kotlin, a language I had never used before I started writing the code. Is this because I'm just *that* good? No, far from it. It's because I've had practice learning new languages, and I know what I need to look for and where to find help. It's a skill, just like any other. Kotlin is similar to Java in many ways, so I just connected my knowledge that way. And you get better at it each time you learn a new language.
 
@@ -216,7 +216,7 @@ Ultimately, you can never truly succeed if you don't give yourself a significant
 
 You will struggle when presented with new information, or a new challenge. And learning how to do things "the right way" sounds a lot like "eat your peas and carrots."
 
-But understand that these techniques and practices were developed precisely because they make building larger, maintainable evolving systems faster, more reliable, and more efficient than the ad hoc approaches you may be currently used to. And these techniques have stuck around because, once programmers learn them, *they work*! For instance, while I support Test Driven Development (TDD), I'm a pragmatist. The second I find it isn't helping me, or another approach will be better, I will abandon TDD. I just haven't found that technique that consistently produces better results.
+But understand that these techniques and practices were developed precisely because they make building larger, maintainable evolving systems faster, more reliable, and more efficient than the ad hoc approaches you may currently be used to. And these techniques have stuck around because, once programmers learn them, *they work*! For instance, while I support Test Driven Development (TDD), I'm a pragmatist. The second I find it isn't helping me, or another approach will be better, I will abandon TDD. I just haven't found that technique that consistently produces better results.
 
 Just like me riding a bike without training wheels, you'll fall down, you'll make mistakes, you'll get frustrated, and you won't go particularly fast at first. But each time you do Test Driven Development, or decompose one class into two classes, or properly integrate a Design Pattern, you'll get a little better. It will feel more natural. And, before long, **you'll realize that you're going much farther faster on this bike than you ever could have gone on foot.**
 
