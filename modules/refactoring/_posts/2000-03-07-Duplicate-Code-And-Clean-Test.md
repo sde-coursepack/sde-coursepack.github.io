@@ -20,7 +20,7 @@ __Starting Code Example:__ [LibraryTest.java](https://github.com/sde-coursepack/
 
 Let's look at some tests we wrote back in the Test Driven Development unit.
 
-First, let's look at our `Library class`. I only include method signatures of relavant methods for the sake of space.
+First, let's look at our `Library class`. I only include method signatures of relevant methods for the sake of space.
 
 ```java
 
@@ -115,7 +115,7 @@ public class LibraryTest {
     ...
 ```
 
-Before we go on, I want to briefly highlight the value of *spacing*. Notice how I spaced out my instance variables into distinct groups. The first three variables, `testLibrary`, `testBookCopies`, and `testPatronList` all are need to initialize our `Library` test object. On the other hand, `gardensOfTheMoon` is a book that, while we may add it to the Library, is not necessary for instantiating `testLibrary`, so I use visual space to communicate it is a separate entity. Similarly, the `testPatron` object requires a `List<Book>` for keeping track of its checked out books. So I group `testPatron` and `testCheckOutList`, since I need the check-out list for creating my Patron.
+Before we go on, I want to briefly highlight the value of *spacing*. Notice how I spaced out my instance variables into distinct groups. The first three variables, `testLibrary`, `testBookCopies`, and `testPatronList` all are need to initialize our `Library` test object. On the other hand, `gardensOfTheMoon` is a book that, while we may add it to the Library, is not necessary for instantiating `testLibrary`, so I use visual space to communicate it as a separate entity. Similarly, the `testPatron` object requires a `List<Book>` for keeping track of its checked out books. So, I group `testPatron` and `testCheckOutList`, since I need the check-out list for creating my Patron.
 
 ### @BeforeEach for test setup
 
@@ -137,8 +137,8 @@ And then, we can **re-initialize** each value at the start of every test using t
 
 The @BeforeEach tag tells JUnit to run this function **before each test**. We need to do this because we want to make sure every test run is independent; that is, no single test affects any other. This is important because:
 
-a) We only want our tests to fail on their **own** conditions - outside factors should be removed from affecting our tests
-b) We do not know what order our tests will run-in
+1. We only want our tests to fail on their **own** conditions - outside factors should be removed from affecting our tests 
+2. We do not know what order our tests will run-in
 
 You might be worried that all we're doing is adding a blank list of patrons, a blank map of books-to-copies entries, etc. However, remember: **all of these types are mutable**. What this means is even **after** I initialize `testLibrary` on the third line of my setup, I can **at any time** add values to either `patronList` or `testBookCopies` directly using the `add` and `put` methods respectively, and it will affect the state of `testLibrary`. We will use this to our advantage to make our tests much shorter and cleaner.
 
@@ -175,7 +175,7 @@ Since we now have instance already initialized variables for `testLibrary`, `tes
     }
 ```
 
-Wow! Already our test is much easier to read. Before we commit this change, we want to make sure our test still passes. We run it, so we commit.
+Wow! Already our test is much easier to read. Before we commit this change, we want to make sure our test still passes. We run it, and it passes, so we commit.
 
 Now we do the same with our second `addBooks()` test.
 
@@ -198,7 +198,7 @@ __BEFORE__:
     }
 ```
 
-...and __AFTER___:
+...and __AFTER__:
 
 ```java
     @Test
@@ -262,7 +262,7 @@ We start by simply extracting the method from our first test. Highlight the two 
         assertEquals(2, testBookCopies.get(gardensOfTheMoon), "Incorrect number of copies added");
     }
 ```
-We want to call our function `assert_________` where we fill in the blank with something meaningful. This is because this private helper function is effectively wrapping up our existing assert statements in a function. Starting the function name with `assert` clearly communicates to the reader "Hey, these are our test assertions!".
+We want to call our function `assert_________` where we fill in the blank with something meaningful. This is because this private helper function is effectively wrapping up our existing assert statements in a function. Starting the function name with `assert` clearly communicates to the reader "Hey, these are our test assertions!"
 
 Notice we do *not* include a @Test tag. That's because *this isn't a test method*. This is a method **used** by our tests (a helper method).
 
@@ -436,7 +436,7 @@ If you aren't familiar with the syntax of `assertCheckOutListEquals(List<Book> t
 
 `assertCheckOutListEquals(testCheckOutList, gardensOfTheMoon, deadhouseGates, memoriesOfIce)`
 
-The key is that `varargs` then combines all 3 of these into an array of Book objects (`Book[]`), which I then convert to an `ArrayList<Book>` (`convertArrayToArrayList(Book[] bookArray)`). From there, I can just use `assertEquals` to determine if I my actual checkOutList matches my expected list of books from varargs. This is useful if we want to handle an indeterminate number of arguments dynamically.
+The key is that `varargs` then combines all 3 of these into an array of Book objects (`Book[]`), which I then convert to an `ArrayList<Book>` (`convertArrayToArrayList(Book[] bookArray)`). From there, I can just use `assertEquals` to determine if my actual checkOutList matches my expected list of books from varargs. This is useful if we want to handle an indeterminate number of arguments dynamically.
 
 ---
 
@@ -476,9 +476,9 @@ Should I extract that as a function? Something like:
 
 The question I would ask is this: does this make our tests **more understandable**? In this case, I would argue no. Remember, our tests generally have 3 steps:
 
-1) Set up the test state for the test Object(s) (`given`)
-2) Execute the Method Under Test (in this case, `testLibrary.addBooks`)
-3) Check the post-conditions to ensure correct behavior (`assert`)
+1. Set up the test state for the test Object(s) (`given`)
+2. Execute the Method Under Test (in this case, `testLibrary.addBooks`)
+3. Check the post-conditions to ensure correct behavior (`assert`)
 
 You'll notice all of my tests have extra line breaks between each step to improve readability.
 
@@ -516,13 +516,13 @@ And I'm confident you can explain:
 * How the setup works (including the new function `givenCheckOutListIsListOf` with isn't shown)
 * What it means if the test fails (that is, what feature isn't working correctly)
 
-This is what we mean by "code that reads like well-written prose", and it's just important in tests as it is in our code.
+This is what we mean by "code that reads like well-written prose," and it's just as important in tests as it is in our code.
 
 ### Never go to far
 
-Ultimately, we need are tests to be readable, understandable, and most of all simple. We want to avoid complicated logic in our test code at all costs after all, if we have complicated logic, then we have to tests the tests, and at that point we're on a track towards unnecessary testing.
+Ultimately, we need our tests to be readable, understandable, and most of all simple. We want to avoid complicated logic in our test code at all costs. After all, if we have complicated logic, then we have to test the tests, and at that point we're on a track towards unnecessary testing.
 
-Never make the goal "the tests should be short". The goal should always be "the tests should be easy to understand at a glance." Length plays a role there, but the deeper you have to dive into a test to understand it, the worse it becomes. **Tests should be as declarative as possible!**
+Never make the goal "the tests should be short." The goal should always be "the tests should be easy to understand at a glance." Length plays a role there, but the deeper you have to dive into a test to understand it, the worse it becomes. **Tests should be as declarative as possible!**
 
 ### That test cleanup was a lot of work
 
