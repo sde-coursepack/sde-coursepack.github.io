@@ -6,8 +6,8 @@ Title: Refactoring - Extracting a Method
 
 In this module, we will look at the refactoring practice of extracting methods. We may extract methods for the following reasons:
 
-* Address methods that are too large, breaking them into smaller methods
-* Improve the readability of our code by encapsulating low-level logic into a method with an intent-communicating name.
+* Address methods that are too large by breaking them into smaller methods
+* Improve the readability of our code by encapsulating low-level logic into a method with an intent-communicating name
 * Removing duplicate code and duplicate logic by extracting the repeated behavior into a single method
 
 ---
@@ -25,7 +25,7 @@ But what is one thing? Lets look at a practical example.
 
 ## Point Distance Example
 
-Consider the following code we mentioned in the Code Smells
+Consider the following code we mentioned in the [Code Smells](https://sde-coursepack.github.io/modules/refactoring/Code-Smells/) module.
 
 ```java
 public class DistanceCalculator {
@@ -121,8 +121,8 @@ public class DistanceCalculator {
 Now, we can understand what the purpose of the function `getTotalDistance` is, *and* we could test this function completely indepedent of the rest of `main` (meaning indepedent of opening a file and creating a List<Point>).
 
 In the same way, we can break apart:
-1) Opening a `BufferedReader` for a particular filename
-2) Building the `List<Point>` from the contents of the file
+1. Opening a `BufferedReader` for a particular filename
+2. Building the `List<Point>` from the contents of the file
 
 
 ```java
@@ -183,11 +183,11 @@ Let's now look at the `main` method. For the sake of alignment, I replaced all t
 
 How would you read this code? This is how I would read it, line by line:
 
-1) Get the filename from the first command line argument
-2) Get a `BufferedReader` from that filename so that I can read the file
-3) Get the list of points from the file `bufferedReader` opened.
-4) Calculate the total distance of that list of points
-5) Print the total distance
+1. Get the filename from the first command line argument 
+2. Get a `BufferedReader` from that filename so that I can read the file 
+3. Get the list of points from the file `bufferedReader` opened. 
+4. Calculate the total distance of that list of points 
+5. Print the total distance
 
 You can see now how `main` defines an understandable high-level procedure, and then each function handles the low-level details of **how** that behavior is implemented. If I need specifics, I can just go to the function in question.
 
@@ -211,8 +211,8 @@ Consider our `getPointListFromReader` function:
 
 Whenever I see a large loop body, I always will ask myself if it makes sense to move part or all of this body to a function. Here, I'll notice I'm really doing two things for each line from my `bufferedReader`:
 
-1) Getting the x and y values to make a `Point` instance
-2) Adding that `Point` to the pointList
+1. Getting the x and y values to make a `Point` instance 
+2. Adding that `Point` to the pointList
 
 Consider that when getting a `Point`, I'm taking a line like `"1.0, 3.5"` and splitting it on the comma to get each value. This idea of "you give me a String and I'll give you a Point" *sounds* like a function, so let's extract it. This gives us:
 
@@ -248,7 +248,7 @@ Into
   return new Point(x, y);
 ```
 
-And similarly in for `getPointListFromReader`:
+And similarly in `getPointListFromReader`:
 
 ```java
     Point point = getPointFromLine(line);
@@ -377,7 +377,7 @@ public class DistanceCalculator {
 }
 ```
 
-It's a bid odd here that we have the first and last line being "low-level" implementation details (accessing a specific value in an array, printing a number in a specific format). In general, we want our functions to stay at the same level of abstraction, rather than bouncing up and down to low-level and high-level. As a result, I extract methods for the first and last line so that I can use the function name to communicate *high-level intent*, as well as isolate the details of "Where the filename comes from" and "how to display the total distance" to their own functions:
+It's a bid odd here that we have the first and last line being "low-level" implementation details (accessing a specific value in an array, printing a number in a specific format). In general, we want our functions to stay at the same level of abstraction, rather than bouncing up and down to low-level and high-level. As a result, I extract methods for the first and last line so that I can use the function name to communicate *high-level intent*, as well as isolate the details of "where the filename comes from" and "how to display the total distance" to their own functions:
 
 ```java
     public static void main(String[] args) throws IOException {
