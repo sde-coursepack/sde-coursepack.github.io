@@ -5,7 +5,7 @@ Title: Functional Programming
 
 # Functional Programming
 
-Functional Programming is a programming paradigm (Object-oriented programming is another paradigm) where we treat functions like **first-class citizens**. What we mean by this is that functions can be treated as variables, passes as arguments, and even returned by functions. In this unit, we will discuss how Java enables "functional-like programming", how it differs from true functional programming, and how to use functional programming principles in Java.
+Functional Programming is a programming paradigm (Object-oriented programming is another paradigm) where we treat functions like **first-class citizens**. What we mean by this is that functions can be treated as variables, passed as arguments, and even returned by functions. In this unit, we will discuss how Java enables "functional-like programming," how it differs from true functional programming, and how to use functional programming principles in Java.
 
 * TOC
 {:toc}
@@ -58,7 +58,7 @@ A `Comparator` is an interface that defines one function, `compare`, which takes
 - **Negative** - `b` comes after `a` when sorted
 - **Zero** - `a` and `b` are equal
 
-Thus, can think of each class that implements `Comparator` as a separate *way to sort*. In this particular case, I am sorting Strings in a way that ignores case (since, by default, String sorting is case-sensitive, with all capital letters coming before all lowercase letters).
+Thus, yiu can think of each class that implements `Comparator` as a separate *way to sort*. In this particular case, I am sorting Strings in a way that ignores case (since, by default, String sorting is case-sensitive, with all capital letters coming before all lowercase letters).
 
 This class is, effectively, a wrapper for a single function. Because this is a class, we can make instances of this class and pass it to functions expecting a `Comparator`. For example:
 
@@ -116,7 +116,7 @@ public class UVAStudentManager {
 }
 ```
 
-Here, wee have created an **anonymous class**. We define a class *in-line* inside of the sort Function with:
+Here, we have created an **anonymous class**. We define a class *in-line* inside of the sort Function with:
 
 ```java
     new Comparator<UVAStudent>() {
@@ -139,7 +139,7 @@ However, that syntax is still a bit long. Instead, wouldn't it be great if we co
 
 That is, we just define a **function** in-line: a function takes in two students, and compares them by their id. 
 
-Well it turns out we can. Because the code above, as written, works. It sorts student in ascending order by their ID.
+Well it turns out we can. Because the code above, as written, works. It sorts students in ascending order by their ID.
 
 ## Lambda functions
 
@@ -161,7 +161,7 @@ For example, we can take our earlier `StringIgnoreCaseComparator` and define the
     };
 ```
 
-From there, we can shorten this a bit. For example, we know that the types of `s1` and `s2` can **only** be `String` because we are making a `Comparator<String>`. And so, we don't need to tell Java the datatype: Java will figure it out:
+From there, we can shorten this a bit. For example, we know that the types of `s1` and `s2` can **only** be `String` because we are making a `Comparator<String>`. And so, we don't need to tell Java the datatype - Java will figure it out:
 
 ```java
     Comparator<String> ignoreCase = (s1, s2) -> {
@@ -214,8 +214,8 @@ To test this out, we can make a List of strings and sort it...
 
 If a lambda body has **exactly one argument**, you do not need parentheses around the first value (they are optional).
 
-```(x) -> x * x```
-```x -> x * x```
+* ```(x) -> x * x```
+* ```x -> x * x```
 
 Both of the above work, and both define a lambda for squaring an input number.
 
@@ -274,13 +274,13 @@ However, the above code is arguably harder to read than:
 
 This is because there is more text that is **extraneous**, or unnecessary. For example `Executable`, `new Executable() `, `@Override`, etc. All of this introduces **accidental complexity** to our test that can be removed. Since both do the same thing, we use the second version.
 
-In essence, we want our code to only include that which is *needed*. We want to highlight the **function** and hide the **class**, since the class only exists to be a vessel for the Function.
+In essence, we want our code to only include that which is *needed*. We want to highlight the **function** and hide the **class**, since the class only exists to be a vessel for the function.
 
 ## Functional interfaces to know:
 
 There are a few functional interfaces it's a good idea to be generally familiar with. These are interfaces that have one function (some have static "default" functions, but that isn't usually relevant to using the class).
 
-Nearly all of these interfaces have some equivalent interface in other languages that don't support true functional programming, like Kotlin, C#, etc. Other languages that do allow functions to be passed/assigned as variables (Python, Typescript, C++, for example) will still use interfaces to describe expect function inputs/outputs.
+Nearly all of these interfaces have some equivalent interface in other languages that don't support true functional programming, like Kotlin, C#, etc. Other languages that do allow functions to be passed/assigned as variables (Python, Typescript, C++, for example) will still use interfaces to describe expected function inputs/outputs.
 
 ### Comparator<E>
 
@@ -290,7 +290,7 @@ __use__: used in sorting lists, specifically `Collections.sort(List<E> list, Com
 
 __example__: `(a, b) -> a - b`
 
-Assuming a and b are number types (`int`, `double`, etc.), would be used to sort number in ascending order.
+Assuming a and b are number types (`int`, `double`, etc.), comparator would be used to sort numbers in ascending order.
 
 ### Executable (JUnit5)
 
@@ -302,7 +302,7 @@ __example__: `() -> student.enroll(cs3140)`
 
 Defines an executable where a student enrolls in a given class. Specifically in JUnit, this is primarily used in `assertThrows` to check for an `Exception` being thrown.
 
-Be aware that there is a separate Java class called `Executable` which **is-not** a functional interface. Java, however, does have an equivalent functional interface called `Runnable` which you can use with Threads.
+Be aware that there is a separate Java class called `Executable` which **is not** a functional interface. Java, however, does have an equivalent functional interface called `Runnable` which you can use with Threads.
 
 ### Runnable (JUnit5)
 
@@ -318,7 +318,7 @@ Threading is a topic that, at the University of Virginia, is taught in CS 2100, 
 
 __method__: `public boolean test(E e)`
 
-__use__: used for checking if a value meets some condition. Specifically, it is used in the `filter` method for `Stream`s (covered in the next module).
+__use__: used for checking if a value meets some condition. Specifically, it is used in the `filter` method for `Stream`s (covered in the [next module](https://sde-coursepack.github.io/modules/refactoring/Java-Streams/)).
 
 __example__: `(student) -> student.getGPA > 3.5`
 
@@ -364,17 +364,17 @@ __example__: `x -> x.toString().toUpperCase()`
 
 A function that takes in some object `x` and returns its `String` representation as an uppercase `String`.
 
-A `Function<Double, Integer>` would take as input a `Double` and return an `Integer`. We could, for instance, implement a rounding function: `d -> (int)(d + 0.5)`
+A `Function<Double, Integer>` would take an input as a `Double` and return an `Integer`. We could, for instance, implement a rounding function: `d -> (int)(d + 0.5)`
 
 ### ActionListener
 
 __method__: `public void actionPerformed(ActionEvent e)`
 
-__use__: Used in event-driven applications to respond to user interactions. We will see this in our GUI unit working with JavaFX.
+__use__: Used in event-driven applications to respond to user interactions. We will see this in our [GUI unit working with JavaFX](https://sde-coursepack.github.io/modules/gui/JavaFX/).
 
 __example__: `e -> handleButtonPress()`
 
-Structurally, the same thing as `Consumer<ActionEvent>`, its more specialized for event-driven applications (typically GUIs).
+Structurally the same thing as `Consumer<ActionEvent>`, but it's more specialized for event-driven applications (typically GUIs).
 
 ## Method Captures
 
