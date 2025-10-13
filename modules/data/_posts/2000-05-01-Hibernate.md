@@ -19,7 +19,6 @@ Enter **object-relational mappings**, or ORMs. ORMs take care of all the mapping
 
 We can import Hibernate using Gradle:
 
-<!-- TODO: fill this out -->
 ```text
 dependencies {
     // we still need JDBC!
