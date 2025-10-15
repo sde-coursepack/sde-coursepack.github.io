@@ -81,7 +81,7 @@ The idea here is that a Student is an entity that you can *notify*.  Let the `St
 
 ### Common Coupling
 
-Two items are "content coupled" if they have **read and write** access to the same global data. An easy illustration of this is showing the use of static global variables which is used as a communication source between modules. Note that for this to be common coupling, we specifically need both **read and write** access. For example, public constant values, which cannot be changed, do not violate Common Coupling.
+Two items are "common coupled" if they have **read and write** access to the same global data. An easy illustration of this is showing the use of static global variables which is used as a communication source between modules. Note that for this to be common coupling, we specifically need both **read and write** access. For example, public constant values, which cannot be changed, do not violate Common Coupling.
 
 ```java
 public class Main {
