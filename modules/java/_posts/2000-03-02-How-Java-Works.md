@@ -172,7 +172,7 @@ is something Java was built to address.
 
 Some languages, like Python[^2], are typically *interpreted* rather than compiled. This is fundamentally the same idea as compiling, only rather than turning the entire program into machine code first, and then running second, when code is interpreted, we do both at the same time with the help of another program.
 
-In Python, as you execute the program, the python interpreter translates each line into machine instructions as you come to it. This means you typically don't have a static compiled file.
+In Python, as you execute the program, the Python interpreter translates each line into machine instructions as you come to it. This means you typically don't have a static compiled file.
 
 ---
 
