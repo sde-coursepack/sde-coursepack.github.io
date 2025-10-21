@@ -75,7 +75,7 @@ your computer actually can't run your source code directly.Typically, we write c
 ## Compiling in C
 
 Before talking about Java, let's talk about how C works,
-and how it C code is turned into an executable program.
+and how C code is turned into an executable program.
 
 ```c 
     #include <stdio.h>
@@ -172,7 +172,7 @@ is something Java was built to address.
 
 Some languages, like Python[^2], are typically *interpreted* rather than compiled. This is fundamentally the same idea as compiling, only rather than turning the entire program into machine code first, and then running second, when code is interpreted, we do both at the same time with the help of another program.
 
-In Python, as you execute the program, the python interpreter translates each line into machine instructions as you come to it. This means you typically don't have a static compiled file.
+In Python, as you execute the program, the Python interpreter translates each line into machine instructions as you come to it. This means you typically don't have a static compiled file.
 
 ---
 
@@ -207,7 +207,7 @@ This is why you *don't* need to install c to run a program written in C, then co
 Okay, now we're ready to dive into specifically discussing Java.
 
 ### JDK
-Much like C, Java is a compiled language. When you compile a Java file, the Java Development Kit (JDK) compiles your code, producing a .class file. The .class file which is the bytecode that specifies the machine instructions. Much  like the C executable, the compiled file is not, nor intended to be, human-readable.
+Much like C, Java is a compiled language. When you compile a Java file, the Java Development Kit (JDK) compiles your code, producing a .class file. The .class file is the bytecode that specifies the machine instructions. Much  like the C executable, the compiled file is not, nor intended to be, human-readable.
 
 <img alt="An image showing a .java file being compiled into a .class file which is run on the computer" src="{{site.baseurl}}/modules/java/images/3/compiler2.png"/>
 
@@ -234,7 +234,7 @@ JREs also contain various class libraries (like the core Java class libraries). 
 
 
 ### JVM
-Each JRE contains a **Java Virtual Machine (JVM)**. A *virtual machine* is software resource
+Each JRE contains a **Java Virtual Machine (JVM)**. A *virtual machine* is a software resource
 that acts like a separate computer; virtual machines, functionally, have their own operating system, 
 memory, processor, instruction set (machine language), etc.
 However, each of these resources is effectively borrowed from the host (physical) machine.
@@ -272,7 +272,7 @@ the JVM interprets Java byte-code. However, as we mentioned before, interpreted 
 inherently slower than directly executed machine instructions.
 
 Making the process of interacting with the processor/memory/etc. as efficient as possible can lead to significant performance gains. 
-*Enter the Just In Time compiler (JIT)* The JIT is part of the JVM, specifically the part that can compile JVM byte code instructions
+*Enter the Just In Time compiler (JIT)* The JIT is part of the JVM, specifically, the part that can compile JVM byte code instructions
 into machine code instructions for the underlying hardware. This natively compiled machine code,
 machine code specifically compatible with the underlying physical hardware, is much more efficient than
 interpreted Java byte code. The JIT can have numerous optimizations to increase performance, reduce
@@ -288,7 +288,7 @@ provided that both have a compatible JRE installed.
 
 This allows us to share executables, without sharing underlying source code, of
 apps. The JRE provides enough features to build meaningful and complex applications
-that can be run on an hardware that has a compatible JVM.
+that can be run on a hardware that has a compatible JVM.
 
 The JIT provides several optimizations between a JVM and a specific 
 underlying hardware architecture, ensuring that Java is capable of being efficient.
