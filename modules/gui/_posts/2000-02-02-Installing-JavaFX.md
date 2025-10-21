@@ -14,41 +14,43 @@ You can find a guide for [installing and using JavaFX in IntelliJ here](https://
 
 ## JDK and JavaFX version numbers
 
-For this class, I will be using JavaFX 17.0.9, along with JDK 17.0.9.
+For this class, we will be using JavaFX 21.0.9, along with JDK 21.0.9. 
 
-First, be aware that your JavaFX version and JDK version numbers should match. For instance, if you were using, say, JDK 21.0.1, you should also use JavaFX 21.0.1 in your development.  JDK can run older versions of JavaFX, but a JDK cannot run a later version of JavaFX. For example, JDK 17.0.8 cannot run programs built with JavaFX 17.0.9
+First, be aware that the _major_ version numbers for your JavaFX version and JDK version should match. For instance, if you were using, say, JDK 17.0.x, you should also use JavaFX 17.0.x in your development. 
 
-## JDK 17.0.9
+The _minor_ version number (the number after the last decimal point) should not matter-- for instance, if you are running JDK 21.0.8, JavaFX 21.0.9 should still work without issue.
 
-You can download the installer for Java 17.0.9 here - https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html Be aware that the installer will typically update any older jdk 17 version (so if, for example, you are already running 17.0.8, this will update that to 17.0.9).
+## JDK 21.0.9
 
-## JavaFX 17.0.9
+You can download the installer for Java 21.0.9 here - https://www.oracle.com/java/technologies/downloads/#jdk21 
+
+## JavaFX 21.0.9
 
 JavaFX can be downloaded here - https://gluonhq.com/products/javafx/
 
 Be aware, you will need to select the version you want from the dropdown:
 
-![version_dropdown.png](../img/installing/version_dropdown.png)
+![version_dropdown.png](../img/installing/version21_dropdown.png)
 
-Make sure you select JavaFX 17.0.9 if following this guide, then download the appropriate SDK (not jmods) for your operating system/processor combination.
+Make sure you select JavaFX 21.0.9 if following this guide, then download the appropriate SDK (not any of the "jmods" options) for your operating system/processor combination.
 
 ## Setting JavaFX environment variables
 
 It is recommended, though not required, to setup a system variable to help use JavaFX.
 
-First, find where your JavaFX installed, and specifically find the `lib` folder inside of the folder `javafx-sdk-17.0.9`
+First, find where your JavaFX is installed, and specifically find the `lib` folder inside of the folder `javafx-sdk-21.0.9`
 
-**On Linux/Mac,** you can run the following command, replacing `path/to` with the path to your `javafx-sdk-17.0.9` folder.
+**On Linux/Mac,** you can run the following command, replacing `path/to` with the path to your `javafx-sdk-21.0.9` folder.
 
-`export PATH_TO_FX=path/to/javafx-sdk-17.0.9/lib`
+`export PATH_TO_FX=path/to/javafx-sdk-21.0.9/lib`
 
-On Windows, you can use the following command, replacing `path/to` with the path to your `javafx-sdk-17.0.9` folder
+On Windows, you can use the following command, replacing `path/to` with the path to your `javafx-sdk-21.0.9` folder
 
-`set PATH_TO_FX="path\to\javafx-sdk-21.0.1\lib"`
+`set PATH_TO_FX="path\to\javafx-sdk-21.0.9\lib"`
 
 ## build.gradle
 
-JavaFX is not added like a dependency in Gradle. Rather, it is added as a plug-in. As such, here is an example `build.gradle` that sets up to use JavaFX 17.0.9. 
+JavaFX is not added like a dependency in Gradle. Rather, it is added as a plug-in. As such, here is an example `build.gradle` that sets up to use JavaFX 21.0.9. 
 
 ```groovy
 plugins {
@@ -58,7 +60,7 @@ plugins {
 }
 
 javafx {
-    version = '17.0.9'
+    version = '21.0.9'
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
@@ -76,15 +78,15 @@ test {
 }
 ```
 
-Be aware that you will still need to install JavaFX manually, as well as use VM Arguments to run JavaFX applications.
+Be aware that you will still need to install JavaFX manually, as well as use VM arguments to run JavaFX applications.
 
 ## VM Arguments
 
-To run a JavaFX Application in IntelliJ, you'll need to add **VM Arguments** to the run configuration. To do this, go to Run Configurations, select the application file you want to run, and then you need to select "modify options" and turn on VM Arguments:
+To run a JavaFX Application in IntelliJ, you'll need to add **VM arguments** to the run configuration. To do this, go to Run Configurations, select the application file you want to run, and then you need to select "Modify Options" and turn on "Add VM options":
 
-![vm_options.png](../img/installing/vm_options.png)
+![vm_options.png](../img/installing/vm_options21.png)
 
-Then, set the VM Arguments to:
+Then, set the VM options to:
 
 On Mac/Linux:
 
@@ -96,12 +98,20 @@ On Windows:
 
 Do **NOT** add any extra spaces, such as adding a space after the comma after javafx.controls.
 
-At this point, you should be able to run the file.
+At this point, you should be able to run the file. If you are still having issues, try using the path to JavaFX directly in the VM Arguments, instead of the PATH_TO_FX environment variable: 
+
+On Mac/Linux:
+
+`--module-path path/to/javafx-sdk-21.0.9/lib --add-modules javafx.controls,javafx.fxml`
+
+On Windows:
+
+`--module-path path\to\javafx-sdk-21.0.9\lib --add-modules javafx.controls,javafx.fxml`
 
 ### Running without VM Arguments
 
-If you run a JavaFX Application without the VM Arguments, you'll get the following error message:
+If you run a JavaFX Application without the VM arguments, you'll get the following error message or something similar:
 
 `JavaFX runtime components are missing, and are required to run this application`
 
-And the application will not run. So make sure you set the VM Arguments up correctly. If you are still getting this error after setting VM arguments, make sure you are using the path to the `lib` folder inside of your JavaFX folder, not the JavaFX folder itself, in the VM Arguments.
+And the application will not run. So make sure you set the VM arguments up correctly. If you are still getting this error after setting VM arguments, make sure you are using the path to the `lib` folder inside of your JavaFX folder, not the JavaFX folder itself, in the VM arguments.
