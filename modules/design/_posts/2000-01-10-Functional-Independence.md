@@ -24,11 +24,11 @@ Coupling is the degree to which two modules interact with one another. This is d
 We also have different levels of coupling like we did cohesion. As before, we will arrange them from worst to best.
 
 **WORST**
-- Content coupling
-- Common coupling
-- Control coupling
-- Stamp coupling
-- Data coupling  
+* Content coupling 
+* Common coupling 
+* Control coupling 
+* Stamp coupling 
+* Data coupling  
 **BEST**
 
 
@@ -53,8 +53,8 @@ public class StudentNotifier() {
 
 Here, one class is directly responsible for reading and writing information to another class's private data. This is bad for a number of reasons:
 
-1) Any changes to the private implementation details of Student will cause changes to propagate to any classes that use its data.
-2) Any other class could theoretically be reading and writing to the same data, making interactions with Student potentially complicated and difficult to track. If you cannot easily deduce *where* mutable data is being changed, it becomes extremely difficult to locate defective code.
+1. Any changes to the private implementation details of Student will cause changes to propagate to any classes that use its data. 
+2. Any other class could theoretically be reading and writing to the same data, making interactions with Student potentially complicated and difficult to track. If you cannot easily deduce *where* mutable data is being changed, it becomes extremely difficult to locate defective code.
 
 Instead, we may want to relocate the `notifyStudent` function:
 
@@ -81,7 +81,7 @@ The idea here is that a Student is an entity that you can *notify*.  Let the `St
 
 ### Common Coupling
 
-Two items are "common coupled" if they have **read and write** access to the same global data. An easy illustration of this is showing the use of static global variables which is used as a communication source between modules. Note that for this to be common coupling, we specifically need both **read and write** access. For example, public constant values, which cannot be changed, do not violate Common Coupling.
+Two items are "common coupled" if they have **read and write** access to the same global data. An easy illustration of this is showing the use of static global variables which are used as a communication source between modules. Note that for this to be common coupling, we specifically need both **read and write** access. For example, public constant values, which cannot be changed, do not violate Common Coupling.
 
 ```java
 public class Main {
@@ -133,11 +133,11 @@ public class MyFileReader {
 }
 ```
 
-Note that "global data" doesn't inherently mean global variables, however. For example, if two different classes are both directly interacting with a shared database, and both classes can add, remove, and alter records in the same table, this is common coupling (note that some will call this **external coupling** and distinguish it from common coupling, but the core problem is the same). This is because if there is a data error, it is not clear which module created the corruption. However, this can be resolved by creating one module that handles database interactions with other modules that need to interact with. We will discuss this idea further when discussing the Singleton Design Pattern.
+Note that "global data" doesn't inherently mean global variables. For example, if two different classes are both directly interacting with a shared database and both classes can add, remove, and alter records in the same table, this is common coupling (note that some will call this **external coupling** and distinguish it from common coupling, but the core problem is the same). This is because if there is a data error, it is not clear which module created the corruption. However, this can be resolved by creating one module that handles database interactions with other modules that need to interact with it. We will discuss this idea further when discussing the Singleton Design Pattern.
 
 ### Control Coupling
 
-Control coupling is when one module passes some kind of flag (typically a boolean) to another module which is used in control flow. This can be `boolean` variables or `enum` (enumerated types). However, it can also be any other value sent to a function strictly and transparently for the purposes of control flow navigation.
+Control coupling is when one module passes some kind of flag (typically a boolean) to another module which is used in control flow. This can be `boolean` variables or `enum` (enumerated types). However, it can also be any other value sent to a function strictly and transparently for the purpose of control flow navigation.
 
 Here is an example of control coupling making two modules more tightly coupled.
 
@@ -165,9 +165,9 @@ public class Employee {
 
 This is very tightly coupled, because in order to use the function `getInfo` correctly, you **have** to understand that function's structure and options. This is bad because changes to the method `getInfo` can and often will necessitate changes to *how `getInfo` is called by the caller.* This is the reason Control Coupling is bad: a change to the called will likely require changes to the caller.
 
-By contrast, simply having `getName()`, `getJobTitle()`, etc. as getting functions would be significantly better and simpler to understand. Thus, in this case, even though the input is a String, it still effectively a "flag" value that is only used by control flow.
+By contrast, simply having `getName()`, `getJobTitle()`, etc. as getting functions would be significantly better and simpler to understand. Thus, in this case, even though the input is a String, it is still effectively a "flag" value that is only used by control flow.
 
-Now, in some cases, it is not possible to completely avoid having some degree of conditional logic in handling an input. However, we can isolate that control coupling to only a single method using a Factory Method Pattern, and use polymorphism to keep the interactions with the product class abstract and not reliant on the underlying class type.
+Now, in some cases, it is not possible to completely avoid having some degree of conditional logic in handling an input. However, we can isolate that control coupling to only a single method using a Factory Method Pattern, and using polymorphism to keep the interactions with the product class abstract and not reliant on the underlying class type.
 
 ```java
 public enum FileType { CSV, XML, JSON, TXT };
@@ -217,7 +217,7 @@ Now, we have **encapsulated** the logic of "which output gets selected" *entirel
 
 ### Why Boolean arguments are bad
 
-Boolean arguments are often a source of control-coupling. Another reason boolean arguments are bad is that usage of functions with boolean arguments often lacks understandability.
+Boolean arguments are often a source of control-coupling. Another reason boolean arguments are bad is that usage of functions with boolean arguments often lack understandability.
 
 ```java
     public void makeBurger(boolean hasCheese) {
@@ -296,7 +296,7 @@ public class GPACalculator() {
 
 ```
 
-In the above case, any `Client` class that calls calculateGPA is passing unnecessary information, like a students name, email, and credits. This is problematic because this means that the `GPACalculator` class is now coupled to and dependent on the interfaces of both `Student` and `StudentRecord`, in addition to its necessary Dependency on the class `Grade`. This means now if any of the three classes change, this change will propagate to GPACalculator. On the other hande, if instead, `calculateGPA` only accepted a `List<Grade>`, now it is a much more stable interface, as only changes to the interface of `Grade` and `List` could affect it.
+In the above case, any `Client` class that calls calculateGPA is passing unnecessary information, like a students name, email, and credits. This is problematic because this means that the `GPACalculator` class is now coupled to and dependent on the interfaces of both `Student` and `StudentRecord`, in addition to its necessary dependency on the class `Grade`. This means now if any of the three classes change, this change will propagate to GPACalculator. On the other hand, if instead, `calculateGPA` only accepted a `List<Grade>`, now it is a much more stable interface, as only changes to the interface of `Grade` and `List` could affect it.
 
 In short, if you find your function is throwing away a significant part of the input data, consider if it might be more tightly defined.
 
@@ -304,14 +304,14 @@ In short, if you find your function is throwing away a significant part of the i
 
 The gold standard: all communication between modules is done via passing the minimum amount of data as arguments and returning exactly the data needed. A good example of this is `Math.sqrt(double number)`, which takes in a number, and returns its square root. The modules otherwise do not share any data. Additionally, data passed is not mutated by the call. 
 
-This insures that any action taken by the "called" method, with the exception the data it returns, will not affect the execution of the calling method. Additionally, the calling method only needs to understand the intent of the parameters at a functional interface level.
+This ensures that any action taken by the "called" method, with the exception of the data it returns, will not affect the execution of the calling method. Additionally, the calling method only needs to understand the intent of the parameters at a functional interface level.
 
-This allows us to develop both modules independently, without worrying about behavior of one module complicating the behavior of another.
+This allows us to develop both modules independently, without worrying about the behavior of one module complicating the behavior of another.
 
 
 ## Mutability and Coupling
 
-One issue of coupling relates to mutability, that is objects where the State can change. For example:
+One issue of coupling relates to mutability, that is, objects where the state can change. For example:
 
 ```java
     List<Integer> myList = new ArrayList<>(List.of(8, 6, 7, 5, 3, 0, 9));
@@ -326,7 +326,7 @@ This is worse than *data coupling*, because the relationship is more complicated
 
 ### Temporal Coupling
 
-Here is one example of temporal coupling, which can emerge when dealing with modules that are Procedurally cohesive.
+Here is one example of temporal coupling, which can emerge when dealing with modules that are procedurally cohesive.
 
 ```java
 public class GuessResult {

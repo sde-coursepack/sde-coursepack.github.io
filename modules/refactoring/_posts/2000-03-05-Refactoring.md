@@ -6,7 +6,7 @@ Title: Refactoring
 
 **Refactoring** is the process of making changes to the code to improve the **internal** software quality, without making any changes to the functionality of the software. Typically, we use refactoring to improve the design, analyzability, testability, and maintainability of our software.
 
-For example, in the unit on Analyzability, we turned this:
+For example, in the [Analyzability](https://sde-coursepack.github.io/modules/refactoring/Analyzability/) unit, we turned this:
 
 ```java
 public List<int[]> asdfasdf(){List<int[]> dfghdfgh=new ArrayList<>();for(int[] ouertioert:kjsdfgklkjsdfg){if(ouertioert[0]==4)dfghdfgh.add(ouertioert);}return dfghdfgh;}
@@ -41,13 +41,13 @@ Most of the material in this unit is derived from:
 
 * [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/B08X8ZXT15/) by Robert C. Martin, a book that I highly recommend and dramatically improved my own outlook on designing and writing software.
 
-* [Refactoring.Guru](https://refactoring.guru/) - a great and highly recommended website for thinking about refactoring and software design. We will reference this website again, especially during design patterns
+* [Refactoring.Guru](https://refactoring.guru/) - a great and highly recommended website for thinking about refactoring and software design. We will reference this website again, especially during the [Design Patterns](https://sde-coursepack.github.io/modules/patterns/Design-Patterns/) module.
 
 
 
 ## Code Quality
 
-As we noted in the last unit, **no one writes easily understandable/changeable code the first time every time!**. We should always view the first pass of development (making the feature work) as a *rough draft*. When writing any paper, the *rough draft* requires editing, rewording, restructuring, etc. in order to produce a clean paper. We aren't done when we finish the rough draft. We're done when we've polished it and cleaned it up into the final draft!
+As we noted in the last unit, **no one writes easily understandable/changeable code the first time every time!** We should always view the first pass of development (making the feature work) as a *rough draft*. When writing any paper, the *rough draft* requires editing, rewording, restructuring, etc. in order to produce a clean paper. We aren't done when we finish the rough draft. We're done when we've polished it and cleaned it up into the final draft!
 
 Refactoring is the process by which we are editing our code to improve its maintainability! And it is a vital step in keeping our code maintainable and understandable!
 
@@ -55,7 +55,7 @@ Refactoring is the process by which we are editing our code to improve its maint
 
 Existing regression tests are vital for refactoring. When we refactor code, we want to ensure that we are not changing the external behavior of our software, only the internal code to improve maintainability. As such, it is vital to ensure that we have tests that correctly test the intended behavior of our code before we begin adjusting it. If we have been practicing TDD, then all of our tests should already be written for us.
 
-These tests are the scaffolding that allow us to remodel our code. If we don't have tests in place, we cannot evaluate if our changes are successfully preserve external behavior of our software. With those tests, however, we can always be confident that we are ensuring external behavior is maintained. If we break external behavior, and cannot easily fix it, we can always roll back to the previous commit before we began refactoring.
+These tests are the scaffolding that allow us to remodel our code. If we don't have tests in place, we cannot evaluate if our changes are successfully preserving the external behavior of our software. With those tests, however, we can always be confident that we are ensuring external behavior is maintained. If we break external behavior, and cannot easily fix it, we can always roll back to the previous commit before we began refactoring.
 
 ---
 
@@ -63,7 +63,7 @@ These tests are the scaffolding that allow us to remodel our code. If we don't h
 
 IntelliJ offers very strong refactoring tools. *Never use find and replace, always Refactor*
 
-IntelliJ is great at renaming variables, functions, and class names. By using the automatic refactoring tools, it will update all references to the variable, function, or class for you throughout your project and your tests! It's going to be smarter and faster than Find and Replace, and is just as easy to use!
+IntelliJ is great at renaming variables, functions, and class names. By using the automatic refactoring tools, it will update all references to the variable, function, or class for you throughout your project and your tests! It's going to be smarter and faster than Find and Replace and is just as easy to use!
 
 ---
 
@@ -97,13 +97,13 @@ Additionally, we can replace the number 5 in our code wherever it relates to the
 
 ### Renaming Identifiers
 
-Variables, functions, and constant can be easily renamed via refactoring. Simply right-click on an identifier name, and Refactor->Rename, and type the new name.
+Variables, functions, and constants can be easily renamed via refactoring. Simply right-click on an identifier name, Refactor->Rename, and type the new name.
 
-Personally, renaming variables and functions is **the most common refactoring** that I do. I am constantly asking myself "is this the best name". If I ever am reading over my old code and have *any* doubt whatsoever what the purpose of a variable or function is, my first step is always to rename it to ensure the name is the best it can be.
+Personally, renaming variables and functions is **the most common refactoring** that I do. I am constantly asking myself, "Is this the best name?" If I ever am reading over my old code and have *any* doubt whatsoever what the purpose of a variable or function is, my first step is always to rename it to ensure the name is the best it can be.
 
 **You should never use find-and-replace for this**. This is because the existing name of the variable or function you are renaming may be a subset of another name. For example, if you have a variable named `x`, you should almost certainly rename it (though it can be acceptable in some limited contexts like coordinate systems). However, the letter `x` is very likely to appear elsewhere in your code.
 
-Renaming identifiers is arguable the easiest refactoring tool, but it is also extremely useful, as good and intent-communicating function and variable names are the lifeblood of clean, readable code.
+Renaming identifiers is arguably the easiest refactoring tool, but it is also extremely useful, as good and intent-communicating function and variable names are the lifeblood of clean, readable code.
 
 ### Renaming Classes
 
@@ -170,7 +170,7 @@ public class Tabulator {
 }
 ```
 
-Consider the function `addVotesToCandidate`. Specifically, the order of the arguments. It may seem backwards. This is because our function name has the word `Votes` (the number of votes) before the world `Candidate`. However, we don't just want to change the order manually. If we did that, everywhere that our function is used would now have a syntax error. Instead, we right-click on our method and use Refactor->Change Signature. Then, we simply move the first argument (`String candidate`) Down:
+Consider the function `addVotesToCandidate`. Specifically, the order of the arguments. It may seem backwards. This is because our function name has the word `Votes` (the number of votes) before the word `Candidate`. However, we don't just want to change the order manually. If we did that, everywhere that our function is used would now have a syntax error. Instead, we right-click on our method and use Refactor->Change Signature. Then, we simply move the first argument (`String candidate`) Down:
 
 ![img.png](../images/refactoring/change_signature.png)
 
@@ -195,7 +195,7 @@ public class Tabulator {
 
 ## Other Refactoring Techniques
 
-Not all refactoring can be easily done automatically like the above, and will require some manual effort. However, it is worth learning some basic refactoring techniques that you can do manually, and at times with the help of IntelliJ. Note that this list are ones that I find particularly useful and also easy to describe. There are many, many more Refactoring Techniques. Refactoring Guru has a [particularly good list of refactoring techniques](https://refactoring.guru/refactoring/techniques).
+Not all refactoring can be easily done automatically like the above, and will require some manual effort. However, it is worth learning some basic refactoring techniques that you can do manually and at times with the help of IntelliJ. Note that this list are ones that I find particularly useful and also easy to describe. There are many, many more Refactoring Techniques. Refactoring Guru has a [particularly good list of refactoring techniques](https://refactoring.guru/refactoring/techniques).
 
 ---
 
@@ -307,7 +307,7 @@ This code makes a silly style mistake. The if-statement value:
 
 ### Abstract conditional logic
 
-Consider the following function for calculating the price for an amusement park that charges different prices in the summer season and the winter season. This example is adapted from [Refactoring Guru](https://refactoring.guru/decompose-conditional)
+Consider the following function for calculating the price for an amusement park that charges different prices in the summer season and the winter season. This example is adapted from [Refactoring Guru](https://refactoring.guru/decompose-conditional).
 
 ```java
     public double getCharge(Date date) {
@@ -319,7 +319,7 @@ Consider the following function for calculating the price for an amusement park 
     }   
 ```
 
-This code is a bit tricky to read. The logic is simple enough (if the date is before the start of summer or after the end of summer, charge the winter price), but the code doesn't read like "well-written prose". We can refactor by encapsulating the if-statements `boolean` logic to a separate function. We can do this by highlighting the boolean logic, and then using Refactor->Extract Method:
+This code is a bit tricky to read. The logic is simple enough (if the date is before the start of summer or after the end of summer, charge the winter price), but the code doesn't read like "well-written prose." We can refactor by encapsulating the if-statements `boolean` logic to a separate function. We can do this by highlighting the boolean logic, and then using Refactor->Extract Method:
 
 ```java
     public double getCharge(Date date) {
@@ -359,7 +359,7 @@ Thus, we can rename our method `isSummer` with Refactor -> Invert Boolean on our
     }
 ```
 
-Notice now our condition is `!isSummer(date)` and our `isSummer` function always returns the opposite of our previous boolean function `isNotSummer`. From there, if we left-click on the if-statement, and then hit `Alt + Enter`:
+Notice now our condition is `!isSummer(date)` and our `isSummer` function always returns the opposite of our previous boolean function `isNotSummer`. From there, if we left-click on the if-statement and then hit `Alt + Enter`:
 
 ![](../images/refactoring/invert_if_condition.png)
 
@@ -377,7 +377,7 @@ We can select "Invert 'if' condition", and we get:
 
 Now this code reads as:
 
-* "If it is summer, charge the summer price. Otherwise, charge the winter price"!
+* "If it is summer, charge the summer price. Otherwise, charge the winter price!"
 
 ### Replace Error Code with Exception
 
@@ -539,7 +539,7 @@ And now our code is:
     distanceScreen.display(getDistanceFromLocationTo(riceCoordinates));
 ```
 
-This is better because the later code **does not rely on how the `Coordinate` class works!** All we need to be aware of is that we have this class called `Coordinate`, and buildings have them, and we can get a distance from our current location to them. That is, we are now working only with the data-type `Coordinate`, and this code is agnostic to how `Coordinate` is actually implemented! If the `Coordinate` class interface or implementation changes, this code can remain unchanged!
+This is better because the latter code **does not rely on how the `Coordinate` class works!** All we need to be aware of is that we have this class called `Coordinate`, and buildings have them, and we can get a distance from our current location to them. That is, we are now working only with the data-type `Coordinate`, and this code is agnostic to how `Coordinate` is actually implemented! If the `Coordinate` class interface or implementation changes, this code can remain unchanged!
 
 ### Getters for mutables return copies
 
@@ -591,7 +591,7 @@ And then adding a Constructor to our coordinates class:
     }
 ```
 
-This way, we are now returning a *safe-copy* `Coordinate` instance. It copies the **values** of the coordinates of Rice Hall, but is stored in a separate memory location. Therefore, we don't have to worry about some rogue programming causes Rice Hall to get up and walk away!
+This way, we are now returning a *safe-copy* `Coordinate` instance. It copies the **values** of the coordinates of Rice Hall, but is stored in a separate memory location. Therefore, we don't have to worry about some rogue programming that causes Rice Hall to get up and walk away!
 
 Java can also simplify this process with the interface `Cloneable`. For example:
 
@@ -680,10 +680,10 @@ Some refactoring techniques are inherently opposites of one another. For instanc
 
 * [Change Reference to Value](https://refactoring.guru/change-reference-to-value)
 
-These two refactors *are* opposite. That because each refactoring technique is a tool that solves a specific design or coding flaw. However, not all refactoring techniques are useful *all* the time. As you practice and with refactoring and learn and study techniques, you will learn when to use which. Much of this comes from experience, but it requires staying vigilant and routinely making a habit of refactoring to clean your code.
+These two refactors *are* opposite. That's because each refactoring technique is a tool that solves a specific design or coding flaw. However, not all refactoring techniques are useful *all* the time. As you practice with refactoring and learn and study techniques, you will learn when to use which. Much of this comes from experience, but it requires staying vigilant and routinely making a habit of refactoring to clean your code.
 
 ## Conclusion
 
-Refactoring is a vital step in cleaning code! By changing the code's implementation, but maintaining its behavior, we can continuously ensure that our code stays clean throughout the development process!
+Refactoring is a vital step in cleaning code! By changing the code's implementation but maintaining its behavior, we can continuously ensure that our code stays clean throughout the development process!
 
 There are a number of well established refactoring techniques and tools. IntelliJ, as well as most modern IDEs, has many of the tools entirely or partially automated! As such, it can dramatically improve the ease, speed, and accuracy of our refactoring. 

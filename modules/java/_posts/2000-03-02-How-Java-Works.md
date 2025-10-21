@@ -33,7 +33,7 @@ When humans read code, we:
 
 * misunderstand things
 * skim over uninteresting or simple things
-* make incorrect assumptions.
+* make incorrect assumptions
 
 Obviously, computers can't do this. Computers need
 code that it can translate into instructions. This
@@ -57,8 +57,8 @@ binary was cumbersome, time-consuming, and error--prone.
 So human-readable languages started being developed.
 
 Early languages, like Fortran, added human-readable
-identifiers, like "IF", "PRINT", etc. You can see
-such structure in this [Greatest Common Divisor code] (https://en.wikibooks.org/wiki/Fortran/Fortran_examples#Greatest_common_divisor)
+identifiers, like "IF," "PRINT," etc. You can see
+such structure in this [Greatest Common Divisor code](https://en.wikibooks.org/wiki/Fortran/Fortran_examples#Greatest_common_divisor)
 for Fortran 77.
 
 ---
@@ -66,7 +66,7 @@ for Fortran 77.
 ## Compiling
 
 It's important to understand that, when you write source code in modern high-level language,
-your computer actually can't run your source code directly.Typically, we write code, and compile that code into something that can be executed by the computer. The below diagram is a simplification of this relationship:
+your computer actually can't run your source code directly. Typically, we write code, and compile that code into something that can be executed by the computer. The below diagram is a simplification of this relationship:
 
 <img alt="Image shows source code with an arrow pointing to a box labeled code compiler, which has an arrow pointing to a box labeled Executable File" src="{{site.baseurl}}/modules/java/images/3/compiler1.png"/>
 
@@ -123,7 +123,7 @@ program contains the low-level machine instructions that tells my
 operating system how to run the program. This machine code
 is stored in bytes which do not properly translate to human-readable text in a format that Notepad knows how to display. However, it's quite all right that this code isn't
 human-readable! It doesn't need to be human-readable! If
-we want to change the program, we can change the c code and recompile.
+we want to change the program, we can change the C code and recompile.
 
 We never have to work directly with the contents of the .exe file, 
 which, as you can see above, *is a definite bonus*, because even
@@ -148,7 +148,7 @@ is that this executable only works on my operating system, Windows.
 Linux and Mac executable files are fundamentally different, and
 so even a simple executable like helloWorld.c (which only prints "Hello, World!")
 is not compatible with any other operating system. Now,
-there are ways to do "cross-compiling", that is, compile for
+there are ways to do "cross-compiling," that is, compile for
 a different environment than the one you are programming in,
 like compiling a Linux executable in Windows, but now you have
 to consider if every part of your code will work on a given operating system.
@@ -198,7 +198,7 @@ Specifically, C is routinely consider the fastest/most efficient language, which
 Java is actually capable of being quite efficient (although often there is a trade-off between efficiency and design, especially as you leverage object oriented programming).
 
 
-This is why you *don't* need to install c to run a program written in C, then compiled into an executable. However, you *do* need to install Python to run Python programs. 
+This is why you *don't* need to install C to run a program written in C, since it can be compiled into an executable. However, you *do* need to install Python to run Python programs. 
 
 ---
 
@@ -243,8 +243,8 @@ What this means is that the JVM handles the direct interactions with the actual 
 (computer CPU, physical memory, disk, monitor, etc.), but from the perspective of the JRE, the
 underlying physical hardware is irrelevant. It's just a Java Virtual Machine.
 
-It's worth noting that the JVM is actually an *interpreter*, that interprets the code it is
-given at runtime. However, that code *is not java source code*, but rather .class *byte-code*
+It's worth noting that the JVM is actually an *interpreter* that interprets the code it is
+given at runtime. However, that code *is not Java source code*, but rather .class *bytecode*
 compiled by the JDK, and passed to the JVM by the JRE.
 
 ### Restaurant metaphor
@@ -268,14 +268,14 @@ to the .class file or the JRE.
 
 Obviously, one of the most important interactions the JVM has is with the processor, the
 "brain" of the computer that actually handles executing instructions. As we mentioned before,
-the JVM interprets Java byte-code. However, as we mentioned before, interpreted code is
+the JVM interprets Java bytecode. However, as we mentioned before, interpreted code is
 inherently slower than directly executed machine instructions.
 
 Making the process of interacting with the processor/memory/etc. as efficient as possible can lead to significant performance gains. 
-*Enter the Just In Time compiler (JIT)* The JIT is part of the JVM, specifically, the part that can compile JVM byte code instructions
+*Enter the Just In Time compiler (JIT)* The JIT is part of the JVM, specifically the part that can compile JVM bytecode instructions
 into machine code instructions for the underlying hardware. This natively compiled machine code,
 machine code specifically compatible with the underlying physical hardware, is much more efficient than
-interpreted Java byte code. The JIT can have numerous optimizations to increase performance, reduce
+interpreted Java bytecode. The JIT can have numerous optimizations to increase performance, reduce
 memory consumption, etc.
 
 ---
@@ -288,7 +288,7 @@ provided that both have a compatible JRE installed.
 
 This allows us to share executables, without sharing underlying source code, of
 apps. The JRE provides enough features to build meaningful and complex applications
-that can be run on a hardware that has a compatible JVM.
+that can be run on hardware that has a compatible JVM.
 
 The JIT provides several optimizations between a JVM and a specific 
 underlying hardware architecture, ensuring that Java is capable of being efficient.
@@ -299,9 +299,9 @@ All of this together gives us convenience, distributability, portability, and pe
 
 ## JVM: It's not just for Java anymore
 
-The JRE can run any compatible byte code, and does not require a specific JDK. In fact, the JRE
+The JRE can run any compatible bytecode, and does not require a specific JDK. In fact, the JRE
 doesn't interact with a JDK at all. This fact allows for other programming languages to interact with the JRE, provided
-they can compile correct .class byte-code. Two languages that do this are **Kotlin** and **Groovy**. 
+they can compile correct .class bytecode. Two languages that do this are **Kotlin** and **Groovy**. 
 
 **Kotlin** has been gaining rapid popularity in the Android community (as Android is a JVM
 base system). The growth accelerated dramatically when, in 2019, [Google announced
@@ -325,9 +325,9 @@ designed to run on a particular machine
 * Interpreting is similar to compiling, but is done dynamically at runtime
 * Java uses a JDK for compiling in bytecode that runs on a virtual machine
 * The JRE runs Java programs via a JVM
-* The JVM interprets java bytecode into machine instructions of the underlying hardware
+* The JVM interprets Java bytecode into machine instructions of the underlying hardware
 * The JIT is used to compile the java bytecode into machine instructions for the underlying hardware
-at runtime, and boosts optimization and efficiency.
+at runtime and boosts optimization and efficiency.
 
 
 [^1]: Note for Windows users, I strongly recommend using Powershell rather than command-prompt, as Powershell uses pretty much the same commands as Mac and Linux, and helps standardize everything. Powershell comes installed with Windows 8 and later.

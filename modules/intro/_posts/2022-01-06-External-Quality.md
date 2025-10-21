@@ -35,17 +35,17 @@ an electronic medical records system at a large hospital. Who are
 the stakeholders?
 
 * Doctors and nurses - they fill out and maintain medical records.
-  They will also want to view medical history, monitor medication,
-  change in conditions over time, etc.
+  They will also want to view medical history, monitor medication, view
+  changes in conditions over time, etc.
 * Resource Managers - they will need to track medical expenditures,
   medication supplies, how many beds are available in which departments,
   whether a hospital has the resources to treat a patient with a given condition.
-* IT Employees - If something goes wrong with the medical records, or someone
+* IT Employees - If something goes wrong with the medical records or someone
   is unsure how to perform a specific task with the electronic medical records,
   they are the primary support staff.
 * Insurance Managers - will look at treatments to determine coverage.
 * Patients - While they are unlikely to use the system directly, they are
-  directly affected by it. A data corruption, incorrect usage by a doctor or nurse due to confusing interface, could result in incorrect medication or treatment.
+  directly affected by it. A data corruption or incorrect usage by a doctor or nurse due to a confusing interface could result in incorrect medication or treatment.
 * The hospital board - While they will likely never use the system directly,
   the board of the hospital is probably going to make the purchasing decision
   on any large-scale software for the department. While they will likely
@@ -53,7 +53,7 @@ the stakeholders?
   to have to weigh factors that the doctors, nurses, and IT staff may not,
   like price, warranties, insurance, etc.
 
-All of these stakeholders have different priorities of goals! So we
+All of these stakeholders have different priorities of goals! So, we
 want to define external software quality broadly enough to encompass
 this.
 
@@ -81,7 +81,7 @@ under certain conditions over a certain period of time?*
 
 Consider Amazon Web Services (AWS): Many web applications rely on AWS,
 like Airbnb, Slack, Lyft, Netflix, Yelp, etc. If Amazon Web Services
-had a significant outage. However, it also runs Amazon's own
+had a significant outage, these applications would all stop working. However, it also runs Amazon's own
 distribution and shipping infrastructure. If your website, application,
 or technology rely on AWS, what could go wrong? In an AWS outage last year,
 smart appliances like Refrigerators, Door Locks, Robot Vacuum Cleaners,
@@ -120,12 +120,12 @@ I spent months where, if I needed to change a URL, I would use "Manage Tools"
 to delete the existing Web Link and create another, which was far less efficient.
 
 Why do I use a Google Drive Folder for class resources instead of
-the Resources tool in Collab? Because it's far less efficient.
+the Resources tool in Collab? Because it's far more efficient.
 
 These are *usability* issues, that make the customer experience of using the
 software worse, thus lowering the overall software quality.
 
-Accessibility is also a factor in Usability: that is can the software
+Accessibility is also a factor in usability: that is, can the software
 be used by people with a broad range of characteristics.
 
 ## Efficiency

@@ -26,7 +26,7 @@ been added before, it adds the whole file. In either case, we call
 these changes "staged", as in ready to be stored in the repository.
 To add all files that aren't filtered out by .gitignore, you can run `git add .` (the last
 item being a period) in the project's root directory. **Make sure
-you have a correct .gitignore in place before you do this!)
+you have a correct .gitignore in place before you do this!**
 
 ### ```commit```
 
@@ -43,9 +43,9 @@ changes.
 
 Your commit message should clearly communicate what the commit
 contains. You don't need to write a novel, but it should be something
-like "refactored myBigFunction to make myClass more readable", 
-"fixed negative number crash in getClassByIDNumber", or
-"continued working on CSVReader class". You may need to understand
+like "refactored myBigFunction to make myClass more readable," 
+"fixed negative number crash in getClassByIDNumber," or
+"continued working on CSVReader class." You may need to understand
 what each commit did later on if you are trying to backtrace a bug,
 or retrieve code that has been lost.
 
@@ -70,7 +70,7 @@ branch, not for every branch. Whenever you checkout a new branch,
 you should always pull.
 
 **If you get an error when you try to pull** that reads something like:
-"Your local changes to the following files will be overwritten by merge",
+"Your local changes to the following files will be overwritten by merge,"
 this means that you have changes that have not been committed.
 
 However, because this means your local repository is behind the remote
@@ -88,7 +88,7 @@ you don't wish to commit, but don't want to lose. Simply use:
 
 ## Commit hashes
 
-If you look at the commit history [for the Gradle Tutorial](https://github.com/sde-coursepack/NBAExcelTeams/commits/main)
+If you look at the commit history for the [Gradle Tutorial](https://github.com/sde-coursepack/NBAExcelTeams/commits/main)
 that we will cover in the next unit, you will see each commit comes with a hexadecimal number
 on the right hand side. For example, the most recent commit is c568af0. These are actually the first
 7 hexademical characters of a hash that uniquely identifies the commit. Rather than using incrementing
@@ -108,19 +108,19 @@ A conflict can occur when you commit to a branch in the remote repository that
 someone else has pushed to since your last pull. An example of a situation that could create
 a conflict.
 
-1) Bob pulls from branch_a
-2) Steve pulls from branch_a
-3) Bob commits MyClass.java to branch_a and pushes
-4) Steve commits MyClass.java to branch_a
-5) Steve pulls from branch_a
+1. Bob pulls from branch_a 
+2. Steve pulls from branch_a 
+3. Bob commits MyClass.java to branch_a and pushes 
+4. Steve commits MyClass.java to branch_a 
+5. Steve pulls from branch_a
 
 Now, just because two different people committed to the same
 file does not mean that a conflict necessarily occurs. Git tracks
 line numbers of files as changes are added and committed. If Steve
-and bob edit different lines of the file, then there is no conflict,
+and bob edit different lines of the file, then there is no conflict and 
 git will automatically merge the changes without error or warning.
 
-Let's say they are working with the with HelloWho.java
+Let's say they are working with HelloWho.java
 
 ```java
 public class HelloWho {
@@ -170,7 +170,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 ```
 
 I see a lot of students panic when they see this. But when you see this,
-**Don't panic!** Conflict resolution is Git isn't as bad as it sounds.
+**Don't panic!** Conflict resolution in Git isn't as bad as it sounds.
 
 When Steve opens the file in IntelliJ, he sees:
 
@@ -226,7 +226,7 @@ public class HelloWho {
     }
 ```
 
-* and the deletes the conflict indicator tags
+* and then deletes the conflict indicator tags
 
 ```java
 public class HelloWho {
@@ -247,7 +247,7 @@ public class HelloWho {
 
 And now we're done! Resolving conflicts is easy when there aren't many. But **the only
 way to keep the problem manageable is to pull frequently, and push new changes frequently.**
-The more code you write between pulls and pushes, the larger and harder to resolve your conflicts
+The more code you write between pulls and pushes, the larger and harder it is to resolve your conflicts
 will be.
 
 ### No conflict, no problems? No!
@@ -352,7 +352,7 @@ This will reset your repo to the state of the previous commit, discording all ch
 don't want to lose those changes, you can either use 'git stash' **before the reset** or simply
 copy (not cut and paste) your working copy files to another, non-git folder on your computer.
 
-A "nuclear option", if all else fails, is to delete your *local* repository by deleting
+A "nuclear option," if all else fails, is to delete your *local* repository by deleting
 your project folder, and then re-cloning your repository. Generally, you shouldn't need
 to do this, but I can say when I was first learning version control, I did do this. If there
 are any changes you want to keep track of, you can simply copy those files to another folder
@@ -360,5 +360,5 @@ before you delete your project folder, and then copy them back in after cloning.
 
 ## GitHub Permissions Issues on IntelliJ and Terminal
 
-If you are having any permissions issues in GitHub, see the **"Login/Permissions issues with GitHub"**
-in the **Git Basics** module.
+If you are having any permissions issues in GitHub, see [Login/Permissions issues with GitHub](https://sde-coursepack.github.io/modules/construction/Git-Basics/#loginpermissions-issues-with-github)
+in the [Git Basics](https://sde-coursepack.github.io/modules/construction/Git-Basics/) module.

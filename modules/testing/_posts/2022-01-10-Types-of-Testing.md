@@ -6,7 +6,7 @@ Title: Types of Testing
 
 What we focused on in the last unit was a type of testing
 called **unit testing**. In this module, we'll discuss
-different kinds of testing, and what they are used for.
+different kinds of testing and what they are used for.
 
 * TOC
 {:toc}
@@ -21,7 +21,7 @@ to large-scale.
 
 ### Unit Testing
 
-**Unit testing** is testing individual modules (typically, individual)
+**Unit testing** is testing individual modules' (typically, individual)
 functions. Unit testing is an incredibly powerful tool, as it
 lets us catch many "silly" bugs immediately. Typically, in a given
 class, we want to unit test all non-trivial public methods. Specifically,
@@ -47,7 +47,7 @@ Where unit testing is used to verify that individual modules are
 operating correctly by themselves, **integration testing** is testing
 when modules are combined.
 
-For example, consider, in our [NBAExcelTeams project from the
+For example, consider our [NBAExcelTeams project from the
 poi Demo](https://github.com/sde-coursepack/NBAExcelTeams).
 
 Specifically, consider the test class [NBATeamReaderIntegrationTest](https://github.com/sde-coursepack/NBAExcelTeams/blob/main/src/test/java/edu/virginia/cs/nbateams/NBATeamReaderIntegrationTest.java).
@@ -77,7 +77,7 @@ uses another class:
 This means what we are testing here is the **combination**
 of the classes `NBATeamReader` and `BallDontLieReader`. That is,
 we aren't just testing `NBATeamReader` by itself, we are testing
-it **within the a larger operation** that combines the class with
+it **within a larger operation** that combines the class with
 another class.
 
 Integration tests can also typically be automated. At this point, it may
@@ -114,8 +114,8 @@ the second to activate the rockets to deploy that thrust, both worked
 independently. However, the thrust calculation unit returned a floating
 point number calculated in English units (Pound-seconds), while the
 system that deployed the thrust expected the number in SI units (Newton-seconds).
-Thus, while both system worked independently, a critical defect
-existed in their communication that was only manifest when the two 
+Thus, while both systems worked independently, a critical defect
+existed in their communication that was only manifested when the two 
 units were integrated.
 
 ### System Testing
@@ -129,13 +129,13 @@ of the website), and interact with the website as, say, a student would.
 
 System tests typically involve following a script to use a specific
 feature or sets of features within an application. For example,
-if you were testing a course registration system, you would likely try logging in as a student and adding a course to that student through the same web interface you expect students to use. You likely would connect your website to a separate testing data source with fake student accounts and fake courses, rather than testing on the actually data-source that students would use. But the key insight is that your interactions with the website testing will be the same as the interactions by students when they are actually *using* the website.
+if you were testing a course registration system, you would likely try logging in as a student and adding a course to that student's schedule through the same web interface you expect students to use. You likely would connect your website to a separate testing data source with fake student accounts and fake courses, rather than testing on the actual data-source that students would use. But the key insight is that your interactions with the website testing will be the same as the interactions by students when they are actually *using* the website.
 
 System testing is, of course, vital to ensuring the final product
 meets the specification. However, because system testing relies on
 interacting with the whole software system, it can make identifying the specific
 source of failures (for example, a crash when loading a particular view)
-very, very difficult! This is because if the system fails in some way (crashing, bug, incorrect behavior), that could occur *anywhere* in the executing code  in the software system. This means the defect found during system testing is hard to *trace* (find where in the source code the defect is caused to fix it).
+very, very difficult! This is because if the system fails in some way (crashing, bug, incorrect behavior), that could occur *anywhere* in the executing code  in the software system. This means the defect found during system testing is hard to *trace* (find where in the source code the defect is caused in order to fix it).
 
 If a defect is **first** found during *system testing*,
 this likely means there was a lack of thoroughness in unit and integration
@@ -147,7 +147,7 @@ unit and integration tests to specifically find and correct the underlying
 source of the defect.
 
 Many students early on in programming
-rely on system testing as *their only form of testing!*. That is, 
+rely on system testing as *their only form of testing!* That is, 
 students view "writing code" and "testing and debugging" as two separate
 steps that occur in order.
 
@@ -171,7 +171,7 @@ throw it away? A good test is good for as long as the tested module
 isn't radically changed.
 
 The idea of regression testing is to ensure we do not reintroduce old
-defects into our code, or break portions of our code that are already
+defects into our code or break portions of our code that are already
 working. Gradle actually performs regression testing for us using the
 `gradlew test` command, which is part of the `gradlew build` command.
 
@@ -185,7 +185,7 @@ that break seemingly unrelated sections of code.
 Regression testing is so valuable, that there are entire software
 services related to regression testing. Continuous Integration, or CI,
 is the practice in software development where, when code is merged
-into or added to a "protected branch", like `main` or `development`, 
+into or added to a "protected branch," like `main` or `development`, 
 the code is run against the existing testing suite to ensure known
 defects are not accepted into these protected branches. For example,
 if you want to "hot-fix" a website (that is, commit a change directly
@@ -207,7 +207,7 @@ This means that GitHub Actions CI is a great tool to use for your
 personal projects. However, as your project gets larger and
 more complicated, with more and more tests, eventually you may
 want to consider other premium options depending on your scale.
-Many private companies will host their own continue integration servers,
+Many private companies will host their own continuous integration servers,
 or will use external services like GitHub Actions, Travis CI, or Amazon
 Web Services (AWS) depending on their resources and needs.
 
@@ -230,8 +230,8 @@ is, that the features are working as intended).
 ### Alpha Testing
 
 The terms Alpha and Beta testing have become marketing terms of
-late. For example, you may hear phrases like "Public Alpha", or
-"Open Beta", etc. For instance, "Beta" has often become
+late. For example, you may hear phrases like "Public Alpha," or
+"Open Beta," etc. For instance, "Beta" has often become
 the term for "Demo" or "Early public access" in the gaming world.
 When defining these terms, try to ignore how you have seen the 
 terms used in popular culture.
@@ -256,7 +256,7 @@ are. In a beta test, the goal is to find actual customers, or *external* people
 who would be likely to use the system *after it releases.* In a beta
 test, users are closely monitored for how they use the software, and
 often their usage is logged extensively. This is so that if a bug
-is found, or the user reports and issue with the system, it can
+is found, or the user reports an issue with the system, it can
 be recorded an acted upon before the product is shipped. Beta
 versions of software are typically released to a limited number of
 potential end users for the purposes of providing feedback.
