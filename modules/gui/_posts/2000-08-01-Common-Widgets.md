@@ -23,10 +23,10 @@ A TextField a single line text input field. These are commonly used for forms, s
 
 When the user presses the Enter key, a TextField can trigger an event. This is useful for actions like submitting a query or validating input without requiring a separate button click.
 
-#### TextArea
+### TextArea
 A TextArea is a multi-line text input field. These are commonly used for longer text entries, such as comments, and can be configured to have a certain text-wrapping behavior.
 
-#### PasswordField
+### PasswordField
 A PasswordField is similar to a TextField, but hides the input characters as they are entered. This is useful in cases where the entered text needs to be kept confidential, like password or SSN entry fields.
 
 ### Separator
