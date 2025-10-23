@@ -70,4 +70,4 @@ In an HBox, the children are arranged horizontally in a single row. You can cont
 In a VBox, the children are arranged vertically in a single column. This is commonly used to stack elements in the GUI, such as the labels, text fields, and buttons in a form.
 
 ### GridPane
-In a GridPane, the children are organized in a flexible grid of rows and columns. This is useful when creating you want the GUI to have a structured layout, such as in a form or dashboard, where the controls should be aligned consistently in a tabular format.
+In a GridPane, the children are organized in a flexible grid of rows and columns. This is useful when you want the GUI to have a structured layout, such as in a form or dashboard, where the controls should be aligned consistently in a tabular format.
