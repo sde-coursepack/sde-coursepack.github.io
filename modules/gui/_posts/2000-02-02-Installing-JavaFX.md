@@ -14,19 +14,27 @@ You can find a guide for [installing and using JavaFX in IntelliJ here](https://
 
 ## JDK and JavaFX version numbers
 
-For this class, we will be using JavaFX 21.0.9, along with JDK 21.0.9. 
+For this class, we will be using JavaFX 21, along with JDK 21.
 
-First, be aware that the _major_ version numbers for your JavaFX version and JDK version should match. For instance, if you were using, say, JDK 17.0.x, you should also use JavaFX 17.0.x in your development. 
+First, be aware that the _major_ version numbers for your JavaFX version and JDK version should match. For instance, if you were using, say, JDK 17.0.x, you should also use JavaFX 17.0.x in your development.
 
 The _minor_ version number (the number after the last decimal point) should not matter-- for instance, if you are running JDK 21.0.8, JavaFX 21.0.9 should still work without issue.
 
-## JDK 21.0.9
+## JDK 21
 
-You can download the installer for Java 21.0.9 here - https://www.oracle.com/java/technologies/downloads/#jdk21 
+You can download Java 21 from Adoptium here: <https://adoptium.net/temurin/releases?version=21> Make sure to download the JDK, not the JRE!
 
-## JavaFX 21.0.9
+If you're on Linux, Java 21 may be available through your distro's package manager:
 
-JavaFX can be downloaded here - https://gluonhq.com/products/javafx/
+* Debian-based: `apt install openjdk-21-jdk`
+* Red Hat/Fedora-based: `dnf install java-21-openjdk-devel`
+* Arch: `pacman -S jdk21-openjdk`
+
+If it's not available, you can also download it from Adoptium above.
+
+## JavaFX 21
+
+JavaFX can be downloaded here - <https://gluonhq.com/products/javafx/>
 
 Be aware, you will need to select the version you want from the dropdown:
 
@@ -34,11 +42,13 @@ Be aware, you will need to select the version you want from the dropdown:
 
 Make sure you select JavaFX 21.0.9 if following this guide, then download the appropriate SDK (not any of the "jmods" options) for your operating system/processor combination.
 
+**Note for Mac users:** If you download JavaFX for the wrong processor architecture (e.g., Apple Silicon for an Intel Mac or vice versa), you may get an error about the `QuantumRenderer`. Just repeat this setup process with the correct build of JavaFX and the issue should go away.
+
 ## Setting JavaFX environment variables
 
 It is recommended, though not required, to setup a system variable to help use JavaFX.
 
-First, find where your JavaFX is installed, and specifically find the `lib` folder inside of the folder `javafx-sdk-21.0.9`
+First, find where your JavaFX is installed, and specifically find the `lib` folder inside of the folder `javafx-sdk-21.0.9` (adjust the version number as needed).
 
 **On Linux/Mac,** you can run the following command, replacing `path/to` with the path to your `javafx-sdk-21.0.9` folder.
 
@@ -50,7 +60,7 @@ On Windows, you can use the following command, replacing `path/to` with the path
 
 ## build.gradle
 
-JavaFX is not added like a dependency in Gradle. Rather, it is added as a plug-in. As such, here is an example `build.gradle` that sets up to use JavaFX 21.0.9. 
+JavaFX is not added like a dependency in Gradle. Rather, it is added as a plug-in. As such, here is an example `build.gradle` that sets up to use JavaFX 21.0.9.
 
 ```groovy
 plugins {
@@ -96,17 +106,19 @@ On Windows:
 
 `--module-path %PATH_TO_FX% --add-modules javafx.controls,javafx.fxml`
 
-Do **NOT** add any extra spaces, such as adding a space after the comma after javafx.controls.
+Do **NOT** add any extra spaces, such as adding a space after the comma after `javafx.controls`.
 
-At this point, you should be able to run the file. If you are still having issues, try using the path to JavaFX directly in the VM Arguments, instead of the PATH_TO_FX environment variable: 
+At this point, you should be able to run the file. If you are still having issues, try using the path to JavaFX directly in the VM Arguments, instead of the `PATH_TO_FX` environment variable:
+
+<!-- the quotes around the path prevent spaces in path names from breaking stuff -->
 
 On Mac/Linux:
 
-`--module-path path/to/javafx-sdk-21.0.9/lib --add-modules javafx.controls,javafx.fxml`
+`--module-path "path/to/javafx-sdk-21.0.9/lib" --add-modules javafx.controls,javafx.fxml`
 
 On Windows:
 
-`--module-path path\to\javafx-sdk-21.0.9\lib --add-modules javafx.controls,javafx.fxml`
+`--module-path "path\to\javafx-sdk-21.0.9\lib" --add-modules javafx.controls,javafx.fxml`
 
 ### Running without VM Arguments
 
