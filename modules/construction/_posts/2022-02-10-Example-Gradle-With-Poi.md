@@ -7,6 +7,8 @@ Title: Gradle Example with Poi
 
 ## [Source Code Example](https://github.com/sde-coursepack/NBAExcelTeams)
 
+Link: https://github.com/sde-coursepack/NBAExcelTeams 
+
 Note that this example also uses the package `org.json` in the class
 `NBATeamReader`, but you can ignore that for now. Just trust that
 the `NBATeamReader` class works as used in main.
@@ -42,25 +44,26 @@ However, you do not have to download or install anything on
 your own to make this work.
 
 Instead, we will go to the link, click the most recent version (as
-of this writing, 5.2.2), and then from the tabbed area below the
+of this writing, 5.5.1), and then from the tabbed area below the
 version information, click the Gradle tab:
 
 ![Shows the "Gradle" tab clicked on the mvnrepository website.](../images/demo/gradle_poi_import.png)
 
 From there, we copy the text that says:
 
-`implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.2'`
+`implementation("org.apache.poi:poi-ooxml:5.5.1")`
 
 ...and then simply paste that into our build.gradle file
 inside of the `dependencies` closure. Thus, our dependencies will look
 like: 
 
-```groovy
+```kotlin
 dependencies {
-    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.2'
+    implementation("org.apache.poi:poi-ooxml:5.5.1")
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
 }
 ```
 
@@ -80,7 +83,7 @@ To include it, we simply search for log4j, [which can be found here.](https://mv
 Once again, we select the latest version (2.18.0 at the time of this writing),
 and copy the Gradle import statement from [that version's web-page.](https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api/2.18.0)
 
-`implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.18.0'`
+`implementation("org.apache.logging.log4j:log4j-core:2.25.4")`
 
 And drop it in our dependencies as well:
 
@@ -90,13 +93,15 @@ None of our code will actually use `log4j` in this demo. We only
 need to include `log4j` because it is used by `poi-ooxml` at runtime.
 As such, we can change our build dependencies to:
 
-```groovy
+```kotlin
 dependencies {
-    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.2'
-    runtimeOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.18.0'
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    // excel file interactions
+    implementation("org.apache.poi:poi-ooxml:5.5.1")
+    runtimeOnly("org.apache.logging.log4j:log4j-core:2.25.4")
+    
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
 }
 ```
 
