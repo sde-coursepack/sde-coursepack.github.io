@@ -1,4 +1,4 @@
 # sde-coursepack.github.io
 
-Author: Paul "Will" McBurney (mcburney at virginia dot edu)
+Author: Paul "Will" McBurney (pmcburne@nd.edu)
  
