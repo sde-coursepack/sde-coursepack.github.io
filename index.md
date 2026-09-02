@@ -4,7 +4,7 @@ published: true
 ---
 
 This website serves as the "textbook" for:  
-* [CS 30532: Object-Oriented Software Engineering] in the [Department of Computer Science and Engineering](https://cse.nd.edu/) in the [College of Engineering](https://engineering.nd.edu/) at the [University of Notre Dame](https://www.nd.edu/)  
+* **CS 30532: Object-Oriented Software Engineering** in the [Department of Computer Science and Engineering](https://cse.nd.edu/) in the [College of Engineering](https://engineering.nd.edu/) at the [University of Notre Dame](https://www.nd.edu/)  
 * [CS 3140: Software Development Essentials](http://www.cs3140.com) in [Department of Computer Science](https://engineering.virginia.edu/departments/computer-science) in [University of Virginia School of Engineering and Applied Science](https://engineering.virginia.edu/). This website is primarily authored and maintained by [Prof. Paul "Will" McBurney](https://www.cs.virginia.edu/~pm8fc/).
 
 
