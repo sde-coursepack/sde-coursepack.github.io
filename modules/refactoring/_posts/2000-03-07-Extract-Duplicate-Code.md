@@ -14,7 +14,7 @@ As we mentioned before, we want our code to be DRY (Don't Repeat Yourself) as op
 
 ---
 
-## PBB Matching problem
+## Binding Matching problem
 
 Let's say we need to write code that takes in a `String` via standard-input (`stdin`) and checks if the parentheses, braces, and brackets ("binding") are *matched*. This could be used, for instance, to validate any type of nested data structure is valid. Examples:
 
@@ -29,7 +29,7 @@ A solution could look like:
 import java.util.Scanner;
 import java.util.Stack;
 
-public class PBBMatching {
+public class BindingMatching {
     static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         String input = s.nextLine();
@@ -201,7 +201,7 @@ So first, let's recognize there are, broadly, one of three things that happen in
 Using this, let's reset a bit. Let's introduce two class-level constants:
 
 ```java
-public class PBBMatching {
+public class BindingMatching {
     static final String LEFT_BINDINGS = "([{";
     static final String RIGHT_BINDINGS = ")]}";
     ...
@@ -308,7 +308,7 @@ public static boolean isBindingMatched(String s) {
 import java.util.Scanner;
 import java.util.Stack;
 
-public class PBBMatching {
+public class BindingMatching {
     static final String LEFT_BINDINGS = "([{";
     static final String RIGHT_BINDINGS = ")]}";
 
@@ -323,6 +323,21 @@ public class PBBMatching {
         String input = scanner.nextLine();
         scanner.close();
         return input;
+    }
+
+    public static boolean isBindingMatched(String s) {
+        var arr = s.toCharArray();
+        var stack = new Stack<Character>();
+        for (char c : arr) {
+            if (isLeftBinding(c)) {
+                stack.push(c);
+            } else if (isRightBinding(c)) {
+                if (stack.isEmpty() || stack.pop() != getLeftBinding(c)) {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
     }
 
     public static boolean isLeftBinding(char ch) {
@@ -341,21 +356,6 @@ public class PBBMatching {
         }
         int index = RIGHT_BINDINGS.indexOf(rightBinding);
         return LEFT_BINDINGS.charAt(index);
-    }
-
-    public static boolean isBindingMatched(String s) {
-        var arr = s.toCharArray();
-        var stack = new Stack<Character>();
-        for (char c : arr) {
-            if (isLeftBinding(c)) {
-                stack.push(c);
-            } else if (isRightBinding(c)) {
-                if (stack.isEmpty() || stack.pop() != getLeftBinding(c)) {
-                    return false;
-                }
-            }
-        }
-        return stack.isEmpty();
     }
 }
 ```
