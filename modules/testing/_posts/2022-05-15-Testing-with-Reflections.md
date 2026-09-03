@@ -4,6 +4,8 @@ Title: Testing with Reflections
 
 # Testing with Reflections
 
+Author: [Carter Opperman](https://carteropperman.com/)
+
 This module will discuss using the reflection feature in the Java language in order to interact with private information in testing.
 
 * TOC
